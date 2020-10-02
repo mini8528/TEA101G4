@@ -20,6 +20,8 @@ public class Blog_SaveJDBCDAO implements Blog_SaveDAO_interface {
 	private static final String GET_ONE_STMT = "SELECT blogsaveno,memberid,blogno,status,to_char(savedate,'yyyy-mm-dd hh24:mi:ss') savedate,to_char(updatetime,'yyyy-mm-dd hh24:mi:ss') updatetime FROM blog_save where blogsaveno = ?";
 	private static final String DELETE = "DELETE FROM blog_save where blogsaveno = ?";
 	private static final String UPDATE = "UPDATE blog_save set memberid=?, blogno=?, status=?, savedate=? , updatetime=? where blogsaveno = ?";
+	private static final String GET_MEMBER_SAVE = "SELECT blogsaveno,memberid,blogno,status,to_char(savedate,'yyyy-mm-dd hh24:mi:ss') savedate,to_char(updatetime,'yyyy-mm-dd hh24:mi:ss') updatetime FROM blog_save where memberid = ? order by blogsaveno";
+	private static final String BLOGSAVE_LEFT_JOIN_BLOG = "SELECT * FROM BLOG_SAVE LEFT JOIN BLOG ON BLOG_SAVE.BLOGNO = BLOG.BLOGNO where memberid = ?";
 	
 	@Override
 	public void insert(Blog_SaveVO blogSaveVO) {
@@ -283,5 +285,74 @@ public class Blog_SaveJDBCDAO implements Blog_SaveDAO_interface {
 		}
 		return list;
 	}
+	
+	@Override
+	public List<Blog_SaveVO> findByMemberId(String memberId) {
+		
+		List<Blog_SaveVO> list = new ArrayList<Blog_SaveVO>();
+		Blog_SaveVO blogsaveVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_MEMBER_SAVE);
+			pstmt.setString(1, memberId);
+			rs = pstmt.executeQuery();
+			
+
+			while (rs.next()) {
+				blogsaveVO = new Blog_SaveVO();
+				
+				blogsaveVO.setBlogSaveno(rs.getString("blogsaveno"));
+				blogsaveVO.setMemberId(rs.getString("memberid"));
+				blogsaveVO.setBlogno(rs.getString("blogno"));
+				blogsaveVO.setStatus(rs.getString("status"));
+				blogsaveVO.setSaveDate(rs.getTimestamp("savedate"));
+				blogsaveVO.setUpdateTime(rs.getTimestamp("updatetime"));
+				
+				list.add(blogsaveVO);
+				
+			}
+		
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	
+	
 
 }

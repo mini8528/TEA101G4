@@ -19,7 +19,9 @@ public class Blog_MesJDBCDAO implements Blog_MesDAO_interface {
 	private static final String GET_ONE_STMT = "SELECT blogmesno,blogno,memberid,text,to_char(postdate,'yyyy-mm-dd hh24:mi:ss') postdate,to_char(updatetime,'yyyy-mm-dd hh24:mi:ss') updatetime,status FROM blog_mes where blogmesno = ?";
 	private static final String DELETE = "DELETE FROM blog_mes where blogmesno = ?";
 	private static final String UPDATE = "UPDATE blog_mes set blogno=?, memberid=?, text=?, postdate=? , updatetime=?, status=? where blogmesno = ?";
-
+	private static final String GET_ONE_BLOGNO = "SELECT blogmesno,blogno,memberid,text,to_char(postdate,'yyyy-mm-dd hh24:mi:ss') postdate,to_char(updatetime,'yyyy-mm-dd hh24:mi:ss') updatetime,status FROM blog_mes where blogno = ? order by blogmesno";
+	
+	
 	@Override
 	public void insert(Blog_MesVO blogMesVO) {
 		Connection con = null;
@@ -256,6 +258,73 @@ public class Blog_MesJDBCDAO implements Blog_MesDAO_interface {
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public List<Blog_MesVO> findByBlogno(String blogno) {
+		
+		List<Blog_MesVO> list = new ArrayList<Blog_MesVO>();
+		Blog_MesVO blogmesVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_ONE_BLOGNO);
+			pstmt.setString(1, blogno);
+			rs = pstmt.executeQuery();
+			
+
+			while (rs.next()) {
+				blogmesVO = new Blog_MesVO();
+				
+				blogmesVO.setBlogMesno(rs.getString("blogmesno"));
+				blogmesVO.setBlogno(rs.getString("blogno"));
+				blogmesVO.setMemberId(rs.getString("memberid"));
+				blogmesVO.setText(rs.getString("text"));
+				blogmesVO.setPostDate(rs.getTimestamp("postdate"));
+				blogmesVO.setUpdateTime(rs.getTimestamp("updatetime"));
+				blogmesVO.setStatus(rs.getString("status"));
+				
+				list.add(blogmesVO);
+			}
+		
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (rs != null) {

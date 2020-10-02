@@ -11,8 +11,13 @@ public class Blog_MesVO implements Serializable {
 	private Timestamp postDate;
 	private Timestamp updateTime;
 	private String status;
+
 	
-	
+	public Blog_MesVO() {
+	}
+	public Blog_MesVO(String blogno) {
+		this.blogno = blogno;
+	}
 	public String getBlogMesno() {
 		return blogMesno;
 	}

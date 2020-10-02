@@ -3,6 +3,8 @@ package com.blog_save.model;
 import java.sql.Timestamp;
 import java.util.List;
 
+import com.blog_mes.model.Blog_MesVO;
+
 public class Blog_SaveService {
 	private Blog_SaveDAO_interface dao;
 
@@ -55,5 +57,9 @@ public class Blog_SaveService {
 	public List<Blog_SaveVO> getAll() {
 		return dao.getAll();
 	}
-
+	
+	public List<Blog_SaveVO> getMemberSaveBlog(String memberId){
+		return dao.findByMemberId(memberId);
+	}
+	
 }

@@ -57,5 +57,9 @@ public class Blog_MesService {
 	public List<Blog_MesVO> getAll() {
 		return dao.getAll();
 	}
+	
+	public List<Blog_MesVO> getOneBlognoMes(String blogno) {
+		return dao.findByBlogno(blogno);
+	}
 
 }

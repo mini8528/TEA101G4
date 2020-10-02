@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import com.blog.model.BlogService;
+import com.blog.model.BlogVO;
 import com.blog_mes.model.Blog_MesService;
 import com.blog_mes.model.Blog_MesVO;
 
@@ -150,12 +152,19 @@ public class Blog_MesServlet extends HttpServlet {
 				if (text == null || text.trim().length() == 0) {
 					errorMsgs.add("內文請勿空白");
 				}
+				
+
+				Timestamp postdate = Timestamp.valueOf(req.getParameter("postdate").trim());
+				
+				Timestamp updatetime =  new Timestamp(System.currentTimeMillis());
 
 				Blog_MesVO blogMesVO = new Blog_MesVO();
 				blogMesVO.setBlogMesno(blogMesno);
 				blogMesVO.setBlogno(blogno);
 				blogMesVO.setMemberId(memberid);
 				blogMesVO.setText(text);
+				blogMesVO.setPostDate(postdate);
+				blogMesVO.setUpdateTime(updatetime);
 		
 
 				// Send the use back to the form, if there were errors
@@ -169,7 +178,7 @@ public class Blog_MesServlet extends HttpServlet {
 				/*************************** 2.開始修改資料 *****************************************/
 				
 				Blog_MesService blogMesSvc = new Blog_MesService();
-				blogMesVO = blogMesSvc.updateBlogMes(blogMesno, blogno, memberid, text, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), "N");
+				blogMesVO = blogMesSvc.updateBlogMes(blogMesno, blogno, memberid, text, postdate, updatetime, "N");
 						
 
 				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
@@ -213,11 +222,14 @@ public class Blog_MesServlet extends HttpServlet {
 				if (text == null || text.trim().length() == 0) {
 					errorMsgs.add("內文請勿空白");
 				}
+				
+				Timestamp postdate =  new Timestamp(System.currentTimeMillis());
 
 				Blog_MesVO blogMesVO = new Blog_MesVO();
 				blogMesVO.setBlogno(blogno);
 				blogMesVO.setMemberId(memberid);
 				blogMesVO.setText(text);
+				blogMesVO.setPostDate(postdate);
 				
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
@@ -229,10 +241,16 @@ public class Blog_MesServlet extends HttpServlet {
 
 				/*************************** 2.開始新增資料 ***************************************/
 				Blog_MesService blogMesSvc = new Blog_MesService();
-				blogMesVO = blogMesSvc.addBlogMes(blogno, memberid, text, new Timestamp(System.currentTimeMillis()), null, "N");
-						
+				blogMesVO = blogMesSvc.addBlogMes(blogno, memberid, text, postdate, null, "N");
+				
+				BlogService blogser = new BlogService();
+				BlogVO blogVO = blogser.getOneBlog(blogno);
+				req.setAttribute("blogVO", blogVO);
+				List<Blog_MesVO> list = blogMesSvc.getOneBlognoMes(blogno);
+				req.setAttribute("list", list); 
+				
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-				String url = "/front-end/blog_mes/listAllBlog_Mes.jsp";
+				String url = "/front-end/blog/listOneBlog.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);
 
@@ -273,6 +291,67 @@ public class Blog_MesServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
+		
+		if ("getAll_For_Display".equals(action)) { // 來自select_page.jsp的請求
+
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+				String str = req.getParameter("blogno");
+//				if (str == null || (str.trim()).length() == 0) {
+//					errorMsgs.add("請輸入部落格留言編號");
+//				}
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/blog_mes/select_page.jsp");
+					failureView.forward(req, res);
+					return;// 程式中斷
+				}
+
+				String blogno = null;
+				try {
+					blogno = new String(str);
+				} catch (Exception e) {
+					errorMsgs.add("部落格編號格式不正確");
+				}
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/blog_mes/select_page.jsp");
+					failureView.forward(req, res);
+					return;// 程式中斷
+				}
+
+				/*************************** 2.開始查詢資料 *****************************************/
+				Blog_MesService blogMesSvc = new Blog_MesService();
+				List<Blog_MesVO> blogMesList = blogMesSvc.getOneBlognoMes(blogno);
+				if (blogMesList == null) {
+					errorMsgs.add("查無資料");
+				}
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/blog_mes/select_page.jsp");
+					failureView.forward(req, res);
+					return;// 程式中斷
+				}
+
+				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
+				req.setAttribute("blogMesList", blogMesList); // 資料庫取出的empVO物件,存入req
+				String url = "/front-end/blog_mes/listAllBlogno_Mes.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
+				successView.forward(req, res);
+
+				/*************************** 其他可能的錯誤處理 *************************************/
+			} catch (Exception e) {
+				errorMsgs.add("無法取得資料:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/blog_mes/select_page.jsp");
+				failureView.forward(req, res);
+			}
+		}
+		
 	}
 
 }

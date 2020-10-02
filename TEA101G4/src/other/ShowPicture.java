@@ -18,10 +18,10 @@ public class ShowPicture extends HttpServlet {
 	private static final String passwd = "123456";
 	private static final String GET_PHOTO = "SELECT PHOTO FROM BLOG WHERE BLOGNO = ?";
 
-	Connection con;
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
+		Connection con = null;
 		try {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
@@ -59,6 +59,7 @@ public class ShowPicture extends HttpServlet {
 			}
 			rs.close();
 			pstmt.close();
+			con.close();
 		} catch (Exception e) {
 			System.out.println(e);
 			System.out.println(req.getParameter("blogno").trim());

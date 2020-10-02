@@ -8,6 +8,7 @@ public interface Blog_MesDAO_interface {
      public void delete(String blogMesno);
      public Blog_MesVO findByPrimaryKey(String blogMesno);
      public List<Blog_MesVO> getAll();
+     public List<Blog_MesVO> findByBlogno(String blogno);
     
 }
 

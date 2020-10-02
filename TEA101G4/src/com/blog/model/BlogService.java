@@ -63,5 +63,8 @@ public class BlogService {
 		return dao.getAll();
 	}
 	
-
+	public List<BlogVO> getTitle(String title){
+		return dao.searchTitle("%" + title + "%");
+	}
+	
 }

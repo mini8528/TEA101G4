@@ -53,7 +53,7 @@ h4 {
 	</c:if>
 
 	<ul>
-		<li><a href='listAllBlog_Save.jsp'>List</a> all Blog_Mes. <br>
+		<li><a href='<%=request.getContextPath()%>/blog_Save/listAllBlog_Save.jsp'>List</a> all Blog_Mes. <br>
 			<br></li>
 
 
@@ -88,6 +88,18 @@ h4 {
 						<option value="${blog_SaveVO.blogSaveno}">${blog_SaveVO.memberId}
 					</c:forEach>
 				</select> <input type="hidden" name="action" value="getOne_For_Display">
+				<input type="submit" value="送出">
+			</FORM>
+		</li>
+		
+		<li>
+			<FORM METHOD="post"
+				ACTION="<%=request.getContextPath()%>/blog_Save/Blog_SaveServlet">
+				<b>選擇會員收藏文章:</b> <select size="1" name="memberId">
+					<c:forEach var="blog_SaveVO" items="${blogSaveSvc.all}">
+						<option value="${blog_SaveVO.memberId}">${blog_SaveVO.memberId}
+					</c:forEach>
+				</select> <input type="hidden" name="action" value="getUserSaveBlog">
 				<input type="submit" value="送出">
 			</FORM>
 		</li>

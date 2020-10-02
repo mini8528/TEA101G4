@@ -8,6 +8,7 @@ public interface BlogDAO_interface {
      public void delete(String blogno);
      public BlogVO findByPrimaryKey(String blogno);
      public List<BlogVO> getAll();
+	 public List<BlogVO> searchTitle(String title);
     
 }
 

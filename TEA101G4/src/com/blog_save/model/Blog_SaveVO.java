@@ -12,6 +12,14 @@ public class Blog_SaveVO implements Serializable {
 	private Timestamp updateTime;
 	
 	
+	public Blog_SaveVO() {
+	}
+	
+	public Blog_SaveVO(String memberId) {
+		this.memberId = memberId;
+	}
+	
+	
 	public String getBlogSaveno() {
 		return blogSaveno;
 	}
