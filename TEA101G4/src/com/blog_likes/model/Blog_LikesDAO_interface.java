@@ -8,6 +8,8 @@ public interface Blog_LikesDAO_interface {
      public void delete(String blogLikesno);
      public Blog_LikesVO findByPrimaryKey(String blogLikesno);
      public List<Blog_LikesVO> getAll();
+	 public Blog_LikesVO findRecordStatus(String blogno, String memberId);
+	 public List<Blog_LikesVO> findByBlogno(String blogno);
     
 }
 

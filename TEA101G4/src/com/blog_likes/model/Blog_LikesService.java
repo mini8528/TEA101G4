@@ -55,5 +55,12 @@ public class Blog_LikesService {
 	public List<Blog_LikesVO> getAll() {
 		return dao.getAll();
 	}
+	//
+	public Blog_LikesVO getRecordStatus(String blogno, String memberId) {
+		return dao.findRecordStatus(blogno, memberId);
+	}
 
+	public List<Blog_LikesVO> getBlogLikes(String blogno) {
+		return dao.findByBlogno(blogno);
+	}
 }

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+
 public class Blog_SaveJDBCDAO implements Blog_SaveDAO_interface {
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
@@ -22,6 +23,7 @@ public class Blog_SaveJDBCDAO implements Blog_SaveDAO_interface {
 	private static final String UPDATE = "UPDATE blog_save set memberid=?, blogno=?, status=?, savedate=? , updatetime=? where blogsaveno = ?";
 	private static final String GET_MEMBER_SAVE = "SELECT blogsaveno,memberid,blogno,status,to_char(savedate,'yyyy-mm-dd hh24:mi:ss') savedate,to_char(updatetime,'yyyy-mm-dd hh24:mi:ss') updatetime FROM blog_save where memberid = ? order by blogsaveno";
 	private static final String BLOGSAVE_LEFT_JOIN_BLOG = "SELECT * FROM BLOG_SAVE LEFT JOIN BLOG ON BLOG_SAVE.BLOGNO = BLOG.BLOGNO where memberid = ?";
+	private static final String GET_STATUS = "SELECT *FROM blog_save where blogno = ? and memberid = ?";
 	
 	@Override
 	public void insert(Blog_SaveVO blogSaveVO) {
@@ -351,6 +353,73 @@ public class Blog_SaveJDBCDAO implements Blog_SaveDAO_interface {
 			}
 		}
 		return list;
+	}
+	
+	@Override
+	public Blog_SaveVO findBlogSaveStatus(String blogno, String memberId) {
+		Blog_SaveVO blogsaveVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_STATUS);
+
+			pstmt.setString(1, blogno);
+			pstmt.setString(2, memberId);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				// empVo 也稱為 Domain objects
+				blogsaveVO = new Blog_SaveVO();
+				
+				blogsaveVO.setBlogSaveno(rs.getString("blogsaveno"));
+				blogsaveVO.setMemberId(rs.getString("memberid"));
+				blogsaveVO.setBlogno(rs.getString("blogno"));
+				blogsaveVO.setStatus(rs.getString("status"));
+				blogsaveVO.setSaveDate(rs.getTimestamp("savedate"));
+				blogsaveVO.setUpdateTime(rs.getTimestamp("updatetime"));
+				
+				
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return blogsaveVO;
 	}
 	
 	

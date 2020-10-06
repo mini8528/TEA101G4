@@ -16,10 +16,11 @@ public class BlogJDBCDAO implements BlogDAO_interface {
 
 	private static final String INSERT_STMT = "INSERT INTO blog (blogno,memberid,blogclass,postdate,title,text,photo,video,status,updatetime) VALUES ('B' || lpad(BLOG_SEQ.NEXTVAL, 5, '0'), ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = "SELECT blogno,memberid,blogclass,to_char(postdate,'yyyy-mm-dd hh24:mi:ss') postdate,title,text,status,to_char(updatetime,'yyyy-mm-dd hh24:mi:ss') updatetime FROM blog order by blogno";
-	private static final String GET_ONE_STMT = "SELECT blogno,memberid,blogclass,to_char(postdate,'yyyy-mm-dd hh24:mi:ss') postdate,title,text,status,to_char(updatetime,'yyyy-mm-dd hh24:mi:ss') updatetime FROM blog where blogno = ?";
+	private static final String GET_ONE_STMT = "SELECT blogno,memberid,blogclass,to_char(postdate,'yyyy-mm-dd hh24:mi:ss') postdate,title,text,status,to_char(updatetime,'yyyy-mm-dd hh24:mi:ss') updatetime FROM blog where blogno = ? order by blogno";
 	private static final String DELETE = "DELETE FROM blog where blogno = ?";
 	private static final String UPDATE = "UPDATE blog set memberid=?, blogclass=?, postdate=?, title=?, text=? , photo=?, video=?, status=?, updatetime=? where blogno = ?";
 	private static final String SEARCH_TITLE = "SELECT * FROM blog where title like ? order by blogno";
+	private static final String GET_MEMBER_BLOG = "SELECT blogno,memberid,blogclass,to_char(postdate,'yyyy-mm-dd hh24:mi:ss') postdate,title,text,status,to_char(updatetime,'yyyy-mm-dd hh24:mi:ss') updatetime FROM blog where memberid = ? order by blogno";
 	
 	@Override
 	public void insert(BlogVO blogVO) {
@@ -303,6 +304,7 @@ public class BlogJDBCDAO implements BlogDAO_interface {
 		return list;
 	}
 	
+	@Override
 	public List<BlogVO> searchTitle(String title) {
 		List<BlogVO> list = new ArrayList<BlogVO>();
 		BlogVO blogVO = null;
@@ -317,6 +319,75 @@ public class BlogJDBCDAO implements BlogDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(SEARCH_TITLE);
 			pstmt.setString(1, title);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				blogVO = new BlogVO();
+				
+				blogVO.setBlogno(rs.getString("blogno"));
+				blogVO.setMemberId(rs.getString("memberid"));
+				blogVO.setBlogClass(rs.getString("blogclass"));
+				blogVO.setPostDate(rs.getTimestamp("postdate"));
+				blogVO.setTitle(rs.getString("title"));
+				blogVO.setText(rs.getString("text"));
+//				blogVO.setPhoto(rs.getBytes("photo"));
+//				blogVO.setVideo(rs.getBytes("video"));
+				blogVO.setStatus(rs.getString("status"));
+				blogVO.setUpdateTime(rs.getTimestamp("updatetime"));
+				
+				list.add(blogVO);
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	
+	@Override
+	public List<BlogVO> findByMemberid(String memberId) {
+		List<BlogVO> list = new ArrayList<BlogVO>();
+		BlogVO blogVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_MEMBER_BLOG);
+			pstmt.setString(1, memberId);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {

@@ -9,6 +9,7 @@ public interface BlogDAO_interface {
      public BlogVO findByPrimaryKey(String blogno);
      public List<BlogVO> getAll();
 	 public List<BlogVO> searchTitle(String title);
+	 public List<BlogVO> findByMemberid(String memberId);
     
 }
 

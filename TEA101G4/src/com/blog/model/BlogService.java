@@ -67,4 +67,7 @@ public class BlogService {
 		return dao.searchTitle("%" + title + "%");
 	}
 	
+	public List<BlogVO> getMemberBlog(String memberId){
+		return dao.findByMemberid(memberId);
+	}
 }

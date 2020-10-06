@@ -2,6 +2,7 @@ package com.blog_save.controller;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
@@ -14,6 +15,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 
 import com.blog_save.model.Blog_SaveService;
 import com.blog_save.model.Blog_SaveVO;
@@ -299,7 +304,6 @@ public class Blog_SaveServlet extends HttpServlet {
 		}
 		
 		if ("getUserSaveBlog".equals(action)) { // 來自select_page.jsp的請求
-			System.out.println("i am here");
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
@@ -308,7 +312,7 @@ public class Blog_SaveServlet extends HttpServlet {
 			try {
 				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 				String memberId = req.getParameter("memberId");
-				System.out.println(memberId);
+//				System.out.println(memberId);
 				if (memberId == null || memberId.trim().length() == 0) {
 					errorMsgs.add("請登入會員");
 				}
@@ -346,7 +350,7 @@ public class Blog_SaveServlet extends HttpServlet {
 				req.setAttribute("whichPage", whichPage);
 			
 				
-				System.out.println(userSaveList);
+//				System.out.println(userSaveList);
 				req.setAttribute("userSaveList", userSaveList); 
 				String url = "/front-end/blog_save/listAllBlog_Save.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
@@ -359,6 +363,54 @@ public class Blog_SaveServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
+		
+		if ("clickCollection".equals(action)) { // 來自addEmp.jsp的請求
+
+			
+			/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
+
+			String blogno = req.getParameter("blogno").trim();
+			String memberid = req.getParameter("memberid").trim();
+			
+//			String status = req.getParameter("status").trim();
+			Blog_SaveVO blogSaveVO = new Blog_SaveVO();
+			Blog_SaveService blogSaveSvc = new Blog_SaveService();
+			blogSaveVO = blogSaveSvc.getBlogSaveStatus(blogno, memberid);
+			String newStatus = "";
+			
+			if(blogSaveVO == null) {
+				Timestamp savedate = new Timestamp(System.currentTimeMillis());
+				Timestamp updatetime = new Timestamp(System.currentTimeMillis());
+				
+				blogSaveVO = blogSaveSvc.addBlogSave(memberid, blogno, "Y", savedate, updatetime);
+				newStatus = "Y";
+				
+			}else {
+				String blogsaveno = blogSaveVO.getBlogSaveno();
+				blogSaveSvc.deleteBlogSave(blogsaveno);
+				newStatus = "N";
+			}
+			
+			
+			JSONObject jsonObj = new JSONObject();
+			try {
+				jsonObj.put("status", newStatus);
+				
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			res.setContentType("text/plain");
+			res.setCharacterEncoding("UTF-8");
+			PrintWriter out = res.getWriter();
+			out.write(jsonObj.toString());
+			out.flush();
+			out.close();
+			
+	}
+		
+		
 	}
 
 }

@@ -3,9 +3,12 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.blog_save.model.*"%>
+<%@ page import="com.member.model.*"%>
 <%
-	List<Blog_SaveVO> list = (List<Blog_SaveVO>) request.getAttribute("userSaveList");
-	pageContext.setAttribute("list", list);
+	MemberVO userVO = (MemberVO) session.getAttribute("userVO");
+	Blog_SaveService blogSaveSvc = new Blog_SaveService();
+	List<Blog_SaveVO> userSaveList = blogSaveSvc.getMemberSaveBlog(userVO.getMemberid());
+	pageContext.setAttribute("userSaveList", userSaveList);
 %>
 
 <!DOCTYPE html>
@@ -21,37 +24,37 @@
 <!-- Plugins css Style -->
 <!-- Plugins css Style -->
 <link
-	href="http://localhost:8081/TEA101G4/assets/plugins/font-awesome/css/font-awesome.min.css"
+	href="<%=request.getContextPath()%>/assets/plugins/font-awesome/css/font-awesome.min.css"
 	rel="stylesheet">
 <link
-	href="http://localhost:8081/TEA101G4/assets/plugins/no-ui-slider/nouislider.min.css"
+	href="<%=request.getContextPath()%>/assets/plugins/no-ui-slider/nouislider.min.css"
 	rel="stylesheet" />
 <link
-	href="http://localhost:8081/TEA101G4/assets/plugins/owl-carousel/owl.carousel.min.css"
+	href="<%=request.getContextPath()%>/assets/plugins/owl-carousel/owl.carousel.min.css"
 	rel="stylesheet" media="screen">
 <link
-	href="http://localhost:8081/TEA101G4/assets/plugins/owl-carousel/owl.theme.default.min.css"
+	href="<%=request.getContextPath()%>/assets/plugins/owl-carousel/owl.theme.default.min.css"
 	rel="stylesheet" media="screen">
 <link
-	href="http://localhost:8081/TEA101G4/assets/plugins/fancybox/jquery.fancybox.min.css"
+	href="<%=request.getContextPath()%>/assets/plugins/fancybox/jquery.fancybox.min.css"
 	rel="stylesheet" />
 <link
-	href="http://localhost:8081/TEA101G4/assets/plugins/isotope/isotope.min.css"
+	href="<%=request.getContextPath()%>/assets/plugins/isotope/isotope.min.css"
 	rel="stylesheet" />
 <link
-	href="http://localhost:8081/TEA101G4/assets/plugins/animate/animate.css"
+	href="<%=request.getContextPath()%>/assets/plugins/animate/animate.css"
 	rel="stylesheet">
 <link
-	href="http://localhost:8081/TEA101G4/assets/plugins/select2/css/select2.min.css"
+	href="<%=request.getContextPath()%>/assets/plugins/select2/css/select2.min.css"
 	rel="stylesheet">
 <link
-	href="http://localhost:8081/TEA101G4/assets/plugins/revolution/css/settings.css"
+	href="<%=request.getContextPath()%>/assets/plugins/revolution/css/settings.css"
 	rel="stylesheet">
 <link
-	href="http://localhost:8081/TEA101G4/assets/plugins/revolution/css/layers.css"
+	href="<%=request.getContextPath()%>/assets/plugins/revolution/css/layers.css"
 	rel="stylesheet">
 <link
-	href="http://localhost:8081/TEA101G4/assets/plugins/revolution/css/navigation.css"
+	href="<%=request.getContextPath()%>/assets/plugins/revolution/css/navigation.css"
 	rel="stylesheet">
 
 <!-- Fonts -->
@@ -60,390 +63,194 @@
 	rel="stylesheet">
 
 <!-- Custom css -->
-<link href="http://localhost:8081/TEA101G4/assets/css/kidz.css"
+<link href="<%=request.getContextPath()%>/assets/css/kidz.css"
 	id="option_style" rel="stylesheet">
 
 <!-- Favicon -->
-<link href="http://localhost:8081/TEA101G4/assets/img/favicon.png"
+<link href="<%=request.getContextPath()%>/assets/img/favicon.png"
 	rel="shortcut icon">
 
 </head>
 
 <body id="body" class="up-scroll" data-spy="scroll"
 	data-target=".element-right-sidebar">
-	<!-- ====================================
+  <!-- ====================================
   ——— HEADER
   ===================================== -->
-	<header class="header main-wrapper" id="pageTop">
-		<!-- Top Color Bar -->
-		<div class="color-bars">
-			<div class="container-fluid"></div>
-		</div>
-
-		<!-- Top Bar-->
-		<!-- d-none d-md-block -->
-		<div class=" bg-stone  top-bar">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-7 d-none d-lg-block">
-						<ul
-							class="list-inline d-flex justify-content-xl-start align-items-center h-100 mb-0">
-							<li>
-								<!--                     <span class="bg-warning icon-header mr-xl-2"> -->
-								<!--                       <i class="fa fa-envelope" aria-hidden="true"></i> -->
-								<!--                     </span> --> <!--                     <a href="mailto:info@yourdomain.com" class="mr-lg-4 mr-xl-6 text-white opacity-80">info@yourdomain.com</a> -->
-							</li>
-							<li>
-								<!--                     <span class="bg-success icon-header mr-xl-2"> -->
-								<!--                       <i class="fa fa-phone" aria-hidden="true"></i> -->
-								<!--                     </span> --> <!--                     <a href="tel:+1 234 567 8900" class="mr-lg-4 mr-xl-6 text-white opacity-80"> +1 234 567 8900 </a> -->
-							</li>
-							<li class="text-white">
-								<!--                     <span class="bg-pink icon-header"> -->
-								<!--                       <i class="fa fa-clock-o" aria-hidden="true"></i> -->
-								<!--                     </span> --> <!--                     <span class="opacity-80">Open: 9am - 6pm</span> -->
-							</li>
-						</ul>
-					</div>
-
-					<div class="col-lg-5">
-						<ul
-							class="list-inline d-flex mb-0 justify-content-xl-end justify-content-center align-items-center mr-xl-2">
-							<li>
-								<!--                     <span class="bg-info icon-header mr-lg-0 mr-xl-1"> -->
-								<!--                       <i class="fa fa-globe" aria-hidden="true"></i> -->
-								<!--                     </span> -->
-							</li>
-							<li class="mr-3 mr-md-4 mr-lg-3 mr-xl-5 dropdown dropdown-sm">
-								<!--                     <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" -->
-								<!--                       aria-haspopup="true" aria-expanded="false"> Language </button> -->
-								<!--                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"> -->
-								<!--                       <a class="dropdown-item" href="#">English</a> -->
-								<!--                       <a class="dropdown-item" href="#">Spanish</a> -->
-								<!--                       <a class="dropdown-item" href="#">Hindi</a> -->
-								<!--                     </div> -->
-							</li>
-
-							<li class="text-white mr-md-3 mr-lg-2 mr-xl-5"><span
-								class="bg-purple icon-header mr-1 mr-md-2 mr-lg-1 mr-xl-2">
-									<i class="fa fa-unlock-alt text-white font-size-13"
-									aria-hidden="true"></i>
-							</span> <a class="text-white font-weight-medium opacity-80"
-								href="javascript:void(0)" data-toggle="modal"
-								data-target="#modal-login"> Login </a> <span
-								class="text-white opacity-80">or</span> <a
-								class="text-white font-weight-medium opacity-80"
-								href="javascript:void(0)" data-toggle="modal"
-								data-target="#modal-createAccount">Create an account</a></li>
-
-							<li class="cart-dropdown d-none d-md-block">
-								<div data-toggle="dropdown" aria-haspopup="true"
-									aria-expanded="false" data-display="static">
-									<a href="javascript:void(0)"> <span
-										class="rounded-sm bg-pink icon-small icon-badge d-none close-icon">
-											<i class="fa fa-close text-white" aria-hidden="true"></i>
-									</span> <span
-										class="rounded-sm bg-pink icon-small icon-badge shopping-icon">
-											<i class="fa fa-shopping-basket text-white"
-											aria-hidden="true"></i> <span class="badge bg-warning">3</span>
-									</span>
-									</a>
-								</div>
-								<div class="dropdown-menu dropdown-menu-right">
-									<ul class="bg-white list-unstyled">
-										<li class="d-flex align-items-center"><i
-											class="fa fa-shopping-basket font-size-20 mr-3"
-											aria-hidden="true"></i>
-											<h3 class="text-capitalize font-weight-bold mb-0">3
-												items in your cart</h3></li>
-										<hr>
-										<li><a href="product-single.html">
-												<div class="media">
-													<div class="image">
-														<img class="bg-light rounded-sm px-5 py-3 mr-4"
-															src="http://localhost:8081/TEA101G4/assets/img/products/product-sm.png"
-															alt="cart-Image">
-													</div>
-													<div class="media-body">
-														<div class="d-flex justify-content-between">
-															<h4 class="text-dark">Barbie Racing Car</h4>
-															<span class="cancel"> <i
-																class="fa fa-close text-muted" aria-hidden="true"></i>
-															</span>
-														</div>
-														<div class="price">
-															<span class="text-warning font-weight-medium">$50</span>
-														</div>
-														<span class="text-muted font-weight-medium text-muted">Qnt:
-															1</span>
-													</div>
-												</div>
-										</a>
-											<hr></li>
-										<li><a href="product-single.html">
-												<div class="media">
-													<div class="image">
-														<img class="bg-light rounded-sm px-5 py-3 mr-4"
-															src="http://localhost:8081/TEA101G4/assets/img/products/product-sm.png"
-															alt="cart-Image">
-													</div>
-													<div class="media-body">
-														<div class="d-flex justify-content-between">
-															<h4 class="text-dark">Barbie Racing Car</h4>
-															<span class="cancel"> <i
-																class="fa fa-close text-muted" aria-hidden="true"></i>
-															</span>
-														</div>
-														<div class="price">
-															<span class="text-warning font-weight-medium">$50</span>
-														</div>
-														<span class="text-muted font-weight-medium">Qnt: 1</span>
-													</div>
-												</div>
-										</a>
-											<hr></li>
-										<li><a href="product-single.html">
-												<div class="media">
-													<div class="image">
-														<img class="bg-light rounded-sm px-5 py-3 mr-4"
-															src="http://localhost:8081/TEA101G4/assets/img/products/product-sm.png"
-															alt="cart-Image">
-													</div>
-													<div class="media-body">
-														<div class="d-flex justify-content-between">
-															<h4 class="text-dark font-weight-bold">Barbie Racing
-																Car</h4>
-															<span class="cancel"> <i
-																class="fa fa-close text-muted" aria-hidden="true"></i>
-															</span>
-														</div>
-														<div class="price">
-															<span class="text-warning font-weight-medium">$50</span>
-														</div>
-														<span class="text-muted font-weight-medium">Qnt: 1</span>
-													</div>
-												</div>
-										</a>
-											<hr></li>
-										<li>
-											<div class="d-flex justify-content-between mb-3">
-												<h3 class="cart-total font-weight-bold">Subtotal</h3>
-												<h3 class="cart-price font-weight-bold">$150</h3>
-											</div>
-											<div class="cart-button d-flex justify-content-between">
-												<button type="button"
-													class="btn btn-danger text-uppercase px-4 shadow-sm mr-3"
-													onclick="location.href='product-checkout-step-1.html';">Checkout</button>
-												<button type="button"
-													class="btn btn-danger text-uppercase px-4 shadow-sm"
-													onclick="location.href='product-cart.html';">View
-													Cart</button>
-											</div>
-										</li>
-									</ul>
-								</div>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- Navbar -->
-		<nav
-			class="navbar navbar-expand-md navbar-scrollUp navbar-sticky navbar-white">
-			<div class="container">
-				<a class="navbar-brand" href="index.html"> <img
-					class="d-inline-block"
-					src="http://localhost:8081/TEA101G4/assets/img/gympayz2.png">
-				</a>
-
-				<!-- cart-dropdown -->
-				<div class="dropdown cart-dropdown ml-auto mr-5 d-md-none">
-					<div data-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="false">
-						<a href="javascript:void(0)"> <span
-							class="rounded-sm bg-pink icon-small icon-badge d-none close-icon">
-								<i class="fa fa-close text-white" aria-hidden="true"></i>
-						</span> <span
-							class="rounded-sm bg-pink icon-small icon-badge shopping-icon">
-								<i class="fa fa-shopping-basket text-white" aria-hidden="true"></i>
-								<span class="badge bg-warning">3</span>
-						</span>
-						</a>
-					</div>
-					<div class="dropdown-menu dropdown-menu-right">
-						<ul class="bg-white list-unstyled">
-							<li class="d-flex align-items-center"><i
-								class="fa fa-shopping-basket font-size-20 mr-3"
-								aria-hidden="true"></i>
-								<h3 class="text-capitalize font-weight-bold mb-0">3 items
-									in your cart</h3></li>
-							<hr>
-							<li><a href="product-single.html">
-									<div class="media">
-										<div class="image">
-											<img class="mr-4 p-2 bg-light"
-												src="http://localhost:8081/TEA101G4/assets/img/products/product-sm.png"
-												alt="cart-Image">
-										</div>
-										<div class="media-body">
-											<div class="d-flex justify-content-between">
-												<h4 class="text-dark">Barbie Racing Car</h4>
-												<span class="cancel"> <i
-													class="fa fa-close text-muted" aria-hidden="true"></i>
-												</span>
-											</div>
-											<div class="price">
-												<span class="text-warning font-weight-medium">$50</span>
-											</div>
-											<span class="text-muted font-weight-medium text-muted">Qnt:
-												1</span>
-										</div>
-									</div>
-							</a>
-								<hr></li>
-							<li><a href="product-single.html">
-									<div class="media">
-										<div class="image">
-											<img class="mr-4 p-2 bg-light"
-												src="http://localhost:8081/TEA101G4/assets/img/products/product-sm.png"
-												alt="cart-Image">
-										</div>
-										<div class="media-body">
-											<div class="d-flex justify-content-between">
-												<h4 class="text-dark">Barbie Racing Car</h4>
-												<span class="cancel"> <i
-													class="fa fa-close text-muted" aria-hidden="true"></i>
-												</span>
-											</div>
-											<div class="price">
-												<span class="text-warning font-weight-medium">$50</span>
-											</div>
-											<span class="text-muted font-weight-medium">Qnt: 1</span>
-										</div>
-									</div>
-							</a>
-								<hr></li>
-							<li><a href="product-single.html">
-									<div class="media">
-										<div class="image">
-											<img class="mr-4 p-2 bg-light"
-												src="http://localhost:8081/TEA101G4/assets/img/products/product-sm.png"
-												alt="cart-Image">
-										</div>
-										<div class="media-body">
-											<div class="d-flex justify-content-between">
-												<h4 class="text-dark font-weight-bold">Barbie Racing
-													Car</h4>
-												<span class="cancel"> <i
-													class="fa fa-close text-muted" aria-hidden="true"></i>
-												</span>
-											</div>
-											<div class="price">
-												<span class="text-warning font-weight-medium">$50</span>
-											</div>
-											<span class="text-muted font-weight-medium">Qnt: 1</span>
-										</div>
-									</div>
-							</a>
-								<hr></li>
-							<li>
-								<div class="d-flex justify-content-between mb-3">
-									<h3 class="cart-total font-weight-bold">Subtotal</h3>
-									<h3 class="cart-price font-weight-bold">$150</h3>
-								</div>
-								<div class="cart-button d-flex justify-content-between">
-									<button type="button"
-										class="btn btn-danger text-uppercase px-4 shadow-sm mr-3"
-										onclick="location.href='product-checkout-step-1.html';">Checkout</button>
-									<button type="button"
-										class="btn btn-danger text-uppercase px-4 shadow-sm"
-										onclick="location.href='product-cart.html';">View
-										Cart</button>
-								</div>
-							</li>
-						</ul>
-					</div>
-				</div>
-
-				<button class="navbar-toggler py-2" type="button"
-					data-toggle="collapse" data-target="#navbarContent"
-					aria-controls="navbarContent" aria-expanded="false"
-					aria-label="Toggle navigation">
-					<i class="fa fa-bars"></i>
-				</button>
-
-				<div class="collapse navbar-collapse" id="navbarContent">
-					<ul class="navbar-nav ml-lg-auto">
-						<li class="nav-item dropdown bg-warning"><a
-							class="nav-link dropdown-toggle " href="javascript:void(0)"
-							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<i class="fa fa-home nav-icon" aria-hidden="true"></i> <span>Home</span>
-						</a></li>
-
-						<li class="nav-item dropdown bg-pink"><a
-							class="nav-link dropdown-toggle " href="component-default.html">
-								<i class="fa fa-pencil-square-o nav-icon" aria-hidden="true"></i>
-								<span>News</span>
-						</a></li>
-
-						<li class="nav-item dropdown bg-danger"><a
-							class="nav-link dropdown-toggle " href="javascript:void(0)"
-							role="button" data-toggle="dropdown"> <i
-								class="fa fa-list-ul nav-icon" aria-hidden="true"></i> <span>Schedule</span>
-						</a></li>
-						<li class="nav-item dropdown mega-dropdown bg-success"><a
-							class="nav-link dropdown-toggle " href="#" role="button"
-							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<i class="fa fa-file-text-o nav-icon" aria-hidden="true"></i> <span>Courses</span>
-						</a></li>
-						<li class="nav-item dropdown bg-info"><a
-							class="nav-link dropdown-toggle " href="javascript:void(0)"
-							id="stores" role="button" data-toggle="dropdown"
-							aria-haspopup="true" aria-expanded="false"> <i
-								class="fa fa-pencil-square-o nav-icon" aria-hidden="true"></i> <span>Store</span>
-						</a></li>
-
-						<li class="nav-item dropdown bg-purple"><a
-							class="nav-link dropdown-toggle " href="javascript:void(0)"
-							id="stores" role="button" data-toggle="dropdown"
-							aria-haspopup="true" aria-expanded="false"> <i
-								class="fa fa-calendar nav-icon" aria-hidden="true"></i> <span>Blog</span>
-						</a></li>
-
-						<li class="nav-item dropdown bg-pink"><a
-							class="nav-link dropdown-toggle " href="component-default.html">
-								<i class="fa fa-home nav-icon" aria-hidden="true"></i> <span>Contact
-									us</span>
-						</a></li>
-
-					</ul>
-				</div>
-			</div>
-		</nav>
-	</header>
-	<div class="main-wrapper blog-single-left-sidebar">
+    <header class="header main-wrapper" id="pageTop">
+        <!-- Top Color Bar -->
 
 
-		<!-- ====================================
+        <!-- Top Bar-->
+        <!-- d-none d-md-block -->
+        <div class=" bg-stone  top-bar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-7 d-none d-lg-block">
+                    </div>
+
+                    <div class="col-lg-5">
+                        <ul
+                            class="list-inline d-flex mb-0 justify-content-xl-end justify-content-center align-items-center mr-xl-2">
+
+                            <c:choose>
+                                <c:when test="${userVO == null}">
+                                    <li class="text-white mr-md-3 mr-lg-2 mr-xl-5">
+                                        <img src="<%=request.getContextPath()%>/assets/img/login4.png" width="30px"
+                                            height="30px" style="border-radius:100%; magin-right:20px">
+                                        <a class="text-white font-weight-medium opacity-80"
+                                            href="<%=request.getContextPath()%>/front-end/login.jsp"> Login or Create an
+                                            account
+                                        </a>
+                                    </li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li class="text-white mr-md-3 mr-lg-2 mr-xl-5">
+                                        <div data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                            data-display="static">
+                                            <img src="<%=request.getContextPath()%>/assets/img/user.png" width="30px"
+                                                height="30px" style="border-radius:100%; magin-right:20px">
+                                            <!--                                			 加herf連結至個人頁面 -->
+                                            <a class="text-white font-weight-medium opacity-80"> ${userVO.name}</a>
+                                            <a href="javascript:void(0)">
+                                                <span
+                                                    class="rounded-sm bg-pink icon-small icon-badge d-none close-icon">
+                                                    <i class="fa fa-close text-white" aria-hidden="true"></i>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <ul class="bg-white list-unstyled">
+                                                <a href="product-single.html">
+                                                    <li>
+                                                        <div class="media">
+                                                            <div class="media-body">
+                                                                <div class="d-flex justify-content-between">
+                                                                    <h4 class="text-dark">Profile</h4>
+
+                                                                </div>
+                                                            </div>
+                                                            <hr>
+                                                    </li>
+                                                </a>
+                                                <hr>
+                                                <a href="<%=request.getContextPath()%>/front-end/chat/index.jsp">
+                                                    <li>
+                                                        <div class="media">
+                                                            <div class="media-body">
+                                                                <div class="d-flex justify-content-between">
+                                                                    <h4 class="text-dark">Message</h4>
+
+                                                                </div>
+                                                            </div>
+                                                            <hr>
+                                                    </li>
+                                                </a>
+                                                <hr>
+
+                                                <a href="<%=request.getContextPath()%>/MemberLogout">
+                                                    <div>
+                                                        <p class="media">
+                                                            <div class="media-body">
+                                                                <div class="d-flex justify-content-between">
+                                                                    <h4 class="text-dark">Logout</h4>
+
+                                                                </div>
+                                                        </div>
+                                                    </li>
+                                                </a>
+
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </c:otherwise>
+                            </c:choose>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-md navbar-scrollUp navbar-sticky navbar-white">
+            <div class="container">
+                <a class="navbar-brand" href="index.html"> <img class="d-inline-block"
+                        src="<%=request.getContextPath()%>/assets/img/gympayz2.png">
+                </a>
+
+
+
+                <button class="navbar-toggler py-2" type="button" data-toggle="collapse" data-target="#navbarContent"
+                    aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fa fa-bars"></i>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarContent">
+                    <ul class="navbar-nav ml-lg-auto">
+                        <li class="nav-item dropdown bg-warning"><a class="nav-link dropdown-toggle "
+                                href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false">
+                                <i class="fa fa-home nav-icon" aria-hidden="true"></i> <span>Home</span>
+                            </a></li>
+
+                        <li class="nav-item dropdown bg-pink"><a class="nav-link dropdown-toggle "
+                                href="component-default.html">
+                                <i class="fa fa-pencil-square-o nav-icon" aria-hidden="true"></i>
+                                <span>News</span>
+                            </a></li>
+
+                        <li class="nav-item dropdown bg-danger"><a class="nav-link dropdown-toggle "
+                                href="javascript:void(0)" role="button"> <i class="fa fa-list-ul nav-icon"
+                                    aria-hidden="true"></i> <span>Schedule</span>
+                            </a></li>
+                        <li class="nav-item dropdown mega-dropdown bg-success"><a class="nav-link dropdown-toggle "
+                                href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-file-text-o nav-icon" aria-hidden="true"></i> <span>Courses</span>
+                            </a></li>
+                        <li class="nav-item dropdown bg-info"><a class="nav-link dropdown-toggle "
+                                href="javascript:void(0)" id="stores" role="button" aria-haspopup="true"
+                                aria-expanded="false"> <i class="fa fa-pencil-square-o nav-icon" aria-hidden="true"></i>
+                                <span>Store</span>
+                            </a></li>
+
+                        <li class="nav-item dropdown bg-purple">
+                            <a class="nav-link dropdown-toggle "
+                                href="<%=request.getContextPath()%>/front-end/blog/listAllBlog.jsp" id="stores"
+                                role="button" aria-haspopup="true" aria-expanded="false"> <i
+                                    class="fa fa-calendar nav-icon" aria-hidden="true"></i> <span>Blog</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item dropdown bg-pink"><a class="nav-link dropdown-toggle "
+                                href="component-default.html">
+                                <i class="fa fa-home nav-icon" aria-hidden="true"></i> <span>Contact
+                                    us</span>
+                            </a></li>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="main-wrapper blog-single-left-sidebar">
+
+
+        <!-- ====================================
   ———	BREADCRUMB
   ===================================== -->
-		<section class="breadcrumb-bg"
-			style="background-image: url(http://localhost:8081/TEA101G4/assets/img/background/headerpic2.png);">
-			<div class="container">
-				<div class="breadcrumb-holder">
-					<div>
-						<h1 class="breadcrumb-title">Gympayz</h1>
-						<!-- 						<ul class="breadcrumb breadcrumb-transparent"> -->
-						<!-- 							<li class="breadcrumb-item"><a class="text-white" -->
-						<!-- 								href="index.html">Home</a></li> -->
-						<!-- 							<li class="breadcrumb-item text-white active" aria-current="page"> -->
-						<!-- 								Blog Single Left Sidebar</li> -->
-						<!-- 						</ul> -->
-					</div>
-				</div>
-			</div>
-		</section>
+        <section class="breadcrumb-bg"
+            style="background-image: url(<%=request.getContextPath()%>/assets/img/background/headerpic2.png);">
+            <div class="container">
+                <div class="breadcrumb-holder">
+                    <div>
+                        <h1 class="breadcrumb-title">Gympayz</h1>
+                    </div>
+                </div>
+            </div>
+        </section>
+
 
 		<h4>此頁練習採用 EL 的寫法取值:</h4>
 		<table id="table-1">
@@ -650,15 +457,24 @@
 									<li class="my-2"><a
 										class="text-muted font-weight-medium d-block border rounded py-2 pl-3"
 										href="<%=request.getContextPath()%>/blog/BlogServlet?action=getAllExperience&blogClass=健身影片">健身影片</a></li>
-									<li class="my-2"><a
-										class="text-muted font-weight-medium d-block border rounded py-2 pl-3"
-										href="<%=request.getContextPath()%>/blog_Save/Blog_SaveServlet?action=getUserSaveBlog&memberId=M001">文章收藏</a></li>
-									<li class="mt-2"><a
-										class="text-muted font-weight-medium d-block border rounded py-2 pl-3"
-										href="<%=request.getContextPath()%>/front-end/blog/addBlog.jsp">發文</a></li>
-									<li class="mt-2"><a
-										class="text-muted font-weight-medium d-block border rounded py-2 pl-3"
-										href="<%=request.getContextPath()%>/blog/BlogServlet?action=getUserBlog&memberId=M001">我的文章</a></li>
+									<li class="my-2">
+												<a class="text-muted font-weight-medium d-block border rounded py-2 pl-3"
+													href="<%=request.getContextPath()%>/front-end/blog_save/listAllBlog_Save.jsp">
+													文章收藏
+												</a>
+									</li>
+									<li class="mt-2">
+											<a class="text-muted font-weight-medium d-block border rounded py-2 pl-3"
+												href="<%=request.getContextPath()%>/front-end/blog/addBlog.jsp">
+												發文
+											</a>
+									</li>
+									<li class="mt-2">
+										<a class="text-muted font-weight-medium d-block border rounded py-2 pl-3"
+											href="<%=request.getContextPath()%>/blog/BlogServlet?action=getUserBlog&memberId=${userVO.memberid}">
+											我的文章
+										</a>
+									</li>
 								</ul>
 							</div>
 						</div>
@@ -700,397 +516,28 @@
 	</div>
 	<!-- element wrapper ends -->
 
-	<!-- ====================================
+    <!-- ====================================
       ———	FOOTER
       ===================================== -->
-	<footer class="footer-bg-img">
-		<!-- Footer Color Bar -->
-		<div class="color-bar">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col color-bar bg-warning"></div>
-					<div class="col color-bar bg-danger"></div>
-					<div class="col color-bar bg-success"></div>
-					<div class="col color-bar bg-info"></div>
-					<div class="col color-bar bg-purple"></div>
-					<div class="col color-bar bg-pink"></div>
-					<div class="col color-bar bg-warning d-none d-md-block"></div>
-					<div class="col color-bar bg-danger d-none d-md-block"></div>
-					<div class="col color-bar bg-success d-none d-md-block"></div>
-					<div class="col color-bar bg-info d-none d-md-block"></div>
-					<div class="col color-bar bg-purple d-none d-md-block"></div>
-					<div class="col color-bar bg-pink d-none d-md-block"></div>
-				</div>
-			</div>
-		</div>
+    <footer class="footer-bg-img">
+        <!-- Footer Color Bar -->
 
-		<div class="pt-8 pb-7  bg-repeat"
-			style="background-image: url(assets/img/background/footer-bg-img-1.png);">
-			<div class="container">
-				<div class="row">
-					<div class="col-sm-6 col-lg-3 col-xs-12">
-						<a class="mb-6 d-block" href="index.html"> <img
-							class="img-fluid d-inline-block w-50 lazyestload"
-							data-src="assets/img/logo-footer.png"
-							src="assets/img/logo-footer.png">
-						</a>
-						<p class="mb-6">Excepteur sint occaecat cupidatat non
-							proident, sunt in culpa officia.Lorem ipsum dolor sit amet.</p>
-						<p class="mb-6">consectetur adipisicing elit, sed do eiusmod
-							tempor incididunt ut labore et dolore magna aliqua.</p>
-					</div>
 
-					<div class="col-sm-6 col-lg-3 col-xs-12">
-						<h4 class="section-title-sm font-weight-bold text-white mb-6">Useful
-							Links</h4>
-						<ul class="list-unstyled">
-							<li class="mb-4"><a href="index.html"> <i
-									class="fa fa-angle-double-right mr-2" aria-hidden="true"></i>Kidz
-									School
-							</a></li>
-							<li class="mb-4"><a href="about-us.html"> <i
-									class="fa fa-angle-double-right mr-2" aria-hidden="true"></i>About
-									Kidz School
-							</a></li>
-							<li class="mb-4"><a href="index-v2.html"> <i
-									class="fa fa-angle-double-right mr-2" aria-hidden="true"></i>Kidz
-									Store
-							</a></li>
-							<li class="mb-4"><a href="index-v3.html"> <i
-									class="fa fa-angle-double-right mr-2" aria-hidden="true"></i>Kidz
-									Daycare
-							</a></li>
-							<li class="mb-3"><a href="photo-gallery.html"> <i
-									class="fa fa-angle-double-right mr-2" aria-hidden="true"></i>
-									Photo Gallery
-							</a></li>
-						</ul>
-					</div>
+        <!-- Copy Right -->
+        <div class="copyright">
+            <div class="container">
+                <div class="row py-4 align-items-center">
+                    <div class="col-sm-7 col-xs-12 order-1 order-md-0">
+                        <p class="copyright-text"> © 2020 Copyright Gympayz by TEA101G4. <a
+                                href="http://www.iamabdus.com/" target="_blank"></a></p>
+                    </div>
 
-					<div class="col-sm-6 col-lg-3 col-xs-12">
-						<h4 class="section-title-sm font-weight-bold text-white mb-6">Recent
-							Post</h4>
-						<ul class="list-unstyled list-item-border-bottom">
-							<li class="mb-4 pb-4">
-								<div class="media">
-									<a class="mr-2" href="blog-single-left-sidebar.html"> <img
-										class="rounded-lg w-100 border-warning border-2 d-block"
-										data-src="assets/img/blog/blog-sm-img5.jpg"
-										src="assets/img/blog/blog-sm-img5.jpg" alt="blog-sm-img5.jpg">
-									</a>
-									<div class="media-body">
-										<h5 class="line-hight-16 mb-1">
-											<a class="font-base font-size-14"
-												href="blog-single-left-sidebar.html">A Clean Website
-												Gives More Experience To The Visitors</a>
-										</h5>
-										<time class="text-white">July 7 - 2018</time>
-									</div>
-								</div>
-							</li>
+                </div>
+            </div>
+        </div>
+    </footer>
 
-							<li class="mb-4 pb-4">
-								<div class="media">
-									<a class="mr-2" href="blog-single-left-sidebar.html"> <img
-										class="rounded-lg w-100 border-success border-2 d-block"
-										data-src="assets/img/blog/blog-sm-img-12.jpg"
-										src="assets/img/blog/blog-sm-img-12.jpg"
-										alt="blog-sm-img-12.jpg">
-									</a>
-									<div class="media-body">
-										<h5 class="line-hight-16 mb-1">
-											<a class="font-base font-size-14"
-												href="blog-single-left-sidebar.html">Duis aute irure
-												dolor in reprehenderit in voluptate.</a>
-										</h5>
-										<time class="text-white">Jun 7 - 2018</time>
-									</div>
-								</div>
-							</li>
 
-							<li class="mb-4 pb-4">
-								<div class="media">
-									<a class="mr-2" href="blog-single-left-sidebar.html"> <img
-										class="rounded-lg w-100 border-info border-2 d-block"
-										data-src="assets/img/blog/blog-sm-img7.jpg"
-										src="assets/img/blog/blog-sm-img7.jpg" alt="blog-sm-img7.jpg">
-									</a>
-									<div class="media-body">
-										<h5 class="line-hight-16 mb-1">
-											<a class="font-base font-size-14"
-												href="blog-single-left-sidebar.html">Duis aute irure
-												dolor in reprehenderit in voluptate.</a>
-										</h5>
-										<time class="text-white">Jun 7 - 2018</time>
-									</div>
-								</div>
-							</li>
-						</ul>
-					</div>
-
-					<div class="col-sm-6 col-lg-3 col-xs-12">
-						<h4 class="section-title-sm font-weight-bold text-white mb-6">Mailing
-							List</h4>
-						<p class="mb-4">Sign up for our mailing list to get latest
-							updates and offers.</p>
-						<form class="mb-4" action="">
-							<div class="input-group shadow-light rounded-sm input-addon">
-								<input type="text" class="form-control py-4"
-									placeholder="Email address" aria-describedby="basic-addon21">
-								<div class="input-group-append ">
-									<div class="input-group-text bg-danger">
-										<i class="fa fa-check text-white" aria-hidden="true"></i>
-									</div>
-								</div>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<!-- Copy Right -->
-		<div class="copyright">
-			<div class="container">
-				<div class="row py-4 align-items-center">
-					<div class="col-sm-7 col-xs-12 order-1 order-md-0">
-						<p class="copyright-text">
-							© 2018 Copyright Kidz School Bootstrap Template by <a
-								href="http://www.iamabdus.com/" target="_blank">Abdus.</a>
-						</p>
-					</div>
-
-					<div class="col-sm-5 col-xs-12">
-						<ul
-							class="list-inline d-flex align-items-center justify-content-md-end justify-content-center mb-md-0">
-							<li class="mr-3"><a
-								class="icon-rounded-circle-small bg-warning"
-								href="javascript:void(0)"> <i
-									class="fa fa-facebook text-white" aria-hidden="true"></i>
-							</a></li>
-							<li class="mr-3"><a
-								class="icon-rounded-circle-small bg-success"
-								href="javascript:void(0)"> <i
-									class="fa fa-twitter text-white" aria-hidden="true"></i>
-							</a></li>
-							<li class="mr-3"><a
-								class="icon-rounded-circle-small bg-danger"
-								href="javascript:void(0)"> <i
-									class="fa fa-google-plus text-white" aria-hidden="true"></i>
-							</a></li>
-							<li class="mr-3"><a
-								class="icon-rounded-circle-small bg-info"
-								href="javascript:void(0)"> <i
-									class="fa fa-pinterest-p text-white" aria-hidden="true"></i>
-							</a></li>
-							<li class=""><a class="icon-rounded-circle-small bg-purple"
-								href="javascript:void(0)"> <i class="fa fa-vimeo text-white"
-									aria-hidden="true"></i>
-							</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</footer>
-
-	<!-- Modal Login -->
-	<div class="modal fade" id="modal-login" tabindex="-1" role="dialog"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-sm" role="document">
-			<div class="modal-content">
-				<div class="bg-warning rounded-top p-2">
-					<h3 class="text-white font-weight-bold mb-0 ml-2">Login</h3>
-				</div>
-
-				<div class="border rounded-bottom-md border-top-0">
-					<div class="p-3">
-						<form action="#" method="POST" role="form">
-							<div class="form-group form-group-icon">
-								<input type="text" class="form-control border"
-									placeholder="User name" required="">
-							</div>
-
-							<div class="form-group form-group-icon">
-								<input type="password" class="form-control border"
-									placeholder="Password" required="">
-							</div>
-
-							<div class="form-group">
-								<button type="submit"
-									class="btn btn-danger text-uppercase w-100">Log In</button>
-							</div>
-
-							<div class="form-group text-center text-secondary mb-0">
-								<a class="text-danger" href="#">Forgot password?</a>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- Modal Create Account -->
-	<div class="modal fade" id="modal-createAccount" tabindex="-1"
-		role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-sm rounded" role="document">
-			<div class="modal-content">
-				<div class="bg-warning rounded-top p-2">
-					<h3 class="text-white font-weight-bold mb-0 ml-2">Create An
-						Account</h3>
-				</div>
-
-				<div class="border rounded-bottom-md border-top-0">
-					<div class="p-3">
-						<form action="#" method="POST" role="form">
-							<div class="form-group form-group-icon">
-								<input type="text" class="form-control border"
-									placeholder="Name" required="">
-							</div>
-
-							<div class="form-group form-group-icon">
-								<input type="text" class="form-control border"
-									placeholder="User name" required="">
-							</div>
-
-							<div class="form-group form-group-icon">
-								<input type="text" class="form-control border"
-									placeholder="Phone" required="">
-							</div>
-
-							<div class="form-group form-group-icon">
-								<input type="password" class="form-control border"
-									placeholder="Password" required="">
-							</div>
-
-							<div class="form-group form-group-icon">
-								<input type="password" class="form-control border"
-									placeholder="Re-Password" required="">
-							</div>
-
-							<div class="form-group">
-								<button type="submit"
-									class="btn btn-danger text-uppercase w-100">Register</button>
-							</div>
-
-							<div class="form-group text-center text-secondary mb-0">
-								<p class="mb-0">
-									Allready have an account? <a class="text-danger" href="#">Log
-										in</a>
-								</p>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- Modal Enroll -->
-	<div class="modal fade" id="modal-enrolAccount" tabindex="-1"
-		role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-sm rounded" role="document">
-			<div class="modal-content">
-				<div class="bg-pink rounded-top p-2">
-					<h3 class="text-white font-weight-bold mb-0 ml-2">Create An
-						Account</h3>
-				</div>
-
-				<div class="border rounded-bottom-md border-top-0">
-					<div class="p-3">
-						<form action="#" method="POST" role="form">
-							<div class="form-group form-group-icon">
-								<input type="text" class="form-control border"
-									placeholder="Name" required="">
-							</div>
-
-							<div class="form-group form-group-icon">
-								<input type="text" class="form-control border"
-									placeholder="User name" required="">
-							</div>
-
-							<div class="form-group form-group-icon">
-								<input type="text" class="form-control border"
-									placeholder="Phone" required="">
-							</div>
-
-							<div class="form-group form-group-icon">
-								<input type="password" class="form-control border"
-									placeholder="Password" required="">
-							</div>
-
-							<div class="form-group form-group-icon">
-								<input type="password" class="form-control border"
-									placeholder="Re-Password" required="">
-							</div>
-
-							<div class="form-group">
-								<button type="submit"
-									class="btn btn-pink text-uppercase text-white w-100">Register</button>
-							</div>
-
-							<div class="form-group text-center text-secondary mb-0">
-								<p class="mb-0">
-									Allready have an account? <a class="text-pink" href="#">Log
-										in</a>
-								</p>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- Modal Products -->
-	<div class="modal fade" id="modal-products" tabindex="-1" role="dialog"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-lg" role="document">
-			<div class="modal-content">
-				<div class="modal-header border-0">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<div class="row">
-						<div class="col-sm-6 col-xs-12">
-							<img class="img-fluid d-block mx-auto"
-								src="assets/img/products/products-preview01.jpg"
-								alt="preview01.jpg">
-						</div>
-						<div class="col-sm-6 col-xs-12">
-							<div class="product-single">
-								<h1>Barbie Racing Car</h1>
-
-								<span class="pricing font-size-55">$50 <del>$60</del></span>
-
-								<p class="mb-7">Lorem ipsum dolor sit amet, consectetur
-									adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-									dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-									exercitation ullamco laboris nisi.</p>
-
-								<div class="add-cart mb-0">
-									<div class="count-input">
-										<input class="quantity btn-primary" type="text" value="1">
-										<a class="incr-btn incr-up" data-action="decrease" href="#"><i
-											class="fa fa-caret-up" aria-hidden="true"></i></a> <a
-											class="incr-btn incr-down" data-action="increase" href="#"><i
-											class="fa fa-caret-down" aria-hidden="true"></i></a>
-									</div>
-									<button type="button" class="btn btn-danger text-uppercase"
-										onclick="location.href='product-cart.html';">Add to
-										cart</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 
 	<!--scrolling-->
 	<div class="scrolling">
@@ -1101,45 +548,45 @@
 
 	<!-- Javascript -->
 	<script
-		src="http://localhost:8081/TEA101G4/assets/plugins/jquery/jquery.min.js"></script>
+		src="<%=request.getContextPath()%>/assets/plugins/jquery/jquery.min.js"></script>
 	<script
-		src="http://localhost:8081/TEA101G4/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+		src="<%=request.getContextPath()%>/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<script
-		src="http://localhost:8081/TEA101G4/assets/plugins/owl-carousel/owl.carousel.min.js"></script>
+		src="<%=request.getContextPath()%>/assets/plugins/owl-carousel/owl.carousel.min.js"></script>
 	<script
-		src="http://localhost:8081/TEA101G4/assets/plugins/fancybox/jquery.fancybox.min.js"></script>
+		src="<%=request.getContextPath()%>/assets/plugins/fancybox/jquery.fancybox.min.js"></script>
 	<script
-		src="http://localhost:8081/TEA101G4/assets/plugins/isotope/isotope.min.js"></script>
+		src="<%=request.getContextPath()%>/assets/plugins/isotope/isotope.min.js"></script>
 	<script
-		src="http://localhost:8081/TEA101G4/assets/plugins/syotimer/jquery.syotimer.min.js"></script>
+		src="<%=request.getContextPath()%>/assets/plugins/syotimer/jquery.syotimer.min.js"></script>
 	<script
-		src="http://localhost:8081/TEA101G4/assets/plugins/select2/js/select2.min.js"></script>
+		src="<%=request.getContextPath()%>/assets/plugins/select2/js/select2.min.js"></script>
 	<script
-		src="http://localhost:8081/TEA101G4/assets/plugins/no-ui-slider/nouislider.min.js"></script>
+		src="<%=request.getContextPath()%>/assets/plugins/no-ui-slider/nouislider.min.js"></script>
 	<script
-		src="http://localhost:8081/TEA101G4/assets/plugins/lazyestload/lazyestload.js"></script>
+		src="<%=request.getContextPath()%>/assets/plugins/lazyestload/lazyestload.js"></script>
 	<script
-		src="http://localhost:8081/TEA101G4/assets/plugins/velocity/velocity.min.js"></script>
+		src="<%=request.getContextPath()%>/assets/plugins/velocity/velocity.min.js"></script>
 	<script
-		src="http://localhost:8081/TEA101G4/assets/plugins/images-loaded/js/imagesloaded.pkgd.min.js"></script>
+		src="<%=request.getContextPath()%>/assets/plugins/images-loaded/js/imagesloaded.pkgd.min.js"></script>
 	<script
-		src="http://localhost:8081/TEA101G4/assets/plugins/revolution/js/jquery.themepunch.tools.min.js"></script>
+		src="<%=request.getContextPath()%>/assets/plugins/revolution/js/jquery.themepunch.tools.min.js"></script>
 	<script
-		src="http://localhost:8081/TEA101G4/assets/plugins/revolution/js/jquery.themepunch.revolution.min.js"></script>
+		src="<%=request.getContextPath()%>/assets/plugins/revolution/js/jquery.themepunch.revolution.min.js"></script>
 
 	<!-- Load revolution slider only on Local File Systems. The following part can be removed on Server -->
 	<!-- 
-<script src="http://localhost:8081/TEA101G4/assets/plugins/revolution/js/extensions/revolution.extension.slideanims.min.js"></script>
-<script src="http://localhost:8081/TEA101G4/assets/plugins/revolution/js/extensions/revolution.extension.layeranimation.min.js"></script>
-<script src="http://localhost:8081/TEA101G4/assets/plugins/revolution/js/extensions/revolution.extension.navigation.min.js"></script> 
+<script src="<%=request.getContextPath()%>/assets/plugins/revolution/js/extensions/revolution.extension.slideanims.min.js"></script>
+<script src="<%=request.getContextPath()%>/assets/plugins/revolution/js/extensions/revolution.extension.layeranimation.min.js"></script>
+<script src="<%=request.getContextPath()%>/assets/plugins/revolution/js/extensions/revolution.extension.navigation.min.js"></script> 
 -->
 
 	<script
-		src="http://localhost:8081/TEA101G4/assets/plugins/wow/wow.min.js"></script>
+		src="<%=request.getContextPath()%>/assets/plugins/wow/wow.min.js"></script>
 	<script
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDU79W1lu5f6PIiuMqNfT1C6M0e_lq1ECY"></script>
 
-	<script src="http://localhost:8081/TEA101G4/assets/js/kidz.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/kidz.js"></script>
 </body>
 
 </html>

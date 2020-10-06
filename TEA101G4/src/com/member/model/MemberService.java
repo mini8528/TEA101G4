@@ -1,11 +1,7 @@
 package com.member.model;
 
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.List;
-import java.util.Set;
-
-import com.bodyrecord.model.BodyrecordVO;
 
 public class MemberService {
 	
@@ -14,9 +10,11 @@ public class MemberService {
 	public MemberService() {
 		dao = new MemberJDBCDAO();
 	}
-	public MemberVO addMember(String name, String account, String password, String gender, String phone, Date birthday,
-			String email, byte[] photo, String address, String authority, String qualifications, String expertise,
-			String introduction, byte[] photo1, byte[] photo2, byte[] photo3, Date adddate) {
+	public MemberVO addMember(
+			String name, String account, String password, String gender, String phone, 
+			Date birthday, String email, byte[] photo, String address, String authority,
+			String qualifications, String expertise, String introduction, byte[] photo1, byte[] photo2,
+			byte[] photo3, Date adddate) {
 		
 		MemberVO memberVO = new MemberVO();
 		
@@ -43,10 +41,11 @@ public class MemberService {
 		return memberVO;
 	}
 
-	public MemberVO updateMember(String memberid, String name, String account, String password, String gender,
-			String phone, Date birthday, String email, byte[] photo, String address, String authority,
-			String qualifications, String expertise, String introduction, byte[] photo1, byte[] photo2, byte[] photo3,
-			Date adddate) {
+	public MemberVO updateMember( String memberid,
+			String name, String account, String password, String gender, String phone, 
+			Date birthday, String email, byte[] photo, String address, String authority,
+			String qualifications, String expertise, String introduction, byte[] photo1, byte[] photo2,
+			byte[] photo3, Date adddate) {
 		
 		MemberVO memberVO = new MemberVO();
 		
@@ -76,15 +75,15 @@ public class MemberService {
 	public List<MemberVO> getAll(){
 		return dao.getAll();
 	}
-	public MemberVO getOneMember(String memberId) {
-		return dao.findByPrimaryKey(memberId);
-	}
-	public Set<BodyrecordVO> getBodyrecordsByMemberId(String memberId){
-		return dao.getBodyrecordsByMemberId(memberId);
+	public MemberVO getOneMember(String memberid) {
+		return dao.findByPrimaryKey(memberid);
 	}
 	
-	public void deleteMember(String memberId) {
-		dao.delete(memberId);
+	public void deleteMember(String memberid) {
+		dao.delete(memberid);
 	}
-			
+	
+	public MemberVO getOneAccount(String account) {
+		return dao.findByAccount(account);
+	}
 }

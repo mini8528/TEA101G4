@@ -1,49 +1,39 @@
 package com.member.model;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
-import com.bodyrecord.model.BodyrecordVO;
 
-public class MemberJDBCDAO implements MemberDAO_interface{
-	String driver ="oracle.jdbc.driver.OracleDriver";
+public class MemberJDBCDAO implements MemberDAO_interface {
+	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
 	String userid = "tea101g4";
 	String passwd = "123456";
+
+	private static final String INSERT_STMT = "INSERT INTO member (memberid,name,account,password,gender,phone,birthday,email,photo,address,authority,qualifications,expertise,introduction,photo1,photo2,photo3,adddate) VALUES ('M' || lpad(MEMBER_SEQ.NEXTVAL, 3, '0'),?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+	private static final String GET_ALL_STMT = "SELECT memberid,name,account,password,gender,phone,birthday,email,address,authority,qualifications,expertise,introduction,adddate FROM member order by memberid";
+	private static final String GET_ONE_STMT = "SELECT memberid,name,account,password,gender,phone,birthday,email,address,authority,qualifications,expertise,introduction,adddate FROM member where memberid = ?";
+	private static final String DELETE = "DELETE FROM member where memberid = ?";
+	private static final String UPDATE = "UPDATE member set  name=? ,account=? ,password=? ,gender=? ,phone=? ,birthday=? ,email=? ,photo=? ,address=? ,authority=? ,qualifications=? ,expertise=? ,introduction=? ,photo1=? ,photo2=? ,photo3=? ,adddate=?  where memberid =? ";
+	private static final String GET_MEMBER_ACCOUNT ="SELECT memberid,name,account,password,gender,phone,to_char(birthday,'yyyy-mm-dd') birthday,email,photo,address,authority,qualifications,expertise,introduction,photo1,photo2,photo3,to_char(adddate,'yyyy-mm-dd') adddate FROM member where account = ?";
 	
-	
-	private static final String INSERT_STMT =
-			"INSERT INTO member (memberid,name,account,password,gender,phone,birthday,email,photo,address,authority,qualifications,expertise,introduction,photo1,photo2,photo3,adddate) VALUES (member_seq.NEXTVAL,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?))";
-	private static final String GET_ALL_STMT =
-			"SELECT memberid,name,account,password,gender,phone,to_char(birthday,'yyyy-mm-dd') birthday,email,photo,address,authority,qualifications,expertise,introduction,photo1,photo2,photo3,to_char(adddate,'yyyy-mm-dd') adddate FROM member";
-	private static final String GET_ONE_STMT =
-			"SELECT memberid,name,account,password,gender,phone,to_char(birthday,'yyyy-mm-dd') birthday,email,photo,address,authority,qualifications,expertise,introduction,photo1,photo2,photo3,to_char(adddate,'yyyy-mm-dd') adddate FROM member where memberid = ?";
-	private static final String GET_BODYRECORDs_ByMemberid_MEMBER =
-			"SELECT bodyrecordid,memberid,to_char(uploaddate,'yyyy-mm-dd') uploaddate,photo1,description,describestatus,to_char(updatetime,'yyyy-mm-dd') updatetime FROM bodyrecord2 where memberid= ? order by bodyrecordid";
-	private static final String DELETE_BODYRECORDs =
-			"DELETE FROM bodyrecord2 where memberid = ?";
-	private static final String DELETE_MEMBER =
-			"DELETE FROM member where memberid = ?";
-	private static final String UPDATE =
-			"UPDATE member set name = ?,account = ?,password = ?,gender = ?,phone = ?,birthday = ?,email = ?,photo = ?,address = ?,authority = ?,qualifications = ?,expertise = ?,introduction = ?,photo1 = ?,photo2 = ?,photo3 = ?,adddate = ? where memberid = ?";
 	@Override
 	public void insert(MemberVO memberVO) {
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		
+
 		try {
+
 			Class.forName(driver);
-			con = DriverManager.getConnection(url,userid,passwd);
+			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(INSERT_STMT);
-			
 			pstmt.setString(1, memberVO.getName());
 			pstmt.setString(2, memberVO.getAccount());
 			pstmt.setString(3, memberVO.getPassword());
@@ -61,40 +51,47 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 			pstmt.setBytes(15, memberVO.getPhoto2());
 			pstmt.setBytes(16, memberVO.getPhoto3());
 			pstmt.setDate(17, memberVO.getAdddate());
-			
 			pstmt.executeUpdate();
-		}catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "+ e.getMessage());			
-		}catch (SQLException se) {
-			throw new RuntimeException("A database error occures."+ se.getMessage());
-		}finally {
-			if(pstmt !=null) {
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
 				try {
 					pstmt.close();
-				}catch (SQLException se) {
+				} catch (SQLException se) {
 					se.printStackTrace(System.err);
 				}
 			}
-			if(con != null) {
+			if (con != null) {
 				try {
 					con.close();
-				}catch (Exception e) {
+				} catch (Exception e) {
 					e.printStackTrace(System.err);
 				}
 			}
 		}
 	}
+
 	@Override
 	public void update(MemberVO memberVO) {
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		
+
 		try {
+
 			Class.forName(driver);
-			con = DriverManager.getConnection(url,userid,passwd);
+			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(UPDATE);
-			
+
+
 			pstmt.setString(1, memberVO.getName());
 			pstmt.setString(2, memberVO.getAccount());
 			pstmt.setString(3, memberVO.getPassword());
@@ -113,68 +110,18 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 			pstmt.setBytes(16, memberVO.getPhoto3());
 			pstmt.setDate(17, memberVO.getAdddate());
 			pstmt.setString(18, memberVO.getMemberid());
-			
-			pstmt.executeUpdate();
-			
-		}catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "+ e.getMessage());			
-		}catch (SQLException se) {
-			throw new RuntimeException("A database error occures."+ se.getMessage());
-		}finally {
-			if(pstmt !=null) {
-				try {
-					pstmt.close();
-				}catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if(con != null) {
-				try {
-					con.close();
-				}catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
-	}
-	@Override
-	public void delete(String memberid) {
-		int updateCount_BODYRECORDs = 0;
-		
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		
-		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-			
-			con.setAutoCommit(false);
-			
-			pstmt = con.prepareStatement(DELETE_BODYRECORDs);
-			pstmt.setString(1, memberid);
-			updateCount_BODYRECORDs = pstmt.executeUpdate();
-			
-			pstmt = con.prepareStatement(DELETE_MEMBER);
-			pstmt.setString(1, memberid);
 			pstmt.executeUpdate();
-			
-			con.commit();
-			con.setAutoCommit(true);
-			System.out.println("刪除會員編號"+memberid+"體態紀錄有"+updateCount_BODYRECORDs+"個紀錄刪除");
-			
-		}catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "+ e.getMessage());
-		}catch(SQLException se) {
-			if(con != null) {
-				try {
-					con.rollback();
-				}catch (SQLException excep) {
-					throw new RuntimeException("rollback error occured."+excep.getMessage());
-				}
-			}
-			throw new RuntimeException("A database error occured."+se.getMessage());
-		}finally {
+
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
 			if (pstmt != null) {
 				try {
 					pstmt.close();
@@ -191,14 +138,58 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 			}
 		}
 	}
+
+	@Override
+	public void delete(String memberid) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(DELETE);
+
+			pstmt.setString(1, memberid);
+
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+
 	@Override
 	public MemberVO findByPrimaryKey(String memberid) {
-		
+
+
 		MemberVO memberVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
+
 		try {
 
 			Class.forName(driver);
@@ -210,8 +201,159 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
+				// classDetailVo 也稱為 Domain objects
 				memberVO = new MemberVO();
-				memberVO.setMemberid(rs.getString("memberId"));
+				memberVO.setMemberid(rs.getString("memberid"));
+				memberVO.setName(rs.getString("name"));
+				memberVO.setAccount(rs.getString("account"));
+				memberVO.setPassword(rs.getString("password"));
+				memberVO.setGender(rs.getString("gender"));
+				memberVO.setPhone(rs.getString("phone"));
+				memberVO.setBirthday(rs.getDate("birthday"));
+				memberVO.setEmail(rs.getString("email"));
+//				memberVO.setPhoto(rs.getBytes("photo"));
+				memberVO.setAddress(rs.getString("address"));
+				memberVO.setAuthority(rs.getString("authority"));
+				memberVO.setQualifications(rs.getString("qualifications"));
+				memberVO.setExpertise(rs.getString("expertise"));
+				memberVO.setIntroduction(rs.getString("introduction"));
+//				memberVO.setPhoto1(rs.getBytes("photo1"));
+//				memberVO.setPhoto2(rs.getBytes("photo2"));
+//				memberVO.setPhoto3(rs.getBytes("photo3"));
+				memberVO.setAdddate(rs.getDate("adddate"));
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return memberVO;
+	}
+
+	@Override
+	public List<MemberVO> getAll() {
+		
+		List<MemberVO> list = new ArrayList<MemberVO>();
+		MemberVO memberVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_ALL_STMT);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				// classDetailVO 也稱為 Domain objects
+				memberVO = new MemberVO();
+				memberVO.setMemberid(rs.getString("memberid"));
+				memberVO.setName(rs.getString("name"));
+				memberVO.setAccount(rs.getString("account"));
+				memberVO.setPassword(rs.getString("password"));
+				memberVO.setGender(rs.getString("gender"));
+				memberVO.setPhone(rs.getString("phone"));
+				memberVO.setBirthday(rs.getDate("birthday"));
+				memberVO.setEmail(rs.getString("email"));
+//				memberVO.setPhoto(rs.getBytes("photo"));
+				memberVO.setAddress(rs.getString("address"));
+				memberVO.setAuthority(rs.getString("authority"));
+				memberVO.setQualifications(rs.getString("qualifications"));
+				memberVO.setExpertise(rs.getString("expertise"));
+				memberVO.setIntroduction(rs.getString("introduction"));
+//				memberVO.setPhoto1(rs.getBytes("photo1"));
+//				memberVO.setPhoto2(rs.getBytes("photo2"));
+//				memberVO.setPhoto3(rs.getBytes("photo3"));
+				memberVO.setAdddate(rs.getDate("adddate"));
+				list.add(memberVO); // Store the row in the list
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	
+	
+	@Override
+	public MemberVO findByAccount(String account) {
+		
+		MemberVO memberVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_MEMBER_ACCOUNT);
+
+			pstmt.setString(1, account);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				memberVO = new MemberVO();
+				memberVO.setMemberid(rs.getString("memberid"));
 				memberVO.setName(rs.getString("name"));
 				memberVO.setAccount(rs.getString("account"));
 				memberVO.setPassword(rs.getString("password"));
@@ -263,174 +405,112 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 		}
 		return memberVO;
 	}
-	@Override
-	public List<MemberVO> getAll(){
-		List<MemberVO> list = new ArrayList<MemberVO>();
-		MemberVO memberVO = null;
-		
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		try {
-
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(GET_ALL_STMT);
-			rs = pstmt.executeQuery();
-			
-			while (rs.next()) {
-				memberVO = new MemberVO();
-				memberVO.setMemberid(rs.getString("memberId"));
-				memberVO.setName(rs.getString("name"));
-				memberVO.setAccount(rs.getString("account"));
-				memberVO.setPassword(rs.getString("password"));
-				memberVO.setGender(rs.getString("gender"));
-				memberVO.setPhone(rs.getString("phone"));
-				memberVO.setBirthday(rs.getDate("birthday"));
-				memberVO.setEmail(rs.getString("email"));
-				memberVO.setPhoto(rs.getBytes("photo"));
-				memberVO.setAddress(rs.getString("address"));
-				memberVO.setAuthority(rs.getString("authority"));
-				memberVO.setQualifications(rs.getString("qualifications"));
-				memberVO.setExpertise(rs.getString("expertise"));
-				memberVO.setIntroduction(rs.getString("introduction"));
-				memberVO.setPhoto1(rs.getBytes("photo1"));
-				memberVO.setPhoto2(rs.getBytes("photo2"));
-				memberVO.setPhoto3(rs.getBytes("photo3"));
-				memberVO.setAdddate(rs.getDate("adddate"));
-				list.add(memberVO);
-			}
-			
-		}catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
-		return list;
-	}
-	@Override
-	public Set<BodyrecordVO> getBodyrecordsByMemberId(String memberId){
-		Set<BodyrecordVO> set = new LinkedHashSet<BodyrecordVO>();
-		BodyrecordVO bodyrecordVO = null;
-		
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		try {
-			
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(GET_BODYRECORDs_ByMemberid_MEMBER);
-			pstmt.setString(1, memberId);
-			rs = pstmt.executeQuery();
-			
-			while (rs.next()) {
-				bodyrecordVO = new BodyrecordVO();
-				bodyrecordVO.setbodyrecordid(rs.getString("bodyrecordid"));
-				bodyrecordVO.setmemberId(rs.getString("memberid"));
-				bodyrecordVO.setuploaddate(rs.getDate("uploaddate"));
-				bodyrecordVO.setphoto1(rs.getBytes("photo1"));
-				bodyrecordVO.setdescription(rs.getString("description"));
-				bodyrecordVO.setdescribestatus(rs.getString("describestatus"));
-				bodyrecordVO.setupdatetime(rs.getDate("updatetime"));
-				set.add(bodyrecordVO);
-			}
-		}catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
-		return set;
-	}
 	
-	public static void main(String[] args) {
-		
-		MemberJDBCDAO dao = new MemberJDBCDAO();
-		
-		List<MemberVO> list = dao.getAll();
-		for (MemberVO aMember : list) {
-			System.out.print(aMember.getMemberid() +",");
-			System.out.print(aMember.getName() +",");
-			System.out.print(aMember.getAccount() +",");
-			System.out.print(aMember.getPassword() +",");
-			System.out.print(aMember.getGender() +",");
-			System.out.print(aMember.getPhone() +",");
-			System.out.print(aMember.getBirthday() +",");
-			System.out.print(aMember.getEmail() +",");
-			System.out.print(aMember.getPhoto() +",");
-			System.out.print(aMember.getAddress() +",");
-			System.out.print(aMember.getAuthority() +",");
-			System.out.print(aMember.getQualifications() +",");
-			System.out.print(aMember.getExpertise() +",");
-			System.out.print(aMember.getIntroduction() +",");
-			System.out.print(aMember.getPhoto1() +",");
-			System.out.print(aMember.getPhoto2() +",");
-			System.out.print(aMember.getPhoto3() +",");
-			System.out.print(aMember.getAdddate());
-			System.out.println();
-		}
-		Set<BodyrecordVO> set = dao.getBodyrecordsByMemberId(null);
-		for (BodyrecordVO aBodyrecord : set) {
-			System.out.print(aBodyrecord.getbodyrecordid()+",");
-			System.out.print(aBodyrecord.getmemberId()+",");
-			System.out.print(aBodyrecord.getuploaddate()+",");
-			System.out.print(aBodyrecord.getphoto1()+",");
-			System.out.print(aBodyrecord.getdescription()+",");
-			System.out.print(aBodyrecord.getdescribestatus()+",");
-			System.out.print(aBodyrecord.getupdatetime());
-			System.out.println();
-		}
-	}
+	
+//	
+//	public static void main(String[] args) {
+//
+//		MemberJDBCDAO dao = new MemberJDBCDAO();
+
+		// 新增
+//		MemberVO WishListVO1 = new MemberVO();
+//		WishListVO1.setName("PETER");
+//		WishListVO1.setAccount("TIBIME");
+//		WishListVO1.setPassword("PD0002");
+//		WishListVO1.setGender("F");
+//		WishListVO1.setPhone("0912345678");
+//		
+//		WishListVO1.setBirthday(new Date(System.currentTimeMillis()));
+//		WishListVO1.setEmail("Email  @ Email ");
+//		WishListVO1.setPhoto(null);
+//		WishListVO1.setAddress("Address ");
+//		WishListVO1.setAuthority("Y");
+//		
+//		WishListVO1.setQualifications("Qualifications ");
+//		WishListVO1.setExpertise("Expertise ");
+//		WishListVO1.setIntroduction("Introduction ");
+//		WishListVO1.setPhoto1(null);
+//		WishListVO1.setPhoto2(null);
+//		
+//		WishListVO1.setPhoto3(null);
+//		WishListVO1.setAdddate(new Date(System.currentTimeMillis()));
+//		dao.insert(WishListVO1);
+
+//		// 修改
+//		MemberVO WishListVO1 = new MemberVO();
+//		
+//		WishListVO1.setmemberid("M005");
+//		
+//		WishListVO1.setName("PETER");
+//		WishListVO1.setAccount("TIBIME");
+//		WishListVO1.setPassword("PD0002");
+//		WishListVO1.setGender("F");
+//		WishListVO1.setPhone("0912345678");
+//		
+//		WishListVO1.setBirthday(new Date(System.currentTimeMillis()));
+//		WishListVO1.setEmail("Email  @ Email ");
+//		WishListVO1.setPhoto(null);
+//		WishListVO1.setAddress("Address ");
+//		WishListVO1.setAuthority("Y");
+//		
+//		WishListVO1.setQualifications("Qualifications ");
+//		WishListVO1.setExpertise("Expertise ");
+//		WishListVO1.setIntroduction("Introduction ");
+//		WishListVO1.setPhoto1(null);
+//		WishListVO1.setPhoto2(null);
+//		
+//		WishListVO1.setPhoto3(null);
+//		WishListVO1.setAdddate(new Date(System.currentTimeMillis()));
+//		dao.update(WishListVO1);
+
+		// 刪除
+//		dao.delete("M011");
+
+		// 查詢
+//		MemberVO aWishList = dao.findByPrimaryKey("M001");
+//		System.out.print(aWishList.getMemberid() + ",");
+//		System.out.print(aWishList.getName() + ",");
+//		System.out.print(aWishList.getAccount() + ",");
+//		System.out.print(aWishList.getPassword() + ",");
+//		System.out.print(aWishList.getGender() + ",");
+//		System.out.print(aWishList.getPhone() + ",");
+//		System.out.print(aWishList.getBirthday() + ",");
+//		System.out.print(aWishList.getEmail() + ",");
+//		System.out.print(aWishList.getPhoto() + ",");
+//		System.out.print(aWishList.getAddress() + ",");
+//		System.out.print(aWishList.getAuthority() + ",");
+//		System.out.print(aWishList.getQualifications() + ",");
+//		System.out.print(aWishList.getExpertise() + ",");
+//		System.out.print(aWishList.getIntroduction() + ",");
+//		System.out.print(aWishList.getPhoto1() + ",");
+//		System.out.print(aWishList.getPhoto2() + ",");
+//		System.out.print(aWishList.getPhoto3() + ",");
+//		System.out.print(aWishList.getAdddate() );
+//		System.out.println();
+
+		// 查詢
+//		List<MemberVO> list = dao.getAll();
+//		for (MemberVO aWishList : list) {
+//			System.out.print(aWishList.getMemberid() + ",");
+//			System.out.print(aWishList.getName() + ",");
+//			System.out.print(aWishList.getAccount() + ",");
+//			System.out.print(aWishList.getPassword() + ",");
+//			System.out.print(aWishList.getGender() + ",");
+//			System.out.print(aWishList.getPhone() + ",");
+//			System.out.print(aWishList.getBirthday() + ",");
+//			System.out.print(aWishList.getEmail() + ",");
+//			System.out.print(aWishList.getPhoto() + ",");
+//			System.out.print(aWishList.getAddress() + ",");
+//			System.out.print(aWishList.getAuthority() + ",");
+//			System.out.print(aWishList.getQualifications() + ",");
+//			System.out.print(aWishList.getExpertise() + ",");
+//			System.out.print(aWishList.getIntroduction() + ",");
+//			System.out.print(aWishList.getPhoto1() + ",");
+//			System.out.print(aWishList.getPhoto2() + ",");
+//			System.out.print(aWishList.getPhoto3() + ",");
+//			System.out.print(aWishList.getAdddate() );
+//			System.out.println();
+//		}
+//	}
+
 }

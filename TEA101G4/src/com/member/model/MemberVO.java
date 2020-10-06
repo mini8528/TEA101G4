@@ -5,22 +5,27 @@ import java.sql.Timestamp;
 import java.util.Arrays;
 
 public class MemberVO implements java.io.Serializable{
+//	Member
 	private String memberid;
+	
 	private String name;
 	private String account;
 	private String password;
 	private String gender;
 	private String phone;
+	
 	private Date birthday;
 	private String email;
 	private byte[] photo;
 	private String address;
 	private String authority;
+	
 	private String qualifications;
 	private String expertise;
 	private String introduction;
 	private byte[] photo1;
 	private byte[] photo2;
+	
 	private byte[] photo3;
 	private Date adddate;
 	
@@ -132,12 +137,6 @@ public class MemberVO implements java.io.Serializable{
 	public void setAdddate(Date adddate) {
 		this.adddate = adddate;
 	}
-	@Override
-	public String toString() {
-		return "MemberVO [memberid=" + memberid + ",name=" + name +	",account="+account+",password="+password+ ",gender="+gender+ ",phone="+phone +",birthday="+birthday +
-				",email="+email +",photo="+Arrays.toString(photo)+ ",address="+address+ ",authority="+authority+ ",qualifications="+qualifications+",expertise="+ expertise+
-				",introduction="+introduction+",photo1="+Arrays.toString(photo1)+ ",photo2="+Arrays.toString(photo2)+ ",photo3="+Arrays.toString(photo3)+ ",adddate="+adddate
-				+ "]";
-	}
+	
 	
 }

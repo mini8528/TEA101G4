@@ -16,6 +16,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import com.blog.model.BlogService;
@@ -24,6 +25,7 @@ import com.blog_mes.model.Blog_MesService;
 import com.blog_mes.model.Blog_MesVO;
 import com.blog_save.model.Blog_SaveService;
 import com.blog_save.model.Blog_SaveVO;
+import com.member.model.MemberVO;
 
 @WebServlet("/blog/BlogServlet")
 @MultipartConfig
@@ -77,7 +79,7 @@ public class BlogServlet extends HttpServlet {
 				BlogService blogSvc = new BlogService();
 				BlogVO blogVO = blogSvc.getOneBlog(blogno);
 				String blogClass = blogVO.getBlogClass();
-				System.out.println(blogClass);
+//				System.out.println(blogClass);
 				if (blogVO == null) {
 					errorMsgs.add("查無資料");
 				}
@@ -517,6 +519,15 @@ public class BlogServlet extends HttpServlet {
 			try {
 				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 				String memberId = req.getParameter("memberId");
+//				HttpSession session = req.getSession();
+//				// 【從 session 判斷此user是否登入過】
+//				MemberVO userVO = (MemberVO) session.getAttribute("userVO");
+//				if(userVO == null) {
+//					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/login.jsp");
+//					failureView.forward(req, res);
+//					return;// 程式中斷
+//				}
+//				String memberId = userVO.getMemberid();
 				System.out.println(memberId);
 				if (memberId == null || memberId.trim().length() == 0) {
 					errorMsgs.add("請登入會員");
@@ -574,7 +585,7 @@ public class BlogServlet extends HttpServlet {
 			try {
 				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 				String searchWord = req.getParameter("searchWord");
-				System.out.println(searchWord);
+//				System.out.println(searchWord);
 				if (searchWord == null || (searchWord.trim()).length() == 0) {
 					errorMsgs.add("請輸入要查詢文字");
 				}
@@ -596,7 +607,7 @@ public class BlogServlet extends HttpServlet {
 				/*************************** 2.開始查詢資料 *****************************************/
 				BlogService blogSvc = new BlogService();
 				List<BlogVO> list = blogSvc.getTitle(searchWord);
-				System.out.println("list " + list);
+//				System.out.println("list " + list);
 				if (list == null) {
 					errorMsgs.add("查無資料");
 				}

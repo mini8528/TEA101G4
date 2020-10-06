@@ -2,6 +2,7 @@ package com.blog_likes.controller;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
@@ -15,10 +16,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.blog_likes.model.Blog_LikesService;
 import com.blog_likes.model.Blog_LikesVO;
 import com.blog_save.model.Blog_SaveVO;
-
 
 
 @WebServlet("/blog_Likes/Blog_LikesServlet")
@@ -134,12 +137,12 @@ public class Blog_LikesServlet extends HttpServlet {
 			try {
 				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 				String blogLikesno = new String(req.getParameter("blogLikesno").trim());
-				
+
 				String blogno = req.getParameter("blogno").trim();
 				if (blogno == null || blogno.trim().length() == 0) {
 					errorMsgs.add("文章編號請勿空白");
 				}
-				
+
 				String memberid = req.getParameter("memberid");
 				String memberidReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
 				if (memberid == null || memberid.trim().length() == 0) {
@@ -152,34 +155,34 @@ public class Blog_LikesServlet extends HttpServlet {
 				if (status == null || status.trim().length() == 0) {
 					errorMsgs.add("內文請勿空白，請輸入Y或N");
 				}
-				
+
 				Timestamp likesdate = new Timestamp(System.currentTimeMillis());
-				
+
 				Timestamp updatetime = new Timestamp(System.currentTimeMillis());
 
 				Blog_LikesVO blogLikesVO = new Blog_LikesVO();
-				
+
 				blogLikesVO.setBlogLikesno(blogLikesno);
 				blogLikesVO.setBlogno(blogno);
 				blogLikesVO.setMemberId(memberid);
 				blogLikesVO.setStatus(status);
 				blogLikesVO.setLikesDate(likesdate);
 				blogLikesVO.setUpdateTime(updatetime);
-		
 
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("blog_LikesVO", blogLikesVO); // 含有輸入格式錯誤的empVO物件,也存入req
-					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/blog_likes/update_blog_Likes_input.jsp");
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/back-end/blog_likes/update_blog_Likes_input.jsp");
 					failureView.forward(req, res);
 					return; // 程式中斷
 				}
 
 				/*************************** 2.開始修改資料 *****************************************/
-				
+
 				Blog_LikesService blogLikesSvc = new Blog_LikesService();
-				blogLikesVO = blogLikesSvc.updateBlogLikes(blogLikesno, blogno, memberid, status, likesdate, updatetime);
-						
+				blogLikesVO = blogLikesSvc.updateBlogLikes(blogLikesno, blogno, memberid, status, likesdate,
+						updatetime);
 
 				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 				req.setAttribute("blog_LikesVO", blogLikesVO); // 資料庫update成功後,正確的的empVO物件,存入req
@@ -190,7 +193,8 @@ public class Blog_LikesServlet extends HttpServlet {
 				/*************************** 其他可能的錯誤處理 *************************************/
 			} catch (Exception e) {
 				errorMsgs.add("修改資料失敗:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/blog_mes/update_Blog_Mes_input.jsp");
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/back-end/blog_mes/update_Blog_Mes_input.jsp");
 				failureView.forward(req, res);
 				System.out.println("update 其他錯誤");
 				e.printStackTrace();
@@ -205,12 +209,12 @@ public class Blog_LikesServlet extends HttpServlet {
 
 			try {
 				/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
-				
+
 				String blogno = req.getParameter("blogno").trim();
 				if (blogno == null || blogno.trim().length() == 0) {
 					errorMsgs.add("文章編號請勿空白");
 				}
-				
+
 				String memberid = req.getParameter("memberid");
 				String memberidReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
 				if (memberid == null || memberid.trim().length() == 0) {
@@ -223,19 +227,19 @@ public class Blog_LikesServlet extends HttpServlet {
 				if (status == null || status.trim().length() == 0) {
 					errorMsgs.add("內文請勿空白，請輸入Y或N");
 				}
-				
+
 				Timestamp likesdate = new Timestamp(System.currentTimeMillis());
-				
+
 				Timestamp updatetime = new Timestamp(System.currentTimeMillis());
 
 				Blog_LikesVO blogLikesVO = new Blog_LikesVO();
-				
+
 				blogLikesVO.setBlogno(blogno);
 				blogLikesVO.setMemberId(memberid);
 				blogLikesVO.setStatus(status);
 				blogLikesVO.setLikesDate(likesdate);
 				blogLikesVO.setUpdateTime(updatetime);
-				
+
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("blog_LikesVO", blogLikesVO); // 含有輸入格式錯誤的empVO物件,也存入req
@@ -247,7 +251,7 @@ public class Blog_LikesServlet extends HttpServlet {
 				/*************************** 2.開始新增資料 ***************************************/
 				Blog_LikesService blogLikesSvc = new Blog_LikesService();
 				blogLikesVO = blogLikesSvc.addBlogLikes(blogno, memberid, status, likesdate, updatetime);
-						
+
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 				String url = "/back-end/blog_likes/listAllBlog_Likes.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
@@ -290,6 +294,56 @@ public class Blog_LikesServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
+
+		if ("clickheart".equals(action)) { // 來自addEmp.jsp的請求
+
+		
+				/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
+
+				String blogno = req.getParameter("blogno").trim();
+				String memberid = req.getParameter("memberid").trim();
+				System.out.println(blogno);
+				System.out.println(memberid);
+				
+//				String status = req.getParameter("status").trim();
+				Blog_LikesVO blogLikesVO = new Blog_LikesVO();
+				Blog_LikesService blogLikesSvc = new Blog_LikesService();
+				blogLikesVO = blogLikesSvc.getRecordStatus(blogno, memberid);
+				String newStatus = "";
+				
+				if(blogLikesVO == null) {
+					Timestamp likesdate = new Timestamp(System.currentTimeMillis());
+					Timestamp updatetime = new Timestamp(System.currentTimeMillis());
+					
+					blogLikesVO = blogLikesSvc.addBlogLikes(blogno, memberid, "Y", likesdate, updatetime);
+					newStatus = "Y";
+					
+				}else {
+					String bloglikesno = blogLikesVO.getBlogLikesno();
+					blogLikesSvc.deleteBlogLikes(bloglikesno);
+					newStatus = "N";
+				}
+				
+				int likescount = blogLikesSvc.getBlogLikes(blogno).size();
+				
+				JSONObject jsonObj = new JSONObject();
+				try {
+					jsonObj.put("status", newStatus);
+					jsonObj.put("likescount", likescount);
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				res.setContentType("text/plain");
+				res.setCharacterEncoding("UTF-8");
+				PrintWriter out = res.getWriter();
+				out.write(jsonObj.toString());
+				out.flush();
+				out.close();
+				
+		}
+
 	}
 
 }
