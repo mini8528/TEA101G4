@@ -16,54 +16,10 @@
         <div class="row">
             <div class="col-sm-6 offset-lg-2 col-lg-4">
                 <div class="mb-4 mb-sm-0">
-                    <div class="bg-warning rounded-top p-2">
-                        <h3 class="text-white font-weight-bold mb-0 ml-2">Create An Account</h3>
-                    </div>
-
-                    <div class="border rounded-bottom-sm border-top-0">
-                        <div class="p-3">
-                            <form action="#" method="POST" role="form">
-                                <div class="form-group form-group-icon">
-                                    <input type="text" class="form-control border" placeholder="Name"
-                                        required="">
-                                </div>
-
-                                <div class="form-group form-group-icon">
-                                    <input type="text" class="form-control border" placeholder="User name"
-                                        required="">
-                                </div>
-
-                                <div class="form-group form-group-icon">
-                                    <input type="text" class="form-control border" placeholder="Phone"
-                                        required="">
-                                </div>
-
-                                <div class="form-group form-group-icon">
-                                    <input type="password" class="form-control border" placeholder="Password"
-                                        required="">
-                                </div>
-
-                                <div class="form-group form-group-icon">
-                                    <input type="password" class="form-control border" placeholder="Re-Password"
-                                        required="">
-                                </div>
-
-                                <div class="form-group">
-                                    <button type="submit"
-                                        class="btn btn-danger text-uppercase w-100">Register</button>
-                                </div>
-
-                                <div class="form-group text-center text-secondary mb-0">
-                                    <p class="mb-0">Allready have an account? <a class="text-danger"
-                                            href="#">Log in</a></p>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
                 </div>
             </div>
 
-            <div class="col-sm-6 col-lg-4">
+            <div class="col-sm-6 col-lg-4" style="margin-left: 400px">
                 <div class="mb-4 mb-sm-0">
                     <div class="bg-warning rounded-top p-2">
                         <h3 class="text-white font-weight-bold mb-0 ml-2">Login</h3>
@@ -90,7 +46,7 @@
                             </div>
 
                             <div class="form-group text-center text-secondary mb-0">
-                                <a class="text-danger" href="#">Forgot password?</a>
+                                <a class="text-danger" href="#">Creat a new account</a>
                             </div>
                                 </form>
                             </div>

@@ -14,315 +14,155 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<style >
 
-<!-- Site Tittle -->
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Blog Grid Left Sidebar</title>
+#ellipsis {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 1; /*最多顯示5行*/
+            -webkit-box-orient: vertical;
+            white-space: normal;
+        }
+        
+ .list-wrapper {
+            padding: 15px;
+            overflow: hidden;
+        }
 
-<!-- Plugins css Style -->
-<!-- Plugins css Style -->
-<link
-	href="<%=request.getContextPath()%>/assets/plugins/font-awesome/css/font-awesome.min.css"
-	rel="stylesheet">
-<link
-	href="<%=request.getContextPath()%>/assets/plugins/no-ui-slider/nouislider.min.css"
-	rel="stylesheet" />
-<link
-	href="<%=request.getContextPath()%>/assets/plugins/owl-carousel/owl.carousel.min.css"
-	rel="stylesheet" media="screen">
-<link
-	href="<%=request.getContextPath()%>/assets/plugins/owl-carousel/owl.theme.default.min.css"
-	rel="stylesheet" media="screen">
-<link
-	href="<%=request.getContextPath()%>/assets/plugins/fancybox/jquery.fancybox.min.css"
-	rel="stylesheet" />
-<link
-	href="<%=request.getContextPath()%>/assets/plugins/isotope/isotope.min.css"
-	rel="stylesheet" />
-<link
-	href="<%=request.getContextPath()%>/assets/plugins/animate/animate.css"
-	rel="stylesheet">
-<link
-	href="<%=request.getContextPath()%>/assets/plugins/select2/css/select2.min.css"
-	rel="stylesheet">
-<link
-	href="<%=request.getContextPath()%>/assets/plugins/revolution/css/settings.css"
-	rel="stylesheet">
-<link
-	href="<%=request.getContextPath()%>/assets/plugins/revolution/css/layers.css"
-	rel="stylesheet">
-<link
-	href="<%=request.getContextPath()%>/assets/plugins/revolution/css/navigation.css"
-	rel="stylesheet">
+        .list-item {
+            border: 1px solid #EEE;
+            background: #FFF;
+            margin-bottom: 10px;
+            padding: 10px;
+            box-shadow: 0px 0px 10px 0px #EEE;
+        }
 
-<!-- Fonts -->
-<link
-	href="https://fonts.googleapis.com/css?family=Dosis:300,400,600,700|Open+Sans:300,400,600,700"
-	rel="stylesheet">
+        .list-item h4 {
+            color: #FF7182;
+            font-size: 18px;
+            margin: 0 0 5px;
+        }
 
-<!-- Custom css -->
-<link href="<%=request.getContextPath()%>/assets/css/kidz.css"
-	id="option_style" rel="stylesheet">
+        .list-item p {
+            margin: 0;
+        }
 
-<!-- Favicon -->
-<link href="<%=request.getContextPath()%>/assets/img/favicon.png"
-	rel="shortcut icon">
+        .simple-pagination ul {
+            margin: 0 0 20px;
+            padding: 0;
+            list-style: none;
+            text-align: center;
+        }
+
+        .simple-pagination li {
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+        .simple-pagination li a,
+        .simple-pagination li span {
+            color: #666;
+            padding: 5px 10px;
+            text-decoration: none;
+            border: 1px solid #EEE;
+            background-color: #FFF;
+            box-shadow: 0px 0px 10px 0px #EEE;
+        }
+
+        .simple-pagination .current {  //改顏色
+            color: #FFF;
+            background-color: #FF7182;
+            border-color: #FF7182;
+        }
+
+        .simple-pagination .prev.current,
+        .simple-pagination .next.current {
+            background: #e04e60;
+        }
+
+</style>
+
 
 </head>
 
 <body id="body" class="up-scroll" data-spy="scroll"
 	data-target=".element-right-sidebar">
-  <!-- ====================================
-  ——— HEADER
-  ===================================== -->
-    <header class="header main-wrapper" id="pageTop">
-        <!-- Top Color Bar -->
+ <jsp:include page="/front-end/header.jsp" flush="true" />
 
 
-        <!-- Top Bar-->
-        <!-- d-none d-md-block -->
-        <div class=" bg-stone  top-bar">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-7 d-none d-lg-block">
-                    </div>
-
-                    <div class="col-lg-5">
-                        <ul
-                            class="list-inline d-flex mb-0 justify-content-xl-end justify-content-center align-items-center mr-xl-2">
-
-                            <c:choose>
-                                <c:when test="${userVO == null}">
-                                    <li class="text-white mr-md-3 mr-lg-2 mr-xl-5">
-                                        <img src="<%=request.getContextPath()%>/assets/img/login4.png" width="30px"
-                                            height="30px" style="border-radius:100%; magin-right:20px">
-                                        <a class="text-white font-weight-medium opacity-80"
-                                            href="<%=request.getContextPath()%>/front-end/login.jsp"> Login or Create an
-                                            account
-                                        </a>
-                                    </li>
-                                </c:when>
-                                <c:otherwise>
-                                    <li class="text-white mr-md-3 mr-lg-2 mr-xl-5">
-                                        <div data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                            data-display="static">
-                                            <img src="<%=request.getContextPath()%>/assets/img/user.png" width="30px"
-                                                height="30px" style="border-radius:100%; magin-right:20px">
-                                            <!--                                			 加herf連結至個人頁面 -->
-                                            <a class="text-white font-weight-medium opacity-80"> ${userVO.name}</a>
-                                            <a href="javascript:void(0)">
-                                                <span
-                                                    class="rounded-sm bg-pink icon-small icon-badge d-none close-icon">
-                                                    <i class="fa fa-close text-white" aria-hidden="true"></i>
-                                                </span>
-                                            </a>
-                                        </div>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <ul class="bg-white list-unstyled">
-                                                <a href="product-single.html">
-                                                    <li>
-                                                        <div class="media">
-                                                            <div class="media-body">
-                                                                <div class="d-flex justify-content-between">
-                                                                    <h4 class="text-dark">Profile</h4>
-
-                                                                </div>
-                                                            </div>
-                                                            <hr>
-                                                    </li>
-                                                </a>
-                                                <hr>
-                                                <a href="<%=request.getContextPath()%>/front-end/chat/index.jsp">
-                                                    <li>
-                                                        <div class="media">
-                                                            <div class="media-body">
-                                                                <div class="d-flex justify-content-between">
-                                                                    <h4 class="text-dark">Message</h4>
-
-                                                                </div>
-                                                            </div>
-                                                            <hr>
-                                                    </li>
-                                                </a>
-                                                <hr>
-
-                                                <a href="<%=request.getContextPath()%>/MemberLogout">
-                                                    <div>
-                                                        <p class="media">
-                                                            <div class="media-body">
-                                                                <div class="d-flex justify-content-between">
-                                                                    <h4 class="text-dark">Logout</h4>
-
-                                                                </div>
-                                                        </div>
-                                                    </li>
-                                                </a>
-
-                                            </ul>
-                                        </div>
-                                    </li>
-                                </c:otherwise>
-                            </c:choose>
-
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
+<!-- 		<h4>此頁練習採用 EL 的寫法取值:</h4> -->
+<!-- 		<table id="table-1"> -->
+<!-- 			<tr> -->
+<!-- 				<td> -->
+<!-- 					<h3>所有部落格收藏資料 - listAllBlog_Save.jsp</h3> -->
+<!-- 					<h4> -->
+<!-- 						<a -->
+<%-- 							href="<%=request.getContextPath()%>/front-end/blog/select_page.jsp">回首頁 --%>
+<!-- 						</a> -->
+<!-- 					</h4> -->
+<!-- 				</td> -->
+<!-- 			</tr> -->
+<!-- 		</table> -->
 
 
-        <!-- Navbar -->
-        <nav class="navbar navbar-expand-md navbar-scrollUp navbar-sticky navbar-white">
-            <div class="container">
-                <a class="navbar-brand" href="index.html"> <img class="d-inline-block"
-                        src="<%=request.getContextPath()%>/assets/img/gympayz2.png">
-                </a>
+<%-- 		<%-- 錯誤表列 --%> 
+<%-- 		<c:if test="${not empty errorMsgs}"> --%>
+<!-- 			<font style="color: red">請修正以下錯誤:</font> -->
+<!-- 			<ul> -->
+<%-- 				<c:forEach var="message" items="${errorMsgs}"> --%>
+<%-- 					<li style="color: red">${message}</li> --%>
+<%-- 				</c:forEach> --%>
+<!-- 			</ul> -->
+<%-- 		</c:if> --%>
+
+<!-- 		<table> -->
+<!-- 			<tr> -->
+<!-- 				<th>文章收藏編號</th> -->
+<!-- 				<th>一般會員編號</th> -->
+<!-- 				<th>文章編號</th> -->
+<!-- 				<th>收藏狀態</th> -->
+<!-- 				<th>收藏日期</th> -->
+<!-- 				<th>更新日期</th> -->
+<!-- 				<th>修改</th> -->
+<!-- 				<th>刪除</th> -->
+<!-- 			</tr> -->
+<%-- 			<%-- 	<%@ include file="page1.file" %>  --%> 
+
+<%-- 			<%-- 	<c:forEach var="blog_SaveVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>"> --%>
+<%-- 			<c:forEach var="blog_SaveVO" items="${userSaveList}"> --%>
+
+<!-- 				<tr> -->
+<%-- 					<td>${blog_SaveVO.blogSaveno}</td> --%>
+<%-- 					<td>${blog_SaveVO.memberId}</td> --%>
+<%-- 					<td>${blog_SaveVO.blogno}</td> --%>
+<%-- 					<td>${blog_SaveVO.status}</td> --%>
+<%-- 					<td>${blog_SaveVO.saveDate}</td> --%>
+<%-- 					<td>${blog_SaveVO.updateTime}</td> --%>
 
 
-
-                <button class="navbar-toggler py-2" type="button" data-toggle="collapse" data-target="#navbarContent"
-                    aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <i class="fa fa-bars"></i>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarContent">
-                    <ul class="navbar-nav ml-lg-auto">
-                        <li class="nav-item dropdown bg-warning"><a class="nav-link dropdown-toggle "
-                                href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false">
-                                <i class="fa fa-home nav-icon" aria-hidden="true"></i> <span>Home</span>
-                            </a></li>
-
-                        <li class="nav-item dropdown bg-pink"><a class="nav-link dropdown-toggle "
-                                href="component-default.html">
-                                <i class="fa fa-pencil-square-o nav-icon" aria-hidden="true"></i>
-                                <span>News</span>
-                            </a></li>
-
-                        <li class="nav-item dropdown bg-danger"><a class="nav-link dropdown-toggle "
-                                href="javascript:void(0)" role="button"> <i class="fa fa-list-ul nav-icon"
-                                    aria-hidden="true"></i> <span>Schedule</span>
-                            </a></li>
-                        <li class="nav-item dropdown mega-dropdown bg-success"><a class="nav-link dropdown-toggle "
-                                href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-file-text-o nav-icon" aria-hidden="true"></i> <span>Courses</span>
-                            </a></li>
-                        <li class="nav-item dropdown bg-info"><a class="nav-link dropdown-toggle "
-                                href="javascript:void(0)" id="stores" role="button" aria-haspopup="true"
-                                aria-expanded="false"> <i class="fa fa-pencil-square-o nav-icon" aria-hidden="true"></i>
-                                <span>Store</span>
-                            </a></li>
-
-                        <li class="nav-item dropdown bg-purple">
-                            <a class="nav-link dropdown-toggle "
-                                href="<%=request.getContextPath()%>/front-end/blog/listAllBlog.jsp" id="stores"
-                                role="button" aria-haspopup="true" aria-expanded="false"> <i
-                                    class="fa fa-calendar nav-icon" aria-hidden="true"></i> <span>Blog</span>
-                            </a>
-                        </li>
-
-                        <li class="nav-item dropdown bg-pink"><a class="nav-link dropdown-toggle "
-                                href="component-default.html">
-                                <i class="fa fa-home nav-icon" aria-hidden="true"></i> <span>Contact
-                                    us</span>
-                            </a></li>
-
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="main-wrapper blog-single-left-sidebar">
-
-
-        <!-- ====================================
-  ———	BREADCRUMB
-  ===================================== -->
-        <section class="breadcrumb-bg"
-            style="background-image: url(<%=request.getContextPath()%>/assets/img/background/headerpic2.png);">
-            <div class="container">
-                <div class="breadcrumb-holder">
-                    <div>
-                        <h1 class="breadcrumb-title">Gympayz</h1>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
-		<h4>此頁練習採用 EL 的寫法取值:</h4>
-		<table id="table-1">
-			<tr>
-				<td>
-					<h3>所有部落格收藏資料 - listAllBlog_Save.jsp</h3>
-					<h4>
-						<a
-							href="<%=request.getContextPath()%>/front-end/blog/select_page.jsp">回首頁
-						</a>
-					</h4>
-				</td>
-			</tr>
-		</table>
-
-
-		<%-- 錯誤表列 --%>
-		<c:if test="${not empty errorMsgs}">
-			<font style="color: red">請修正以下錯誤:</font>
-			<ul>
-				<c:forEach var="message" items="${errorMsgs}">
-					<li style="color: red">${message}</li>
-				</c:forEach>
-			</ul>
-		</c:if>
-
-		<table>
-			<tr>
-				<th>文章收藏編號</th>
-				<th>一般會員編號</th>
-				<th>文章編號</th>
-				<th>收藏狀態</th>
-				<th>收藏日期</th>
-				<th>更新日期</th>
-				<th>修改</th>
-				<th>刪除</th>
-			</tr>
-			<%-- 	<%@ include file="page1.file" %>  --%>
-
-			<%-- 	<c:forEach var="blog_SaveVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>"> --%>
-			<c:forEach var="blog_SaveVO" items="${userSaveList}">
-
-				<tr>
-					<td>${blog_SaveVO.blogSaveno}</td>
-					<td>${blog_SaveVO.memberId}</td>
-					<td>${blog_SaveVO.blogno}</td>
-					<td>${blog_SaveVO.status}</td>
-					<td>${blog_SaveVO.saveDate}</td>
-					<td>${blog_SaveVO.updateTime}</td>
-
-
-					<td>
-						<FORM METHOD="post"
-							ACTION="<%=request.getContextPath()%>/blog_Save/Blog_SaveServlet"
-							style="margin-bottom: 0px;">
-							<input type="submit" value="修改"> <input type="hidden"
-								name="blogSaveno" value="${blog_SaveVO.blogSaveno}"> <input
-								type="hidden" name="action" value="getOne_For_Update">
-						</FORM>
-					</td>
-					<td>
-						<FORM METHOD="post"
-							ACTION="<%=request.getContextPath()%>/blog_Save/Blog_SaveServlet"
-							style="margin-bottom: 0px;">
-							<input type="submit" value="刪除"> <input type="hidden"
-								name="blogSaveno" value="${blog_SaveVO.blogSaveno}"> <input
-								type="hidden" name="action" value="delete">
-						</FORM>
-					</td>
-				</tr>
-			</c:forEach>
-		</table>
+<!-- 					<td> -->
+<!-- 						<FORM METHOD="post" -->
+<%-- 							ACTION="<%=request.getContextPath()%>/blog_Save/Blog_SaveServlet" --%>
+<!-- 							style="margin-bottom: 0px;"> -->
+<!-- 							<input type="submit" value="修改"> <input type="hidden" -->
+<%-- 								name="blogSaveno" value="${blog_SaveVO.blogSaveno}"> <input --%>
+<!-- 								type="hidden" name="action" value="getOne_For_Update"> -->
+<!-- 						</FORM> -->
+<!-- 					</td> -->
+<!-- 					<td> -->
+<!-- 						<FORM METHOD="post" -->
+<%-- 							ACTION="<%=request.getContextPath()%>/blog_Save/Blog_SaveServlet" --%>
+<!-- 							style="margin-bottom: 0px;"> -->
+<!-- 							<input type="submit" value="刪除"> <input type="hidden" -->
+<%-- 								name="blogSaveno" value="${blog_SaveVO.blogSaveno}"> <input --%>
+<!-- 								type="hidden" name="action" value="delete"> -->
+<!-- 						</FORM> -->
+<!-- 					</td> -->
+<!-- 				</tr> -->
+<%-- 			</c:forEach> --%>
+<!-- 		</table> -->
 		<%-- <%@ include file="page2.file" %> --%>
 
 		<!-- ====================================
@@ -332,7 +172,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-8 col-lg-9 order-md-1">
-						<div class="row">
+						<div class="row list-wrapper">
 
 							<jsp:useBean id="blogSvc" scope="page"
 								class="com.blog.model.BlogService" />
@@ -341,7 +181,8 @@
 							<jsp:useBean id="blogmesSvc" scope="page"
 								class="com.blog_mes.model.Blog_MesService" />
 							<c:forEach var="blogSaveVO" items="${userSaveList}">
-								<div class="col-md-6 col-lg-4">
+								
+								<div class="col-md-6 col-lg-4 list-item">
 									<div class="card">
 										<div class="position-relative">
 											<c:choose>
@@ -393,7 +234,7 @@
 														Comments
 												</a></li>
 											</ul>
-											<p class="mb-2">${blogSvc.getOneBlog(blogSaveVO.blogno).getText()}</p>
+											<p class="mb-2" id="ellipsis">${blogSvc.getOneBlog(blogSaveVO.blogno).getText()}</p>
 											<%-- 											<p class="mb-2">${blogVO.text}</p> --%>
 											<a class="btn btn-link text-hover-warning pl-0"
 												href="blog-single.html"> <i
@@ -405,21 +246,6 @@
 								</div>
 							</c:forEach>
 
-							<div class="col-md-6 col-lg-4"></div>
-
-							<div class="col-md-6 col-lg-4"></div>
-
-							<div class="col-md-6 col-lg-4"></div>
-
-							<div class="col-md-6 col-lg-4"></div>
-
-							<div class="col-md-6 col-lg-4"></div>
-
-							<div class="col-md-6 col-lg-4"></div>
-
-							<div class="col-md-6 col-lg-4"></div>
-
-							<div class="col-md-6 col-lg-4"></div>
 						</div>
 					</div>
 
@@ -488,105 +314,56 @@
 				<!-- ====================================
 ———	PAGINATION
 ===================================== -->
-				<section class="py-5">
-					<div class="container">
-						<nav aria-label="Page navigation example">
-							<nav aria-label="Page navigation example">
-								<ul class="pagination justify-content-center align-items-center">
-									<li class="page-item"><a class="page-link" href="#"> <i
-											class="fa fa-arrow-left mr-1" aria-hidden="true"></i> Prev
-									</a></li>
-									<li class="page-item"><a class="page-link" href="#">1</a></li>
-									<li class="page-item"><a class="page-link" href="#">2</a></li>
-									<li class="page-item"><a class="page-link" href="#">3</a></li>
-									<li class="page-item"><a class="page-link" href="#">...</a></li>
-									<li class="page-item"><a class="page-link" href="#">15</a></li>
-									<li class="page-item"><a class="page-link" href="#">
-											Next <i class="fa fa-arrow-right ml-1" aria-hidden="true"></i>
-									</a></li>
-								</ul>
-							</nav>
-						</nav>
-					</div>
-				</section>
+<div id="pagination-container"></div>
+<!-- 				<section class="py-5"> -->
+<!-- 					<div class="container"> -->
+<!-- 						<nav aria-label="Page navigation example"> -->
+<!-- 							<nav aria-label="Page navigation example"> -->
+<!-- 								<ul class="pagination justify-content-center align-items-center"> -->
+<!-- 									<li class="page-item"><a class="page-link" href="#"> <i -->
+<!-- 											class="fa fa-arrow-left mr-1" aria-hidden="true"></i> Prev -->
+<!-- 									</a></li> -->
+<!-- 									<li class="page-item"><a class="page-link" href="#">1</a></li> -->
+<!-- 									<li class="page-item"><a class="page-link" href="#">2</a></li> -->
+<!-- 									<li class="page-item"><a class="page-link" href="#">3</a></li> -->
+<!-- 									<li class="page-item"><a class="page-link" href="#">...</a></li> -->
+<!-- 									<li class="page-item"><a class="page-link" href="#">15</a></li> -->
+<!-- 									<li class="page-item"><a class="page-link" href="#"> -->
+<!-- 											Next <i class="fa fa-arrow-right ml-1" aria-hidden="true"></i> -->
+<!-- 									</a></li> -->
+<!-- 								</ul> -->
+<!-- 							</nav> -->
+<!-- 						</nav> -->
+<!-- 					</div> -->
+<!-- 				</section> -->
 
-			</div>
-		</section>
+<!-- 			</div> -->
+<!-- 		</section> -->
 
 	</div>
 	<!-- element wrapper ends -->
+	<script >
+	
+	var items = $(".list-wrapper .list-item");
+    var numItems = items.length;
+    var perPage = 9;  //列9筆
+    items.slice(perPage).hide();
 
-    <!-- ====================================
-      ———	FOOTER
-      ===================================== -->
-    <footer class="footer-bg-img">
-        <!-- Footer Color Bar -->
+    $('#pagination-container').pagination({
+        items: numItems,
+        itemsOnPage: perPage,
+        prevText: "&laquo;",
+        nextText: "&raquo;",
+        onPageClick: function (pageNumber) {
+            var showFrom = perPage * (pageNumber - 1);
+            var showTo = showFrom + perPage;
+            items.hide().slice(showFrom, showTo).show();
+        }
+    });
+	
+	</script>
 
-
-        <!-- Copy Right -->
-        <div class="copyright">
-            <div class="container">
-                <div class="row py-4 align-items-center">
-                    <div class="col-sm-7 col-xs-12 order-1 order-md-0">
-                        <p class="copyright-text"> © 2020 Copyright Gympayz by TEA101G4. <a
-                                href="http://www.iamabdus.com/" target="_blank"></a></p>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </footer>
-
-
-
-	<!--scrolling-->
-	<div class="scrolling">
-		<a href="#pageTop" class="back-to-top" id="back-to-top"
-			style="opacity: 1;"> <i class="fa fa-arrow-up" aria-hidden="true"></i>
-		</a>
-	</div>
-
-	<!-- Javascript -->
-	<script
-		src="<%=request.getContextPath()%>/assets/plugins/jquery/jquery.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/assets/plugins/owl-carousel/owl.carousel.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/assets/plugins/fancybox/jquery.fancybox.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/assets/plugins/isotope/isotope.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/assets/plugins/syotimer/jquery.syotimer.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/assets/plugins/select2/js/select2.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/assets/plugins/no-ui-slider/nouislider.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/assets/plugins/lazyestload/lazyestload.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/assets/plugins/velocity/velocity.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/assets/plugins/images-loaded/js/imagesloaded.pkgd.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/assets/plugins/revolution/js/jquery.themepunch.tools.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/assets/plugins/revolution/js/jquery.themepunch.revolution.min.js"></script>
-
-	<!-- Load revolution slider only on Local File Systems. The following part can be removed on Server -->
-	<!-- 
-<script src="<%=request.getContextPath()%>/assets/plugins/revolution/js/extensions/revolution.extension.slideanims.min.js"></script>
-<script src="<%=request.getContextPath()%>/assets/plugins/revolution/js/extensions/revolution.extension.layeranimation.min.js"></script>
-<script src="<%=request.getContextPath()%>/assets/plugins/revolution/js/extensions/revolution.extension.navigation.min.js"></script> 
--->
-
-	<script
-		src="<%=request.getContextPath()%>/assets/plugins/wow/wow.min.js"></script>
-	<script
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDU79W1lu5f6PIiuMqNfT1C6M0e_lq1ECY"></script>
-
-	<script src="<%=request.getContextPath()%>/assets/js/kidz.js"></script>
+	<jsp:include page="/front-end/footer.jsp" flush="true" />
 </body>
 
 </html>

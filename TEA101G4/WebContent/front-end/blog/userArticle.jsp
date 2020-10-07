@@ -18,242 +18,80 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>我的文章 - userArcitle.jsp</title>
+<style >
 
-<!-- Site Tittle -->
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+#ellipsis {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 1; /*最多顯示5行*/
+            -webkit-box-orient: vertical;
+            white-space: normal;
+        }
+        
+ .list-wrapper {
+            padding: 15px;
+            overflow: hidden;
+        }
 
+        .list-item {
+            border: 1px solid #EEE;
+            background: #FFF;
+            margin-bottom: 10px;
+            padding: 10px;
+            box-shadow: 0px 0px 10px 0px #EEE;
+        }
 
-<!-- Plugins css Style -->
-<link
-	href="<%=request.getContextPath()%>/assets/plugins/font-awesome/css/font-awesome.min.css"
-	rel="stylesheet">
-<link
-	href="<%=request.getContextPath()%>/assets/plugins/no-ui-slider/nouislider.min.css"
-	rel="stylesheet" />
-<link
-	href="<%=request.getContextPath()%>/assets/plugins/owl-carousel/owl.carousel.min.css"
-	rel="stylesheet" media="screen">
-<link
-	href="<%=request.getContextPath()%>/assets/plugins/owl-carousel/owl.theme.default.min.css"
-	rel="stylesheet" media="screen">
-<link
-	href="<%=request.getContextPath()%>/assets/plugins/fancybox/jquery.fancybox.min.css"
-	rel="stylesheet" />
-<link
-	href="<%=request.getContextPath()%>/assets/plugins/isotope/isotope.min.css"
-	rel="stylesheet" />
-<link
-	href="<%=request.getContextPath()%>/assets/plugins/animate/animate.css"
-	rel="stylesheet">
-<link
-	href="<%=request.getContextPath()%>/assets/plugins/select2/css/select2.min.css"
-	rel="stylesheet">
-<link
-	href="<%=request.getContextPath()%>/assets/plugins/revolution/css/settings.css"
-	rel="stylesheet">
-<link
-	href="<%=request.getContextPath()%>/assets/plugins/revolution/css/layers.css"
-	rel="stylesheet">
-<link
-	href="<%=request.getContextPath()%>/assets/plugins/revolution/css/navigation.css"
-	rel="stylesheet">
+        .list-item h4 {
+            color: #FF7182;
+            font-size: 18px;
+            margin: 0 0 5px;
+        }
 
-<!-- Fonts -->
-<link
-	href="https://fonts.googleapis.com/css?family=Dosis:300,400,600,700|Open+Sans:300,400,600,700"
-	rel="stylesheet">
+        .list-item p {
+            margin: 0;
+        }
 
-<!-- Custom css -->
-<link href="<%=request.getContextPath()%>/assets/css/kidz.css"
-	id="option_style" rel="stylesheet">
+        .simple-pagination ul {
+            margin: 0 0 20px;
+            padding: 0;
+            list-style: none;
+            text-align: center;
+        }
 
-<!-- Favicon -->
-<link href="<%=request.getContextPath()%>/assets/img/favicon.png"
-	rel="shortcut icon">
+        .simple-pagination li {
+            display: inline-block;
+            margin-right: 5px;
+        }
 
+        .simple-pagination li a,
+        .simple-pagination li span {
+            color: #666;
+            padding: 5px 10px;
+            text-decoration: none;
+            border: 1px solid #EEE;
+            background-color: #FFF;
+            box-shadow: 0px 0px 10px 0px #EEE;
+        }
+
+        .simple-pagination .current {  //改顏色
+            color: #FFF;
+            background-color: #FF7182;
+            border-color: #FF7182;
+        }
+
+        .simple-pagination .prev.current,
+        .simple-pagination .next.current {
+            background: #e04e60;
+        }
+
+</style>
 
 </head>
 <body id="body" class="up-scroll" data-spy="scroll"
 	data-target=".element-right-sidebar">
-  <!-- ====================================
-  ——— HEADER
-  ===================================== -->
-    <header class="header main-wrapper" id="pageTop">
-        <!-- Top Color Bar -->
-
-
-        <!-- Top Bar-->
-        <!-- d-none d-md-block -->
-        <div class=" bg-stone  top-bar">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-7 d-none d-lg-block">
-                    </div>
-
-                    <div class="col-lg-5">
-                        <ul
-                            class="list-inline d-flex mb-0 justify-content-xl-end justify-content-center align-items-center mr-xl-2">
-
-                            <c:choose>
-                                <c:when test="${userVO == null}">
-                                    <li class="text-white mr-md-3 mr-lg-2 mr-xl-5">
-                                        <img src="<%=request.getContextPath()%>/assets/img/login4.png" width="30px"
-                                            height="30px" style="border-radius:100%; magin-right:20px">
-                                        <a class="text-white font-weight-medium opacity-80"
-                                            href="<%=request.getContextPath()%>/front-end/login.jsp"> Login or Create an
-                                            account
-                                        </a>
-                                    </li>
-                                </c:when>
-                                <c:otherwise>
-                                    <li class="text-white mr-md-3 mr-lg-2 mr-xl-5">
-                                        <div data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                            data-display="static">
-                                            <img src="<%=request.getContextPath()%>/assets/img/user.png" width="30px"
-                                                height="30px" style="border-radius:100%; magin-right:20px">
-                                            <!--                                			 加herf連結至個人頁面 -->
-                                            <a class="text-white font-weight-medium opacity-80"> ${userVO.name}</a>
-                                            <a href="javascript:void(0)">
-                                                <span
-                                                    class="rounded-sm bg-pink icon-small icon-badge d-none close-icon">
-                                                    <i class="fa fa-close text-white" aria-hidden="true"></i>
-                                                </span>
-                                            </a>
-                                        </div>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <ul class="bg-white list-unstyled">
-                                                <a href="product-single.html">
-                                                    <li>
-                                                        <div class="media">
-                                                            <div class="media-body">
-                                                                <div class="d-flex justify-content-between">
-                                                                    <h4 class="text-dark">Profile</h4>
-
-                                                                </div>
-                                                            </div>
-                                                            <hr>
-                                                    </li>
-                                                </a>
-                                                <hr>
-                                                <a href="<%=request.getContextPath()%>/front-end/chat/index.jsp">
-                                                    <li>
-                                                        <div class="media">
-                                                            <div class="media-body">
-                                                                <div class="d-flex justify-content-between">
-                                                                    <h4 class="text-dark">Message</h4>
-
-                                                                </div>
-                                                            </div>
-                                                            <hr>
-                                                    </li>
-                                                </a>
-                                                <hr>
-
-                                                <a href="<%=request.getContextPath()%>/MemberLogout">
-                                                    <div>
-                                                        <p class="media">
-                                                            <div class="media-body">
-                                                                <div class="d-flex justify-content-between">
-                                                                    <h4 class="text-dark">Logout</h4>
-
-                                                                </div>
-                                                        </div>
-                                                    </li>
-                                                </a>
-
-                                            </ul>
-                                        </div>
-                                    </li>
-                                </c:otherwise>
-                            </c:choose>
-
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <!-- Navbar -->
-        <nav class="navbar navbar-expand-md navbar-scrollUp navbar-sticky navbar-white">
-            <div class="container">
-                <a class="navbar-brand" href="index.html"> <img class="d-inline-block"
-                        src="<%=request.getContextPath()%>/assets/img/gympayz2.png">
-                </a>
-
-
-
-                <button class="navbar-toggler py-2" type="button" data-toggle="collapse" data-target="#navbarContent"
-                    aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <i class="fa fa-bars"></i>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarContent">
-                    <ul class="navbar-nav ml-lg-auto">
-                        <li class="nav-item dropdown bg-warning"><a class="nav-link dropdown-toggle "
-                                href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false">
-                                <i class="fa fa-home nav-icon" aria-hidden="true"></i> <span>Home</span>
-                            </a></li>
-
-                        <li class="nav-item dropdown bg-pink"><a class="nav-link dropdown-toggle "
-                                href="component-default.html">
-                                <i class="fa fa-pencil-square-o nav-icon" aria-hidden="true"></i>
-                                <span>News</span>
-                            </a></li>
-
-                        <li class="nav-item dropdown bg-danger"><a class="nav-link dropdown-toggle "
-                                href="javascript:void(0)" role="button"> <i class="fa fa-list-ul nav-icon"
-                                    aria-hidden="true"></i> <span>Schedule</span>
-                            </a></li>
-                        <li class="nav-item dropdown mega-dropdown bg-success"><a class="nav-link dropdown-toggle "
-                                href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-file-text-o nav-icon" aria-hidden="true"></i> <span>Courses</span>
-                            </a></li>
-                        <li class="nav-item dropdown bg-info"><a class="nav-link dropdown-toggle "
-                                href="javascript:void(0)" id="stores" role="button" aria-haspopup="true"
-                                aria-expanded="false"> <i class="fa fa-pencil-square-o nav-icon" aria-hidden="true"></i>
-                                <span>Store</span>
-                            </a></li>
-
-                        <li class="nav-item dropdown bg-purple">
-                            <a class="nav-link dropdown-toggle "
-                                href="<%=request.getContextPath()%>/front-end/blog/listAllBlog.jsp" id="stores"
-                                role="button" aria-haspopup="true" aria-expanded="false"> <i
-                                    class="fa fa-calendar nav-icon" aria-hidden="true"></i> <span>Blog</span>
-                            </a>
-                        </li>
-
-                        <li class="nav-item dropdown bg-pink"><a class="nav-link dropdown-toggle "
-                                href="component-default.html">
-                                <i class="fa fa-home nav-icon" aria-hidden="true"></i> <span>Contact
-                                    us</span>
-                            </a></li>
-
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="main-wrapper blog-single-left-sidebar">
-
-
-        <!-- ====================================
-  ———	BREADCRUMB
-  ===================================== -->
-        <section class="breadcrumb-bg"
-            style="background-image: url(<%=request.getContextPath()%>/assets/img/background/headerpic2.png);">
-            <div class="container">
-                <div class="breadcrumb-holder">
-                    <div>
-                        <h1 class="breadcrumb-title">Gympayz</h1>
-                    </div>
-                </div>
-            </div>
-        </section>
+  <jsp:include page="/front-end/header.jsp" flush="true" />
 
 
 		<!-- ====================================
@@ -264,7 +102,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-8 col-lg-9 order-md-1">
-						<div class="row">
+						<div class="row list-wrapper">
 							<jsp:useBean id="memberSvc" scope="page"
 								class="com.member.model.MemberService" />
 
@@ -272,7 +110,8 @@
 								class="com.blog_mes.model.Blog_MesService" />
 								
 							<c:forEach var="blogVO" items="${list}">
-								<div class="col-md-6 col-lg-4">
+								<c:if test="${blogVO.status eq 'N' }">
+								<div class="col-md-6 col-lg-4 list-item">
 									<div class="card">
 										<div class="position-relative">
 											<c:choose>
@@ -320,7 +159,7 @@
 														Comments
 												</a></li>
 											</ul>
-											<p class="mb-2">${blogVO.text}</p>
+											<p class="mb-2" id="ellipsis">${blogVO.text}</p>
 											<a class="btn btn-link text-hover-warning pl-0"
 												href="<%=request.getContextPath()%>/blog/BlogServlet?action=getOne_For_Display&blogno=${blogVO.blogno}">
 												<i class="fa fa-angle-double-right mr-1" aria-hidden="true"></i>
@@ -329,23 +168,8 @@
 										</div>
 									</div>
 								</div>
+								</c:if>
 							</c:forEach>
-
-							<div class="col-md-6 col-lg-4"></div>
-
-							<div class="col-md-6 col-lg-4"></div>
-
-							<div class="col-md-6 col-lg-4"></div>
-
-							<div class="col-md-6 col-lg-4"></div>
-
-							<div class="col-md-6 col-lg-4"></div>
-
-							<div class="col-md-6 col-lg-4"></div>
-
-							<div class="col-md-6 col-lg-4"></div>
-
-							<div class="col-md-6 col-lg-4"></div>
 						</div>
 					</div>
 
@@ -401,9 +225,6 @@
 											我的文章
 										</a>
 									</li>
-									<li class="mt-2"><a
-										class="text-muted font-weight-medium d-block border rounded py-2 pl-3"
-										href="<%=request.getContextPath()%>/front-end/chat/index.jsp">訊息</a></li>
 								</ul>
 							</div>
 						</div>
@@ -426,101 +247,36 @@
 				<!-- ====================================
 ———	PAGINATION
 ===================================== -->
-				<section class="py-5">
-					<div class="container">
-						<nav aria-label="Page navigation example">
-							<nav aria-label="Page navigation example">
-								<ul class="pagination justify-content-center align-items-center">
-									<li class="page-item"><a class="page-link" href="#"> <i
-											class="fa fa-arrow-left mr-1" aria-hidden="true"></i> Prev
-									</a></li>
-									<li class="page-item"><a class="page-link" href="#">1</a></li>
-									<li class="page-item"><a class="page-link" href="#">2</a></li>
-									<li class="page-item"><a class="page-link" href="#">3</a></li>
-									<li class="page-item"><a class="page-link" href="#">...</a></li>
-									<li class="page-item"><a class="page-link" href="#">15</a></li>
-									<li class="page-item"><a class="page-link" href="#">
-											Next <i class="fa fa-arrow-right ml-1" aria-hidden="true"></i>
-									</a></li>
-								</ul>
-							</nav>
-						</nav>
-					</div>
-				</section>
+<div id="pagination-container"></div>
+<!-- 				<section class="py-5"> -->
+<!-- 					<div class="container"> -->
+<!-- 						<nav aria-label="Page navigation example"> -->
+<!-- 							<nav aria-label="Page navigation example"> -->
+<!-- 								<ul class="pagination justify-content-center align-items-center"> -->
+<!-- 									<li class="page-item"><a class="page-link" href="#"> <i -->
+<!-- 											class="fa fa-arrow-left mr-1" aria-hidden="true"></i> Prev -->
+<!-- 									</a></li> -->
+<!-- 									<li class="page-item"><a class="page-link" href="#">1</a></li> -->
+<!-- 									<li class="page-item"><a class="page-link" href="#">2</a></li> -->
+<!-- 									<li class="page-item"><a class="page-link" href="#">3</a></li> -->
+<!-- 									<li class="page-item"><a class="page-link" href="#">...</a></li> -->
+<!-- 									<li class="page-item"><a class="page-link" href="#">15</a></li> -->
+<!-- 									<li class="page-item"><a class="page-link" href="#"> -->
+<!-- 											Next <i class="fa fa-arrow-right ml-1" aria-hidden="true"></i> -->
+<!-- 									</a></li> -->
+<!-- 								</ul> -->
+<!-- 							</nav> -->
+<!-- 						</nav> -->
+<!-- 					</div> -->
+<!-- 				</section> -->
 
-			</div>
-		</section>
+<!-- 			</div> -->
+<!-- 		</section> -->
 
 	</div>
 	<!-- element wrapper ends -->
 	
-	    <!-- ====================================
-      ———	FOOTER
-      ===================================== -->
-    <footer class="footer-bg-img">
-        <!-- Footer Color Bar -->
 
-
-        <!-- Copy Right -->
-        <div class="copyright">
-            <div class="container">
-                <div class="row py-4 align-items-center">
-                    <div class="col-sm-7 col-xs-12 order-1 order-md-0">
-                        <p class="copyright-text"> © 2020 Copyright Gympayz by TEA101G4. <a
-                                href="http://www.iamabdus.com/" target="_blank"></a></p>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </footer>
-
-
-
-
-
-
-	<!-- Javascript -->
-	<script
-		src="<%=request.getContextPath()%>/assets/plugins/jquery/jquery.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/assets/plugins/owl-carousel/owl.carousel.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/assets/plugins/fancybox/jquery.fancybox.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/assets/plugins/isotope/isotope.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/assets/plugins/syotimer/jquery.syotimer.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/assets/plugins/select2/js/select2.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/assets/plugins/no-ui-slider/nouislider.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/assets/plugins/lazyestload/lazyestload.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/assets/plugins/velocity/velocity.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/assets/plugins/images-loaded/js/imagesloaded.pkgd.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/assets/plugins/revolution/js/jquery.themepunch.tools.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/assets/plugins/revolution/js/jquery.themepunch.revolution.min.js"></script>
-
-	<!-- Load revolution slider only on Local File Systems. The following part can be removed on Server -->
-	<!-- 
-<script src="<%=request.getContextPath()%>/assets/plugins/revolution/js/extensions/revolution.extension.slideanims.min.js"></script>
-<script src="<%=request.getContextPath()%>/assets/plugins/revolution/js/extensions/revolution.extension.layeranimation.min.js"></script>
-<script src="<%=request.getContextPath()%>/assets/plugins/revolution/js/extensions/revolution.extension.navigation.min.js"></script> 
--->
-
-	<script
-		src="<%=request.getContextPath()%>/assets/plugins/wow/wow.min.js"></script>
-	<script
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDU79W1lu5f6PIiuMqNfT1C6M0e_lq1ECY"></script>
-
-	<script src="<%=request.getContextPath()%>/assets/js/kidz.js"></script>
 	<script>
 		$(function(){
 			<c:if test="${not empty errorMsgs}"> 
@@ -529,7 +285,25 @@
 				</c:forEach>	
 			</c:if> 
 		});
+		
+		var items = $(".list-wrapper .list-item");
+        var numItems = items.length;
+        var perPage = 9;  //列9筆
+        items.slice(perPage).hide();
+
+        $('#pagination-container').pagination({
+            items: numItems,
+            itemsOnPage: perPage,
+            prevText: "&laquo;",
+            nextText: "&raquo;",
+            onPageClick: function (pageNumber) {
+                var showFrom = perPage * (pageNumber - 1);
+                var showTo = showFrom + perPage;
+                items.hide().slice(showFrom, showTo).show();
+            }
+        });
 	
 	</script>
+	<jsp:include page="/front-end/footer.jsp" flush="true" />
 </body>
 </html>

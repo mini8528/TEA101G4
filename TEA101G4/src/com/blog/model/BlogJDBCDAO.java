@@ -19,8 +19,10 @@ public class BlogJDBCDAO implements BlogDAO_interface {
 	private static final String GET_ONE_STMT = "SELECT blogno,memberid,blogclass,to_char(postdate,'yyyy-mm-dd hh24:mi:ss') postdate,title,text,status,to_char(updatetime,'yyyy-mm-dd hh24:mi:ss') updatetime FROM blog where blogno = ? order by blogno";
 	private static final String DELETE = "DELETE FROM blog where blogno = ?";
 	private static final String UPDATE = "UPDATE blog set memberid=?, blogclass=?, postdate=?, title=?, text=? , photo=?, video=?, status=?, updatetime=? where blogno = ?";
-	private static final String SEARCH_TITLE = "SELECT * FROM blog where title like ? order by blogno";
+	private static final String SEARCH_TITLE = "SELECT blogno,memberid,blogclass,to_char(postdate,'yyyy-mm-dd hh24:mi:ss') postdate,title,text,status,to_char(updatetime,'yyyy-mm-dd hh24:mi:ss') updatetime FROM blog where title like ? order by blogno";
 	private static final String GET_MEMBER_BLOG = "SELECT blogno,memberid,blogclass,to_char(postdate,'yyyy-mm-dd hh24:mi:ss') postdate,title,text,status,to_char(updatetime,'yyyy-mm-dd hh24:mi:ss') updatetime FROM blog where memberid = ? order by blogno";
+	private static final String UPDATE_STATUS = "UPDATE blog set status='Y' where blogno = ?";
+	
 	
 	@Override
 	public void insert(BlogVO blogVO) {
@@ -440,6 +442,47 @@ public class BlogJDBCDAO implements BlogDAO_interface {
 			}
 		}
 		return list;
+	}
+	
+	@Override
+	public void hideBlog(String blogno) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(UPDATE_STATUS);
+
+			pstmt.setString(1, blogno);
+
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
 	}
 	
 }

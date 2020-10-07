@@ -10,6 +10,7 @@ public interface BlogDAO_interface {
      public List<BlogVO> getAll();
 	 public List<BlogVO> searchTitle(String title);
 	 public List<BlogVO> findByMemberid(String memberId);
+	 public void hideBlog(String blogno);
     
 }
 

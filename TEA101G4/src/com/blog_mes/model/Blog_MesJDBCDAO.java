@@ -20,7 +20,7 @@ public class Blog_MesJDBCDAO implements Blog_MesDAO_interface {
 	private static final String DELETE = "DELETE FROM blog_mes where blogmesno = ?";
 	private static final String UPDATE = "UPDATE blog_mes set blogno=?, memberid=?, text=?, postdate=? , updatetime=?, status=? where blogmesno = ?";
 	private static final String GET_ONE_BLOGNO = "SELECT blogmesno,blogno,memberid,text,to_char(postdate,'yyyy-mm-dd hh24:mi:ss') postdate,to_char(updatetime,'yyyy-mm-dd hh24:mi:ss') updatetime,status FROM blog_mes where blogno = ? order by blogmesno";
-	
+	private static final String UPDATE_MES_STATUS = "UPDATE blog_mes set status='Y' where blogmesno = ?";
 	
 	@Override
 	public void insert(Blog_MesVO blogMesVO) {

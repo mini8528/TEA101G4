@@ -31,9 +31,13 @@ public class TestBlogService {
 		
 		
 //		//查全部
-		List<BlogVO> result = service.getAll();
-		for(BlogVO blogvo : result) {
-			System.out.println(blogvo);
-		}
+//		List<BlogVO> result = service.getAll();
+//		for(BlogVO blogvo : result) {
+//			System.out.println(blogvo);
+//		}
+		
+		service.hideBlog("B00027");
+		System.out.println("success");
+		
 	}
 }

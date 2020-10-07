@@ -18,250 +18,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- <title>文章資料 - listOneBlog.jsp</title> -->
-
-<!-- <!-- Site Tittle --> -->
-<!-- <meta charset="utf-8"> -->
-<!-- <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
-<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
-
-
-<!-- <!-- Plugins css Style --> -->
-<!-- <link -->
-<%-- 	href="<%=request.getContextPath()%>/assets/plugins/font-awesome/css/font-awesome.min.css" --%>
-<!-- 	rel="stylesheet"> -->
-<!-- <link -->
-<%-- 	href="<%=request.getContextPath()%>/assets/plugins/no-ui-slider/nouislider.min.css" --%>
-<!-- 	rel="stylesheet" /> -->
-<!-- <link -->
-<%-- 	href="<%=request.getContextPath()%>/assets/plugins/owl-carousel/owl.carousel.min.css" --%>
-<!-- 	rel="stylesheet" media="screen"> -->
-<!-- <link -->
-<%-- 	href="<%=request.getContextPath()%>/assets/plugins/owl-carousel/owl.theme.default.min.css" --%>
-<!-- 	rel="stylesheet" media="screen"> -->
-<!-- <link -->
-<%-- 	href="<%=request.getContextPath()%>/assets/plugins/fancybox/jquery.fancybox.min.css" --%>
-<!-- 	rel="stylesheet" /> -->
-<!-- <link -->
-<%-- 	href="<%=request.getContextPath()%>/assets/plugins/isotope/isotope.min.css" --%>
-<!-- 	rel="stylesheet" /> -->
-<!-- <link -->
-<%-- 	href="<%=request.getContextPath()%>/assets/plugins/animate/animate.css" --%>
-<!-- 	rel="stylesheet"> -->
-<!-- <link -->
-<%-- 	href="<%=request.getContextPath()%>/assets/plugins/select2/css/select2.min.css" --%>
-<!-- 	rel="stylesheet"> -->
-<!-- <link -->
-<%-- 	href="<%=request.getContextPath()%>/assets/plugins/revolution/css/settings.css" --%>
-<!-- 	rel="stylesheet"> -->
-<!-- <link -->
-<%-- 	href="<%=request.getContextPath()%>/assets/plugins/revolution/css/layers.css" --%>
-<!-- 	rel="stylesheet"> -->
-<!-- <link -->
-<%-- 	href="<%=request.getContextPath()%>/assets/plugins/revolution/css/navigation.css" --%>
-<!-- 	rel="stylesheet"> -->
-
-<!-- <!-- Fonts --> -->
-<!-- <link -->
-<!-- 	href="https://fonts.googleapis.com/css?family=Dosis:300,400,600,700|Open+Sans:300,400,600,700" -->
-<!-- 	rel="stylesheet"> -->
-
-<!-- <!-- Custom css --> -->
-<%-- <link href="<%=request.getContextPath()%>/assets/css/kidz.css" --%>
-<!-- 	id="option_style" rel="stylesheet"> -->
-
-<!-- <!-- Favicon --> -->
-<%-- <link href="<%=request.getContextPath()%>/assets/img/favicon.png" --%>
-<!-- 	rel="shortcut icon"> -->
-
-<!-- <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries --> -->
-<!-- <!-- WARNING: Respond.js doesn't work if you view the page via file:// --> -->
-<!-- <!--[if lt IE 9]> -->
-<!--   <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script> -->
-<!--   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script> -->
-<!-- <![endif]--> -->
 
 </head>
 
 <body id="body" class="up-scroll" data-spy="scroll"
 	data-target=".element-right-sidebar">
-<jsp:include page="../header.jsp" flush="true" />
-<!-- 	  <!-- ==================================== -->
-<!--   ——— HEADER -->
-<!--   ===================================== --> -->
-<!--     <header class="header main-wrapper" id="pageTop"> -->
-<!--         Top Color Bar -->
-
-
-<!--         Top Bar -->
-<!--         d-none d-md-block -->
-<!--         <div class=" bg-stone  top-bar"> -->
-<!--             <div class="container"> -->
-<!--                 <div class="row"> -->
-<!--                     <div class="col-lg-7 d-none d-lg-block"> -->
-<!--                     </div> -->
-
-<!--                     <div class="col-lg-5"> -->
-<!--                         <ul -->
-<!--                             class="list-inline d-flex mb-0 justify-content-xl-end justify-content-center align-items-center mr-xl-2"> -->
-
-<%--                             <c:choose> --%>
-<%--                                 <c:when test="${userVO == null}"> --%>
-<!--                                     <li class="text-white mr-md-3 mr-lg-2 mr-xl-5"> -->
-<%--                                         <img src="<%=request.getContextPath()%>/assets/img/login4.png" width="30px" --%>
-<!--                                             height="30px" style="border-radius:100%; magin-right:20px"> -->
-<!--                                         <a class="text-white font-weight-medium opacity-80" -->
-<%--                                             href="<%=request.getContextPath()%>/front-end/login.jsp"> Login or Create an --%>
-<!--                                             account -->
-<!--                                         </a> -->
-<!--                                     </li> -->
-<%--                                 </c:when> --%>
-<%--                                 <c:otherwise> --%>
-<!--                                     <li class="text-white mr-md-3 mr-lg-2 mr-xl-5"> -->
-<!--                                         <div data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" -->
-<!--                                             data-display="static"> -->
-<%--                                             <img src="<%=request.getContextPath()%>/assets/img/user.png" width="30px" --%>
-<!--                                                 height="30px" style="border-radius:100%; magin-right:20px"> -->
-<!--                                                                            			 加herf連結至個人頁面 -->
-<%--                                             <a class="text-white font-weight-medium opacity-80"> ${userVO.name}</a> --%>
-<!--                                             <a href="javascript:void(0)"> -->
-<!--                                                 <span -->
-<!--                                                     class="rounded-sm bg-pink icon-small icon-badge d-none close-icon"> -->
-<!--                                                     <i class="fa fa-close text-white" aria-hidden="true"></i> -->
-<!--                                                 </span> -->
-<!--                                             </a> -->
-<!--                                         </div> -->
-<!--                                         <div class="dropdown-menu dropdown-menu-right"> -->
-<!--                                             <ul class="bg-white list-unstyled"> -->
-<!--                                                 <a href="product-single.html"> -->
-<!--                                                     <li> -->
-<!--                                                         <div class="media"> -->
-<!--                                                             <div class="media-body"> -->
-<!--                                                                 <div class="d-flex justify-content-between"> -->
-<!--                                                                     <h4 class="text-dark">Profile</h4> -->
-
-<!--                                                                 </div> -->
-<!--                                                             </div> -->
-<!--                                                             <hr> -->
-<!--                                                     </li> -->
-<!--                                                 </a> -->
-<!--                                                 <hr> -->
-<%--                                                 <a href="<%=request.getContextPath()%>/front-end/chat/index.jsp"> --%>
-<!--                                                     <li> -->
-<!--                                                         <div class="media"> -->
-<!--                                                             <div class="media-body"> -->
-<!--                                                                 <div class="d-flex justify-content-between"> -->
-<!--                                                                     <h4 class="text-dark">Message</h4> -->
-
-<!--                                                                 </div> -->
-<!--                                                             </div> -->
-<!--                                                             <hr> -->
-<!--                                                     </li> -->
-<!--                                                 </a> -->
-<!--                                                 <hr> -->
-
-<%--                                                 <a href="<%=request.getContextPath()%>/MemberLogout"> --%>
-<!--                                                     <div> -->
-<!--                                                         <p class="media"> -->
-<!--                                                             <div class="media-body"> -->
-<!--                                                                 <div class="d-flex justify-content-between"> -->
-<!--                                                                     <h4 class="text-dark">Logout</h4> -->
-
-<!--                                                                 </div> -->
-<!--                                                         </div> -->
-<!--                                                     </li> -->
-<!--                                                 </a> -->
-
-<!--                                             </ul> -->
-<!--                                         </div> -->
-<!--                                     </li> -->
-<%--                                 </c:otherwise> --%>
-<%--                             </c:choose> --%>
-
-<!--                         </ul> -->
-<!--                     </div> -->
-<!--                 </div> -->
-<!--             </div> -->
-<!--         </div> -->
-
-
-<!--         Navbar -->
-<!--         <nav class="navbar navbar-expand-md navbar-scrollUp navbar-sticky navbar-white"> -->
-<!--             <div class="container"> -->
-<!--                 <a class="navbar-brand" href="index.html"> <img class="d-inline-block" -->
-<%--                         src="<%=request.getContextPath()%>/assets/img/gympayz2.png"> --%>
-<!--                 </a> -->
-
-
-
-<!--                 <button class="navbar-toggler py-2" type="button" data-toggle="collapse" data-target="#navbarContent" -->
-<!--                     aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation"> -->
-<!--                     <i class="fa fa-bars"></i> -->
-<!--                 </button> -->
-
-<!--                 <div class="collapse navbar-collapse" id="navbarContent"> -->
-<!--                     <ul class="navbar-nav ml-lg-auto"> -->
-<!--                         <li class="nav-item dropdown bg-warning"><a class="nav-link dropdown-toggle " -->
-<!--                                 href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" -->
-<!--                                 aria-expanded="false"> -->
-<!--                                 <i class="fa fa-home nav-icon" aria-hidden="true"></i> <span>Home</span> -->
-<!--                             </a></li> -->
-
-<!--                         <li class="nav-item dropdown bg-pink"><a class="nav-link dropdown-toggle " -->
-<!--                                 href="component-default.html"> -->
-<!--                                 <i class="fa fa-pencil-square-o nav-icon" aria-hidden="true"></i> -->
-<!--                                 <span>News</span> -->
-<!--                             </a></li> -->
-
-<!--                         <li class="nav-item dropdown bg-danger"><a class="nav-link dropdown-toggle " -->
-<!--                                 href="javascript:void(0)" role="button"> <i class="fa fa-list-ul nav-icon" -->
-<!--                                     aria-hidden="true"></i> <span>Schedule</span> -->
-<!--                             </a></li> -->
-<!--                         <li class="nav-item dropdown mega-dropdown bg-success"><a class="nav-link dropdown-toggle " -->
-<!--                                 href="#" role="button" aria-haspopup="true" aria-expanded="false"> -->
-<!--                                 <i class="fa fa-file-text-o nav-icon" aria-hidden="true"></i> <span>Courses</span> -->
-<!--                             </a></li> -->
-<!--                         <li class="nav-item dropdown bg-info"><a class="nav-link dropdown-toggle " -->
-<!--                                 href="javascript:void(0)" id="stores" role="button" aria-haspopup="true" -->
-<!--                                 aria-expanded="false"> <i class="fa fa-pencil-square-o nav-icon" aria-hidden="true"></i> -->
-<!--                                 <span>Store</span> -->
-<!--                             </a></li> -->
-
-<!--                         <li class="nav-item dropdown bg-purple"> -->
-<!--                             <a class="nav-link dropdown-toggle " -->
-<%--                                 href="<%=request.getContextPath()%>/front-end/blog/listAllBlog.jsp" id="stores" --%>
-<!--                                 role="button" aria-haspopup="true" aria-expanded="false"> <i -->
-<!--                                     class="fa fa-calendar nav-icon" aria-hidden="true"></i> <span>Blog</span> -->
-<!--                             </a> -->
-<!--                         </li> -->
-
-<!--                         <li class="nav-item dropdown bg-pink"><a class="nav-link dropdown-toggle " -->
-<!--                                 href="component-default.html"> -->
-<!--                                 <i class="fa fa-home nav-icon" aria-hidden="true"></i> <span>Contact -->
-<!--                                     us</span> -->
-<!--                             </a></li> -->
-
-<!--                     </ul> -->
-<!--                 </div> -->
-<!--             </div> -->
-<!--         </nav> -->
-<!--     </header> -->
-<!--     <div class="main-wrapper blog-single-left-sidebar"> -->
-
-
-<!--         ====================================
-<!--   ———	BREADCRUMB -->
-<!--   ===================================== --> -->
-<!--         <section class="breadcrumb-bg" -->
-<%--             style="background-image: url(<%=request.getContextPath()%>/assets/img/background/headerpic2.png);"> --%>
-<!--             <div class="container"> -->
-<!--                 <div class="breadcrumb-holder"> -->
-<!--                     <div> -->
-<!--                         <h1 class="breadcrumb-title">Gympayz</h1> -->
-<!--                     </div> -->
-<!--                 </div> -->
-<!--             </div> -->
-<!--         </section> -->
+<jsp:include page="/front-end/header.jsp" flush="true" />
 
 
 
@@ -322,15 +84,41 @@
 					<div class="col-md-8 col-lg-9 order-md-1">
 						<div class="card">
 							<div class="position-relative">
-							<span class="badge badge-rounded badge-warning"><fmt:formatDate
+							
+								<div>
+								<span class="badge badge-rounded badge-warning" style=" display: inline-block; margin-bottom: 10px"><fmt:formatDate
 													value="<%=blogVO.getPostDate()%>" pattern="MMM" /><br>
 												<fmt:formatDate value="<%=blogVO.getPostDate()%>"
-													pattern="d日" /></span></li><p><br>
+													pattern="d日" /></span></li>
+								
+								<c:if test="${userVO.memberid == blogVO.memberId }">
+								<div class="dropdown" style="display: inline-block; margin-left:650px; margin-bottom: 10px">
+								  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" style="background-color: #B5B5B5; border: #B5B5B5" aria-expanded="false" ><i class="fa fa-pencil-square-o" style="margin-right: 10px; font-size:20px"></i></a>
+								  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+								    <a class="dropdown-item" href="<%=request.getContextPath()%>//blog/BlogServlet?action=getOne_For_Update&blogno=${blogVO.blogno}" style="font-size:20px">編輯</a>
+								    <a class="dropdown-item" href="<%=request.getContextPath()%>//blog/BlogServlet?action=blog_Hide&blogno=${blogVO.blogno}" style="font-size:20px">刪除</a>
+								  </div>
+								</div>
+								</c:if>
+								</div>
+								
+								
+								
+<%-- 								<c:if test="${userVO.memberid == blogVO.memberId }"> --%>
+<!-- 								<div class="dropdown" style="display: inline-block; margin-left:750px"> -->
+<!-- 								  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">... </a> -->
+<!-- 								  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink"> -->
+<%-- 								    <a class="dropdown-item" href="<%=request.getContextPath()%>//blog/BlogServlet?action=getOne_For_Update&blogno=${blogVO.blogno}">編輯</a> --%>
+<%-- 								    <a class="dropdown-item" href="<%=request.getContextPath()%>//blog/BlogServlet?action=blog_Hide&blogno=${blogVO.blogno}">刪除</a> --%>
+<!-- 								  </div> -->
+<!-- 								</div> -->
+<%-- 								</c:if><br><br> --%>
+								
 								<c:choose>
 									<c:when test="${video == null}">
 										<img class="card-img-top"
 											src="<%=request.getContextPath()%>/blog/ShowPicture?blogno=${blogVO.blogno}"
-											alt="Card image cap">
+											alt="Card image cap"  width="700">
 									</c:when>
 									<c:otherwise>
 										<video class="card-img-top" width="847" controls
@@ -393,7 +181,7 @@
 								<c:choose>
 									<c:when test="${bloglikesSvc.getRecordStatus(blogVO.blogno, userVO.memberid) == null}">
 										<span id="showLike" span style="display: inline-block; margin-left:570px">
-											<svg width="2.5em" height="2.5em" viewBox="0 0 16 16" class="bi bi-suit-heart" id="heartlike" name="N" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+											<svg width="2.5em" height="2.5em" viewBox="0 0 16 16" class="bi bi-suit-heart" id="heartlike" name="N" fill="currentColor" xmlns="http://www.w3.org/2000/svg" >
 	  											<path fill-rule="evenodd" d="M8 6.236l.894-1.789c.222-.443.607-1.08 1.152-1.595C10.582 2.345 11.224 2 12 2c1.676 0 3 1.326 3 2.92 0 1.211-.554 2.066-1.868 3.37-.337.334-.721.695-1.146 1.093C10.878 10.423 9.5 11.717 8 13.447c-1.5-1.73-2.878-3.024-3.986-4.064-.425-.398-.81-.76-1.146-1.093C1.554 6.986 1 6.131 1 4.92 1 3.326 2.324 2 4 2c.776 0 1.418.345 1.954.852.545.515.93 1.152 1.152 1.595L8 6.236zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.55 7.55 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z"/>
 											</svg>
 										</span>
@@ -420,9 +208,11 @@
 									</span>
 								</c:when>
 								<c:otherwise>
-									<svg id="showSave" width="2.5em" height="2.5em" viewBox="0 0 16 16" class="bi bi-bookmark-heart-fill" id="collection" name="Y" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+									<span span id="showSave" style="display: inline-block; margin-left:30px">
+									<svg  width="2.5em" height="2.5em" viewBox="0 0 16 16" class="bi bi-bookmark-heart-fill" id="collection" name="Y" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 	  								<path fill-rule="evenodd" d="M4 0a2 2 0 0 0-2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4zm4 4.41c1.387-1.425 4.854 1.07 0 4.277C3.146 5.48 6.613 2.986 8 4.412z"/>
 									</svg>
+									</span>
 								</c:otherwise>
 								</c:choose>
 								</c:if>
@@ -488,7 +278,7 @@
 							<h3 class="mb-4 text-danger font-weight-bold">${blogmesSvc.getOneBlognoMes(blogVO.blogno).size()}
 								Comments
 							</h3>
-							action=insert
+<!-- 							action=insert -->
 							<c:forEach var="blog_MesVO" items="${list}"> 
 								<div class="media py-1">
 									<div class="mr-4">
@@ -499,7 +289,7 @@
 
 												<div class="media-body">
 													<span
-														class="mb-3 font-weight-medium text-muted d-inline-block">${memberSvc.getOneMember(blogVO.memberId).getName()}</span>
+														class="mb-3 font-weight-medium text-muted d-inline-block">${memberSvc.getOneMember(blog_MesVO.memberId).getName()}</span>
 													<time class="d-block text-muted font-size-13 mb-3">${blog_MesVO.postDate}</time>
 													<p class="font-size-13 line-hight-21">${blog_MesVO.text}</p>
 
@@ -521,8 +311,11 @@
 								<div class="row">
 									<div class="col-12 col-md-4">
 										<div class="form-group form-group-icon">
-											<i class="fa fa-user"></i> <input type="text" name="memberid"
-												class="form-control border-warning" value="${memberSvc.getOneMember(blogVO.memberId).getName()}"
+											<i class="fa fa-user"></i> <input type="text" name="memberid2"
+												class="form-control border-warning" value="${memberSvc.getOneMember(userVO.memberid).getName()}"
+												 readonly>
+												 <input type="hidden" name="memberid"
+												class="form-control border-warning" value="${userVO.memberid}"
 												 readonly>
 												
 										</div>
@@ -617,103 +410,6 @@
 	</div>
 	<!-- element wrapper ends -->
 
-<!-- 	<!-- ==================================== -->
-<!--       ———	FOOTER -->
-<!--       ===================================== --> -->
-<!-- 	<footer class="footer-bg-img"> -->
-
-
-
-<!-- 		<!-- Copy Right --> -->
-<!-- 		<div class="copyright"> -->
-<!-- 			<div class="container"> -->
-<!-- 				<div class="row py-4 align-items-center"> -->
-<!-- 					<div class="col-sm-7 col-xs-12 order-1 order-md-0"></div> -->
-
-<!-- 					<div class="col-sm-5 col-xs-12"> -->
-<!-- 						<ul -->
-<!-- 							class="list-inline d-flex align-items-center justify-content-md-end justify-content-center mb-md-0"> -->
-<!-- 							<li class="mr-3"><a -->
-<!-- 								class="icon-rounded-circle-small bg-warning" -->
-<!-- 								href="javascript:void(0)"> <i -->
-<!-- 									class="fa fa-facebook text-white" aria-hidden="true"></i> -->
-<!-- 							</a></li> -->
-<!-- 							<li class="mr-3"><a -->
-<!-- 								class="icon-rounded-circle-small bg-success" -->
-<!-- 								href="javascript:void(0)"> <i -->
-<!-- 									class="fa fa-twitter text-white" aria-hidden="true"></i> -->
-<!-- 							</a></li> -->
-<!-- 							<li class="mr-3"><a -->
-<!-- 								class="icon-rounded-circle-small bg-danger" -->
-<!-- 								href="javascript:void(0)"> <i -->
-<!-- 									class="fa fa-google-plus text-white" aria-hidden="true"></i> -->
-<!-- 							</a></li> -->
-<!-- 							<li class="mr-3"><a -->
-<!-- 								class="icon-rounded-circle-small bg-info" -->
-<!-- 								href="javascript:void(0)"> <i -->
-<!-- 									class="fa fa-pinterest-p text-white" aria-hidden="true"></i> -->
-<!-- 							</a></li> -->
-<!-- 							<li class=""><a class="icon-rounded-circle-small bg-purple" -->
-<!-- 								href="javascript:void(0)"> <i class="fa fa-vimeo text-white" -->
-<!-- 									aria-hidden="true"></i> -->
-<!-- 							</a></li> -->
-<!-- 						</ul> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-<!-- 	</footer> -->
-
-
-
-<!-- 	<!--scrolling--> -->
-<!-- 	<div class="scrolling"> -->
-<!-- 		<a href="#pageTop" class="back-to-top" id="back-to-top" -->
-<!-- 			style="opacity: 1;"> <i class="fa fa-arrow-up" aria-hidden="true"></i> -->
-<!-- 		</a> -->
-<!-- 	</div> -->
-
-<!-- 	<!-- Javascript --> -->
-<!-- 	<script -->
-<%-- 		src="<%=request.getContextPath()%>/assets/plugins/jquery/jquery.min.js"></script> --%>
-<!-- 	<script -->
-<%-- 		src="<%=request.getContextPath()%>/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script> --%>
-<!-- 	<script -->
-<%-- 		src="<%=request.getContextPath()%>/assets/plugins/owl-carousel/owl.carousel.min.js"></script> --%>
-<!-- 	<script -->
-<%-- 		src="<%=request.getContextPath()%>/assets/plugins/fancybox/jquery.fancybox.min.js"></script> --%>
-<!-- 	<script -->
-<%-- 		src="<%=request.getContextPath()%>/assets/plugins/isotope/isotope.min.js"></script> --%>
-<!-- 	<script -->
-<%-- 		src="<%=request.getContextPath()%>/assets/plugins/syotimer/jquery.syotimer.min.js"></script> --%>
-<!-- 	<script -->
-<%-- 		src="<%=request.getContextPath()%>/assets/plugins/select2/js/select2.min.js"></script> --%>
-<!-- 	<script -->
-<%-- 		src="<%=request.getContextPath()%>/assets/plugins/no-ui-slider/nouislider.min.js"></script> --%>
-<!-- 	<script -->
-<%-- 		src="<%=request.getContextPath()%>/assets/plugins/lazyestload/lazyestload.js"></script> --%>
-<!-- 	<script -->
-<%-- 		src="<%=request.getContextPath()%>/assets/plugins/velocity/velocity.min.js"></script> --%>
-<!-- 	<script -->
-<%-- 		src="<%=request.getContextPath()%>/assets/plugins/images-loaded/js/imagesloaded.pkgd.min.js"></script> --%>
-<!-- 	<script -->
-<%-- 		src="<%=request.getContextPath()%>/assets/plugins/revolution/js/jquery.themepunch.tools.min.js"></script> --%>
-<!-- 	<script -->
-<%-- 		src="<%=request.getContextPath()%>/assets/plugins/revolution/js/jquery.themepunch.revolution.min.js"></script> --%>
-
-<!-- 	<!-- Load revolution slider only on Local File Systems. The following part can be removed on Server --> -->
-<!-- 	<!--  -->
-<%-- <script src="<%=request.getContextPath()%>/assets/plugins/revolution/js/extensions/revolution.extension.slideanims.min.js"></script> --%>
-<%-- <script src="<%=request.getContextPath()%>/assets/plugins/revolution/js/extensions/revolution.extension.layeranimation.min.js"></script> --%>
-<%-- <script src="<%=request.getContextPath()%>/assets/plugins/revolution/js/extensions/revolution.extension.navigation.min.js"></script>  --%>
-<!-- --> -->
-
-<!-- 	<script -->
-<%-- 		src="<%=request.getContextPath()%>/assets/plugins/wow/wow.min.js"></script> --%>
-<!-- 	<script -->
-<!-- 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDU79W1lu5f6PIiuMqNfT1C6M0e_lq1ECY"></script> -->
-
-<%-- 	<script src="<%=request.getContextPath()%>/assets/js/kidz.js"></script> --%>
 	<script>
 	$(function(){
 		likeChange();
@@ -801,7 +497,7 @@
 		}
 				
 	</script>
-	<jsp:include page="../footer.jsp" flush="true" />
+	<jsp:include page="/front-end/footer.jsp" flush="true" />
 </body>
 
 </html>

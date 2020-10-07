@@ -19,20 +19,9 @@ public class ShowVideo extends HttpServlet {
 	private static final String GET_VIDEO = "SELECT VIDEO FROM BLOG WHERE BLOGNO = ?";
 
 
+	Connection con = null;
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
-		Connection con = null;
-		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
 
 		res.setContentType("video/mp4");
 		ServletOutputStream out = res.getOutputStream();
@@ -59,7 +48,7 @@ public class ShowVideo extends HttpServlet {
 			}
 			rs.close();
 			pstmt.close();
-			con.close();
+//			con.close();
 		} catch (Exception e) {
 			System.out.println(e);
 			System.out.println(req.getParameter("blogno").trim());
@@ -67,9 +56,19 @@ public class ShowVideo extends HttpServlet {
 	}
 
 	public void init() throws ServletException {
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		
 //		try {
-			
-			
 //			Context ctx = new javax.naming.InitialContext();
 //			DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
 //			con = ds.getConnection();
@@ -81,11 +80,11 @@ public class ShowVideo extends HttpServlet {
 	}
 
 	public void destroy() {
-//		try {
-//			if (con != null) con.close();
-//		} catch (SQLException e) {
-//			System.out.println(e);
-//		}
+		try {
+			if (con != null) con.close();
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
 	}
 
 }

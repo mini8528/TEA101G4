@@ -29,7 +29,7 @@ public class MemberLoginFilter implements Filter {
 		MemberVO userVO = (MemberVO) session.getAttribute("userVO");
 		if (userVO == null) {
 			session.setAttribute("location", req.getRequestURI());
-			System.out.println(req.getRequestURI());
+//			System.out.println(req.getRequestURI());
 			res.sendRedirect(req.getContextPath() + "/front-end/login.jsp");
 			return;
 		} else {

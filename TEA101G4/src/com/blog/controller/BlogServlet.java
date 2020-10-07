@@ -177,7 +177,7 @@ public class BlogServlet extends HttpServlet {
 					errorMsgs.add("內文請勿空白");
 				}
 
-				blogno = new String(req.getParameter("blogno").trim());
+				
 				BlogService blogSvc = new BlogService();
 				Part photo = req.getPart("photo");
 				InputStream in = photo.getInputStream();
@@ -248,7 +248,7 @@ public class BlogServlet extends HttpServlet {
 				errorMsgs.add("修改資料失敗:" + e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/blog/update_Blog_input.jsp");
 				failureView.forward(req, res);
-				System.out.println("update 其他錯誤");
+//				System.out.println("update 其他錯誤");
 				e.printStackTrace();
 			}
 		}
@@ -343,7 +343,7 @@ public class BlogServlet extends HttpServlet {
 				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/blog/addBlog.jsp");
 				failureView.forward(req, res);
 				e.printStackTrace();
-				System.out.println("其他錯誤處理");
+//				System.out.println("其他錯誤處理");
 			}
 		}
 
@@ -424,7 +424,7 @@ public class BlogServlet extends HttpServlet {
 				}
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
-				System.out.println(list);
+//				System.out.println(list);
 				req.setAttribute("list", list);
 				req.setAttribute("flag", "Y");
 				if (("健身影片").equals(blogClass)) {
@@ -492,7 +492,7 @@ public class BlogServlet extends HttpServlet {
 				}
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
-				System.out.println(list);
+//				System.out.println(list);
 				req.setAttribute("list", list);
 				req.setAttribute("flag", "Y");
 
@@ -510,7 +510,7 @@ public class BlogServlet extends HttpServlet {
 		}
 
 		if ("getUserSaveBlog".equals(action)) { // 來自select_page.jsp的請求
-			System.out.println("i am here");
+//			System.out.println("i am here");
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
@@ -528,7 +528,7 @@ public class BlogServlet extends HttpServlet {
 //					return;// 程式中斷
 //				}
 //				String memberId = userVO.getMemberid();
-				System.out.println(memberId);
+//				System.out.println(memberId);
 				if (memberId == null || memberId.trim().length() == 0) {
 					errorMsgs.add("請登入會員");
 				}
@@ -561,7 +561,7 @@ public class BlogServlet extends HttpServlet {
 				}
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
-				System.out.println(userSaveList);
+//				System.out.println(userSaveList);
 				req.setAttribute("userSaveList", userSaveList); 
 				String url = "/front-end/blog/listAllBlog.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
@@ -576,7 +576,7 @@ public class BlogServlet extends HttpServlet {
 		}
 		
 		if ("searchBlog".equals(action)) { // 來自select_page.jsp的請求
-			System.out.println("i am here");
+//			System.out.println("i am here");
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
@@ -633,6 +633,38 @@ public class BlogServlet extends HttpServlet {
 				/*************************** 其他可能的錯誤處理 *************************************/
 			} catch (Exception e) {
 				errorMsgs.add("無法取得資料:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/blog/listAllBlog.jsp");
+				failureView.forward(req, res);
+			}
+		}
+		
+		
+		if ("blog_Hide".equals(action)) { // 來自listAllEmp.jsp的請求
+
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				/*************************** 1.接收請求參數 ****************************************/
+				String blogno = req.getParameter("blogno");
+				
+
+				/*************************** 2.開始隱藏資料 ****************************************/
+				BlogService blogSvc = new BlogService();
+				blogSvc.hideBlog(blogno);
+				
+				
+
+				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
+				String url = "/front-end/blog/userArticle.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
+				successView.forward(req, res);
+
+				/*************************** 其他可能的錯誤處理 **********************************/
+			} catch (Exception e) {
+				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/blog/listAllBlog.jsp");
 				failureView.forward(req, res);
 			}

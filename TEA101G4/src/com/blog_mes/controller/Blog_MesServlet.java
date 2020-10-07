@@ -192,7 +192,7 @@ public class Blog_MesServlet extends HttpServlet {
 				errorMsgs.add("修改資料失敗:" + e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/blog_mes/update_Blog_Mes_input.jsp");
 				failureView.forward(req, res);
-				System.out.println("update 其他錯誤");
+//				System.out.println("update 其他錯誤");
 				e.printStackTrace();
 			}
 		}
@@ -260,7 +260,7 @@ public class Blog_MesServlet extends HttpServlet {
 				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/blog_mes/addBlog_Mes.jsp");
 				failureView.forward(req, res);
 				e.printStackTrace();
-				System.out.println("其他錯誤處理");
+//				System.out.println("其他錯誤處理");
 			}
 		}
 

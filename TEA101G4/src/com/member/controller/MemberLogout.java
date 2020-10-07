@@ -23,7 +23,8 @@ public class MemberLogout extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
 		HttpSession session = req.getSession();
-		session.removeAttribute("userVO");
+		session.invalidate();
+//		session.removeAttribute("userVO");
 		String url = req.getContextPath() + "/front-end/blog/listAllBlog.jsp"; 
 		res.sendRedirect(url);
 		

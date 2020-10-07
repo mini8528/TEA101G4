@@ -70,4 +70,16 @@ public class BlogService {
 	public List<BlogVO> getMemberBlog(String memberId){
 		return dao.findByMemberid(memberId);
 	}
+	
+	public void hideBlog(String blogno) {
+		dao.hideBlog(blogno);
+
+	}
+	
+	public BlogVO updateBlogVO(BlogVO blogVO) {	
+		dao.update(blogVO);
+		return blogVO;
+	}
+	
+	
 }
