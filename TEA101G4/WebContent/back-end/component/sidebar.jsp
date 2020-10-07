@@ -76,6 +76,20 @@
           </div>
         </div>
       </li>
+      	<!-- Blog -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFore" aria-expanded="true" aria-controls="collapseTwo">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>部落格管理</span>
+        </a>
+        <div id="collapseFore" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Custom Components:</h6>
+            <a class="collapse-item" href="<%=request.getContextPath()%>/back-end/cus/listAllCus.jsp">查詢全部管理員</a>
+            <a class="collapse-item" href="<%=request.getContextPath()%>/back-end/cus/addCus.jsp">新增客服</a>
+          </div>
+        </div>
+      </li>
       
       <!-- Nav Item - Utilities Collapse Menu -->
       <li class="nav-item">

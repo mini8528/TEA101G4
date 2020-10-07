@@ -25,55 +25,6 @@
 	data-target=".element-right-sidebar">
 <jsp:include page="/front-end/header.jsp" flush="true" />
 
-
-
-<!-- 		<table id="table-1"> -->
-<!-- 			<tr> -->
-<!-- 				<td> -->
-<!-- 					<h3>文章資料 - ListOneBlog.jsp</h3> -->
-<!-- 					<h4> -->
-<!-- 						<a -->
-<%-- 							href="<%=request.getContextPath()%>/front-end/blog/select_page.jsp">回首頁</a> --%>
-<!-- 					</h4> -->
-<!-- 				</td> -->
-<!-- 			</tr> -->
-<!-- 		</table> -->
-
-		<!-- 		<table> -->
-		<!-- 			<tr> -->
-		<!-- 				<th>文章編號</th> -->
-		<!-- 				<th>一般會員編號</th> -->
-		<!-- 				<th>文章分類</th> -->
-		<!-- 				<th>發文日期</th> -->
-		<!-- 				<th>標題</th> -->
-		<!-- 				<th>內文</th> -->
-		<!-- 				<th>照片</th> -->
-		<!-- 				<th>影片</th> -->
-		<!-- 				<th>文章狀態</th> -->
-		<!-- 				<th>更新日期</th> -->
-
-		<!-- 			</tr> -->
-		<!-- 			<tr> -->
-		<%-- 				<td><%=blogVO.getBlogno()%></td> --%>
-		<%-- 				<td><%=blogVO.getMemberId()%></td> --%>
-		<%-- 				<td><%=blogVO.getBlogClass()%></td> --%>
-		<%-- 				<td><%=blogVO.getPostDate()%></td> --%>
-		<%-- 				<td><%=blogVO.getTitle()%></td> --%>
-		<%-- 				<td><%=blogVO.getText()%></td> --%>
-		<!-- 				<td><img class="blog" width="400" -->
-		<%-- 					src="<%=request.getContextPath()%>/blog/ShowPicture?blogno=${blogVO.blogno}"></td> --%>
-		<!-- 				<td><video width="400" height="240" controls class="blog"> -->
-		<!-- 						<source -->
-		<%-- 							src="<%=request.getContextPath()%>/blog/ShowVideo?blogno=${blogVO.blogno}" --%>
-		<!-- 							type="video/mp4"> -->
-		<!-- 					</video></td> -->
-		<%-- 				<td><%=blogVO.getStatus()%></td> --%>
-		<%-- 				<td><%=blogVO.getUpdateTime()%></td> --%>
-
-		<!-- 			</tr> -->
-		<!-- 		</table> -->
-
-
 		<!-- ====================================
 ———	BLOG DETAILS
 ===================================== -->

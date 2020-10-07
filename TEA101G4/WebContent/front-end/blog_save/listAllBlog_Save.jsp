@@ -40,7 +40,7 @@
         }
 
         .list-item h4 {
-            color: #FF7182;
+            color: #2f3c43;
             font-size: 18px;
             margin: 0 0 5px;
         }
@@ -73,13 +73,13 @@
 
         .simple-pagination .current {  //改顏色
             color: #FFF;
-            background-color: #FF7182;
-            border-color: #FF7182;
+            background-color: #B5B5B5;
+            border-color: #B5B5B5;
         }
 
         .simple-pagination .prev.current,
         .simple-pagination .next.current {
-            background: #e04e60;
+            background: #2f3c43;
         }
 
 </style>

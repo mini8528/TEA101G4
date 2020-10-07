@@ -1,20 +1,20 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
-<%@ page import="com.blog_save.model.*"%>
+<%@ page import="com.blog_mes.model.*"%>
 
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 
 <%
-    Blog_SaveService blogsaveSvc = new Blog_SaveService();
-    List<Blog_SaveVO> list = blogsaveSvc.getAll();
+    Blog_MesService blogmesSvc = new Blog_MesService();
+    List<Blog_MesVO> list = blogmesSvc.getAll();
     pageContext.setAttribute("list",list);
 %>
 
 
 <html>
 <head>
-<title>所有部落格留言資料 - listAllBlog_Save.jsp</title>
+<title>所有部落格留言資料 - listAllBlog_Mes.jsp</title>
 
 <style>
   table#table-1 {
@@ -55,7 +55,7 @@
 <h4>此頁練習採用 EL 的寫法取值:</h4>
 <table id="table-1">
 	<tr><td>
-		 <h3>所有部落格收藏資料 - listAllBlog_Save.jsp</h3>
+		 <h3>所有部落格留言資料 - listAllBlog_Mes.jsp</h3>
 		 <h4><a href="select_page.jsp">回首頁</a></h4>
 	</td></tr>
 </table>
@@ -72,38 +72,39 @@
 
 <table>
 	<tr>
-		<th>文章收藏編號</th>
-		<th>一般會員編號</th>
+		<th>部落格留言編號</th>
 		<th>文章編號</th>
-		<th>收藏狀態</th>
-		<th>收藏日期</th>
+		<th>一般會員編號</th>
+		<th>留言內容</th>
+		<th>留言日期</th>
 		<th>更新日期</th>
+		<th>留言狀態</th>
 		<th>修改</th>
 		<th>刪除</th>
 	</tr>
 	<%@ include file="page1.file" %> 
 
-	<c:forEach var="blog_SaveVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+	<c:forEach var="blog_MesVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 	
 		<tr>
-			<td>${blog_SaveVO.blogSaveno}</td>
-			<td>${blog_SaveVO.memberId}</td>
-			<td>${blog_SaveVO.blogno}</td>
-			<td>${blog_SaveVO.status}</td>
-			<td>${blog_SaveVO.saveDate}</td>
-			<td>${blog_SaveVO.updateTime}</td>
-			
+			<td>${blog_MesVO.blogMesno}</td>
+			<td>${blog_MesVO.blogno}</td>
+			<td>${blog_MesVO.memberId}</td>
+			<td>${blog_MesVO.text}</td>
+			<td>${blog_MesVO.postDate}</td>
+			<td>${blog_MesVO.updateTime}</td>
+			<td>${blog_MesVO.status}</td>
 			
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/blog_Save/Blog_SaveServlet" style="margin-bottom: 0px;">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/blog_Mes/Blog_MesServlet" style="margin-bottom: 0px;">
 			     <input type="submit" value="修改">
-			     <input type="hidden" name="blogSaveno"  value="${blog_SaveVO.blogSaveno}">
+			     <input type="hidden" name="blogMesno"  value="${blog_MesVO.blogMesno}">
 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
 			</td>
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/blog_Save/Blog_SaveServlet" style="margin-bottom: 0px;">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/blog_Mes/Blog_MesServlet" style="margin-bottom: 0px;">
 			     <input type="submit" value="刪除">
-			     <input type="hidden" name="blogSaveno"  value="${blog_SaveVO.blogSaveno}">
+			     <input type="hidden" name="blogMesno"  value="${blog_MesVO.blogMesno}">
 			     <input type="hidden" name="action" value="delete"></FORM>
 			</td>
 		</tr>
