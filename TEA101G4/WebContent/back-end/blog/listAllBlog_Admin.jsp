@@ -140,7 +140,7 @@
 
       </div>
       <!-- End of Main Content -->
-<!-- -----------以下複製到虛線----------------------------以下複製到虛線------------------------- -->
+
       <!-- Footer -->
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">

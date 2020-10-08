@@ -85,8 +85,8 @@
         <div id="collapseFore" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Custom Components:</h6>
-            <a class="collapse-item" href="<%=request.getContextPath()%>/back-end/cus/listAllCus.jsp">查詢全部管理員</a>
-            <a class="collapse-item" href="<%=request.getContextPath()%>/back-end/cus/addCus.jsp">新增客服</a>
+            <a class="collapse-item" href="<%=request.getContextPath()%>/back-end/cus/listAllCus.jsp">文章管理</a>
+            <a class="collapse-item" href="<%=request.getContextPath()%>/back-end/cus/addCus.jsp">部落格留言管理</a>
           </div>
         </div>
       </li>
