@@ -13,7 +13,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-public class Blog_LikesJDBCDAO implements Blog_LikesDAO_interface {
+public class Blog_LikesDAO implements Blog_LikesDAO_interface {
 	
 	private static DataSource ds = null;
 	static {

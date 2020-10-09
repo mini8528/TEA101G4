@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +15,11 @@
 </head>
 <body onload="connect();" onunload="disconnect();">
 	<h3 id="statusOutput" class="statusOutput"></h3>
+	 <jsp:useBean id="ClassDetailSer" scope="page"
+	 class="com.classDetail.model.ClassDetailService" />
+	 <c:forEach var="coach" items="${ClassDetailSer.studentChat(userVO.memberid)}">
 	<div id="row"></div>
+	</c:forEach>
 	<div id="messagesArea" class="panel message-area" ></div>
 	<div class="panel input-area">
 		<input id="message" class="text-field" type="text" placeholder="Message" onkeydown="if (event.keyCode == 13) sendMessage();" /> 
@@ -22,7 +29,8 @@
 	</div>
 </body>
 <script>
-	var MyPoint = "/FriendWS/${userName}"; //EL NamesServlet setAttribute
+	
+	var MyPoint = "/FriendWS/${memberid}"; //EL NamesServlet setAttribute
 	var host = window.location.host;
 	var path = window.location.pathname;
 	var webCtx = path.substring(0, path.indexOf('/', 1));
@@ -30,7 +38,7 @@
 
 	var statusOutput = document.getElementById("statusOutput");
 	var messagesArea = document.getElementById("messagesArea");
-	var self = '${userName}';
+	var self = '${memberid}';
 	var webSocket;
 
 	function connect() {

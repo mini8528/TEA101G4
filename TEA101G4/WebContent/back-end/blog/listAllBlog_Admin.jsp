@@ -56,6 +56,62 @@
           <!-- Page Heading -->
     
 <div>
+<!-- 修改假資料 -->
+
+
+<!-- <table> -->
+<!-- 	<tr> -->
+<!-- 		<th>文章編號</th> -->
+<!-- 		<th>一般會員編號</th> -->
+<!-- 		<th>文章分類</th> -->
+<!-- 		<th>發文日期</th> -->
+<!-- 		<th>標題</th> -->
+<!-- 		<th>內文</th> -->
+<!-- <!-- 		<th>影片</th> -->
+<!-- 		<th>文章狀態</th> -->
+<!-- 		<th>更新日期</th> -->
+<!-- 		<th>照片</th> -->
+<!-- 		<th>影片</th> -->
+<!-- 		<th>修改</th> -->
+<!-- 		<th>刪除</th> -->
+<!-- 	</tr> -->
+<%-- 	<%@ include file="page1.file" %>  --%>
+<%-- <%-- 	<c:forEach var="blogVO" items="${list}"> --%> 
+<%-- 	<c:forEach var="blogVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>"> --%>
+	
+<!-- 		<tr> -->
+<%-- 			<td>${blogVO.blogno}</td> --%>
+<%-- 			<td>${blogVO.memberId}</td> --%>
+<%-- 			<td>${blogVO.blogClass}</td> --%>
+<%-- 			<td>${blogVO.postDate}</td> --%>
+<%-- 			<td>${blogVO.title}</td> --%>
+<%-- 			<td>${blogVO.text}</td>  --%>
+<%-- <%-- 			<td>${blogVO.photo}</td> --%> 
+<%-- <%-- 			<td>${blogVO.video}</td> --%> 
+<%-- 			<td>${blogVO.status}</td> --%>
+<%-- 			<td>${blogVO.updateTime}</td> --%>
+<%-- 			<td><img class="blog" width="400" src="<%=request.getContextPath()%>/blog/ShowPicture?blogno=${blogVO.blogno}"></td> --%>
+<!-- 			<td> -->
+<!-- 				<video width="400" height="240" controls class="blog"> -->
+<%--   					<source src="<%=request.getContextPath()%>/blog/ShowVideo?blogno=${blogVO.blogno}" type="video/mp4"> --%>
+<!-- 				</video> -->
+<!-- 			</td> -->
+<!-- 			<td> -->
+<%-- 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/blog/BlogServlet" style="margin-bottom: 0px;"> --%>
+<!-- 			     <input type="submit" value="修改"> -->
+<%-- 			     <input type="hidden" name="blogno"  value="${blogVO.blogno}"> --%>
+<!-- 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM> -->
+<!-- 			</td> -->
+<!-- 			<td> -->
+<%-- 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/blog/BlogServlet" style="margin-bottom: 0px;"> --%>
+<!-- 			     <input type="submit" value="刪除"> -->
+<%-- 			     <input type="hidden" name="blogno"  value="${blogVO.blogno}"> --%>
+<!-- 			     <input type="hidden" name="action" value="delete"></FORM> -->
+<!-- 			</td> -->
+<!-- 		</tr> -->
+<%-- 	</c:forEach> --%>
+<!-- </table> -->
+<%-- <%@ include file="page2.file" %> --%>
 
 
  <!-- Begin Page Content -->

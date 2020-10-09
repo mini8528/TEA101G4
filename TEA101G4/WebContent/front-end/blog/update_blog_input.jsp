@@ -171,7 +171,9 @@
                             </div>
 
                             <div style=" margin-top:200px; margin-left:350px">
-                                <input type="hidden" name="action" value="insert">
+                            	<input type="hidden" name="postdate" value="${blogVO.postDate}">
+                            	<input type="hidden" name="blogno" value="${blogVO.blogno}">
+                                <input type="hidden" name="action" value="update">
                                 <input type="submit" value="submit" class="btn btn-secondary mb-2" >
                             </div>
 

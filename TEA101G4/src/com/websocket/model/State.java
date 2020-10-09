@@ -15,6 +15,7 @@ public class State {
 		this.user = user;
 		this.users = users;
 	}
+	
 
 	public String getType() {
 		return type;

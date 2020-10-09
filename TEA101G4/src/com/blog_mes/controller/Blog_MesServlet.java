@@ -359,6 +359,7 @@ public class Blog_MesServlet extends HttpServlet {
 				Timestamp updatetime = new Timestamp(System.currentTimeMillis());
 				System.out.println(blogmesno);
 				System.out.println(status);
+				System.out.println(updatetime);
 
 				Blog_MesService blogMesSer = new Blog_MesService();
 				blogMesSer.adminChangeMesStatus(blogmesno, status, updatetime);

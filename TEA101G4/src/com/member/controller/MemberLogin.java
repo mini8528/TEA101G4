@@ -49,7 +49,7 @@ public class MemberLogin extends HttpServlet {
 		req.setAttribute("account", account);
 		req.setAttribute("password", password);
 
-		System.out.println(account + password);
+//		System.out.println(account + password);
 
 		MemberVO userVO = null;
 
@@ -94,7 +94,7 @@ public class MemberLogin extends HttpServlet {
 
 			try {
 				String location = (String) session.getAttribute("location");
-				System.out.println("login" + location);
+//				System.out.println("login" + location);
 				if (location != null) {
 					session.removeAttribute("location"); // *工作2: 看看有無來源網頁 (-->如有來源網頁:則重導至來源網頁)
 					res.sendRedirect(location);

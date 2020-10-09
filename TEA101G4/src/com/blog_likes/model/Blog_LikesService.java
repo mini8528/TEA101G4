@@ -7,7 +7,7 @@ public class Blog_LikesService {
 	private Blog_LikesDAO_interface dao;
 
 	public Blog_LikesService() {
-		dao = new Blog_LikesJDBCDAO();
+		dao = new Blog_LikesDAO();
 	}
 
 	public Blog_LikesVO addBlogLikes(String blogno, String memberId, String status, Timestamp likesDate,

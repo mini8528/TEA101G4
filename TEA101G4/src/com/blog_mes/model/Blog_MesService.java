@@ -8,7 +8,7 @@ public class Blog_MesService {
 	private Blog_MesDAO_interface dao;
 
 	public Blog_MesService() {
-		dao = new Blog_MesJDBCDAO();
+		dao = new Blog_MesDAO();
 	}
 	
 	public Blog_MesVO addBlogMes(String blogno, String memberId, String text, Timestamp postDate, Timestamp updateTime, 

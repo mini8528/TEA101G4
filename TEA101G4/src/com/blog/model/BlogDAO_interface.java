@@ -1,5 +1,6 @@
 package com.blog.model;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 public interface BlogDAO_interface {
@@ -11,7 +12,7 @@ public interface BlogDAO_interface {
 	 public List<BlogVO> searchTitle(String title);
 	 public List<BlogVO> findByMemberid(String memberId);
 	 public void hideBlog(String blogno);
-	 public void changeStatus(String blogno, String status);
+	 public void changeStatus(String blogno, String status, Timestamp updatetime);
     
 }
 

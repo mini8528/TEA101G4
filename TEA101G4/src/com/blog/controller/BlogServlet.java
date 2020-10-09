@@ -681,12 +681,13 @@ public class BlogServlet extends HttpServlet {
 				/*************************** 1.接收請求參數 ****************************************/
 				String blogno = req.getParameter("blogno");
 				String status = req.getParameter("status");
+				Timestamp updatetime = new Timestamp(System.currentTimeMillis());
 //				System.out.println(blogno);
 //				System.out.println(status);
 
 				/*************************** 2.開始隱藏資料 ****************************************/
 				BlogService blogSvc = new BlogService();
-				blogSvc.adminChangeStatus(blogno, status);
+				blogSvc.adminChangeStatus(blogno, status, updatetime);
 				
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 				String url = "/back-end/blog/listAllBlog_Admin.jsp";

@@ -9,11 +9,22 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Blog_MesJDBCDAO implements Blog_MesDAO_interface {
-	String driver = "oracle.jdbc.driver.OracleDriver";
-	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "TEA101G4";
-	String passwd = "123456";
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
+public class Blog_MesDAO implements Blog_MesDAO_interface {
+	
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TEA101G4");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 
 	private static final String INSERT_STMT = "INSERT INTO blog_mes (blogmesno,blogno,memberid,text,postdate,updatetime,status) VALUES ('BM' || lpad(BLOGMES_SEQ.NEXTVAL, 5, '0'), ?, ?, ?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = "SELECT blogmesno,blogno,memberid,text,to_char(postdate,'yyyy-mm-dd hh24:mi:ss') postdate,to_char(updatetime,'yyyy-mm-dd hh24:mi:ss') updatetime,status FROM blog_mes order by blogmesno";
@@ -30,8 +41,7 @@ public class Blog_MesJDBCDAO implements Blog_MesDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 
 			pstmt.setString(1, blogMesVO.getBlogno());
@@ -44,9 +54,6 @@ public class Blog_MesJDBCDAO implements Blog_MesDAO_interface {
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -76,8 +83,7 @@ public class Blog_MesJDBCDAO implements Blog_MesDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 
 			pstmt.setString(1, blogMesVO.getBlogno());
@@ -91,9 +97,6 @@ public class Blog_MesJDBCDAO implements Blog_MesDAO_interface {
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -123,8 +126,7 @@ public class Blog_MesJDBCDAO implements Blog_MesDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
 			pstmt.setString(1, blogMesno);
@@ -132,9 +134,6 @@ public class Blog_MesJDBCDAO implements Blog_MesDAO_interface {
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -166,8 +165,7 @@ public class Blog_MesJDBCDAO implements Blog_MesDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
 			pstmt.setString(1, blogMesno);
@@ -189,9 +187,6 @@ public class Blog_MesJDBCDAO implements Blog_MesDAO_interface {
 			}
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -232,8 +227,7 @@ public class Blog_MesJDBCDAO implements Blog_MesDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
 
@@ -252,9 +246,6 @@ public class Blog_MesJDBCDAO implements Blog_MesDAO_interface {
 			}
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -296,8 +287,7 @@ public class Blog_MesJDBCDAO implements Blog_MesDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_BLOGNO);
 			pstmt.setString(1, blogno);
 			rs = pstmt.executeQuery();
@@ -317,9 +307,6 @@ public class Blog_MesJDBCDAO implements Blog_MesDAO_interface {
 			}
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -357,8 +344,7 @@ public class Blog_MesJDBCDAO implements Blog_MesDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(ADMIN_CHANGE_MES_STATUS);
 
 			pstmt.setString(1, status);
@@ -368,10 +354,6 @@ public class Blog_MesJDBCDAO implements Blog_MesDAO_interface {
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			se.printStackTrace();
 			throw new RuntimeException("A database error occured. " + se.getMessage());

@@ -142,17 +142,17 @@
 <!-- 					</tr> -->
 <%-- 					<%@ include file="page1.file"%> --%>
 <%-- 						<c:forEach var="blogVO" items="${list}"> --%>
-<%-- <%-- 				<c:forEach var="blogVO" items="${list}" begin="<%=pageIndex%>"end="<%=pageIndex+rowsPerPage-1%>">  --%> 
+<%-- <%--  				<c:forEach var="blogVO" items="${list}" begin="<%=pageIndex%>"end="<%=pageIndex+rowsPerPage-1%>">  --%> 
 
-<!-- 						<tr> -->
+<!-- 						<tr>  -->
 <%-- 							<td>${blogVO.blogno}</td> --%>
 <%-- 							<td>${blogVO.memberId}</td> --%>
 <%-- 							<td>${blogVO.blogClass}</td> --%>
 <%-- 							<td>${blogVO.postDate}</td> --%>
 <%-- 							<td>${blogVO.title}</td> --%>
 <%-- 							<td>${blogVO.text}</td> --%>
-<%-- 										<td>${blogVO.photo}</td> --%>
-<%-- 										<td>${blogVO.video}</td> --%>
+<%-- <%-- 										<td>${blogVO.photo}</td> --%> 
+<%-- <%-- 										<td>${blogVO.video}</td> --%> 
 <%-- 							<td>${blogVO.status}</td> --%>
 <%-- 							<td>${blogVO.updateTime}</td> --%>
 <!-- 							<td><img class="blog" width="400" -->
@@ -168,22 +168,22 @@
 <!-- 									style="margin-bottom: 0px;"> -->
 <!-- 									<input type="submit" value="修改"> <input type="hidden" -->
 <%-- 										name="blogno" value="${blogVO.blogno}"> <input --%>
-<!-- 										type="hidden" name="action" value="getOne_For_Update"> -->
+<!-- 										type="hidden" name="action" value="getOne_For_Update"> --> 
 <!-- 								</FORM> -->
-<!-- 							</td> -->
-<!-- 							<td> -->
-<!-- 								<FORM METHOD="post" -->
+<!--  							</td>  -->
+<!--  							<td>  -->
+<!--  								<FORM METHOD="post"  -->
 <%-- 									ACTION="<%=request.getContextPath()%>/blog/BlogServlet" --%>
-<!-- 									style="margin-bottom: 0px;"> -->
-<!-- 									<input type="submit" value="刪除"> <input type="hidden" -->
+<!-- 								style="margin-bottom: 0px;">  -->
+<!--  									<input type="submit" value="刪除"> <input type="hidden" -->
 <%-- 										name="blogno" value="${blogVO.blogno}"> <input --%>
-<!-- 										type="hidden" name="action" value="delete"> -->
-<!-- 								</FORM> -->
-<!-- 							</td> -->
-<!-- 						</tr> -->
+<!-- 										type="hidden" name="action" value="delete">  -->
+<!-- 								</FORM>  -->
+<!-- 							</td>  -->
+<!-- 						</tr>  -->
 <%-- 					</c:forEach> --%>
-<!-- 				</table> -->
-<%-- <%-- 				<%@ include file="page2.file"%> --%> 
+<!-- 				</table>  -->
+<%-- 				<%@ include file="page2.file"%>  --%>
 
 
 		<!-- ====================================
@@ -315,6 +315,12 @@
 										<a class="text-muted font-weight-medium d-block border rounded py-2 pl-3"
 											href="<%=request.getContextPath()%>/front-end/blog/userArticle.jsp">
 											我的文章
+										</a>
+									</li>
+									<li class="mt-2">
+										<a class="text-muted font-weight-medium d-block border rounded py-2 pl-3"
+											href="<%=request.getContextPath() %>/chat.do?memberid=${userVO.memberid}">
+											聊天室
 										</a>
 									</li>
 								</ul>

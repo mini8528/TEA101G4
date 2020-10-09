@@ -13,7 +13,7 @@ public class TestBlogJDBCDAO {
 
 		BlogJDBCDAO dao = new BlogJDBCDAO();
 		
-		dao.changeStatus("B00001","N");
+//		dao.changeStatus("B00001","N");
 
 //		// 新增
 //		BlogVO blogVO1 = new BlogVO();

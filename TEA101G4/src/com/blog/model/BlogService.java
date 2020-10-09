@@ -7,7 +7,7 @@ public class BlogService {
 	private BlogDAO_interface dao;
 
 	public BlogService() {
-		dao = new BlogJDBCDAO();
+		dao = new BlogDAO();
 	}
 
 	public BlogVO addBlog(String memberId, String blogClass, Timestamp postDate, String title, String text,
@@ -81,8 +81,8 @@ public class BlogService {
 		return blogVO;
 	}
 	
-	public void adminChangeStatus(String blogno, String status) {
-		dao.changeStatus(blogno, status);
+	public void adminChangeStatus(String blogno, String status, Timestamp updatetime) {
+		dao.changeStatus(blogno, status, updatetime);
 
 	}
 	

@@ -9,7 +9,7 @@ public class Blog_SaveService {
 	private Blog_SaveDAO_interface dao;
 
 	public Blog_SaveService() {
-		dao = new Blog_SaveJDBCDAO();
+		dao = new Blog_SaveDAO();
 	}
 
 	public Blog_SaveVO addBlogSave(String memberId, String blogno, String status, Timestamp saveDate,

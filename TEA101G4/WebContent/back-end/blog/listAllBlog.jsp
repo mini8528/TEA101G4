@@ -100,19 +100,13 @@
 						<ul
 							class="list-inline d-flex justify-content-xl-start align-items-center h-100 mb-0">
 							<li>
-								<!--                     <span class="bg-warning icon-header mr-xl-2"> -->
-								<!--                       <i class="fa fa-envelope" aria-hidden="true"></i> -->
-								<!--                     </span> --> <!--                     <a href="mailto:info@yourdomain.com" class="mr-lg-4 mr-xl-6 text-white opacity-80">info@yourdomain.com</a> -->
+								
 							</li>
 							<li>
-								<!--                     <span class="bg-success icon-header mr-xl-2"> -->
-								<!--                       <i class="fa fa-phone" aria-hidden="true"></i> -->
-								<!--                     </span> --> <!--                     <a href="tel:+1 234 567 8900" class="mr-lg-4 mr-xl-6 text-white opacity-80"> +1 234 567 8900 </a> -->
+								
 							</li>
 							<li class="text-white">
-								<!--                     <span class="bg-pink icon-header"> -->
-								<!--                       <i class="fa fa-clock-o" aria-hidden="true"></i> -->
-								<!--                     </span> --> <!--                     <span class="opacity-80">Open: 9am - 6pm</span> -->
+								
 							</li>
 						</ul>
 					</div>

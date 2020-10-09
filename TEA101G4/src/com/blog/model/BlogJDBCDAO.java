@@ -22,7 +22,7 @@ public class BlogJDBCDAO implements BlogDAO_interface {
 	private static final String SEARCH_TITLE = "SELECT blogno,memberid,blogclass,to_char(postdate,'yyyy-mm-dd hh24:mi:ss') postdate,title,text,status,to_char(updatetime,'yyyy-mm-dd hh24:mi:ss') updatetime FROM blog where title like ? order by blogno";
 	private static final String GET_MEMBER_BLOG = "SELECT blogno,memberid,blogclass,to_char(postdate,'yyyy-mm-dd hh24:mi:ss') postdate,title,text,status,to_char(updatetime,'yyyy-mm-dd hh24:mi:ss') updatetime FROM blog where memberid = ? order by blogno";
 	private static final String UPDATE_STATUS = "UPDATE blog set status='Y' where blogno = ?";
-	private static final String ADMIN_STATUS = "UPDATE blog set status=? where blogno = ?";
+	private static final String ADMIN_STATUS = "UPDATE blog set status=?, updatetime=? where blogno = ?";
 	
 	
 	@Override
@@ -487,7 +487,7 @@ public class BlogJDBCDAO implements BlogDAO_interface {
 	}
 	
 	@Override
-	public void changeStatus(String blogno, String status) {
+	public void changeStatus(String blogno, String status, Timestamp updatetime) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -498,7 +498,8 @@ public class BlogJDBCDAO implements BlogDAO_interface {
 			pstmt = con.prepareStatement(ADMIN_STATUS);
 
 			pstmt.setString(1, status);
-			pstmt.setString(2, blogno);
+			pstmt.setTimestamp(2, updatetime);
+			pstmt.setString(3, blogno);
 
 			pstmt.executeUpdate();
 
