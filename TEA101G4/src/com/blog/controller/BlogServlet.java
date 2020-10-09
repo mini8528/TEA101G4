@@ -639,7 +639,7 @@ public class BlogServlet extends HttpServlet {
 		}
 		
 		
-		if ("blog_Hide".equals(action)) { // 來自listAllEmp.jsp的請求
+		if ("blog_Hide".equals(action)) { 
 
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
@@ -667,6 +667,38 @@ public class BlogServlet extends HttpServlet {
 				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/blog/listAllBlog.jsp");
 				failureView.forward(req, res);
+			}
+		}
+		
+		if ("admin_Update".equals(action)) { 
+
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				/*************************** 1.接收請求參數 ****************************************/
+				String blogno = req.getParameter("blogno");
+				String status = req.getParameter("status");
+//				System.out.println(blogno);
+//				System.out.println(status);
+
+				/*************************** 2.開始隱藏資料 ****************************************/
+				BlogService blogSvc = new BlogService();
+				blogSvc.adminChangeStatus(blogno, status);
+				
+				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
+				String url = "/back-end/blog/listAllBlog_Admin.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
+				successView.forward(req, res);
+
+				/*************************** 其他可能的錯誤處理 **********************************/
+			} catch (Exception e) {
+				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/blog/listAllBlog_Admin.jsp");
+				failureView.forward(req, res);
+		
 			}
 		}
 

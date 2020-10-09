@@ -9,7 +9,8 @@ import com.blog_mes.model.Blog_MesVO;
 public class TestBlog_MesService {
 
 	public static void main(String[] args) {
-		Blog_MesService service = new Blog_MesService();
+//		Blog_MesService service = new Blog_MesService();
+//		service.adminChangeMesStatus("BM00010", "N");
 		
 		//新增
 //		service.addBlogMes("B00002", "M007", "哈哈哈", new Timestamp(System.currentTimeMillis()), null, "Y");
@@ -26,11 +27,11 @@ public class TestBlog_MesService {
 		//查單一		
 //		System.out.println(service.getOneBlogMes("BM00006"));
 
-		//查全部
-		List<Blog_MesVO> result = service.getAll();
-		for(Blog_MesVO blogmesvo : result) {
-			System.out.println(blogmesvo);
-		}
+//		//查全部
+//		List<Blog_MesVO> result = service.getAll();
+//		for(Blog_MesVO blogmesvo : result) {
+//			System.out.println(blogmesvo);
+//		}
 		
 	}
 }

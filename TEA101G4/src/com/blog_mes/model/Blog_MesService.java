@@ -61,5 +61,9 @@ public class Blog_MesService {
 	public List<Blog_MesVO> getOneBlognoMes(String blogno) {
 		return dao.findByBlogno(blogno);
 	}
+	
+	public void adminChangeMesStatus(String blogmesno, String status, Timestamp updatetime) {
+		 dao.changeStatus(blogmesno, status, updatetime);
+	} 
 
 }

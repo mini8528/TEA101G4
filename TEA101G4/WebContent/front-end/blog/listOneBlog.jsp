@@ -224,13 +224,14 @@
 						<jsp:useBean id="blogmesSvc" scope="page"
 							class="com.blog_mes.model.Blog_MesService" />
 
-
+					
 						<div class="bg-light shadow-sm rounded px-3 pt-3 pb-6 mb-4">
 							<h3 class="mb-4 text-danger font-weight-bold">${blogmesSvc.getOneBlognoMes(blogVO.blogno).size()}
 								Comments
 							</h3>
 <!-- 							action=insert -->
 							<c:forEach var="blog_MesVO" items="${list}"> 
+								<c:if test="${blog_MesVO.status == 'N' }">
 								<div class="media py-1">
 									<div class="mr-4">
 										<img class=" rounded-circle"
@@ -246,11 +247,13 @@
 
 												</div>
 								</div>
+								</c:if>
 							</c:forEach>
 
 
 						</div>
-
+					
+					
 						<div class="bg-light shadow-sm rounded p-3">
 							<h3 class="mb-4 text-danger font-weight-bold">Leave A
 								Comment</h3>

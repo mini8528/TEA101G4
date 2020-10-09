@@ -1,5 +1,6 @@
 package com.blog_mes.model;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 public interface Blog_MesDAO_interface {
@@ -9,6 +10,7 @@ public interface Blog_MesDAO_interface {
      public Blog_MesVO findByPrimaryKey(String blogMesno);
      public List<Blog_MesVO> getAll();
      public List<Blog_MesVO> findByBlogno(String blogno);
+	 public void changeStatus(String blogmesno, String status, Timestamp updatetime);
     
 }
 

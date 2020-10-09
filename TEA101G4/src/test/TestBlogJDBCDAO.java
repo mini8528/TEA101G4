@@ -12,6 +12,8 @@ public class TestBlogJDBCDAO {
 	public static void main(String[] args) {
 
 		BlogJDBCDAO dao = new BlogJDBCDAO();
+		
+		dao.changeStatus("B00001","N");
 
 //		// 新增
 //		BlogVO blogVO1 = new BlogVO();
@@ -67,21 +69,21 @@ public class TestBlogJDBCDAO {
 		
 
 //		// 查詢
-		List<BlogVO> list = dao.getAll();
-		for (BlogVO aEmp : list) {
-			System.out.print(aEmp.getBlogno() + ",");
-			System.out.print(aEmp.getMemberId() + ",");
-			System.out.print(aEmp.getBlogClass()+ ",");
-			System.out.print(aEmp.getPostDate()+ ",");
-			System.out.print(aEmp.getTitle()+ ",");
-			System.out.print(aEmp.getText()+ ",");
-			System.out.print(aEmp.getPhoto()+ ",");
-			System.out.print(aEmp.getVideo()+ ",");
-			System.out.print(aEmp.getStatus()+ ",");
-			System.out.print(aEmp.getUpdateTime());
-			System.out.println();
-			
-		}
+//		List<BlogVO> list = dao.getAll();
+//		for (BlogVO aEmp : list) {
+//			System.out.print(aEmp.getBlogno() + ",");
+//			System.out.print(aEmp.getMemberId() + ",");
+//			System.out.print(aEmp.getBlogClass()+ ",");
+//			System.out.print(aEmp.getPostDate()+ ",");
+//			System.out.print(aEmp.getTitle()+ ",");
+//			System.out.print(aEmp.getText()+ ",");
+//			System.out.print(aEmp.getPhoto()+ ",");
+//			System.out.print(aEmp.getVideo()+ ",");
+//			System.out.print(aEmp.getStatus()+ ",");
+//			System.out.print(aEmp.getUpdateTime());
+//			System.out.println();
+//			
+//		}
 
 	}
 

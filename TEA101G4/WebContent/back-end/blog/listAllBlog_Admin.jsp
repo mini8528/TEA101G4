@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.blog.model.*"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 
@@ -106,27 +107,23 @@
 	                      <td>${blogVO.blogno}</td>
 						  <td>${blogVO.memberId}</td>
 						  <td>${blogVO.blogClass}</td>
-						  <td>${blogVO.postDate}</td>
+						  <td><fmt:formatDate value="${blogVO.postDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 						  <td>${blogVO.title}</td>
 						  <td>${blogVO.text}</td>
+						  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/blog/BlogServlet" style="margin-bottom: 0px;">
 						  <td><select name="status">
-						<option value="N">顯示</option>
-						<option value="Y">隱藏</option>
-
-				</select></td>
-						  <td>${blogVO.updateTime}</td>
+										<option value="N" ${blogVO.status=="N"? 'selected' : ''}>顯示</option>
+										<option value="Y" ${blogVO.status=="Y"? 'selected' : ''}>隱藏</option>
+				
+								</select></td>
+						  <td><fmt:formatDate value="${blogVO.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 						  <td>
-						  	 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/blog/BlogServlet" style="margin-bottom: 0px;">
-						     <input type="submit" value="修改">
+						     <input type="submit" value="修改" onclick="javascript: return del()">
 						     <input type="hidden" name="blogno"  value="${blogVO.blogno}">
-						     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
+						     <input type="hidden" name="action"	value="admin_Update">
 						 </td>
-<!-- 						 <td> -->
-<%-- 						  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/blog/BlogServlet" style="margin-bottom: 0px;"> --%>
-<!-- 						     <input type="submit" value="刪除"> -->
-<%-- 						     <input type="hidden" name="blogno"  value="${blogVO.blogno}"> --%>
-<!-- 						     <input type="hidden" name="action" value="delete"></FORM> -->
-<!-- 						 </td>  -->
+	             	     </FORM>
+
 	                    </tr>
 	                  </tbody>
                   </c:forEach>
@@ -190,6 +187,22 @@
 
   <!-- Custom scripts for all pages-->
   <script src="<%=request.getContextPath()%>/back-assets/js/sb-admin-2.min.js"></script>
+  <script >
+  
+  function del() {
+	  var msg = "確認修改?";
+	  if (confirm(msg)){
+	  return true;
+	  }else{
+	  window.location.reload();
+	  return false;
+	  }
+	  }
+
+
+
+  
+  </script>
 
 </body>
 </html>

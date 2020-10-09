@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.blog_mes.model.*"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 
@@ -58,65 +59,6 @@
 
 <div>
 
-<!-- <h4>此頁練習採用 EL 的寫法取值:</h4> -->
-<!-- <table id="table-1"> -->
-<!-- 	<tr><td> -->
-<!-- 		 <h3>所有部落格留言資料 - listAllBlog_Mes.jsp</h3> -->
-<!-- 		 <h4><a href="select_page.jsp">回首頁</a></h4> -->
-<!-- 	</td></tr> -->
-<!-- </table> -->
-
-<%-- <%-- 錯誤表列 --%> 
-<%-- <c:if test="${not empty errorMsgs}"> --%>
-<!-- 	<font style="color:red">請修正以下錯誤:</font> -->
-<!-- 	<ul> -->
-<%-- 		<c:forEach var="message" items="${errorMsgs}"> --%>
-<%-- 			<li style="color:red">${message}</li> --%>
-<%-- 		</c:forEach> --%>
-<!-- 	</ul> -->
-<%-- </c:if> --%>
-
-<!-- <table> -->
-<!-- 	<tr> -->
-<!-- 		<th>部落格留言編號</th> -->
-<!-- 		<th>文章編號</th> -->
-<!-- 		<th>一般會員編號</th> -->
-<!-- 		<th>留言內容</th> -->
-<!-- 		<th>留言日期</th> -->
-<!-- 		<th>更新日期</th> -->
-<!-- 		<th>留言狀態</th> -->
-<!-- 		<th>修改</th> -->
-<!-- 		<th>刪除</th> -->
-<!-- 	</tr> -->
-<%-- 	<%@ include file="page1.file" %>  --%>
-
-<%-- 	<c:forEach var="blog_MesVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>"> --%>
-	
-<!-- 		<tr> -->
-<%-- 			<td>${blog_MesVO.blogMesno}</td> --%>
-<%-- 			<td>${blog_MesVO.blogno}</td> --%>
-<%-- 			<td>${blog_MesVO.memberId}</td> --%>
-<%-- 			<td>${blog_MesVO.text}</td> --%>
-<%-- 			<td>${blog_MesVO.postDate}</td> --%>
-<%-- 			<td>${blog_MesVO.updateTime}</td> --%>
-<%-- 			<td>${blog_MesVO.status}</td> --%>
-			
-<!-- 			<td> -->
-<%-- 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/blog_Mes/Blog_MesServlet" style="margin-bottom: 0px;"> --%>
-<!-- 			     <input type="submit" value="修改"> -->
-<%-- 			     <input type="hidden" name="blogMesno"  value="${blog_MesVO.blogMesno}"> --%>
-<!-- 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM> -->
-<!-- 			</td> -->
-<!-- 			<td> -->
-<%-- 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/blog_Mes/Blog_MesServlet" style="margin-bottom: 0px;"> --%>
-<!-- 			     <input type="submit" value="刪除"> -->
-<%-- 			     <input type="hidden" name="blogMesno"  value="${blog_MesVO.blogMesno}"> --%>
-<!-- 			     <input type="hidden" name="action" value="delete"></FORM> -->
-<!-- 			</td> -->
-<!-- 		</tr> -->
-<%-- 	</c:forEach> --%>
-<!-- </table> -->
-
 <!-- Begin Page Content -->
         <div class="container-fluid">
 
@@ -127,7 +69,7 @@
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">All Article</h6>
+              <h6 class="m-0 font-weight-bold text-primary">Blog Mes</h6>
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -154,19 +96,19 @@
 							<td>${blog_MesVO.blogno}</td>
 							<td>${blog_MesVO.memberId}</td>
 							<td>${blog_MesVO.text}</td>
-							<td>${blog_MesVO.postDate}</td>
-							<td>${blog_MesVO.updateTime}</td>
+							<td><fmt:formatDate value="${blog_MesVO.postDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+							<td><fmt:formatDate value="${blog_MesVO.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+							<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/blog_Mes/Blog_MesServlet" style="margin-bottom: 0px;">
 						  	<td><select name="status">
-								<option value="N">顯示</option>
-								<option value="Y">隱藏</option>
+								<option value="N" ${(blog_MesVO.status == "N")? 'selected':'' }>顯示</option>
+								<option value="Y" ${(blog_MesVO.status == "Y")? 'selected':'' }>隱藏</option>
 								</select></td>
 							<td>
-							  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/blog_Mes/Blog_MesServlet" style="margin-bottom: 0px;">
-							     <input type="submit" value="修改">
+							     <input type="submit" value="修改" onclick="javascript: return del()">
 							     <input type="hidden" name="blogMesno"  value="${blog_MesVO.blogMesno}">
-							     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
+							     <input type="hidden" name="action"	value="admin_Update_Mes">
 							</td>
-						  
+                  			</FORM>
 	                    </tr>
 	                  </tbody>
                   </c:forEach>
@@ -192,16 +134,6 @@
 
       </div>
       <!-- End of Main Content -->
-
-      <!-- Footer -->
-<!--       <footer class="sticky-footer bg-white"> -->
-<!--         <div class="container my-auto"> -->
-<!--           <div class="copyright text-center my-auto"> -->
-<!--             <span>Copyright &copy; Your Website 2020</span> -->
-<!--           </div> -->
-<!--         </div> -->
-<!--       </footer> -->
-      <!-- End of Footer -->
 
     </div>
     <!-- End of Content Wrapper -->
@@ -242,5 +174,17 @@
 
   <!-- Custom scripts for all pages-->
   <script src="<%=request.getContextPath()%>/back-assets/js/sb-admin-2.min.js"></script>
+  <script>
+  function del() {
+	  var msg = "確認修改?";
+	  if (confirm(msg)){
+	  return true;
+	  }else{
+	  window.location.reload();
+	  return false;
+	  }
+	  }
+  
+  </script>
 </body>
 </html>

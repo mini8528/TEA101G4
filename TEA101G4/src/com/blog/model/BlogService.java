@@ -81,5 +81,11 @@ public class BlogService {
 		return blogVO;
 	}
 	
+	public void adminChangeStatus(String blogno, String status) {
+		dao.changeStatus(blogno, status);
+
+	}
+	
+	
 	
 }

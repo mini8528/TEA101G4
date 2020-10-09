@@ -352,6 +352,29 @@ public class Blog_MesServlet extends HttpServlet {
 			}
 		}
 		
+		if("admin_Update_Mes".equals(action)) {
+			try {
+				String blogmesno = req.getParameter("blogMesno");
+				String status = req.getParameter("status");
+				Timestamp updatetime = new Timestamp(System.currentTimeMillis());
+				System.out.println(blogmesno);
+				System.out.println(status);
+
+				Blog_MesService blogMesSer = new Blog_MesService();
+				blogMesSer.adminChangeMesStatus(blogmesno, status, updatetime);
+				System.out.println("success");
+				String url = "/back-end/blog_mes/listAllBlog_Mes_admin.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+				
+			}catch(Exception e) {
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/blog_mes/listAllBlog_Mes_admin.jsp");
+				failureView.forward(req, res);
+		
+			}
+		}
+		
+		
 	}
 
 }
