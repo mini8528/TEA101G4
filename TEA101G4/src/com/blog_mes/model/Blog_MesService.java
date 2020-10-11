@@ -65,5 +65,9 @@ public class Blog_MesService {
 	public void adminChangeMesStatus(String blogmesno, String status, Timestamp updatetime) {
 		 dao.changeStatus(blogmesno, status, updatetime);
 	} 
+	
+	public List<Blog_MesVO> searchMesText(String text){
+		return dao.searchText("%"+ text + "%");
+	}
 
 }

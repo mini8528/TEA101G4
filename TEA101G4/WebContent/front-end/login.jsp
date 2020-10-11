@@ -46,7 +46,7 @@
                             </div>
 
                             <div class="form-group text-center text-secondary mb-0">
-                                <a class="text-danger" href="#">Creat a new account</a>
+                                <a class="text-danger" href="<%=request.getContextPath() %>/front-end/member/addMember.jsp">Creat a new account</a>
                             </div>
                                 </form>
                             </div>
@@ -57,6 +57,7 @@
         </div>
     </section>
 <p>
+
 <jsp:include page="footer.jsp" flush="true" />
 </body>
 </html>

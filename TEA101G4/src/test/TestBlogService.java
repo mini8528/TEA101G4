@@ -11,7 +11,8 @@ public class TestBlogService {
 	
 	public static void main(String[] args) {
 		BlogService service = new BlogService();
-		
+		List<BlogVO> list = service.adminSearch("", "", "瘦", "");
+		System.out.println(list);
 		//新增
 //		service.addBlog("M005", "心得交流", java.sql.Timestamp.valueOf("2020-05-01 22:15:38"), 
 //				"減肥", "開始減肥囉", null, null, "Y", new Timestamp(System.currentTimeMillis()));
@@ -36,8 +37,8 @@ public class TestBlogService {
 //			System.out.println(blogvo);
 //		}
 		
-		service.hideBlog("B00027");
-		System.out.println("success");
+//		service.hideBlog("B00027");
+//		System.out.println("success");
 		
 	}
 }

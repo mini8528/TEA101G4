@@ -216,7 +216,7 @@
 													</video>
 												</c:when>
 												<c:otherwise>
-													<a href="blog-single.html"> <img class="card-img-top"
+													<a href="<%=request.getContextPath()%>/front-end/blog/listOneBlog.jsp"> <img class="card-img-top"
 														width="240" height="180"
 														src="<%=request.getContextPath()%>/blog/ShowPicture?blogno=${blogVO.blogno}"
 														alt="Card image">
@@ -241,7 +241,7 @@
 												class="list-unstyled d-flex flex-md-column  flex-xl-row mb-1">
 
 												<li class="mr-2"><a class="text-muted"
-													href="blog-single.html"> <i class="fa fa-user mr-2"
+													href="#"> <i class="fa fa-user mr-2"
 														aria-hidden="true"></i>${memberSvc.getOneMember(blogVO.memberId).getName()}
 												</a></li>
 
@@ -273,7 +273,7 @@
 								<div class="card-body border border-top-0 rounded-bottom">
 									<div class="input-group border-bottom pb-3 pt-4">
 										<input type="text" class="form-control border-0 px-1"
-											placeholder="Enter Your Search" name="searchWord"
+											placeholder="Search Title" name="searchWord"
 											aria-describedby="basic-addon2"> <span
 											class="input-group-addon" id="basic-addon2"> <input
 											class="btn btn-sm btn-warning text-uppercase text-white shadow-sm"
@@ -315,12 +315,6 @@
 										<a class="text-muted font-weight-medium d-block border rounded py-2 pl-3"
 											href="<%=request.getContextPath()%>/front-end/blog/userArticle.jsp">
 											我的文章
-										</a>
-									</li>
-									<li class="mt-2">
-										<a class="text-muted font-weight-medium d-block border rounded py-2 pl-3"
-											href="<%=request.getContextPath() %>/chat.do?memberid=${userVO.memberid}">
-											聊天室
 										</a>
 									</li>
 								</ul>

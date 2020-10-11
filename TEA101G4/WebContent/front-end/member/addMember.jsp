@@ -53,22 +53,7 @@ img {
 
 </head>
 <body bgcolor='white'>
-
-	<table id="table-1">
-		<tr>
-			<td>
-				<h3>Member新增 - addMember.jsp</h3>
-			</td>
-			<td>
-				<h4>
-					<a href="select_page.jsp"><img src="images/tomcat.png"
-						width="100" height="100" border="0">回首頁</a>
-				</h4>
-			</td>
-		</tr>
-	</table>
-
-	<h3>資料新增:</h3>
+<jsp:include page="/front-end/header.jsp" flush="true" />
 
 	<%-- 錯誤表列 --%>
 	<c:if test="${not empty errorMsgs}">
@@ -81,32 +66,54 @@ img {
 	</c:if>
 
 	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/member/MemberServlet" name="form1" enctype="multipart/form-data">
-		<table>
+<!-- 	<table> -->
+<!-- 			<table id="table-1"> -->
+<!-- 		<tr> -->
+			
+<!-- 			<td> -->
+<!-- 				<h4> -->
+<!-- 					<a href="select_page.jsp"><img src="images/tomcat.png" -->
+<!-- 						width="100" height="100" border="0">回首頁</a> -->
+<!-- 				</h4> -->
+<!-- 			</td> -->
+<!-- 		</tr> -->
+<!-- 	</table> -->
+
+	<div class="col-sm-6 offset-lg-4 col-lg-4">
+        <div class="mb-4 mb-sm-0" style="margin-top: 30px">
+          <div class="bg-warning rounded-top p-2">
+            <h3 class="text-white font-weight-bold mb-0 ml-2">資料新增:</h3>
+          </div>
+          
+          <div class="border rounded-bottom-sm border-top-0">
+            <div class="p-3">
+              <form action="#" method="POST" role="form">
+		
 		
 			<jsp:useBean id="mService" scope="page"
 				class="com.member.model.MemberService" />
 
 			<tr>
 				<td>姓名:</td>
-				<td><input type="TEXT" name="name" size="45"
-					value="<%=(memberVO == null) ? "name" : memberVO.getName()%>" /></td>
+				<td><input type="TEXT" name="name" class="form-control border" placeholder="Name"
+					value="<%=(memberVO == null) ? "" : memberVO.getName()%>" /></td>
 			</tr>
 
 			<tr>
 				<td>帳號:</td>
-				<td><input type="TEXT" name="account" size="45"
-					value="<%=(memberVO == null) ? "account" : memberVO.getAccount()%>" /></td>
+				<td><input type="TEXT" name="account" class="form-control border" placeholder="Account"
+					value="<%=(memberVO == null) ? "" : memberVO.getAccount()%>" /></td>
 			</tr>
 
 			<tr>
 				<td>密碼:</td>
-				<td><input type="password" name="password" size="45"
-					value="<%=(memberVO == null) ? "notnull" : memberVO.getPassword()%>" /></td>
+				<td><input type="password" name="password" class="form-control border" placeholder="Password"
+					value="<%=(memberVO == null) ? "" : memberVO.getPassword()%>" /></td>
 			</tr>
 
 			<tr>
 				<td>性別：</td>
-				<td><select name="gender">
+				<td><select name="gender" class="form-control">
 						<option value="F" ${(memberVO.gender=="F")? 'selected':'' }>女</option>
 						<option value="M" ${(memberVO.gender=="M")? 'selected':'' }>男</option>
 				</select></td>
@@ -114,94 +121,99 @@ img {
 
 			<tr>
 				<td>電話:</td>
-				<td><input type="TEXT" name="phone" size="45"
-					value="<%=(memberVO == null) ? "not null" : memberVO.getPhone()%>" /></td>
+				<td><input type="TEXT" name="phone" class="form-control border" placeholder="Phone"
+					value="<%=(memberVO == null) ? "" : memberVO.getPhone()%>" /></td>
 			</tr>
 
 			<tr>
 				<td>生日:</td>
-				<td><input type="date" name="birthday"
-					value="<%=(memberVO == null) ? "1987-09-10" : memberVO.getBirthday()%>" /></td>
+				<td><input type="date" name="birthday" class="form-control border" placeholder="Birthday"
+					value="<%=(memberVO == null) ? "" : memberVO.getBirthday()%>" /></td>
 			</tr>
 
 			<tr>
 				<td>email:</td>
-				<td><input type="email" name="email" size="45"
-					value="<%=(memberVO == null) ? "email@Tibame" : memberVO.getEmail()%>" /></td>
+				<td><input type="email" name="email" class="form-control border" placeholder="Email"
+					value="<%=(memberVO == null) ? "" : memberVO.getEmail()%>" /></td>
 			</tr>
 
 			<tr>
 				<td>照片:</td>
-				<td><input type="file" name="photo" id="p_file"> <br>
+				<td><input type="file" name="photo" id="p_file" class="form-control border" placeholder="Photo"> <br>
 					<div id="preview">
-						<span class="text"> 預覽 </span>
+						<span class="text"></span>
 					</div>
 			</tr>
 			
 			<tr>
 				<td>地址:</td>
-				<td><input type="TEXT" name="address" size="45"
-					value="<%=(memberVO == null) ? "地址 not null" : memberVO.getAddress()%>" /></td>
+				<td><input type="TEXT" name="address" class="form-control border" placeholder="Address"
+					value="<%=(memberVO == null) ? "" : memberVO.getAddress()%>" /></td>
 			</tr>
 
-			<tr>
-				<td>權限：</td>
-				<td><select name="authority">
-						<option value="N" ${(memberVO.gender=="N")? 'selected':'' }>N</option>
-						<option value="Y" ${(memberVO.gender=="Y")? 'selected':'' }>Y</option>
-				</select></td>
-			</tr>
+<!-- 			<tr> -->
+<!-- 				<td>權限：</td> -->
+<!-- 				<td><select name="authority" class="form-control">						 -->
+<%-- 						<option value="Y" ${(memberVO.gender=="N")? 'selected':'' }>Y</option> --%>
+<%-- 						<option value="N" ${(memberVO.gender=="Y")? 'selected':'' }>N</option> --%>
+<!-- 				</select></td> -->
+<!-- 			</tr> -->
 			
 			<tr>
 				<td>資歷:</td>
-				<td><input type="TEXT" name="qualifications" size="45"
-					value="<%=(memberVO == null) ? "資歷 " : memberVO.getQualifications()%>" /></td>
+				<td><input type="TEXT" name="qualifications" class="form-control border" placeholder="Qualifications"
+					value="<%=(memberVO == null) ? "" : memberVO.getQualifications()%>" /></td>
 			</tr>
 			
 			<tr>
 				<td>專長:</td>
-				<td><input type="TEXT" name="expertise" size="45"
-					value="<%=(memberVO == null) ? "專長 " : memberVO.getExpertise()%>" /></td>
+				<td><input type="TEXT" name="expertise" class="form-control border" placeholder="Expertise"
+					value="<%=(memberVO == null) ? "" : memberVO.getExpertise()%>" /></td>
 			</tr>
 			
 			<tr>
 				<td>個人介紹:</td>
-				<td><input type="TEXT" name="introduction" size="45"
-					value="<%=(memberVO == null) ? "個人介紹 " : memberVO.getIntroduction()%>" /></td>
+				<td><input type="TEXT" name="introduction" class="form-control border" placeholder="Introduction"
+					value="<%=(memberVO == null) ? "" : memberVO.getIntroduction()%>" /></td>
 			</tr>
 			
 			<tr>
 				<td>照片:</td>
-				<td><input type="file" name="photo1" id="p_file"> <br>
+				<td><input type="file" name="photo1" id="p_file" class="form-control border" placeholder="Photo" multiple> <br>
 					<div id="preview">
-						<span class="text"> 預覽 </span>
+						<span class="text"></span>
 					</div>
 			</tr>
 			
 			<tr>
 				<td>照片:</td>
-				<td><input type="file" name="photo2" id="p_file"> <br>
+				<td><input type="file" name="photo2" id="p_file" class="form-control border" placeholder="Photo"> <br>
 					<div id="preview">
-						<span class="text"> 預覽 </span>
+						<span class="text"></span>
 					</div>
 			</tr>
 			
 			<tr>
 				<td>照片:</td>
-				<td><input type="file" name="photo3" id="p_file"> <br>
+				<td><input type="file" name="photo3" id="p_file" class="form-control border" placeholder="Photo"> <br>
 					<div id="preview">
-						<span class="text"> 預覽 </span>
+						<span class="text"></span>
 					</div>
 			</tr>
-			
-			
-
-
-
 		</table>
-		<br> <input type="hidden" name="action" value="insert"> <input
-			type="submit" value="送出新增">
-	</FORM>
+		
+		<br>
+		 <input type="hidden" name="action" value="insert">
+		 <input type="submit" class="btn btn-danger text-uppercase w-100" value="送出新增">
+		    </form>
+		   </div>
+		  </div>
+		 </div>
+		</div>
+	  
+    </FORM>
+
+	<jsp:include page="/front-end/footer.jsp" flush="true" />
 </body>
 
 <!-- 預覽圖片 -->
@@ -300,6 +312,7 @@ window.addEventListener("load", function(){
 		      }
 		    });
 	});
+
 </script>
 
 

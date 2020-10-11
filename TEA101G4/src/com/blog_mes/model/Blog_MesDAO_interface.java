@@ -11,6 +11,7 @@ public interface Blog_MesDAO_interface {
      public List<Blog_MesVO> getAll();
      public List<Blog_MesVO> findByBlogno(String blogno);
 	 public void changeStatus(String blogmesno, String status, Timestamp updatetime);
+	 public List<Blog_MesVO> searchText(String text);
     
 }
 

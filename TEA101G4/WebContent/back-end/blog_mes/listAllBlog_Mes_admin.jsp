@@ -7,15 +7,21 @@
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 
 <%
-    Blog_MesService blogmesSvc = new Blog_MesService();
-    List<Blog_MesVO> list = blogmesSvc.getAll();
+	String flag = (String) request.getAttribute("flag");
+	List<Blog_MesVO> list = null;
+	if(flag == null){
+		Blog_MesService blogmesSvc = new Blog_MesService();
+		list = blogmesSvc.getAll();
+	}else{
+		list = (List<Blog_MesVO>) request.getAttribute("list");
+	}
     pageContext.setAttribute("list",list);
 %>
 
 
 <html>
 <head>
-<title>所有部落格留言資料 - listAllBlog_Mes.jsp</title>
+<title>部落格留言管理</title>
 
 <!-- ----------以下複製到虛線--------------------以下複製到虛線------------------------------------------- -->
   <meta charset="utf-8">
@@ -24,8 +30,6 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>SB Admin 2 - Blank</title>
-
   <!-- Custom fonts for this template-->
   <link href="<%=request.getContextPath()%>/back-assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -33,6 +37,65 @@
   <!-- Custom styles for this template-->
   <link href="<%=request.getContextPath()%>/back-assets/css/sb-admin-2.min.css" rel="stylesheet">
 <!-- ---------------------------------------------------------------- -->
+<style >
+        
+ .list-wrapper {
+            padding: 15px;
+            overflow: hidden;
+        }
+
+        .list-item {
+            border: 1px solid #EEE;
+            background: #FFF;
+            margin-bottom: 10px;
+            padding: 10px;
+            box-shadow: 0px 0px 10px 0px #EEE;
+        }
+
+        .list-item h4 {
+            color: #2f3c43;
+            font-size: 18px;
+            margin: 0 0 5px;
+        }
+
+        .list-item p {
+            margin: 0;
+        }
+
+        .simple-pagination ul {
+            margin: 0 0 20px;
+            padding: 0;
+            list-style: none;
+            text-align: center;
+        }
+
+        .simple-pagination li {
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+        .simple-pagination li a,
+        .simple-pagination li span {
+            color: #666;
+            padding: 5px 10px;
+            text-decoration: none;
+            border: 1px solid #EEE;
+            background-color: #FFF;
+            box-shadow: 0px 0px 10px 0px #EEE;
+        }
+
+        .simple-pagination .current {  //改顏色
+            color: #FFF;
+            background-color: #B5B5B5;
+            border-color: #B5B5B5;
+        }
+
+        .simple-pagination .prev.current,
+        .simple-pagination .next.current {
+            background: #2f3c43;
+        }
+
+</style>
 
 </head>
 <body id="page-top">
@@ -71,6 +134,21 @@
             <div class="card-header py-3">
               <h6 class="m-0 font-weight-bold text-primary">Blog Mes</h6>
             </div>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+    <c:if test="${flag != null }">
+    <a href="<%=request.getContextPath()%>/back-end/blog_mes/listAllBlog_Mes_admin.jsp" class="btn btn-secondary" role="button" aria-pressed="true">返回</a>
+    </c:if>
+    </ul>
+    <form class="form-inline my-2 my-lg-0" method="post" action="<%=request.getContextPath()%>/blog_Mes/Blog_MesServlet?action=adminSearchBlogMes">
+      <input class="form-control mr-sm-2" type="search" placeholder="搜尋留言" aria-label="Search" name="searchText">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -88,8 +166,8 @@
                      </tr>
                   </thead>
 
-				
-				 <c:forEach var="blog_MesVO" items="${list}">
+				<%@ include file="page1.file" %> 
+				 <c:forEach var="blog_MesVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 	                  <tbody>
 	                    <tr>
 	                    	<td>${blog_MesVO.blogMesno}</td>
@@ -113,6 +191,8 @@
 	                  </tbody>
                   </c:forEach>
                 </table>
+                
+                <%@ include file="page2.file" %>
               </div>
             </div>
           </div>
@@ -184,6 +264,23 @@
 	  return false;
 	  }
 	  }
+  
+	  var items = $(".list-wrapper .list-item");
+	  var numItems = items.length;
+	  var perPage = 9;  //列9筆
+	  items.slice(perPage).hide();
+	
+	  $('#pagination-container').pagination({
+	      items: numItems,
+	      itemsOnPage: perPage,
+	      prevText: "&laquo;",
+	      nextText: "&raquo;",
+	      onPageClick: function (pageNumber) {
+	          var showFrom = perPage * (pageNumber - 1);
+	          var showTo = showFrom + perPage;
+	          items.hide().slice(showFrom, showTo).show();
+	      }
+	  });
   
   </script>
 </body>

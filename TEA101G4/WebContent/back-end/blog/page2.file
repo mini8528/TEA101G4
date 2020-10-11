@@ -1,14 +1,14 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
   <%if (rowsPerPage<rowNumber) {%>
     <%if(pageIndex>=rowsPerPage){%>
-        <A href="<%=request.getRequestURI()%>?whichPage=1">¶‹≤ƒ§@≠∂</A>&nbsp;
-        <A href="<%=request.getRequestURI()%>?whichPage=<%=whichPage-1%>">§W§@≠∂ </A>&nbsp;
+        <A href="<%=request.getRequestURI()%>?whichPage=1">Ëá≥Á¨¨‰∏ÄÈ†Å</A>&nbsp;
+        <span onclick="TEST2()">‰∏ä‰∏ÄÈ†Å</span>&nbsp;
     <%}%>
   
     <%if(pageIndex<pageIndexArray[pageNumber-1]){%>
-        <A href="<%=request.getRequestURI()%>?whichPage=<%=whichPage+1%>">§U§@≠∂ </A>&nbsp;
-        <A href="<%=request.getRequestURI()%>?whichPage=<%=pageNumber%>">¶‹≥Ã´·§@≠∂</A>&nbsp;
+    	<span  onclick="TEST()">‰∏ã‰∏ÄÈ†Å</span>&nbsp;
+        <A href="<%=request.getRequestURI()%>?whichPage=<%=pageNumber%>">Ëá≥ÊúÄÂæå‰∏ÄÈ†Å</A>&nbsp;
     <%}%>
   <%}%>  
 
@@ -18,9 +18,35 @@
     <FORM METHOD="post" ACTION="<%=request.getRequestURI()%>">   
        <select size="1" name="whichPage">
          <%for (int i=1; i<=pageNumber; i++){%>
-            <option value="<%=i%>">∏ı¶‹≤ƒ<%=i%>≠∂
+            <option value="<%=i%>">Ë∑≥Ëá≥Á¨¨<%=i%>È†Å
          <%}%> 
        </select>
-       <input type="submit" value="ΩT©w" >  
+       <input type="submit" value="Á¢∫ÂÆö" >  
     </FORM>
   <%}%>
+  
+   <script >
+  
+	  function TEST() {
+		  var searchBlogno = $("input[name='searchBlogno']").val();
+		  var searchMemberid = $("input[name='searchMemberid']").val();
+		  var searchTitle = encodeURI($("input[name='searchTitle']").val());
+		  var searchText = encodeURI($("input[name='searchText']").val());
+		  
+		  
+		  location.href="<%=request.getRequestURI()%>?whichPage=<%=whichPage+1%>&searchBlogno=" + searchBlogno + "&searchMemberid=" + searchMemberid + "&searchTitle=" + searchTitle + "&searchText=" + searchText    
+		  
+	  }
+	  
+	  	  function TEST2() {
+		  var searchBlogno = $("input[name='searchBlogno']").val();
+		  var searchMemberid = $("input[name='searchMemberid']").val();
+		  var searchTitle = encodeURI($("input[name='searchTitle']").val());
+		  var searchText = encodeURI($("input[name='searchText']").val());
+		 
+		  
+		  location.href="<%=request.getRequestURI()%>?whichPage=<%=whichPage-1%>&searchBlogno=" + searchBlogno + "&searchMemberid=" + searchMemberid + "&searchTitle=" + searchTitle + "&searchText=" + searchText    
+		  
+	  }
+	  
+   </script>

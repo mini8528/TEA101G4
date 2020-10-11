@@ -234,15 +234,16 @@
 								<c:if test="${blog_MesVO.status == 'N' }">
 								<div class="media py-1">
 									<div class="mr-4">
-										<img class=" rounded-circle"
-											src="<%=request.getContextPath()%>/assets/img/blog/blog-sm-img1.jpg"
+										<img class=" rounded-circle" width="40px" height="40px"
+											src="<%=request.getContextPath()%>/front-end/member/memberShow.do?memberid=${blog_MesVO.memberId}"
 											alt="User Image">
 									</div>
 
 												<div class="media-body">
 													<span
 														class="mb-3 font-weight-medium text-muted d-inline-block">${memberSvc.getOneMember(blog_MesVO.memberId).getName()}</span>
-													<time class="d-block text-muted font-size-13 mb-3">${blog_MesVO.postDate}</time>
+													<time class="d-block text-muted font-size-13 mb-3"><fmt:formatDate value="${blog_MesVO.postDate}" type="both" /></time>
+													
 													<p class="font-size-13 line-hight-21">${blog_MesVO.text}</p>
 
 												</div>

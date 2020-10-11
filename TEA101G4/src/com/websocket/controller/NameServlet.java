@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.classDetail.model.ClassDetailService;
+import com.member.model.MemberService;
 
 public class NameServlet extends HttpServlet {
 	
@@ -19,6 +20,9 @@ public class NameServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String memberid = req.getParameter("memberid"); //可以用memberid
 		
+//		MemberService memSer = new MemberService();
+//		
+//		String membername = memSer.getOneMember(memberid).getName();
 //		ClassDetailService ClassDetailSer = new ClassDetailService();
 //		List<String> list = ClassDetailSer.studentChat(memberid);
 //		System.out.println(list);

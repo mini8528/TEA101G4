@@ -649,19 +649,13 @@ public class BlogServlet extends HttpServlet {
 			try {
 				/*************************** 1.接收請求參數 ****************************************/
 				String blogno = req.getParameter("blogno");
-				
-
 				/*************************** 2.開始隱藏資料 ****************************************/
 				BlogService blogSvc = new BlogService();
 				blogSvc.hideBlog(blogno);
-				
-				
-
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 				String url = "/front-end/blog/userArticle.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
 				successView.forward(req, res);
-
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
 				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
@@ -700,6 +694,56 @@ public class BlogServlet extends HttpServlet {
 				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/blog/listAllBlog_Admin.jsp");
 				failureView.forward(req, res);
 		
+			}
+		}
+		
+		if ("adminSearchBlog".equals(action)) { 
+
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				/*************************** 1.接收請求參數 ****************************************/
+				String blogno = req.getParameter("searchBlogno");
+				req.setAttribute("searchBlogno", blogno);
+				if(blogno == null) {
+					blogno = "";
+				}
+				String memberid = req.getParameter("searchMemberid");
+				req.setAttribute("searchMemberid", memberid);
+				if(memberid == null) {
+					memberid = ""; 
+				}
+				String title = req.getParameter("searchTitle");
+				req.setAttribute("searchTitle", title);
+				if(title == null) {
+					title = "";
+				}
+				String text = req.getParameter("searchText");
+				req.setAttribute("searchText", text);
+				if(text == null) {
+					text = "";
+				}
+				System.out.println(blogno + memberid + title + text);
+				/*************************** 2.開始隱藏資料 ****************************************/
+				BlogService blogSvc = new BlogService();
+				List<BlogVO> adminSearchList = blogSvc.adminSearch(blogno, memberid, title, text);
+				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
+				req.setAttribute("adminSearchList",adminSearchList);
+				req.setAttribute("search", "search");
+				String url = "/back-end/blog/listAllBlog_Admin.jsp";
+				System.out.println("success");
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
+				successView.forward(req, res);
+				/*************************** 其他可能的錯誤處理 **********************************/
+			} catch (Exception e) {
+				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
+				System.out.println("fail");
+				e.printStackTrace();
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/blog/listAllBlog_Admin.jsp");
+				failureView.forward(req, res);
 			}
 		}
 

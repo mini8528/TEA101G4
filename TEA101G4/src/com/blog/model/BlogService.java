@@ -86,6 +86,10 @@ public class BlogService {
 
 	}
 	
+	public List<BlogVO> adminSearch(String blogno, String memberid, String title, String text){
+		return dao.adminSearch("%" + blogno + "%", "%" + memberid +"%", "%" + title + "%", "%" + text + "%");
+	}
+	
 	
 	
 }

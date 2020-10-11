@@ -1,11 +1,14 @@
 <%@page import="java.sql.Timestamp"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="com.blog.model.*"%>
 <%@ page import="com.member.model.*"%>
 
 <%	
 	BlogVO blogVO = (BlogVO) request.getAttribute("blogVO");
+	Timestamp today = new Timestamp(System.currentTimeMillis());
+	pageContext.setAttribute("today", today);
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -49,6 +52,14 @@
                                     value="${userVO.memberid}"  />
 
                             </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1">發文時間:</label>
+                                <input type="TEXT" name="memberid2"
+                                    size="45" class="form-control"
+                                    value=' <fmt:formatDate value="${today}" type="date" dateStyle="full"/> ' readonly />
+                                    
+
+                            </div>
                             <div class="form-group check-step-gray">
                                 <label for="exampleFormControlSelect1">文章分類:</label> <select class="form-control"
                                     name="blogclass" id="addBlog">
@@ -60,14 +71,14 @@
                             </div>
                             <div class="form-group">
                                 <label for="exampleFormControlInput1">標題:</label> <input type="TEXT" name="title"
-                                    size="45" class="form-control" />
+                                    size="45" class="form-control" required=""/>
                             </div>
                             <div class="form-group">
                                 <label for="exampleFormControlTextarea1">內文:</label>
                                 <!--                     <input type="TEXTAREA" name="text" size="45" -->
                                 <%-- 					value="<%=(blogVO == null) ? "減肥成功" : blogVO.getText()%>" /> --%>
 
-                                <textarea class="form-control" name="text" id="exampleFormControlTextarea1" rows="6" />
+                                <textarea class="form-control" name="text" id="exampleFormControlTextarea1" rows="6" required=""/>
                                 </textarea>
                             </div>
                             <div></div>

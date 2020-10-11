@@ -15,29 +15,22 @@
 </head>
 <body onload="connect();" onunload="disconnect();" id="body" class="up-scroll" data-spy="scroll"
 	data-target=".element-right-sidebar">
-	<jsp:include page="/front-end/header.jsp" flush="true" />
-	
-<!-- 	<div id = "chat"> -->
 	
 	
-	 <div class="container2" style="background-color: #FFFFF">
-	 <div class="row">
-	<div class="col-md-6">
-	<div id="row"></div>
-	</div>
-	<div class="col-md-6" >
+	
 	<h3 id="statusOutput" class="statusOutput"></h3>
-	<div id="messagesArea" class="panel message-area" style=" display: inline-block" ></div>
+	 <jsp:useBean id="ClassDetailSer" scope="page"
+	 class="com.classDetail.model.ClassDetailService" />
+	
+	<div id="row"></div>
+	
+	<div id="messagesArea" class="panel message-area" ></div>
 	<div class="panel input-area">
 		<input id="message" class="text-field" type="text" placeholder="Message" onkeydown="if (event.keyCode == 13) sendMessage();" /> 
 		<input type="submit" id="sendMessage" class="button" value="Send" onclick="sendMessage();" /> 
 		<input type="button" id="connect" class="button" value="Connect" onclick="connect();" /> 
 		<input type="button" id="disconnect" class="button" value="Disconnect" onclick="disconnect();" />
 	</div>
-	</div>
-	</div>
-	</div>
-	<jsp:include page="/front-end/footer.jsp" flush="true" />
 </body>
 <script>
 	
@@ -134,7 +127,7 @@
 		row.innerHTML = '';
 		for (var i = 0; i < friends.length; i++) {
 			if (friends[i] === self) { continue; } //去除自己
-			row.innerHTML +='<div id=' + i + ' class="column" name="friendName" value=' + friends[i] + ' style="background-color: #b5d56a"><h2>' + friends[i] + '</h2></div>';
+			row.innerHTML +='<div id=' + i + ' class="column" name="friendName" value=' + friends[i] + ' ><h2>' + friends[i] + '</h2></div>';
 		}
 		addListener();
 	}

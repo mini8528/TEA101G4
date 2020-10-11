@@ -28,7 +28,7 @@
 
 </head>
 <body bgcolor='white'>
-
+<jsp:include page="header.jsp" flush="true" />
 <table id="table-1">
    <tr><td><h3>Gympayz Member: Home</h3><h4>( MVC )</h4></td></tr>
 </table>
@@ -84,6 +84,6 @@
 <ul>
   <li><a href='<%=request.getContextPath()%>/front-end/member/addMember.jsp'>Add</a> a new Member.</li>
 </ul>
-
+<jsp:include page="footer.jsp" flush="true" />
 </body>
 </html>

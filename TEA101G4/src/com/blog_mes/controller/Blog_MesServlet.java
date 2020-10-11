@@ -224,6 +224,7 @@ public class Blog_MesServlet extends HttpServlet {
 				}
 				
 				Timestamp postdate =  new Timestamp(System.currentTimeMillis());
+				Timestamp updatetime =  new Timestamp(System.currentTimeMillis());
 
 				Blog_MesVO blogMesVO = new Blog_MesVO();
 				blogMesVO.setBlogno(blogno);
@@ -241,7 +242,7 @@ public class Blog_MesServlet extends HttpServlet {
 
 				/*************************** 2.開始新增資料 ***************************************/
 				Blog_MesService blogMesSvc = new Blog_MesService();
-				blogMesVO = blogMesSvc.addBlogMes(blogno, memberid, text, postdate, null, "N");
+				blogMesVO = blogMesSvc.addBlogMes(blogno, memberid, text, postdate, updatetime, "N");
 				
 				BlogService blogser = new BlogService();
 				BlogVO blogVO = blogser.getOneBlog(blogno);
@@ -372,6 +373,61 @@ public class Blog_MesServlet extends HttpServlet {
 				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/blog_mes/listAllBlog_Mes_admin.jsp");
 				failureView.forward(req, res);
 		
+			}
+		}
+		
+		if ("adminSearchBlogMes".equals(action)) { // 來自select_page.jsp的請求
+
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+				String searchText = req.getParameter("searchText");
+				if (searchText == null || (searchText.trim()).length() == 0) {
+					errorMsgs.add("請輸入要查詢文字");
+				}
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/blog_mes/select_page.jsp");
+					failureView.forward(req, res);
+					return;// 程式中斷
+				}
+
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/blog_mes/select_page.jsp");
+					failureView.forward(req, res);
+					return;// 程式中斷
+				}
+
+				/*************************** 2.開始查詢資料 *****************************************/
+				Blog_MesService blogMesSvc = new Blog_MesService();
+				List <Blog_MesVO> list = blogMesSvc.searchMesText(searchText);
+				if (list == null) {
+					errorMsgs.add("查無資料");
+				}
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/blog_mes/listAllBlog_Mes_admin.jsp");
+					failureView.forward(req, res);
+					return;// 程式中斷
+				}
+
+				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
+				req.setAttribute("list", list); // 資料庫取出的empVO物件,存入req
+				req.setAttribute("flag", "search");
+				String url = "/back-end/blog_mes/listAllBlog_Mes_admin.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
+				successView.forward(req, res);
+
+				/*************************** 其他可能的錯誤處理 *************************************/
+			} catch (Exception e) {
+				errorMsgs.add("無法取得資料:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/blog_mes/listAllBlog_Mes_admin.jsp");
+				failureView.forward(req, res);
 			}
 		}
 		

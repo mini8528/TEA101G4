@@ -13,6 +13,7 @@ public interface BlogDAO_interface {
 	 public List<BlogVO> findByMemberid(String memberId);
 	 public void hideBlog(String blogno);
 	 public void changeStatus(String blogno, String status, Timestamp updatetime);
+	 public List<BlogVO> adminSearch(String blogno, String memberid, String title, String text);
     
 }
 

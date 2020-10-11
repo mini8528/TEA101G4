@@ -27,7 +27,7 @@ public class ShowPhoto_MemberServlet extends HttpServlet {
 		doPost(req, res);
 	}
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		System.out.println("進入 ShowPhoto_MemberServlet, memberID = "+ req.getParameter("memberid"));
+//		System.out.println("進入 ShowPhoto_MemberServlet, memberID = "+ req.getParameter("memberid"));
 
 		res.setContentType("image/gif");
 		ServletOutputStream outpho = res.getOutputStream();
@@ -38,7 +38,7 @@ public class ShowPhoto_MemberServlet extends HttpServlet {
 			PreparedStatement pstmt = con.prepareStatement(SHOW_PHOTO);
 			pstmt.setString(1, memberid);
 			ResultSet rs = pstmt.executeQuery();
-			System.out.println(" 連結資料庫並查詢 :" + memberid );
+//			System.out.println(" 連結資料庫並查詢 :" + memberid );
 			try {
 				if (rs.next()) {
 					BufferedInputStream in    = new BufferedInputStream(rs.getBinaryStream("PHOTO"));
@@ -53,9 +53,9 @@ public class ShowPhoto_MemberServlet extends HttpServlet {
 				rs.close();
 				pstmt.close();
 				con.close();
-				System.out.println(" 連結資料庫並查詢 :" + memberid + "照片, 查詢成功關閉連線" );
+//				System.out.println(" 連結資料庫並查詢 :" + memberid + "照片, 查詢成功關閉連線" );
 			} catch (IOException e) {
-				System.out.println(" 連結資料庫並查詢 :" + memberid + "照片, 寫入照片失敗, 使用預設照片" );
+//				System.out.println(" 連結資料庫並查詢 :" + memberid + "照片, 寫入照片失敗, 使用預設照片" );
 				InputStream in = getServletContext().getResourceAsStream("/front-end/member/images/tomcat.png");
 				byte[] b = new byte[in.available()];
 				in.read(b);
@@ -65,7 +65,7 @@ public class ShowPhoto_MemberServlet extends HttpServlet {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
-			System.out.println( req.getParameter("memberid")+" 連結資料庫  失敗, 使用預設照片" );
+//			System.out.println( req.getParameter("memberid")+" 連結資料庫  失敗, 使用預設照片" );
 			InputStream in = getServletContext().getResourceAsStream("/front-end/member/images/tomcat.png");
 			byte[] b = new byte[in.available()];
 			in.read(b);

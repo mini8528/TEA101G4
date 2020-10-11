@@ -9,7 +9,7 @@ import com.blog_mes.model.Blog_MesVO;
 public class TestBlog_MesService {
 
 	public static void main(String[] args) {
-//		Blog_MesService service = new Blog_MesService();
+		Blog_MesService service = new Blog_MesService();
 //		service.adminChangeMesStatus("BM00010", "N");
 		
 		//新增
@@ -32,6 +32,8 @@ public class TestBlog_MesService {
 //		for(Blog_MesVO blogmesvo : result) {
 //			System.out.println(blogmesvo);
 //		}
+		List<Blog_MesVO> list = service.searchMesText("胖");
+		System.out.println(list);
 		
 	}
 }

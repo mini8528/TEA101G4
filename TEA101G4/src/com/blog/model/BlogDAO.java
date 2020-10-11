@@ -35,7 +35,7 @@ public class BlogDAO implements BlogDAO_interface {
 	private static final String GET_MEMBER_BLOG = "SELECT blogno,memberid,blogclass,to_char(postdate,'yyyy-mm-dd hh24:mi:ss') postdate,title,text,status,to_char(updatetime,'yyyy-mm-dd hh24:mi:ss') updatetime FROM blog where memberid = ? order by blogno";
 	private static final String UPDATE_STATUS = "UPDATE blog set status='Y' where blogno = ?";
 	private static final String ADMIN_STATUS = "UPDATE blog set status=?, updatetime=? where blogno = ?";
-	
+	private static final String ADMIN_SEARCH = "SELECT * FROM BLOG WHERE BLOGNO LIKE ? AND MEMBERID LIKE ? AND TITLE LIKE ? AND TEXT LIKE ?";
 	
 	@Override
 	public void insert(BlogVO blogVO) {
@@ -498,6 +498,73 @@ public class BlogDAO implements BlogDAO_interface {
 			}
 		}
 
+	}
+	
+	@Override
+	public List<BlogVO> adminSearch(String blogno, String memberid, String title, String text) {
+		List<BlogVO> list = new ArrayList<BlogVO>();
+		BlogVO blogVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(ADMIN_SEARCH);
+			pstmt.setString(1, blogno);
+			pstmt.setString(2, memberid);
+			pstmt.setString(3, title);
+			pstmt.setString(4, text);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				blogVO = new BlogVO();
+				
+				blogVO.setBlogno(rs.getString("blogno"));
+				blogVO.setMemberId(rs.getString("memberid"));
+				blogVO.setBlogClass(rs.getString("blogclass"));
+				blogVO.setPostDate(rs.getTimestamp("postdate"));
+				blogVO.setTitle(rs.getString("title"));
+				blogVO.setText(rs.getString("text"));
+//				blogVO.setPhoto(rs.getBytes("photo"));
+//				blogVO.setVideo(rs.getBytes("video"));
+				blogVO.setStatus(rs.getString("status"));
+				blogVO.setUpdateTime(rs.getTimestamp("updatetime"));
+				
+				list.add(blogVO);
+			}
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
 	}
 	
 	

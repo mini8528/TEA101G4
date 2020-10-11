@@ -53,20 +53,17 @@ img{
 
 </head>
 <body bgcolor='white'>
-
-	<table id="table-1">
-		<tr>
-			<td>
-				<h3>memberID修改 - update_member_input.jsp</h3>
-				<h4>
-					<a href="<%=request.getContextPath()%>/front-end/member/select_page.jsp"><img src="images/back1.gif"
-						width="100" height="32" border="0">回首頁</a>
-				</h4>
-			</td>
-		</tr>
-	</table>
-
-	<h3>資料修改:</h3>
+<jsp:include page="header.jsp" flush="true" />
+<!-- 	<table id="table-1"> -->
+<!-- 		<tr> -->
+<!-- 			<td>				 -->
+<!-- 				<h4> -->
+<%-- 					<a href="<%=request.getContextPath()%>/front-end/member/select_page.jsp"><img src="images/back1.gif" --%>
+<!-- 						width="100" height="32" border="0">回首頁</a> -->
+<!-- 				</h4> -->
+<!-- 			</td> -->
+<!-- 		</tr> -->
+<!-- 	</table> -->
 
 	<%-- 錯誤表列 --%>
 	<c:if test="${not empty errorMsgs}">
@@ -80,38 +77,50 @@ img{
 
 	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/member/MemberServlet" name="form1"
 		enctype="multipart/form-data">
-		<table>
+		
+		  <div class="col-sm-6 offset-lg-3 col-lg-7">
+        	<div class="mb-4 mb-sm-0">
+          <div class="bg-purple rounded-top p-2">
+            <h3 class="text-white font-weight-bold mb-0 ml-2">修改資料:</h3>
+          </div>
+          
+          <div class="border rounded-bottom-sm border-top-0">
+            <div class="p-3">
+              <form action="#" method="POST" role="form">
+
 			<tr>
 				<td>memberid:<font color=red><b>*</b></font></td>
 				<td><%=memberVO.getMemberid()%></td>
 			</tr>
-			
-			
+			<br>			
 			<tr>
 				<td>新增日：<font color=blue><b>*</b></font></td>
 				<td><%=memberVO.getAdddate()%> <input type="hidden"
 					name="adddate" value="<%=memberVO.getAdddate()%>" /></td>
 			</tr>
-			
+			<br>
 			<tr>
 				<td>姓名:</td>
-				<td><input type="TEXT" name="name" size="45" value="<%=memberVO.getName()%>" /></td>
+				<td><input type="TEXT" name="name" class="form-control border" 
+				value="<%=memberVO.getName()%>" /></td>
 			</tr>
 			
 			<tr>
 				<td>帳號:</td>
-				<td><input type="TEXT" name="account" size="45" value="<%=memberVO.getAccount()%>" /></td>
+				<td><input type="TEXT" name="account" class="form-control border" 
+				value="<%=memberVO.getAccount()%>" /></td>
 			</tr>
 
 			<tr>
 				<td>密碼:</td>
-				<td><input type="password" name="password" size="45" value="<%=memberVO.getPassword()%>" /></td>
+				<td><input type="password" name="password" class="form-control border"
+				value="<%=memberVO.getPassword()%>" /></td>
 			</tr>
 
 
 			<tr>
 				<td>性別：</td>
-				<td><select name="gender">
+				<td><select name="gender" class="form-control">
 						<option value="F" ${(memberVO.gender=="F")? 'selected':'' }>女</option>
 						<option value="M" ${(memberVO.gender=="M")? 'selected':'' }>男</option>
 				</select></td>
@@ -119,89 +128,100 @@ img{
 
 			<tr>
 				<td>電話:</td>
-				<td><input type="TEXT" name="phone" size="45" value="<%=memberVO.getPhone()%>" /></td>
+				<td><input type="TEXT" name="phone" class="form-control border"
+				value="<%=memberVO.getPhone()%>" /></td>
 			</tr>
 			
 			<tr>
 				<td>生日:</td>
-				<td><input type="date" name="birthday" size="45" value="<%=memberVO.getPhone()%>" /></td>
+				<td><input type="date" name="birthday" class="form-control border"
+				value="<%=memberVO.getPhone()%>" /></td>
 			</tr>
 
 			
 			<tr>
 				<td>email:</td>
-				<td><input type="email" name="email" size="45" value="<%=memberVO.getEmail()%>" /></td>
+				<td><input type="email" name="email" class="form-control border"
+				value="<%=memberVO.getEmail()%>" /></td>
 			</tr>
 
 
 			<tr>
 				<td>照片:</td>
-				<td><input type="file" name="photo" id="p_file"> <br>
+				<td><input type="file" name="photo" id="p_file" class="form-control border"> <br>
 					<div id="preview">
-						<span class="text"> 預覽 </span>
+						<span class="text"></span>
 					</div>
 			</tr>
 			
 			<tr>
 				<td>地址:</td>
-				<td><input type="TEXT" name="address" size="45" value="<%=memberVO.getAddress()%>" /></td>
+				<td><input type="TEXT" name="address" class="form-control border"
+				value="<%=memberVO.getAddress()%>" /></td>
 			</tr>
 
-			<tr>
-				<td>權限：</td>
-				<td><select name="authority">
-						<option value="N" ${(memberVO.gender=="N")? 'selected':'' }>N</option>
-						<option value="Y" ${(memberVO.gender=="Y")? 'selected':'' }>Y</option>
-				</select></td>
-			</tr>
+<!-- 			<tr> -->
+<!-- 				<td>權限：</td> -->
+<!-- 				<td><select name="authority" class="form-control"> -->
+<%-- 						<option value="N" ${(memberVO.gender=="N")? 'selected':'' }>N</option> --%>
+<%-- 						<option value="Y" ${(memberVO.gender=="Y")? 'selected':'' }>Y</option> --%>
+<!-- 				</select></td> -->
+<!-- 			</tr> -->
 			
 			<tr>
 				<td>資歷:</td>
-				<td><input type="TEXT" name="qualifications" size="45" value="<%=memberVO.getQualifications()%>" /></td>
+				<td><input type="TEXT" name="qualifications" class="form-control border"
+				value="<%=memberVO.getQualifications()%>" /></td>
 			</tr>
 			
 			<tr>
 				<td>專長:</td>
-				<td><input type="TEXT" name="expertise" size="45" value="<%=memberVO.getExpertise()%>" /></td>
+				<td><input type="TEXT" name="expertise" class="form-control border"
+				value="<%=memberVO.getExpertise()%>" /></td>
 			</tr>
 			
 			<tr>
 				<td>個人介紹:</td>
-				<td><input type="TEXT" name="introduction" size="45" value="<%=memberVO.getIntroduction()%>" /></td>
+				<td><input type="TEXT" name="introduction" class="form-control border"
+				value="<%=memberVO.getIntroduction()%>" /></td>
 			</tr>
 			
 			<tr>
 				<td>照片:</td>
-				<td><input type="file" name="photo1" id="p_file1"> <br>
+				<td><input type="file" name="photo1" id="p_file1" class="form-control border"> <br>
 					<div id="preview1">
-						<span class="text"> 預覽 </span>
+						<span class="text"></span>
 					</div>
 			</tr>
 			
 			<tr>
 				<td>照片:</td>
-				<td><input type="file" name="photo2" id="p_file2"> <br>
+				<td><input type="file" name="photo2" id="p_file2" class="form-control border"> <br>
 					<div id="preview2">
-						<span class="text"> 預覽 </span>
+						<span class="text"></span>
 					</div>
 			</tr>
 			
 			<tr>
 				<td>照片:</td>
-				<td><input type="file" name="photo3" id="p_file3"> <br>
+				<td><input type="file" name="photo3" id="p_file3" class="form-control border"> <br>
 					<div id="preview3">
-						<span class="text"> 預覽 </span>
+						<span class="text"></span>
 					</div>
 			</tr>
 
 
-
-		</table>
 		<br> <input type="hidden" name="action" value="update"> <input
 			type="hidden" name="memberid"
 			value="<%=memberVO.getMemberid()%>"> <input
-			type="submit" value="送出修改">
+			type="submit" class="btn btn-danger text-uppercase w-100" value="送出修改">
+			</form>
+		  </div>
+		 </div>
+		</div>
+	  </div>			
 	</FORM>
+	<jsp:include page="footer.jsp" flush="true" />
 </body>
 
 

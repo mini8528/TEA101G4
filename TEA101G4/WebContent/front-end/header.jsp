@@ -80,7 +80,7 @@
                                     <li class="text-white mr-md-3 mr-lg-2 mr-xl-5">
                                         <div data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                                             data-display="static">
-                                            <img src="<%=request.getContextPath()%>/assets/img/user.png" width="30px"
+                                            <img src="<%=request.getContextPath()%>/front-end/member/memberShow.do?memberid=${userVO.memberid}" width="30px"
                                                 height="30px" style="border-radius:100%; magin-right:20px">
                                             <!--                                			 加herf連結至個人頁面 -->
                                             <a class="text-white font-weight-medium opacity-80"> ${userVO.name}</a>
@@ -93,7 +93,7 @@
                                         </div>
                                         <div class="dropdown-menu dropdown-menu-right">
                                             <ul class="bg-white list-unstyled">
-                                                <a href="product-single.html">
+                                                <a href="<%=request.getContextPath() %>/front-end/member/listOneMember.jsp">
                                                     <li>
                                                         <div class="media">
                                                             <div class="media-body">
@@ -106,7 +106,7 @@
                                                     </li>
                                                 </a>
                                                 <hr>
-                                                <a href="<%=request.getContextPath()%>/front-end/chat/index.jsp">
+                                                <a href="<%=request.getContextPath() %>/chat.do?memberid=${userVO.memberid}">
                                                     <li>
                                                         <div class="media">
                                                             <div class="media-body">

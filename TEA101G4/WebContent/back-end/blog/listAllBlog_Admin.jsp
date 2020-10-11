@@ -1,21 +1,62 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.blog.model.*"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@page import="java.net.URLDecoder"%> 
 
-<%-- ¦¹­¶½m²ß±Ä¥Î EL ªº¼gªk¨ú­È --%>
+<%-- æ­¤é ç·´ç¿’æ¡ç”¨ EL çš„å¯«æ³•å–å€¼ --%>
 
 <%
-    BlogService blogSvc = new BlogService();
-    List<BlogVO> list = blogSvc.getAll();
-    pageContext.setAttribute("list",list);
+    String search = (String) request.getAttribute("search"); 
+    String searchBlogno = (String) request.getParameter("searchBlogno"); 
+    request.setAttribute("searchBlogno", searchBlogno);
+    String searchMemberid = (String) request.getParameter("searchMemberid"); 
+    request.setAttribute("searchMemberid", searchMemberid);
+    String searchTitle = (String)request.getParameter("searchTitle");
+    request.setAttribute("searchTitle", searchTitle);
+    String searchText = (String)request.getParameter("searchText");
+    request.setAttribute("searchText", searchText);
+    if(searchTitle!= null){
+    	searchTitle = new String(searchTitle.getBytes("ISO8859-1"), "UTF-8"); 
+    }
+	if(searchText!= null){
+    	searchText = new String(searchText.getBytes("ISO8859-1"), "UTF-8"); 
+	}
+  
+	List<BlogVO> list = null;
+	if(search == null){
+    	BlogService blogSvc = new BlogService();
+        if(searchBlogno == null && searchMemberid == null && searchTitle == null && searchText == null){
+        	list = blogSvc.getAll();
+            pageContext.setAttribute("list",list);
+        }else{
+        	if(searchBlogno == null) {
+        		searchBlogno = "";
+			}
+        	if(searchMemberid == null) {
+        		searchMemberid = "";
+			}
+        	if(searchTitle == null) {
+        		searchTitle = "";
+			}
+        	if(searchText == null) {
+        		searchText = "";
+			}
+        	list = blogSvc.adminSearch(searchBlogno, searchMemberid, searchTitle, searchText);
+        }
+    	
+    }else{
+    	list = (List <BlogVO>) request.getAttribute("adminSearchList");	
+    }
+	pageContext.setAttribute("list",list);
+	
 %>
 
 
 <html>
 <head>
-<title>©Ò¦³¤å³¹¸ê®Æ - listAllBlog.jsp</title>
+<title>æ–‡ç« ç®¡ç†</title>
 
 
  <meta charset="utf-8">
@@ -24,14 +65,74 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>SB Admin 2 - Blank</title>
-
+  
   <!-- Custom fonts for this template-->
   <link href="<%=request.getContextPath()%>/back-assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
   <!-- Custom styles for this template-->
   <link href="<%=request.getContextPath()%>/back-assets/css/sb-admin-2.min.css" rel="stylesheet">
+  
+  <style >
+      
+ .list-wrapper {
+            padding: 15px;
+            overflow: hidden;
+        }
+
+        .list-item {
+            border: 1px solid #EEE;
+            background: #FFF;
+            margin-bottom: 10px;
+            padding: 10px;
+            box-shadow: 0px 0px 10px 0px #EEE;
+        }
+
+        .list-item h4 {
+            color: #2f3c43;
+            font-size: 18px;
+            margin: 0 0 5px;
+        }
+
+        .list-item p {
+            margin: 0;
+        }
+
+        .simple-pagination ul {
+            margin: 0 0 20px;
+            padding: 0;
+            list-style: none;
+            text-align: center;
+        }
+
+        .simple-pagination li {
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+        .simple-pagination li a,
+        .simple-pagination li span {
+            color: #666;
+            padding: 5px 10px;
+            text-decoration: none;
+            border: 1px solid #EEE;
+            background-color: #FFF;
+            box-shadow: 0px 0px 10px 0px #EEE;
+        }
+
+        .simple-pagination .current {  //æ”¹é¡è‰²
+            color: #FFF;
+            background-color: #B5B5B5;
+            border-color: #B5B5B5;
+        }
+
+        .simple-pagination .prev.current,
+        .simple-pagination .next.current {
+            background: #2f3c43;
+        }
+
+</style>
+  
 
 </head>
 <body id="page-top">
@@ -56,24 +157,24 @@
           <!-- Page Heading -->
     
 <div>
-<!-- ­×§ï°²¸ê®Æ -->
+<!-- ä¿®æ”¹å‡è³‡æ–™ -->
 
 
 <!-- <table> -->
 <!-- 	<tr> -->
-<!-- 		<th>¤å³¹½s¸¹</th> -->
-<!-- 		<th>¤@¯ë·|­û½s¸¹</th> -->
-<!-- 		<th>¤å³¹¤ÀÃş</th> -->
-<!-- 		<th>µo¤å¤é´Á</th> -->
-<!-- 		<th>¼ĞÃD</th> -->
-<!-- 		<th>¤º¤å</th> -->
-<!-- <!-- 		<th>¼v¤ù</th> -->
-<!-- 		<th>¤å³¹ª¬ºA</th> -->
-<!-- 		<th>§ó·s¤é´Á</th> -->
-<!-- 		<th>·Ó¤ù</th> -->
-<!-- 		<th>¼v¤ù</th> -->
-<!-- 		<th>­×§ï</th> -->
-<!-- 		<th>§R°£</th> -->
+<!-- 		<th>æ–‡ç« ç·¨è™Ÿ</th> -->
+<!-- 		<th>ä¸€èˆ¬æœƒå“¡ç·¨è™Ÿ</th> -->
+<!-- 		<th>æ–‡ç« åˆ†é¡</th> -->
+<!-- 		<th>ç™¼æ–‡æ—¥æœŸ</th> -->
+<!-- 		<th>æ¨™é¡Œ</th> -->
+<!-- 		<th>å…§æ–‡</th> -->
+<!-- <!-- 		<th>å½±ç‰‡</th> -->
+<!-- 		<th>æ–‡ç« ç‹€æ…‹</th> -->
+<!-- 		<th>æ›´æ–°æ—¥æœŸ</th> -->
+<!-- 		<th>ç…§ç‰‡</th> -->
+<!-- 		<th>å½±ç‰‡</th> -->
+<!-- 		<th>ä¿®æ”¹</th> -->
+<!-- 		<th>åˆªé™¤</th> -->
 <!-- 	</tr> -->
 <%-- 	<%@ include file="page1.file" %>  --%>
 <%-- <%-- 	<c:forEach var="blogVO" items="${list}"> --%> 
@@ -98,13 +199,13 @@
 <!-- 			</td> -->
 <!-- 			<td> -->
 <%-- 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/blog/BlogServlet" style="margin-bottom: 0px;"> --%>
-<!-- 			     <input type="submit" value="­×§ï"> -->
+<!-- 			     <input type="submit" value="ä¿®æ”¹"> -->
 <%-- 			     <input type="hidden" name="blogno"  value="${blogVO.blogno}"> --%>
 <!-- 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM> -->
 <!-- 			</td> -->
 <!-- 			<td> -->
 <%-- 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/blog/BlogServlet" style="margin-bottom: 0px;"> --%>
-<!-- 			     <input type="submit" value="§R°£"> -->
+<!-- 			     <input type="submit" value="åˆªé™¤"> -->
 <%-- 			     <input type="hidden" name="blogno"  value="${blogVO.blogno}"> --%>
 <!-- 			     <input type="hidden" name="action" value="delete"></FORM> -->
 <!-- 			</td> -->
@@ -118,7 +219,7 @@
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">¤å³¹ºŞ²z</h1>
+          <h1 class="h3 mb-2 text-gray-800">æ–‡ç« ç®¡ç†</h1>
           <p class="mb-4"></p>
 
           <!-- DataTales Example -->
@@ -126,38 +227,48 @@
             <div class="card-header py-3">
               <h6 class="m-0 font-weight-bold text-primary">All Article</h6>
             </div>
+            <nav class="navbar navbar-light bg-light justify-content-between">
+			  <form class="form-inline" method="post" action="<%=request.getContextPath() %>/blog/BlogServlet?action=adminSearchBlog">
+			    <label>æ–‡ç« ç·¨è™Ÿ: </label><input class="form-control mr-sm-2" type="search" name="searchBlogno" placeholder="Blogno" aria-label="Search" style="width: 100px; height: 35px" value="${searchBlogno == null? '' : searchBlogno}">
+			    <label>æœƒå“¡ç·¨è™Ÿ: </label><input class="form-control mr-sm-2" type="search" name="searchMemberid" placeholder="Memberid" aria-label="Search" style="width: 120px; height: 35px" value="${searchMemberid == null? '' : searchMemberid}">
+			    <label>æ¨™é¡Œ: </label><input class="form-control mr-sm-2" type="search" name="searchTitle" placeholder="Title" aria-label="Search" style="width: 150px; height: 35px" value="${searchTitle == null? '' : searchTitle}">
+			    <label>å…§æ–‡: </label><input class="form-control mr-sm-2" type="search" name="searchText" placeholder="Text" aria-label="Search" style="width: 150px; height: 35px" value="${searchText == null? '' : searchText}">
+			    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="width: 80px; height: 35px">Search</button>
+			  </form>
+			</nav>
             <div class="card-body">
-              <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <div class="table-responsive  list-wrapper">
+                <table class="table table-bordered list-item" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>¤å³¹½s¸¹</th>
-                      <th>·|­û½s¸¹</th>
-                      <th>¤å³¹¤ÀÃş</th>
-                      <th>µo¤å¤é´Á</th>
-                      <th>¼ĞÃD</th>
-                      <th>¤º¤å</th>
-                      <th>ª¬ºA(ÁôÂÃ)</th>
-                      <th>§ó·s¤é´Á</th>
-                      <th>­×§ï</th>
-<!-- 					  <th>§R°£</th> -->
+                      <th>æ–‡ç« ç·¨è™Ÿ</th>
+                      <th>æœƒå“¡ç·¨è™Ÿ</th>
+                      <th>æ–‡ç« åˆ†é¡</th>
+                      <th>ç™¼æ–‡æ—¥æœŸ</th>
+                      <th>æ¨™é¡Œ</th>
+                      <th>å…§æ–‡</th>
+                      <th>ç‹€æ…‹(éš±è—)</th>
+                      <th>æ›´æ–°æ—¥æœŸ</th>
+                      <th>ä¿®æ”¹</th>
+<!-- 					  <th>åˆªé™¤</th> -->
                     </tr>
                   </thead>
 <!--                   <tfoot> -->
 <!--                     <tr> -->
-<!--                       <th>¤å³¹½s¸¹</th> -->
-<!--                       <th>¤@¯ë·|­û½s¸¹</th> -->
-<!--                       <th>¤å³¹¤ÀÃş</th> -->
-<!--                       <th>µo¤å¤é´Á</th> -->
-<!--                       <th>¼ĞÃD</th> -->
-<!--                       <th>¤º¤å</th> -->
-<!--                       <th>¤å³¹ª¬ºA</th> -->
-<!--                       <th>§ó·s¤é´Á</th> -->
-<!--                       <th>­×§ï</th> -->
-<!-- 					  <th>§R°£</th> -->
+<!--                       <th>æ–‡ç« ç·¨è™Ÿ</th> -->
+<!--                       <th>ä¸€èˆ¬æœƒå“¡ç·¨è™Ÿ</th> -->
+<!--                       <th>æ–‡ç« åˆ†é¡</th> -->
+<!--                       <th>ç™¼æ–‡æ—¥æœŸ</th> -->
+<!--                       <th>æ¨™é¡Œ</th> -->
+<!--                       <th>å…§æ–‡</th> -->
+<!--                       <th>æ–‡ç« ç‹€æ…‹</th> -->
+<!--                       <th>æ›´æ–°æ—¥æœŸ</th> -->
+<!--                       <th>ä¿®æ”¹</th> -->
+<!-- 					  <th>åˆªé™¤</th> -->
 <!--                     </tr> -->
 <!--                   </tfoot> -->
-				 <c:forEach var="blogVO" items="${list}">
+				<%@ include file="page1.file" %> 
+				 <c:forEach var="blogVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 	                  <tbody>
 	                    <tr>
 	                      <td>${blogVO.blogno}</td>
@@ -168,13 +279,13 @@
 						  <td>${blogVO.text}</td>
 						  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/blog/BlogServlet" style="margin-bottom: 0px;">
 						  <td><select name="status">
-										<option value="N" ${blogVO.status=="N"? 'selected' : ''}>Åã¥Ü</option>
-										<option value="Y" ${blogVO.status=="Y"? 'selected' : ''}>ÁôÂÃ</option>
+										<option value="N" ${blogVO.status=="N"? 'selected' : ''}>é¡¯ç¤º</option>
+										<option value="Y" ${blogVO.status=="Y"? 'selected' : ''}>éš±è—</option>
 				
 								</select></td>
 						  <td><fmt:formatDate value="${blogVO.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 						  <td>
-						     <input type="submit" value="­×§ï" onclick="javascript: return del()">
+						     <input type="submit" value="ä¿®æ”¹" onclick="javascript: return del()">
 						     <input type="hidden" name="blogno"  value="${blogVO.blogno}">
 						     <input type="hidden" name="action"	value="admin_Update">
 						 </td>
@@ -184,6 +295,7 @@
 	                  </tbody>
                   </c:forEach>
                 </table>
+                <%@ include file="page2.file" %>
               </div>
             </div>
           </div>
@@ -222,7 +334,7 @@
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
           <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">¡Ñ</span>
+            <span aria-hidden="true">Ã—</span>
           </button>
         </div>
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
@@ -233,7 +345,7 @@
       </div>
     </div>
   </div>
-
+		<div id="pagination-container"></div>
   <!-- Bootstrap core JavaScript-->
   <script src="<%=request.getContextPath()%>/back-assets/vendor/jquery/jquery.min.js"></script>
   <script src="<%=request.getContextPath()%>/back-assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -246,7 +358,7 @@
   <script >
   
   function del() {
-	  var msg = "½T»{­×§ï?";
+	  var msg = "ç¢ºèªä¿®æ”¹?";
 	  if (confirm(msg)){
 	  return true;
 	  }else{
@@ -254,6 +366,23 @@
 	  return false;
 	  }
 	  }
+  
+	  var items = $(".list-wrapper .list-item");
+	  var numItems = items.length;
+	  var perPage = 9;  //åˆ—9ç­†
+	  items.slice(perPage).hide();
+	
+	  $('#pagination-container').pagination({
+	      items: numItems,
+	      itemsOnPage: perPage,
+	      prevText: "&laquo;",
+	      nextText: "&raquo;",
+	      onPageClick: function (pageNumber) {
+	          var showFrom = perPage * (pageNumber - 1);
+	          var showTo = showFrom + perPage;
+	          items.hide().slice(showFrom, showTo).show();
+	      }
+	  });
 
 
 

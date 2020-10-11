@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.blog.model.BlogJDBCDAO;
 import com.blog.model.BlogVO;
+import com.blog_mes.model.Blog_MesJDBCDAO;
 
 
 public class TestBlogJDBCDAO {
@@ -12,6 +13,9 @@ public class TestBlogJDBCDAO {
 	public static void main(String[] args) {
 
 		BlogJDBCDAO dao = new BlogJDBCDAO();
+		
+		Blog_MesJDBCDAO mesdao = new Blog_MesJDBCDAO();
+	
 		
 //		dao.changeStatus("B00001","N");
 

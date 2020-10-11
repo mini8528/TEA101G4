@@ -20,6 +20,7 @@ import javax.websocket.server.ServerEndpoint;
 
 import com.classDetail.model.ClassDetailService;
 import com.google.gson.Gson;
+import com.member.model.MemberService;
 import com.websocket.jedis.JedisHandleMessage;
 import com.websocket.model.ChatMessage;
 import com.websocket.model.State;
@@ -37,12 +38,15 @@ public class FriendWS {
 		/* Sends all the connected users to the new user */
 		Set<String> onlineSet = sessionsMap.keySet();
 		Set<String> coachesidSet = coachsOnLine(userid, onlineSet);
+		
+		MemberService memSer = new MemberService();
+		String username= memSer.getOneMember(userid).getName();
+		
 		State coachMessage = new State("open", userid, coachesidSet);// 後端交給前端判斷
 		String statecoachMessageJson = gson.toJson(coachMessage);
 
 		// 把上線教練通知給自己
-		if (userSession.isOpen())
-		{
+		if (userSession.isOpen()) { 
 			userSession.getAsyncRemote().sendText(statecoachMessageJson);
 		}
 
@@ -53,6 +57,7 @@ public class FriendWS {
 		
 		// 學員名稱通知教練
 		for (String coachid : coachesidSet) {
+			System.out.println("coachid = " + coachid);
 			Session coachsession = sessionsMap.get(coachid);
 			if (coachsession.isOpen()) {
 				coachsession.getAsyncRemote().sendText(stateuserMessageJson);
