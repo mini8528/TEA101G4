@@ -11,7 +11,7 @@
 <style type="text/css">
 
 </style>
-<title>Message</title>
+<title>最大私人聊天室</title>
 </head>
 <body onload="connect();" onunload="disconnect();" id="body" class="up-scroll" data-spy="scroll"
 	data-target=".element-right-sidebar">
@@ -64,7 +64,6 @@
 
 		webSocket.onmessage = function(event) {
 			var jsonObj = JSON.parse(event.data);
-			
 			if ("open" === jsonObj.type) { //與FriendWS做比對
 				refreshFriendList(jsonObj); //110
 			} else if ("history" === jsonObj.type) {
@@ -74,45 +73,23 @@
 				messagesArea.appendChild(ul);
 				// 這行的jsonObj.message是從redis撈出跟好友的歷史訊息，再parse成JSON格式處理
 				var messages = JSON.parse(jsonObj.message);
-				var friendno = $("#statusOutput").text();
-				console.log("friendno =" + friendno);
 				for (var i = 0; i < messages.length; i++) {
 					var historyData = JSON.parse(messages[i]);
 					var showMsg = historyData.message;
 					var li = document.createElement('li');
 					// 根據發送者是自己還是對方來給予不同的class名, 以達到訊息左右區分(css)
 					historyData.sender === self ? li.className += 'me' : li.className += 'friend';
-					li.className === 'me'? li.innerHTML = '<div class="avatar"> '+ showMsg + '</div>': li.innerHTML = '<div class="avatar"><img style="height: 50px " src="<%=request.getContextPath()%>/front-end/member/memberShow.do?memberid='+ friendno +'"></div> <div class="msg">' + showMsg + '</div>';
+					li.innerHTML = showMsg;
 					ul.appendChild(li);
 				}
 				messagesArea.scrollTop = messagesArea.scrollHeight;
 			} else if ("chat" === jsonObj.type) {
-				//如果是自己，顯示訊息
-				if (jsonObj.sender === self) {
-					var li = document.createElement('li');
-					console.log("jsonObj.sender === self");
-<%-- 					var memimg = '<img class="img-circle" style="width:20%" src="<%=request.getContextPath()%>/front-end/member/memberShow.do?memberid='+ key +'">'; --%>
-					jsonObj.sender === self ? li.className += 'me' : li.className += 'friend';
-					li.innerHTML = jsonObj.message;
-					console.log(li);
-					document.getElementById("area").appendChild(li);
-					messagesArea.scrollTop = messagesArea.scrollHeight;
-					//避免共用視窗，寄訊息的不是朋友編號，不顯示
-				} else if (jsonObj.sender !== localStorage.getItem("friend")) {
-					return;
-				} else {
-					var li = document.createElement('li');
-					var friendno = $("#statusOutput").text();
-<%-- 					var memimg = '<img class="img-circle" style="width:20%" src="<%=request.getContextPath()%>/front-end/member/memberShow.do?memberid='+ friendno +'">'; --%>
-					jsonObj.sender === self ? li.className += 'me' : li.className += 'friend';
-					li.className === 'me'? li.innerHTML = '<div class="avatar"> '+ showMsg + '</div>': li.innerHTML = '<div class="avatar"><img style="height: 50px " src="<%=request.getContextPath()%>/front-end/member/memberShow.do?memberid='+ friendno +'"></div> <div class="msg">' + jsonObj.message + '</div>';
-// 					li.innerHTML = ( meming + jsonObj.message);
-// 					li.innerHTML = (jsonObj.message);
-					
-					console.log(li);
-					document.getElementById("area").appendChild(li);
-					messagesArea.scrollTop = messagesArea.scrollHeight;
-				}
+				var li = document.createElement('li');
+				jsonObj.sender === self ? li.className += 'me' : li.className += 'friend';
+				li.innerHTML = jsonObj.message;
+				console.log(li);
+				document.getElementById("area").appendChild(li);
+				messagesArea.scrollTop = messagesArea.scrollHeight;
 			} else if ("close" === jsonObj.type) {
 				refreshFriendList(jsonObj);
 			}
@@ -151,22 +128,14 @@
 	function refreshFriendList(jsonObj) {
 		console.log("refresh friend list");
 		var friends = jsonObj.users;
-		var friendno = statusOutput.textContent;
 		var row = document.getElementById("row");
-		console.log("friendno = " + friendno);
 		console.log("friends = " + friends);
 		console.log("row = " + row);
 		row.innerHTML = '';
 		for (var key in friends) {
 			console.log(friends[key]);
 			if (key === self) { continue; } //去除自己
-<%-- 			row.innerHTML += '<img class="img-circle" style="width:20%" src="<%=request.getContextPath()%>/front-end/member/memberShow.do?memberid='+ key +'">'; --%>
-			row.innerHTML +='<div id=' + key +  ' data-no=' + key + ' class="column" name="friendName" value=' + key + '>'+'<img class="img-circle" style="width: 40px" src="<%=request.getContextPath()%>/front-end/member/memberShow.do?memberid='+ key +'">'+'<h2 class="namerow">' +friends[key] + '</h2></div>';
-			
-			
-			
-<%-- 			row.innerHTML += '<img class="img-circle" style="width:20%" src="<%=request.getContextPath()%>/front-end/member/memberShow.do?memberid='+ key +'">'; --%>
-// 			row.innerHTML +='<div id=' + key +  ' data-no=' + key + ' class="column" name="friendName" value=' + key + ' style="background-color: #b5d56a"><h2>' +friends[key] + '</h2></div>';
+			row.innerHTML +='<div id=' + key + ' class="column" name="friendName" value=' + key + ' style="background-color: #b5d56a"><h2>' + key+'-'+friends[key] + '</h2></div>';
 // 			row.innerHTML +='<input type="hidden" id="coachName" value=" '+ key +' "/>';
 		}
 			addListener();
@@ -174,41 +143,19 @@
 	}
 	// 註冊列表點擊事件並抓取好友名字以取得歷史訊息
 	function addListener() {
-		$(".column").on("click", function(e) {
-			$(".column").removeClass("-on");
-			$(this).addClass("-on");
-			  console.log("click!");
-			  var friend = $(this).attr("data-no");
-			  localStorage.setItem("friend", friend);
-			  console.log(friend);
-			  updateFriendName(friend);
-			  var jsonObj = {
-						"type" : "history",
-						"sender" : self,
-						"receiver" : friend,
-						"message" : ""
-					};
-			  webSocket.send(JSON.stringify(jsonObj));
-			  
-			  
-			 });
-		
-		
-		
-// 		var container = document.getElementById("row");
-// 		container.addEventListener("click", function(e) {
-// 			var friend = document.getElementById("key")
-// // 			var friend = e.srcElement.textContent.substring(0,4);
-// 			console.log('friend = '+ friend);
-// 			updateFriendName(friend);
-// 			var jsonObj = {
-// 					"type" : "history",
-// 					"sender" : self,
-// 					"receiver" : friend,
-// 					"message" : ""
-// 				};
-// 			webSocket.send(JSON.stringify(jsonObj));
-// 		});
+		var container = document.getElementById("row");
+		container.addEventListener("click", function(e) {
+			var friend = e.srcElement.textContent.substring(0,4);
+			console.log('friend = '+ friend);
+			updateFriendName(friend);
+			var jsonObj = {
+					"type" : "history",
+					"sender" : self,
+					"receiver" : friend,
+					"message" : ""
+				};
+			webSocket.send(JSON.stringify(jsonObj));
+		});
 	}
 	
 	function disconnect() {

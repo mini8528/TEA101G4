@@ -1,5 +1,6 @@
 package com.websocket.model;
 
+import java.util.Map;
 import java.util.Set;
 
 import com.member.model.MemberVO;
@@ -9,47 +10,36 @@ public class State {
 	// the user changing the state
 	private String user;
 	// total users
-	private Set<String> users;
+	private Map<String, String> users;
 	
-	private Set<MemberVO> members;
-
-	public State(String type, String user, Set<String> users) {
+	
+	public State(String type, String user, Map<String, String> users) {
 		super();
 		this.type = type;
 		this.user = user;
 		this.users = users;
 	}
-	
-	public State(String type, Set<MemberVO> members, String user) {
-		super();
-		this.type = type;
-		this.user = user;
-		this.members = members;
-	}
-	
-
 	public String getType() {
 		return type;
 	}
-
 	public void setType(String type) {
 		this.type = type;
 	}
-
 	public String getUser() {
 		return user;
 	}
-
 	public void setUser(String user) {
 		this.user = user;
 	}
-
-	public Set<String> getUsers() {
+	public Map<String, String> getUsers() {
 		return users;
 	}
-
-	public void setUsers(Set<String> users) {
+	public void setUsers(Map<String, String> users) {
 		this.users = users;
 	}
+	
+	
+	
 
+	
 }

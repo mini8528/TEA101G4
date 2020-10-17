@@ -53,7 +53,7 @@ img{
 
 </head>
 <body bgcolor='white'>
-<jsp:include page="header.jsp" flush="true" />
+<jsp:include page="/front-end/header.jsp" flush="true" />
 <!-- 	<table id="table-1"> -->
 <!-- 		<tr> -->
 <!-- 			<td>				 -->
@@ -221,7 +221,7 @@ img{
 		</div>
 	  </div>			
 	</FORM>
-	<jsp:include page="footer.jsp" flush="true" />
+	<jsp:include page="/front-end/footer.jsp" flush="true" />
 </body>
 
 

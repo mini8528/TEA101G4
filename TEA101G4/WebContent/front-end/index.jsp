@@ -1,10 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page import="com.lat.model.*"%>
+<%@ page import="java.util.*"%>
+
+<%
+LatService latSvc = new LatService();
+    List<LatVO> list = latSvc.getAll();
+    pageContext.setAttribute("list",list);
+    for (LatVO e : list) {
+    	System.out.print(e.getLatestnewsid() + ",");
+		System.out.print(e.getAdminid() + ",");
+		System.out.print(e.getAdmin2id() + ",");
+		System.out.print(e.getText() + ",");
+		System.out.print(e.getImage() + ",");
+		System.out.print(e.getAdddate() + ",");
+		System.out.print(e.getUpdatetime()+",");
+		System.out.print(e.getUploaddate() + ",");
+		System.out.println();
+    }
+%>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+
+<title>Gympayz首頁</title>
 
 </head>
 
@@ -27,47 +49,65 @@
   <!-- ====================================
   ——— HEADER
   ===================================== -->
-  <jsp:include page="header.jsp" flush="true" />
+  <jsp:include page="indexheader.jsp" flush="true" />
   
-  
+ 
+ <!-- ====================================
+———	CALL TO ACTION
+===================================== -->
+<section class="py-9 bg-parallax" style="background-image: url(<%=request.getContextPath()%>/assets/img/features/run.png);">
+	<div class="container">
+		<div class="wow fadeInUp">
+			<div class="section-title justify-content-center">
+				<h2 class="text-white text-center">Wellcome to GYMPAYZ</h2>
+			</div>
+			<div class="text-center mt-1">
+<!-- 				<p class="text-white p-text-large mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod</p> -->
+				<a href="<%=request.getContextPath()%>/front-end/login.jsp" class="btn btn-white text-danger text-uppercase mt-5 font-size-16" style="background-color: lightgray">
+					<i class="fa fa-sign-in" aria-hidden="true"></i>&nbsp &nbsp Join us
+				</a>
+			</div>
+		</div>
+	</div>
+</section> 
   
   
   <!-- ====================================
 ———	ABOUT SCHOOL SECTION
 ===================================== -->
-<section class="py-7 pb-lg-0 pt-lg-10">
-	<div class="container">
-		<div class="row align-items-center wow fadeInUp">
-			<div class="col-sm-6 col-xs-12 order-sm-2 align-self-md-start align-self-lg-end">
-<!-- 			<video width="1000"  controls>   -->
-<!-- 			    <source src="./video/movie.mp4" type="video/mp4"> -->
-<!-- 			    Your browser does not support the video tag.   -->
-<!-- 			</video> -->
-				<img class="img-fluid px-8 px-md-0 lazyestload" data-src="assets/img/features/run.png" src="assets/img/features/run.png" alt="about-school">
-			</div>
+<!-- <section class="py-7 pb-lg-0 pt-lg-10"> -->
+<!-- 	<div class="container"> -->
+<!-- 		<div class="row align-items-center wow fadeInUp"> -->
+<!-- 			<div class="col-sm-6 col-xs-12 order-sm-2 align-self-md-start align-self-lg-end"> -->
+<!-- <!-- 			<video width="1000"  controls>   --> 
+<!-- <!-- 			    <source src="./video/movie.mp4" type="video/mp4"> --> 
+<!-- <!-- 			    Your browser does not support the video tag.   --> 
+<!-- <!-- 			</video> --> 
+<%-- 				<img class="img-fluid px-8 px-md-0 lazyestload" data-src="<%=request.getContextPath()%>/assets/img/features/run.png" src="<%=request.getContextPath()%>/assets/img/features/run.png" alt="about-school"> --%>
+<!-- 			</div> -->
 
-			<div class="col-sm-6 col-xs-12">
-        <div class="mb-lg-7 mb-xl-10">
-          <div class="section-title align-items-baseline mt-5 mt-md-0 mb-3 px-5 pl-md-1">
-            <h2 class="text-color text-uppercase pl-lg-0"><span class="small text-danger font-weight-bold">Wellcome to <br> </span> GYMPAYZ</h2>
-          </div>
-          <p class="font-size-18 font-weight-medium px-7 pl-md-6 pr-md-0 pl-lg-0">迅速找到需要的資源 find necessary resource at once</p>
-          <p class="font-size-18 font-weight-medium px-7 pl-md-6 pr-md-0 pl-lg-0">有效率的安排課表arrange schedule efficiently</p>
-          <p class="font-size-18 font-weight-medium px-7 pl-md-6 pr-md-0 pl-lg-0">多元化挑選適合自己的教練choose a suitable coach</p>
-          <div class="px-7 pr-md-0 pl-md-6 pl-lg-0">
-            <a href="<%=request.getContextPath()%>/front-end/login.jsp" class="btn btn-danger text-uppercase mt-5">Join us</a>
-          </div>
-        </div>
-			</div>
-		</div>
-	</div>
-</section>
+<!-- 			<div class="col-sm-6 col-xs-12"> -->
+<!--         <div class="mb-lg-7 mb-xl-10"> -->
+<!--           <div class="section-title align-items-baseline mt-5 mt-md-0 mb-3 px-5 pl-md-1"> -->
+<!--             <h2 class="text-color text-uppercase pl-lg-0"><span class="small text-danger font-weight-bold">Wellcome to <br> </span> GYMPAYZ</h2> -->
+<!--           </div> -->
+<!--           <p class="font-size-18 font-weight-medium px-7 pl-md-6 pr-md-0 pl-lg-0">迅速找到需要的資源 find necessary resource at once</p> -->
+<!--           <p class="font-size-18 font-weight-medium px-7 pl-md-6 pr-md-0 pl-lg-0">有效率的安排課表arrange schedule efficiently</p> -->
+<!--           <p class="font-size-18 font-weight-medium px-7 pl-md-6 pr-md-0 pl-lg-0">多元化挑選適合自己的教練choose a suitable coach</p> -->
+<!--           <div class="px-7 pr-md-0 pl-md-6 pl-lg-0"> -->
+<%--             <a href="<%=request.getContextPath()%>/front-end/login.jsp" class="btn btn-danger text-uppercase mt-5">Join us</a> --%>
+<!--           </div> -->
+<!--         </div> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
+<!-- </section> -->
   
   
-  <!-- ====================================
-———	BLOG SECTION
+<!-- ====================================
+———	LAST SECTION
 ===================================== -->
-<section class="pt-9 pb-7" id="blog">
+  <section class="pt-9 pb-7" id="blog">
   <div class="container">
     <div class="section-title justify-content-center mb-4 mb-md-8 wow fadeInUp">
       <span class="shape shape-left bg-info"></span>
@@ -76,118 +116,58 @@
     </div>
 
     <div class="row wow fadeInUp">
+    <c:forEach var="latVo" items="${list}">
 			<div class="col-md-4">
+			
         <div class="card">
 					<div class="position-relative">
-	          <a href="blog-single-left-sidebar.html">
-	            <img class="card-img-top lazyestload" data-src="assets/img/blog/blog-img1.jpg" src="assets/img/blog/blog-img1.jpg" alt="Card image">
+						<a href="<%=request.getContextPath()%>/back-end/lat/lat.do?action=getOne_For_Display&latestnewsid=${latVo.latestnewsid}">
+	            <img class="card-img-top lazyestload" 
+	            data-src="<%=request.getContextPath()%>/back-end/lat/latshow.do?latestnewsid=${latVo.latestnewsid}"
+	             src="<%=request.getContextPath()%>/back-end/lat/latshow.do?latestnewsid=${latVo.latestnewsid}"
+	              alt="Card image">
 						</a>
-            <div class="card-img-overlay p-0">
-              <span class="badge badge-rounded badge-warning m-4"> 10 <br> July</span>
-            </div>
-					</div>
-
-          <div class="card-body border-top-5 px-3 border-warning">
-            <h3 class="card-title">
-              <a class="text-warning text-capitalize d-block text-truncate" href="blog-single-left-sidebar.html">The standard chunk of Lorem.</a>
-            </h3>
-            <ul class="list-unstyled d-flex flex-md-column flex-lg-row">
-              <li class="mr-2">
-								<a class="text-muted" href="blog-single-left-sidebar.html">
-									<i class="fa fa-user mr-2" aria-hidden="true"></i>Jone Doe
-								</a>
-              </li>
-              <li class="mr-2">
-								<a class="text-muted" href="blog-single-left-sidebar.html">
-									<i class="fa fa-comments-o mr-2" aria-hidden="true"></i>4 Comments
-								</a>
-              </li>
-            </ul>
-            <p class="mb-2"> Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classi cal Latin literature.</p>
-            <a class="btn btn-link text-hover-warning pl-0" href="blog-single-left-sidebar.html">
-              <i class="fa fa-angle-double-right mr-1" aria-hidden="true"></i> Read More
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4">
-        <div class="card">
-					<div class="position-relative">
-						<a href="blog-single-left-sidebar.html">
-	            <img class="card-img-top lazyestload" data-src="assets/img/blog/blog-img2.jpg" src="assets/img/blog/blog-img2.jpg" alt="Card image">
-						</a>
-            <div class="card-img-overlay p-0">
-              <span class="badge badge-success badge-rounded m-4"> 14 <br> Jun</span>
-            </div>
-					</div>
-
-          <div class="card-body border-top-5 px-3 border-success">
-            <h3 class="card-title">
-              <a class="text-success text-capitalize d-block text-truncate" href="blog-single-left-sidebar.html">Vestibulum congue massa vitae.</a>
-            </h3>
-						<ul class="list-unstyled d-flex flex-md-column flex-lg-row">
-              <li class="mr-2">
-								<a class="text-muted" href="blog-single-left-sidebar.html">
-									<i class="fa fa-user mr-2" aria-hidden="true"></i>Jone Doe
-								</a>
-              </li>
-              <li class="mr-2">
-								<a class="text-muted" href="blog-single-left-sidebar.html">
-									<i class="fa fa-comments-o mr-2" aria-hidden="true"></i>4 Comments
-								</a>
-              </li>
-            </ul>
-            <p class="mb-2"> Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classi cal Latin literature.</p>
-            <a class="btn btn-link text-hover-success pl-0" href="blog-single-left-sidebar.html">
-              <i class="fa fa-angle-double-right mr-1" aria-hidden="true"></i> Read More
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4">
-        <div class="card">
-					<div class="position-relative">
-						<a href="blog-single-left-sidebar.html">
-	            <img class="card-img-top lazyestload" data-src="assets/img/blog/blog-img3.jpg" src="assets/img/blog/blog-img3.jpg" alt="Card image">
-						</a>
-	          <div class="card-img-overlay p-0">
-	            <span class="badge badge-danger badge-rounded m-4"> 14 <br> Jun</span>
-	          </div>
+<!-- 	          <div class="card-img-overlay p-0"> -->
+<!-- 	            <span class="badge badge-danger badge-rounded m-4"> 14 <br> Jun</span> -->
+<!-- 	          </div> -->
 					</div>
 
           <div class="card-body border-top-5 px-3 border-danger">
-            <h3 class="card-title">
-              <a class="text-danger text-capitalize d-block text-truncate" href="blog-single-left-sidebar.html">Vestibulum congue massa vitae.</a>
-            </h3>
+<!--             <h3 class="card-title"> -->
+<!--               <a class="text-danger text-capitalize d-block text-truncate" href="blog-single-left-sidebar.html">Vestibulum congue massa vitae.</a> -->
+<!--             </h3> -->
 						<ul class="list-unstyled d-flex flex-md-column flex-lg-row">
               <li class="mr-2">
-								<a class="text-muted" href="blog-single-left-sidebar.html">
-									<i class="fa fa-user mr-2" aria-hidden="true"></i>Jone Doe
+								<a class="text-muted" href="#">
+									<i class="fa fa-user mr-2" aria-hidden="true"></i>${latVo.adminid}
 								</a>
               </li>
-              <li class="mr-2">
-								<a class="text-muted" href="blog-single-left-sidebar.html">
-									<i class="fa fa-comments-o mr-2" aria-hidden="true"></i>4 Comments
-								</a>
-              </li>
+
             </ul>
-            <p class="mb-2"> Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classi cal Latin literature.</p>
-            <a class="btn btn-link text-hover-danger pl-0" href="blog-single-left-sidebar.html">
+            <p class="mb-2" id="ellipsis">${latVo.text}</p>
+            
+            <a class="btn btn-link text-hover-danger pl-0"
+            href="<%=request.getContextPath()%>/back-end/lat/lat.do?action=getOne_For_Display&latestnewsid=${latVo.latestnewsid}">
               <i class="fa fa-angle-double-right mr-1" aria-hidden="true"></i> Read More
             </a>
+         
           </div>
         </div>
       </div>
+      </c:forEach>
+
+      <div class="col-md-4">
+      </div>
+
+      <div class="col-md-4">
     </div>
 
-    <div class="btn-aria text-center mt-4 wow fadeInUp">
-			<a href="blog-grid.html" class="btn btn-danger text-uppercase">View More</a>
-		</div>
+<!--     <div class="btn-aria text-center mt-4 wow fadeInUp"> -->
+<!-- 			<a href="blog-grid.html" class="btn btn-danger text-uppercase">View More</a> -->
+<!-- 		</div> -->
   </div>
-</section>
   
+</section>
 
 
 

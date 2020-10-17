@@ -30,6 +30,7 @@ public class FriendWS {
 	private static Map<String, Session> sessionsMap = new ConcurrentHashMap<>(); // ConcurrentHashMap並行(java5)效率較高，與Hashtable做比較
 	// 1對1聊天的重點 Map<Username, Session>
 	Gson gson = new Gson(); // google的
+	MemberService memSer = new MemberService();
 
 	@OnOpen
 	public void onOpen(@PathParam("memberid") String userid, Session userSession) throws IOException {
@@ -37,35 +38,41 @@ public class FriendWS {
 		sessionsMap.put(userid, userSession);
 		/* Sends all the connected users to the new user */
 		Set<String> onlineSet = sessionsMap.keySet();
-		Set<String> coachesidSet = coachsOnLine(userid, onlineSet);
+		Map<String, String> coachesidMap = coachsOnLine(userid, onlineSet);
+		Set<String> coachidSet = coachesidMap.keySet();
 		
-		MemberService memSer = new MemberService();
-		String username= memSer.getOneMember(userid).getName();
+		Map<String, String> useridMap = new ConcurrentHashMap<String, String>();
+		String username = memSer.getOneMember(userid).getName();
+		useridMap.put(userid, username);
+		State userMessage = new State("open", userid, useridMap);// 後端交給前端判斷
+		String stateUserMessageJson = gson.toJson(userMessage);
 		
-		State coachMessage = new State("open", userid, coachesidSet);// 後端交給前端判斷
-		String statecoachMessageJson = gson.toJson(coachMessage);
-
+		// 學員上線通知教練
+				for (String coachid : coachidSet) {
+					
+					System.out.println("coachid = " + coachid);
+					Session coachsession = sessionsMap.get(coachid);
+					if (coachsession.isOpen()) {
+						coachsession.getAsyncRemote().sendText(stateUserMessageJson);
+					}
+				}
+	
+		
+		State coachMessage = new State("open", userid, coachesidMap);// 後端交給前端判斷
+		String stateCoachMessageJson = gson.toJson(coachMessage);
 		// 把上線教練通知給自己
 		if (userSession.isOpen()) { 
-			userSession.getAsyncRemote().sendText(statecoachMessageJson);
+			userSession.getAsyncRemote().sendText(stateCoachMessageJson);
 		}
 
-		Set<String> useridSet = new HashSet<String>();
-		useridSet.add(userid);
-		State userMessage = new State("open", userid, useridSet);// 後端交給前端判斷
-		String stateuserMessageJson = gson.toJson(userMessage);
 		
-		// 學員名稱通知教練
-		for (String coachid : coachesidSet) {
-			System.out.println("coachid = " + coachid);
-			Session coachsession = sessionsMap.get(coachid);
-			if (coachsession.isOpen()) {
-				coachsession.getAsyncRemote().sendText(stateuserMessageJson);
-			}
-		}
+		
+		
+		
+		
 
 		String text = String.format("Session ID = %s, connected; userName = %s%nusers: %s", userSession.getId(), userid,
-				coachesidSet);
+				coachesidMap);
 		System.out.println(text);
 	}
 
@@ -127,21 +134,22 @@ public class FriendWS {
 		System.out.println(text);
 	}
 
-	public Set<String> coachsOnLine(String userid, Set<String> onlineSet) {
+	public Map<String, String> coachsOnLine(String userid, Set<String> onlineSet) {
 
 		List<String> list = new ArrayList<String>();
 		ClassDetailService classdetSer = new ClassDetailService();
 		list = classdetSer.studentChat(userid);
-		Set<String> coachlist = new HashSet<String>();
+		Map<String, String> coachMap = new ConcurrentHashMap<String, String>();
 
 		for (String onlineid : onlineSet) {
 			for (String coachid : list) {
 				if (onlineid.equals(coachid)) {
-					coachlist.add(coachid);
+					String coachName = memSer.getOneMember(coachid).getName();
+					coachMap.put(coachid, coachName);
 				}
 			}
 		}
 
-		return coachlist;
+		return coachMap;
 	}
 }

@@ -30,6 +30,8 @@
 			<url-pattern>/front-end/blog_save/listAllBlog_Save.jsp</url-pattern>
 			<url-pattern>/front-end/blog/addBlog.jsp</url-pattern>
 			<url-pattern>/front-end/blog/userArticle.jsp</url-pattern>
+			<url-pattern>/front-end/cus/addCus.jsp</url-pattern>
+			<url-pattern>/front-end/chat/chat.jsp</url-pattern>
 			<!-- <url-pattern>/front-end/blog/*</url-pattern> -->
 
 			<dispatcher>REQUEST</dispatcher>

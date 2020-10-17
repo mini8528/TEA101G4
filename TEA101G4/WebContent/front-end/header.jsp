@@ -161,29 +161,29 @@
 
                 <div class="collapse navbar-collapse" id="navbarContent">
                     <ul class="navbar-nav ml-lg-auto">
-                        <li class="nav-item dropdown bg-warning"><a class="nav-link dropdown-toggle "
-                                href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false">
-                                <i class="fa fa-home nav-icon" aria-hidden="true"></i> <span>Home</span>
+                            
+                            <li class="nav-item dropdown bg-danger"><a class="nav-link dropdown-toggle "
+                                href="<%=request.getContextPath()%>/front-end/index.jsp" role="button"> <i class="fa fa-home nav-icon"
+                                    aria-hidden="true"></i> <span>Home</span>
                             </a></li>
 
-                        <li class="nav-item dropdown bg-pink"><a class="nav-link dropdown-toggle "
-                                href="component-default.html">
-                                <i class="fa fa-pencil-square-o nav-icon" aria-hidden="true"></i>
-                                <span>News</span>
-                            </a></li>
+<!--                         <li class="nav-item dropdown bg-pink"><a class="nav-link dropdown-toggle " -->
+<!--                                 href="component-default.html"> -->
+<!--                                 <i class="fa fa-pencil-square-o nav-icon" aria-hidden="true"></i> -->
+<!--                                 <span>News</span> -->
+<!--                             </a></li> -->
 
                         <li class="nav-item dropdown bg-danger"><a class="nav-link dropdown-toggle "
-                                href="javascript:void(0)" role="button"> <i class="fa fa-list-ul nav-icon"
-                                    aria-hidden="true"></i> <span>Schedule</span>
+                                href="<%=request.getContextPath()%>/front-end/trainingindex.jsp" role="button"> <i class="fa fa-list-ul nav-icon"
+                                    aria-hidden="true"></i> <span>Training</span>
                             </a></li>
                         <li class="nav-item dropdown mega-dropdown bg-success"><a class="nav-link dropdown-toggle "
                                 href="#" role="button" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-file-text-o nav-icon" aria-hidden="true"></i> <span>Courses</span>
                             </a></li>
 <!-- ======================================================================================================================== -->
-                        <li class="nav-item dropdown bg-info"><a class="nav-link dropdown-toggle "
-                                href="<%=request.getContextPath()%>/front-end/product/list_product.jsp" id="stores" role="button" aria-haspopup="true"
+                                                <li class="nav-item dropdown bg-info"><a class="nav-link dropdown-toggle "
+                                href="<%=request.getContextPath()%>/back-end/product/product.do?action=getAll_select&type=" id="stores" role="button" aria-haspopup="true"
                                 aria-expanded="false"> <i class="fa fa-pencil-square-o nav-icon" aria-hidden="true"></i>
                                 <span>Store</span>
                             </a><ul class="dropdown-menu dropdown-menu-right" aria-labelledby="stores">
@@ -191,17 +191,30 @@
                         <a class="dropdown-item
                         ||
                         ||
-                        " href="<%=request.getContextPath()%>/front-end/product/list_product.jsp">商品<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
-                        <ul class="sub-menu">
-                          <li><a class="" href="<%=request.getContextPath()%>/front-end/product/list_product.jsp">健身食品</a></li>
-                          <li><a class="" href="<%=request.getContextPath()%>/front-end/product/list_product.jsp">健身用品</a></li>
-                        </ul>
+                        " href="<%=request.getContextPath()%>/back-end/product/product.do?action=getAll_select&type=">商品</a>
+                        <%-- <ul class="sub-menu">
+                          <li><a class="" href="<%=request.getContextPath()%>/back-end/product/product.do?action=getAll_select&type=">健身食品</a></li>
+                          <li><a class="" href="<%=request.getContextPath()%>/back-end/product/product.do?action=getAll_select&type=">健身用品</a></li>
+                        </ul> --%>
                       </li>
                       <li>
                         <a class="dropdown-item " href="<%=request.getContextPath()%>/front-end/ordermaster/list_ordermaster.jsp">訂單記錄</a>
                       </li>
                       <li>
-                        <a class="dropdown-item " href="<%=request.getContextPath()%>/front-end/cart/Cart.jsp">購物車</a>
+                      <!--  -->
+                      <c:choose>
+				            <c:when test="${userVO.memberid == null}">
+				            <a class="dropdown-item " href="<%=request.getContextPath()%>/front-end/cart/Cart.jsp">購物車</a>
+				            </c:when>
+				            <c:otherwise>
+				            <a class="dropdown-item " href="<%=request.getContextPath()%>/front-end/cart/cart.do?memberid=${userVO.memberid}&action=getMemberCartRedis">購物車</a>
+				            </c:otherwise>
+				        </c:choose>
+                      <!--  -->
+                      
+
+                        <%-- <a class="dropdown-item " href="<%=request.getContextPath()%>/front-end/cart/Cart.jsp">購物車</a> --%>
+                        <%-- <a class="dropdown-item " href="<%=request.getContextPath()%>/front-end/cart/cart.do?memberid=${userVO.memberid}&action=getMemberCartRedis">購物車</a> --%>
                       </li>
                       <li>
                         <a class="dropdown-item " href="">收藏商品</a>
@@ -218,7 +231,7 @@
                         </li>
 
                         <li class="nav-item dropdown bg-pink"><a class="nav-link dropdown-toggle "
-                                href="component-default.html">
+                                href="<%=request.getContextPath()%>/front-end/cus/addCus.jsp">
                                 <i class="fa fa-home nav-icon" aria-hidden="true"></i> <span>Contact
                                     us</span>
                             </a></li>
