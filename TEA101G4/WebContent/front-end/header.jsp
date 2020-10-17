@@ -182,7 +182,7 @@
                                 <i class="fa fa-file-text-o nav-icon" aria-hidden="true"></i> <span>Courses</span>
                             </a></li>
 <!-- ======================================================================================================================== -->
-                                                <li class="nav-item dropdown bg-info"><a class="nav-link dropdown-toggle "
+                      <li class="nav-item dropdown bg-info"><a class="nav-link dropdown-toggle "
                                 href="<%=request.getContextPath()%>/back-end/product/product.do?action=getAll_select&type=" id="stores" role="button" aria-haspopup="true"
                                 aria-expanded="false"> <i class="fa fa-pencil-square-o nav-icon" aria-hidden="true"></i>
                                 <span>Store</span>

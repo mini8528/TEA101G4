@@ -12,39 +12,83 @@
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
-	
-	
-		<resource-ref>
-			<description>DB Connection</description>
-			<res-ref-name>jdbc/TEA101G4</res-ref-name>
-			<res-type>javax.sql.DataSource</res-type>
-			<res-auth>Container</res-auth>
-		</resource-ref>
-		
-		<filter>
-			<filter-name>MemberLoginFilter</filter-name>
-			<filter-class>com.member.controller.MemberLoginFilter</filter-class>
-		</filter>
-		<filter-mapping>
-			<filter-name>MemberLoginFilter</filter-name>
-			<url-pattern>/front-end/blog_save/listAllBlog_Save.jsp</url-pattern>
-			<url-pattern>/front-end/blog/addBlog.jsp</url-pattern>
-			<url-pattern>/front-end/blog/userArticle.jsp</url-pattern>
-			<url-pattern>/front-end/cus/addCus.jsp</url-pattern>
-			<url-pattern>/front-end/chat/chat.jsp</url-pattern>
-			<!-- <url-pattern>/front-end/blog/*</url-pattern> -->
 
-			<dispatcher>REQUEST</dispatcher>
-			<dispatcher>FORWARD</dispatcher>
-			<dispatcher>INCLUDE</dispatcher>
-			<dispatcher>ERROR</dispatcher>
-			<dispatcher>ASYNC</dispatcher>
-		</filter-mapping>
 
-	
-		<!-- </servlet-mapping> -->
-		
-		<servlet>
+	<resource-ref>
+		<description>DB Connection</description>
+		<res-ref-name>jdbc/TEA101G4</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>
+		<res-auth>Container</res-auth>
+	</resource-ref>
+
+	<!-- 前台登入 -->
+	<filter>
+		<filter-name>MemberLoginFilter</filter-name>
+		<filter-class>com.member.controller.MemberLoginFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>MemberLoginFilter</filter-name>
+		<url-pattern>/front-end/blog_save/listAllBlog_Save.jsp</url-pattern>
+		<url-pattern>/front-end/blog/addBlog.jsp</url-pattern>
+		<url-pattern>/front-end/blog/userArticle.jsp</url-pattern>
+		<url-pattern>/front-end/chat/chat.jsp</url-pattern>
+		<!-- <url-pattern>/front-end/blog/*</url-pattern> -->
+		<!-- 商城-詩惠 -->
+		<url-pattern>/front-end/cart/Checkout.jsp</url-pattern>
+		<url-pattern>/front-end/orderdetail/one_orderdetail.jsp</url-pattern>
+		<url-pattern>/front-end/ordermaster/list_ordermaster.jsp</url-pattern>
+		<url-pattern>/front-end/ordermaster/addOrderMaster.jsp</url-pattern>
+		<!-- 客服-濬承 -->
+		<url-pattern>/front-end/cus/addCus.jsp</url-pattern>
+
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
+
+	<!-- 後台登入 -->
+	<filter>
+		<filter-name>AdminLoginFilter</filter-name>
+		<filter-class>com.adm.controller.AdminLoginFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>AdminLoginFilter</filter-name>
+<!-- 		<url-pattern>/back-end/*</url-pattern> -->
+		<url-pattern>/back-end/index.jsp</url-pattern>
+		<url-pattern>/back-end/brand/*</url-pattern>
+		<url-pattern>/back-end/spec/*</url-pattern>
+		<url-pattern>/back-end/product/update_product.jsp</url-pattern>
+		<url-pattern>/back-end/product/addProduct.jsp</url-pattern>
+		<url-pattern>/back-end/product/listAllproduct.jsp</url-pattern>
+		<url-pattern>/back-end/product/listOneProduct.jsp</url-pattern>
+		<url-pattern>/back-end/product/listSomeProduct.jsp</url-pattern>
+		<url-pattern>/back-end/product/update_product.jsp</url-pattern>
+		<url-pattern>/back-end/ordermaster/update_ordermaster.jsp</url-pattern>
+		<url-pattern>/back-end/ordermaster/addOrderMaster.jsp</url-pattern>
+		<url-pattern>/back-end/ordermaster/listAllordermaster.jsp</url-pattern>
+		<url-pattern>/back-end/ordermaster/listOneOrdermaster.jsp</url-pattern>
+		<url-pattern>/back-end/ordermaster/listSomeOrdermaster.jsp</url-pattern>
+		<url-pattern>/back-end/ordermaster/update_ordermaster.jsp</url-pattern>
+		<url-pattern>/back-end/orderdetail/update_orderdetail.jsp</url-pattern>
+		<url-pattern>/back-end/orderdetail/addOrderDetail.jsp</url-pattern>
+		<url-pattern>/back-end/orderdetail/listAllorderdetail.jsp</url-pattern>
+		<url-pattern>/back-end/orderdetail/listSomeOrderdetail.jsp</url-pattern>
+		<url-pattern>/back-end/orderdetail/update_orderdetail.jsp</url-pattern>
+
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
+
+
+	<!-- </servlet-mapping> -->
+
+	<servlet>
 		<servlet-name>NameServlet</servlet-name>
 		<servlet-class>com.websocket.controller.NameServlet</servlet-class>
 	</servlet>

@@ -10,7 +10,8 @@ public class AdminnoService {
 	private Adminno_interface dao;
 
 	public AdminnoService() {
-		dao = new AdminidJDBCDAO();
+		dao = new AdminidDAO();
+//		dao = new AdminidJDBCDAO();
 }
 	public AdminnoVO addAdm(String membername, String memberuser,
 			String passwd, String gender,String phone,java.sql.Date birthday, String email,
