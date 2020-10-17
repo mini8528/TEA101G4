@@ -126,6 +126,19 @@
           </div>
         </div>
       </li>
+      <!-- 商品評論管理 -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFive" aria-expanded="true" aria-controls="collapseTwo">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>商品評論管理</span>
+        </a>
+        <div id="collapseFive" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Custom Components:</h6>
+      		<a class="collapse-item" href="<%=request.getContextPath()%>/back-end/pro/listAllPro.jsp">查詢商品</a>
+          </div>
+        </div>
+      </li>
       
       <!-- Nav Item - Utilities Collapse Menu -->
       <li class="nav-item">

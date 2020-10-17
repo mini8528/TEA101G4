@@ -5,7 +5,7 @@
 
 <%
 CusVO cusVO = (CusVO) request.getAttribute("cusVO");
-MemberVO memVO = (MemberVO) request.getAttribute("userVO");
+MemberVO userVO = (MemberVO) request.getAttribute("userVO");
 %>
 
 <html>
@@ -87,13 +87,13 @@ MemberVO memVO = (MemberVO) request.getAttribute("userVO");
     <div class="" action="index.jsp" method="post">
       <form>
         <div class="row">
-          <div class="col-sm-6 col-xs-12">
-            <div class="form-group form-group-icon">
-              <i class="fa fa-user"></i>
-              <input type="text" name="memberid" class="form-control border-warning" 
-              placeholder="·|­û½s¸¹" required="">
-            </div>
-          </div>
+<!--           <div class="col-sm-6 col-xs-12"> -->
+<!--             <div class="form-group form-group-icon"> -->
+<!--               <i class="fa fa-user"></i> -->
+              <input type="hidden" name="memberid" class="form-control border-warning" 
+              placeholder="" required="" value = ${userVO.memberid} />
+<!--             </div> -->
+<!--           </div> -->
 
           <div class="col-sm-6 col-xs-12">
             <div class="form-group form-group-icon">

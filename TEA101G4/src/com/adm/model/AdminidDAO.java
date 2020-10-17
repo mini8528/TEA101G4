@@ -14,7 +14,10 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-public class AdminidDAO implements Adminno_interface {
+
+
+
+public class AdminidDAO implements Adminno_interface{
 	private static DataSource ds = null;
 	static {
 		try {
@@ -32,8 +35,8 @@ public class AdminidDAO implements Adminno_interface {
 	private static final String DELETE_STMT = "DELETE FROM ADMINNO WHERE adminid = ?";
 	private static final String FIND_BY_PK = "SELECT * FROM ADMINNO WHERE adminid = ?";
 	private static final String GET_ALL = "SELECT * FROM ADMINNO";
-	private static final String GET_ALL_MEMBERUSER = "SELECT * FROM ADMINNO WHERE memberuser = ?";
-
+	private static final String GET_ALL_MEMBERUSER= "SELECT * FROM ADMINNO WHERE memberuser = ?";
+	
 	@Override
 	public void insert(AdminnoVO adminnoVO) {
 		Connection con = null;
@@ -43,7 +46,7 @@ public class AdminidDAO implements Adminno_interface {
 
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
-
+			
 //			pstmt.setString(1, adminnoVO.getAdminid());
 			pstmt.setString(1, adminnoVO.getMembername());
 			pstmt.setString(2, adminnoVO.getMemberuser());
@@ -58,7 +61,8 @@ public class AdminidDAO implements Adminno_interface {
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
-		} catch (SQLException se) {
+		} 
+		catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
@@ -88,7 +92,7 @@ public class AdminidDAO implements Adminno_interface {
 
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE_STMT);
-
+			
 			pstmt.setString(1, adminnoVO.getMembername());
 			pstmt.setString(2, adminnoVO.getMemberuser());
 			pstmt.setString(3, adminnoVO.getPasswd());
@@ -134,7 +138,7 @@ public class AdminidDAO implements Adminno_interface {
 			pstmt = con.prepareStatement(DELETE_STMT);
 
 			pstmt.setString(1, adminid);
-
+			
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
@@ -167,7 +171,6 @@ public class AdminidDAO implements Adminno_interface {
 		ResultSet rs = null;
 
 		try {
-
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(FIND_BY_PK);
 			pstmt.setString(1, adminid);
@@ -245,7 +248,7 @@ public class AdminidDAO implements Adminno_interface {
 				avolist.add(adm);
 			}
 
-		} catch (SQLException se) {
+		}catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
@@ -274,60 +277,60 @@ public class AdminidDAO implements Adminno_interface {
 		return avolist;
 	}
 
-	public AdminnoVO findByMemberuser(String memberuser) {
-		AdminnoVO adm = null;
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
+public AdminnoVO findByMemberuser (String memberuser) {
+	AdminnoVO adm = null;
+	Connection con = null;
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
 
-		try {
+	try {
 
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(GET_ALL_MEMBERUSER);
-			pstmt.setString(1, memberuser);
-			rs = pstmt.executeQuery();
+		con = ds.getConnection();
+		pstmt = con.prepareStatement(GET_ALL_MEMBERUSER);
+		pstmt.setString(1, memberuser);
+		rs = pstmt.executeQuery();
 
-			while (rs.next()) {
-				adm = new AdminnoVO();
-				adm.setAdminid(rs.getString("ADMINID"));
-				adm.setMembername(rs.getString("MEMBERNAME"));
-				adm.setMemberuser(rs.getString("MEMBERUSER"));
-				adm.setPasswd(rs.getString("PASSWD"));
-				adm.setGender(rs.getString("GENDER"));
-				adm.setPhone(rs.getString("PHONE"));
-				adm.setBirthday(rs.getDate("BIRTHDAY"));
-				adm.setEmail(rs.getString("EMAIL"));
-				adm.setPhoto(rs.getBytes("PHOTO"));
-				adm.setAddress(rs.getString("ADDRESS"));
-			}
+		while (rs.next()) {
+			adm = new AdminnoVO();
+			adm.setAdminid(rs.getString("ADMINID"));
+			adm.setMembername(rs.getString("MEMBERNAME"));
+			adm.setMemberuser(rs.getString("MEMBERUSER"));
+			adm.setPasswd(rs.getString("PASSWD"));
+			adm.setGender(rs.getString("GENDER"));
+			adm.setPhone(rs.getString("PHONE"));
+			adm.setBirthday(rs.getDate("BIRTHDAY"));
+			adm.setEmail(rs.getString("EMAIL"));
+			adm.setPhoto(rs.getBytes("PHOTO"));
+			adm.setAddress(rs.getString("ADDRESS"));
+		}
 
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. " + se.getMessage());
-			// Clean up JDBC resources
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
+	}  catch (SQLException se) {
+		throw new RuntimeException("A database error occured. " + se.getMessage());
+		// Clean up JDBC resources
+	} finally {
+		if (rs != null) {
+			try {
+				rs.close();
+			} catch (SQLException se) {
+				se.printStackTrace(System.err);
 			}
 		}
-		return adm;
+		if (pstmt != null) {
+			try {
+				pstmt.close();
+			} catch (SQLException se) {
+				se.printStackTrace(System.err);
+			}
+		}
+		if (con != null) {
+			try {
+				con.close();
+			} catch (Exception e) {
+				e.printStackTrace(System.err);
+			}
+		}
 	}
+	return adm;
+}
 
 }

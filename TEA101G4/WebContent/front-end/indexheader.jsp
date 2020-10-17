@@ -230,8 +230,8 @@
                             </a>
                         </li>
 
-                        <li class="nav-item dropdown bg-pink"><a class="nav-link dropdown-toggle "
-                                href="component-default.html">
+                       <li class="nav-item dropdown bg-pink"><a class="nav-link dropdown-toggle "
+                                href="<%=request.getContextPath()%>/front-end/cus/addCus.jsp">
                                 <i class="fa fa-home nav-icon" aria-hidden="true"></i> <span>Contact
                                     us</span>
                             </a></li>

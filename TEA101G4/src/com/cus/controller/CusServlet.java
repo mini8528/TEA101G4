@@ -431,9 +431,9 @@ public class CusServlet  extends HttpServlet{
 				cusVO = cusSvc.addCus(memberid, subject, email, problemtext, complaintdate);
 				System.out.println("AAA6");
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-//				String url = "/back-end/cus/listAllCus.jsp";
-//				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
-//				successView.forward(req, res);				
+				String url = "/front-end/cus/update_cus_input.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
+				successView.forward(req, res);				
 				System.out.println("AAA7");
 				/***************************其他可能的錯誤處理**********************************/
 			} catch (Exception e) {

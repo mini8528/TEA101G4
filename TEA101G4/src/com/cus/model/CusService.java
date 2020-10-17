@@ -11,7 +11,7 @@ public class CusService {
 	private Cus_interface dao;
 
 	public CusService() {
-		dao = new CusJDBCDAO();
+		dao = new CusDAO();
 }
 	public CusVO addCus(String memberid,String subject,String email,
 		  String problemtext,

@@ -11,7 +11,6 @@ public class AdminnoService {
 
 	public AdminnoService() {
 		dao = new AdminidDAO();
-//		dao = new AdminidJDBCDAO();
 }
 	public AdminnoVO addAdm(String membername, String memberuser,
 			String passwd, String gender,String phone,java.sql.Date birthday, String email,

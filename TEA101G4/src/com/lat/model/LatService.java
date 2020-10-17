@@ -11,7 +11,7 @@ public class LatService {
 	private Lat_interface dao;
 
 	public LatService() {
-		dao = new LatJDBCDAO();
+		dao = new LatDAO();
 }
 	public LatVO addLat(String adminid,String admin2id,	
 	  String text,byte[] image,Date adddate,Date updatetime,Date uploaddate) {
