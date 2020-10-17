@@ -174,7 +174,7 @@
 <!--                             </a></li> -->
 
                         <li class="nav-item dropdown bg-danger"><a class="nav-link dropdown-toggle "
-                                href="<%=request.getContextPath()%>/front-end/trainingindex.jsp" role="button"> <i class="fa fa-list-ul nav-icon"
+                                href="<%=request.getContextPath()%>/front-end/trainingcls/trainingindex.jsp" role="button"> <i class="fa fa-list-ul nav-icon"
                                     aria-hidden="true"></i> <span>Training</span>
                             </a></li>
                         <li class="nav-item dropdown mega-dropdown bg-success"><a class="nav-link dropdown-toggle "

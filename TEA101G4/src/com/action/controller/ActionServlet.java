@@ -147,80 +147,6 @@ public class ActionServlet extends HttpServlet {
 				}
 			}
 		
-		 if ("insert".equals(action)) { // 來自addaction.jsp的請求  
-				
-				Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
-				req.setAttribute("errorMsgs", errorMsgs);
-				System.out.println("insert1");
-				try {
-					/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
-					String actionnm = req.getParameter("actionnm").trim();
-					if (actionnm == null || actionnm.trim().length() == 0) {
-						errorMsgs.put("actionnm","動作名稱請勿空白");
-					}
-	System.out.println(actionnm);
-
-					String part = req.getParameter("part").trim();
-					if (part == null || part.trim().length() == 0) {
-						errorMsgs.put("part","運動部位請勿空白");
-					}
-
-					byte[] myFileArray = null;
-					 InputStream in = req.getPart("video").getInputStream();
-					 myFileArray = new byte[in.available()];
-					 in.read(myFileArray);
-						System.out.println(req.getPart("video").getSize());
-
-				
-					java.sql.Date posttime = null;
-					try {
-						posttime = java.sql.Date.valueOf(req.getParameter("posttime").trim());
-					} catch (IllegalArgumentException e) {
-						errorMsgs.put("posttime","請輸入上傳日期");
-					}
-
-			
-					java.sql.Date updatetime = null;
-					try {
-						updatetime = java.sql.Date.valueOf(req.getParameter("updatetime").trim());
-					} catch (IllegalArgumentException e) {
-						errorMsgs.put("updatetime","請輸入更新日期");
-					}
-
-					// Send the use back to the form, if there were errors
-					if (!errorMsgs.isEmpty()) {
-						RequestDispatcher failureView = req
-								.getRequestDispatcher("/back-end/action/addAction.jsp");
-						failureView.forward(req, res);
-						return;
-					}
-					
-					ActionVO actVO = new ActionVO();
-			
-					actVO.setPart(part);
-					actVO.setVideo(myFileArray);
-					actVO.setPosttime(posttime);
-					actVO.setUpdatetime(updatetime);
-					
-					/***************************2.開始新增資料***************************************/
-					ActionService actionSvc = new ActionService();
-					actionSvc.addAction(actionnm, part, myFileArray ,posttime ,updatetime);
-					
-					/***************************3.新增完成,準備轉交(Send the Success view)***********/
-					String url = "/back-end/action/listAllAction.jsp";
-					RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
-					successView.forward(req, res);				
-					
-					/***************************其他可能的錯誤處理**********************************/
-				} catch (Exception e) {
-					errorMsgs.put("Exception",e.getMessage());
-					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/action/addAction.jsp");
-					failureView.forward(req, res);
-				}
-			}
-		 
-		
 		 if ("update".equals(action)) { // 來自update_emp_input.jsp的請求
 				
 				List<String> errorMsgs = new LinkedList<String>();
@@ -380,7 +306,7 @@ System.out.println("5");
 			
 				
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-				String url = "/action/listAllAction.jsp";
+				String url = "/back-end/action/listAllAction.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);
 				System.out.println("3");	

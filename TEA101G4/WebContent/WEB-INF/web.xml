@@ -40,6 +40,8 @@
 		<url-pattern>/front-end/ordermaster/addOrderMaster.jsp</url-pattern>
 		<!-- 客服-濬承 -->
 		<url-pattern>/front-end/cus/addCus.jsp</url-pattern>
+<!--  		Training-柳慧 -->
+		<url-pattern>/front-end/trainingcls/addMyCls.jsp</url-pattern>
 
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>

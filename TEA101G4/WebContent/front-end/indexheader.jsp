@@ -174,8 +174,8 @@
                             </a></li>
 
                         <li class="nav-item dropdown bg-danger"><a class="nav-link dropdown-toggle "
-                                href="javascript:void(0)" role="button"> <i class="fa fa-list-ul nav-icon"
-                                    aria-hidden="true"></i> <span>Schedule</span>
+                                href="<%=request.getContextPath()%>/front-end/trainingcls/trainingindex.jsp" role="button"> <i class="fa fa-list-ul nav-icon"
+                                    aria-hidden="true"></i> <span>Training</span>
                             </a></li>
                         <li class="nav-item dropdown mega-dropdown bg-success"><a class="nav-link dropdown-toggle "
                                 href="#" role="button" aria-haspopup="true" aria-expanded="false">

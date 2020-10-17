@@ -111,6 +111,21 @@
         </div>
       </li>
       
+      <!-- 健身動作管理 -->
+   
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFive" aria-expanded="true" aria-controls="collapseTwo">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>健身動作管理</span>
+        </a>
+        <div id="collapseFive" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="<%=request.getContextPath()%>/back-end/action/listAllAction.jsp">查詢全部健身動作</a>
+            <a class="collapse-item" href="<%=request.getContextPath()%>/back-end/action/addAction.jsp">新增健身動作</a>
+          </div>
+        </div>
+      </li>
+      
          <!-- 客服 -->
    
       <li class="nav-item">
