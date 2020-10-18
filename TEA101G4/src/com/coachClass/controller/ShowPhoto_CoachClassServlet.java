@@ -8,37 +8,52 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 
 @WebServlet("/back-end/coachClass/coachClassShow.do")
 public class ShowPhoto_CoachClassServlet extends HttpServlet {
-	private static final String driver = "oracle.jdbc.driver.OracleDriver";
-	private static final String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	private static final String userid = "TEA101G4";
-	private static final String passwd = "123456";
+	
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TEA101G4");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	private static final String SHOW_PHOTO = "SELECT PHOTO FROM coachClass WHERE coachClassID = ?";
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doPost(req, res);
 	}
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		System.out.println("進入 ShowPhoto_CoachClassServlet");
+		
+		System.out.println("==  顯示課程照片    ShowPhoto_CoachClassServlet =");
 
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
 		res.setContentType("image/gif");
 		ServletOutputStream outpho = res.getOutputStream();
 		try {
-			Class.forName(driver);
-			Connection con = DriverManager.getConnection(url, userid, passwd);
+			
+			con = ds.getConnection();
 			String coachClassID = new String(req.getParameter("coachClassID").trim());
-			PreparedStatement pstmt = con.prepareStatement(SHOW_PHOTO);
+			pstmt = con.prepareStatement(SHOW_PHOTO);
 			pstmt.setString(1, coachClassID);
 			ResultSet rs = pstmt.executeQuery();
-			System.out.println("進入 ShowPhoto_CoachClassServlet 連結資料庫並查詢 :" + coachClassID );
+			System.out.println("資料庫查詢 :" + coachClassID );
 			try {
 				if (rs.next()) {
 					BufferedInputStream in    = new BufferedInputStream(rs.getBinaryStream("PHOTO"));
@@ -53,19 +68,17 @@ public class ShowPhoto_CoachClassServlet extends HttpServlet {
 				rs.close();
 				pstmt.close();
 				con.close();
-				System.out.println("進入 ShowPhoto_CoachClassServlet 連結資料庫並查詢 :" + coachClassID + "照片, 查詢成功關閉連線" );
+				System.out.println("資料庫查詢 :" + coachClassID + "照片, 成功" );
 			} catch (IOException e) {
-				System.out.println("進入 ShowPhoto_CoachClassServlet 連結資料庫並查詢 :" + coachClassID + "照片, 寫入照片失敗, 使用預設照片" );
+				System.out.println("資料庫查詢 :" + coachClassID + "照片, 失敗, 使用預設照片" );
 				InputStream in = getServletContext().getResourceAsStream("/back-end/coachClass/images/tomcat.png");
 				byte[] b = new byte[in.available()];
 				in.read(b);
 				outpho.write(b);
 				in.close();
 			}
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			System.out.println("進入 ShowPhoto_CoachClassServlet 連結資料庫並查詢照片, 查詢失敗, 使用預設照片" );
+		}  catch (SQLException e) {
+			System.out.println("資料庫查詢照片, 失敗, 使用預設照片" );
 			InputStream in = getServletContext().getResourceAsStream("/back-end/coachClass/images/tomcat.png");
 			byte[] b = new byte[in.available()];
 			in.read(b);

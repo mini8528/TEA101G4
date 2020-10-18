@@ -32,11 +32,11 @@ public class AdminLoginFilter implements Filter{
 	
 		HttpSession session = req.getSession();
 	
-		AdminnoVO userVO = (AdminnoVO) session.getAttribute("userVO");
-		if (userVO == null) {
+		AdminnoVO adminVO = (AdminnoVO) session.getAttribute("adminVO");
+		if (adminVO == null) {
 			session.setAttribute("location", req.getRequestURI());
 			System.out.println(req.getRequestURI());
-			res.sendRedirect(req.getContextPath() + "/back-end/login.jsp");
+			res.sendRedirect(req.getContextPath() + "/back-end/back-login.jsp");
 			return;
 		} else {
 			chain.doFilter(request, response);

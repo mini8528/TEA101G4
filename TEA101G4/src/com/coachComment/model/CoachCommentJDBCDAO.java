@@ -4,7 +4,9 @@ import java.util.*;
 import java.sql.*;
 import java.sql.Date;
 
+import com.coachClass.model.CoachClassVO;
 import com.coachComment.model.CoachCommentVO;
+import com.member.model.MemberVO;
 
 public class CoachCommentJDBCDAO implements CoachCommentDAO_interface {
 
@@ -17,11 +19,15 @@ public class CoachCommentJDBCDAO implements CoachCommentDAO_interface {
 	private static final String GET_ALL_STMT = "SELECT coachCommentID,memberID,memberID2,commText,commStar,addDate,editDate,status FROM CoachComment order by coachCommentID";
 	private static final String GET_ONE_STMT = "SELECT coachCommentID,memberID,memberID2,commText,commStar,addDate,editDate,status FROM CoachComment where coachCommentID = ?";
 	private static final String GET_ONE_STMT_MEMBER = "SELECT coachCommentID,memberID,memberID2,commText,commStar,addDate,editDate,status FROM CoachComment where memberID = ?";
+	private static final String GET_ONE_COACH_COMMENT = "select coachCommentID,memberID,memberID2,commText,commStar,addDate,editDate,status from coachcomment where memberId = ?";
+	private static final String GET_MEMBERID_FROM_COACHCLASSID ="select memberID from coachclass where coachclassid = ? ";
+	private static final String GET_MEMBER_NAME_FROM_MEMBERID ="select name from member where memberid = ? ";
 	
 	private static final String DELETE = "DELETE FROM CoachComment where coachCommentID = ?";
 	private static final String UPDATE = "UPDATE COACHCOMMENT set memberID=? ,memberID2=?, commText=?, commStar=? ,addDate=?, editDate=? ,status=?  where coachCommentID = ? ";
 
 	private static final String UPDATE_SATAUS = "UPDATE CoachComment SET status=?,editDate=? WHERE coachCommentID = ?";
+	
 //	 memberID2=?
 
 	@Override
@@ -396,6 +402,216 @@ public class CoachCommentJDBCDAO implements CoachCommentDAO_interface {
 		}
 		return coachCommentVO;
 	}
+
+	@Override
+	public List<CoachCommentVO> getOneCoachCommentByMember(String memberID) {
+		
+		
+		List<CoachCommentVO> list = new ArrayList<CoachCommentVO>();
+		CoachCommentVO coachCommentVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+//		System.out.println("=== JDBC 1");
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_ONE_COACH_COMMENT);
+//			System.out.println("=== JDBC 2");
+			pstmt.setString(1, memberID);
+//			System.out.println("=== JDBC 3");
+			rs = pstmt.executeQuery();
+//			System.out.println("=== JDBC 4");
+			while (rs.next()) {
+				coachCommentVO = new CoachCommentVO();
+				coachCommentVO.setCoachCommentID(rs.getString("coachCommentID"));
+				coachCommentVO.setMemberID(rs.getString("memberID"));
+				coachCommentVO.setMemberID2(rs.getString("memberID2"));
+				coachCommentVO.setCommText(rs.getString("commText"));
+				coachCommentVO.setCommStar(rs.getInt("commStar"));
+				coachCommentVO.setAddDate(rs.getTimestamp("addDate"));
+				coachCommentVO.setEditDate(rs.getTimestamp("editDate"));
+				coachCommentVO.setStatus(rs.getString("status"));
+				
+//				System.out.println(coachCommentVO.getCoachCommentID());
+//				System.out.println(coachCommentVO.getMemberID());
+//				System.out.println(coachCommentVO.getMemberID2());
+//				System.out.println(coachCommentVO.getCommText());
+//				System.out.println(coachCommentVO.getCommStar());
+//				System.out.println(coachCommentVO.getAddDate());
+//				System.out.println(coachCommentVO.getEditDate());
+//				System.out.println(coachCommentVO.getStatus());
+				
+				list.add(coachCommentVO); // Store the row in the list
+//				System.out.println("=== JDBC 5 list = "+list);
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public String getMemberIDFromCoachClassID(String coachClassID) {
+		
+		System.out.println("從課程編號 查詢會員編號    方法 : getMemberIDFromCoachClassID");
+		System.out.println(" 課程編號 coachClassID = "+coachClassID);
+		CoachClassVO coachClassVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String getM = null;
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_MEMBERID_FROM_COACHCLASSID);
+			pstmt.setString(1, coachClassID);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				// empVo 也稱為 Domain objects
+				coachClassVO = new CoachClassVO();
+				coachClassVO.setMemberID(rs.getString("memberID"));
+			}
+			
+
+			System.out.println(" 教練編號 memberID = "+ coachClassVO.getMemberID());
+			getM =  coachClassVO.getMemberID();
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return getM;
+	}
+
+	@Override
+	public List<MemberVO> getMemberCommentName(String memberID) {
+		
+		System.out.println("=== coach Comment JDBC === in === getMemberCommentName ===");
+		
+		List<MemberVO> list_MemberName = new ArrayList<MemberVO>();
+		MemberVO memberVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+//		System.out.println("=== JDBC 1");
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_MEMBER_NAME_FROM_MEMBERID);
+//			System.out.println("=== JDBC 2");
+			pstmt.setString(1, memberID);
+//			System.out.println("=== JDBC 3");
+			rs = pstmt.executeQuery();
+//			System.out.println("=== JDBC 4");
+			while (rs.next()) {
+				memberVO = new MemberVO();
+				memberVO.setName(rs.getString("name"));
+				
+				System.out.println("Name = "+ memberVO.getName());
+				
+				list_MemberName.add(memberVO); // Store the row in the list
+				System.out.println("=== JDBC 5 list = "+list_MemberName);
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		System.out.println("=== coach Comment JDBC === out === getMemberCommentName ===");
+		return list_MemberName;
+	}
+		
+	
+	
+	
+	
 	
 //	public static void main(String[] args) {
 //

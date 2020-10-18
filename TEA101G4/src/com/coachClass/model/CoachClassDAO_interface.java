@@ -18,5 +18,7 @@ public interface CoachClassDAO_interface {
 	public List<CoachClassVO> getAll();
 	public List<CoachClassVO> getCoachClassByName(String className); 				//（管理員）查多筆商品，用NAME(KW)
 	
+	public String getMemberName(String coachClassID);
+	
 }
 

@@ -40,8 +40,18 @@
 		<url-pattern>/front-end/ordermaster/addOrderMaster.jsp</url-pattern>
 		<!-- 客服-濬承 -->
 		<url-pattern>/front-end/cus/addCus.jsp</url-pattern>
-<!--  		Training-柳慧 -->
+		<!-- Training-柳慧 -->
 		<url-pattern>/front-end/trainingcls/addMyCls.jsp</url-pattern>
+		<url-pattern>/front-end/trainingcls/showmycls.jsp</url-pattern>
+		<!-- 教練課程-振言 -->
+		<url-pattern>/front-end/classOrder/addClassOrder.jsp</url-pattern>
+		<url-pattern>/front-end/classOrder/listAllClassOrder.jsp</url-pattern>
+		<url-pattern>/front-end/classOrder/listOneClassOrder.jsp</url-pattern>
+		<url-pattern>/front-end/coachClass/addCoachClass.jsp</url-pattern>
+		<url-pattern>/front-end/coachClass/select_page.jsp</url-pattern>
+		<url-pattern>/front-end/coachClass/update_coachClass_input.jsp</url-pattern>
+		<url-pattern>/front-end/coachComment/addCoachComment.jsp</url-pattern>
+		<url-pattern>/front-end/coachComment/update_coachComment_input.jsp</url-pattern>
 
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
@@ -58,7 +68,7 @@
 
 	<filter-mapping>
 		<filter-name>AdminLoginFilter</filter-name>
-<!-- 		<url-pattern>/back-end/*</url-pattern> -->
+		<!-- <url-pattern>/back-end/*</url-pattern> -->
 		<url-pattern>/back-end/index.jsp</url-pattern>
 		<url-pattern>/back-end/brand/*</url-pattern>
 		<url-pattern>/back-end/spec/*</url-pattern>

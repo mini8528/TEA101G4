@@ -3,12 +3,14 @@ package com.coachComment.model;
 import java.sql.Timestamp;
 import java.util.List;
 
+import com.member.model.MemberVO;
+
 public class CoachCommentService {
 
 	private CoachCommentDAO_interface dao;
 
 	public CoachCommentService() {
-		dao = new CoachCommentJDBCDAO();
+		dao = new CoachCommentDAO();
 	}
 
 	public CoachCommentVO addCoachComment(String memberID, String memberID2, String commText, Integer commStar,
@@ -63,5 +65,19 @@ public class CoachCommentService {
 	public List<CoachCommentVO> getAll() {
 		return dao.getAll();
 	}
+	
+	public List<CoachCommentVO> getOneCoachCommentByMember(String memberID){
+		return dao.getOneCoachCommentByMember(memberID);
+	}
+	
+	public String getMemberIDFromCoachClassID(String coachClassID) {
+		return dao.getMemberIDFromCoachClassID(coachClassID);
+	}
+	
+	public List<MemberVO> getMemberCommentName (String memberID){
+		return dao.getMemberCommentName(memberID);
+		
+	}
+	
 	
 }

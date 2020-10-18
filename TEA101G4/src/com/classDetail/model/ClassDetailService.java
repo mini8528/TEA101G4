@@ -8,7 +8,7 @@ public class ClassDetailService {
 	private ClassDetailDAO_interface dao;
 
 	public ClassDetailService() {
-		dao = new ClassDetailJDBCDAO();
+		dao = new ClassDetailDAO();
 	}
 
 	public ClassDetailVO addClassDetail( String classOrderID,
@@ -50,7 +50,14 @@ public class ClassDetailService {
 		return dao.getAll();
 	}
 	
+	public List<ClassDetailVO> getDetailByOrder (String classOrderID){
+		return dao.findbyFK(classOrderID);
+	}
+	//顏慈聊天室
 	public List<String> studentChat(String memberid) {
 		return dao.studentFindCoach(memberid);
 	}
+	
+	
+
 }

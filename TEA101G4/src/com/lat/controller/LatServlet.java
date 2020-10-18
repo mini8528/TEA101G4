@@ -63,7 +63,7 @@ public class LatServlet extends HttpServlet{
 					RequestDispatcher failureView = req
 							.getRequestDispatcher("/back-end/lat/select_page.jsp");
 					failureView.forward(req, res);
-					System.out.print("111");
+//					System.out.print("111");
 
 					return;//程式中斷
 				}
@@ -73,14 +73,14 @@ public class LatServlet extends HttpServlet{
 				LatVO latVO = (LatVO)latSvc.getOneLat(latestnewsid);
 				if (latVO == null) {
 					errorMsgs.add("查無資料");
-					System.out.print("sss2");
+//					System.out.print("sss2");
 				}
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
 							.getRequestDispatcher("/back-end/lat/select_page.jsp");
 					failureView.forward(req, res);
-					System.out.print("sss3");
+//					System.out.print("sss3");
 					return;//程式中斷
 				}
 				System.out.print("sss4");
@@ -194,18 +194,18 @@ public class LatServlet extends HttpServlet{
 					adddate = java.sql.Date.valueOf(req.getParameter("adddate").trim());
 				} catch (IllegalArgumentException e) {
 					adddate=new java.sql.Date(System.currentTimeMillis());
-					errorMsgs.add("請輸入日期!");
+					errorMsgs.add("請輸入日期1!");
 				}
 				
 				/***************************1d.消息更新時間**********************/
 				System.out.println("yaaa7");
 				java.sql.Date updatetime = null;
-				try {
+//				try {
 					updatetime=new java.sql.Date(System.currentTimeMillis());
-				} catch (IllegalArgumentException e) {
-					updatetime=new java.sql.Date(System.currentTimeMillis());
-					errorMsgs.add("請輸入日期!");
-				}
+//				} catch (IllegalArgumentException e) {
+//					updatetime=new java.sql.Date(System.currentTimeMillis());
+//					errorMsgs.add("請輸入日期!");
+//				}
 				/***************************1d.消息上傳時間**********************/
 				System.out.println("yaaa8");
 				java.sql.Date uploaddate = null;
@@ -213,7 +213,7 @@ public class LatServlet extends HttpServlet{
 					uploaddate = java.sql.Date.valueOf(req.getParameter("uploaddate").trim());
 				} catch (IllegalArgumentException e) {
 					uploaddate=new java.sql.Date(System.currentTimeMillis());
-					errorMsgs.add("請輸入日期!");
+					errorMsgs.add("請輸入日期2!");
 				}
 
 		
@@ -341,12 +341,13 @@ public class LatServlet extends HttpServlet{
 				/***************************1d.消息上傳時間**********************/
 				System.out.println("yaaa8");
 				java.sql.Date uploaddate = null;
-				try {
-					uploaddate = java.sql.Date.valueOf(req.getParameter("uploaddate").trim());
-				} catch (IllegalArgumentException e) {
-					uploaddate=new java.sql.Date(System.currentTimeMillis());
-					errorMsgs.add("請輸入日期!");
-				}
+				uploaddate=new java.sql.Date(System.currentTimeMillis());
+//				try {
+//					uploaddate = java.sql.Date.valueOf(req.getParameter("uploaddate").trim());
+//				} catch (IllegalArgumentException e) {
+//					uploaddate=new java.sql.Date(System.currentTimeMillis());
+//					errorMsgs.add("請輸入日期!");
+//				}
 
 
 				System.out.println("yaaa9");
@@ -376,7 +377,7 @@ public class LatServlet extends HttpServlet{
 				System.out.println("yaaa12");
 				/***************************3.新增完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("latVO", latVO); // 資料庫update成功後,正確的的empVO物件,存入req
-				String url = "/back-end/lat/listOneLat.jsp";
+				String url = "/back-end/lat/listAllLat.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 				successView.forward(req, res);
 				System.out.println("yaaa13");

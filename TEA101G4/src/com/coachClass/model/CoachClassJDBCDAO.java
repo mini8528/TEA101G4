@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.classDetail.model.ClassDetailVO;
+import com.member.model.MemberVO;
 
 public class CoachClassJDBCDAO implements CoachClassDAO_interface {
 
@@ -32,6 +33,9 @@ public class CoachClassJDBCDAO implements CoachClassDAO_interface {
 	
 	private static final String UPDATE = "UPDATE CoachClass set memberID=?, className=?, classContext=?, photo=?, startTime=?, price=?, quantity=?, address=?, addDate=?, editDate=?   where coachClassID = ?";
 	private static final String GET_CLASS_BY_NAME = "SELECT * FROM CoachClass WHERE className LIKE ? ORDER BY coachClassID ASC";
+	
+	private static final String GET_MEMBERID = "SELECT MEMBERID FROM COACHCLASS WHERE COACHCLASSID = ?";
+	private static final String GET_MEMBER_NAME = "SELECT NAME FROM MEMBER WHERE MEMBERID = ?";
 	
 	@Override
 	public void insert(CoachClassVO coachClassVO) {
@@ -151,23 +155,23 @@ public class CoachClassJDBCDAO implements CoachClassDAO_interface {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 
-			// 1●設定於 pstm.executeUpdate()之前
+			// 1��身摰 pstm.executeUpdate()銋��
 			con.setAutoCommit(false);
 
-			// 先刪除員工
+			// ����撌�
 			pstmt = con.prepareStatement(DELETE_ClassDetail);
 			pstmt.setString(1, "CD00002");
 			updateCount_CoachClass = pstmt.executeUpdate();
-			// 再刪除部門
+			// ������
 			pstmt = con.prepareStatement(DELETE_CoachClass);
 			pstmt.setString(1, coachClassID);
 			pstmt.executeUpdate();
 
-			// 2●設定於 pstm.executeUpdate()之後
+			// 2��身摰 pstm.executeUpdate()銋��
 			con.commit();
 			con.setAutoCommit(true);
-			System.out.println("刪除訂單編號" + coachClassID + "時,共有明細 " + updateCount_CoachClass
-					+ " 筆同時被刪除");
+			System.out.println("��閮蝺刻��" + coachClassID + "���,����敦 " + updateCount_CoachClass
+					+ " 蝑��◤��");
 			
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
@@ -177,7 +181,7 @@ public class CoachClassJDBCDAO implements CoachClassDAO_interface {
 		} catch (SQLException se) {
 			if (con != null) {
 				try {
-					// 3●設定於當有exception發生時之catch區塊內
+					// 3��身摰���xception�����atch��憛
 					con.rollback();
 				} catch (SQLException excep) {
 					throw new RuntimeException("rollback error occured. "
@@ -223,7 +227,7 @@ public class CoachClassJDBCDAO implements CoachClassDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// coachClassVO 也稱為 Domain objects
+				// coachClassVO 銋迂� Domain objects
 				coachClassVO = new CoachClassVO();
 				coachClassVO.setCoachClassID(rs.getString("coachClassID"));
 				coachClassVO.setMemberID(rs.getString("memberID"));
@@ -412,11 +416,115 @@ public class CoachClassJDBCDAO implements CoachClassDAO_interface {
 	}
 	
 	
+	
+	@Override
+	public String getMemberName(String coachClassID) {
+		
+		List<CoachClassVO> list = new ArrayList<CoachClassVO>();
+		List<MemberVO> list1 = new ArrayList<MemberVO>();
+		CoachClassVO coachClassVO = null;
+		MemberVO memberVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		PreparedStatement pstmt1 = null;
+		ResultSet rs = null;
+		ResultSet rs1 = null;
+
+		String mm =null;
+		String nn =null;
+		
+		try {
+			System.out.println("�脣 getMemberName, �閰Ｚ玨蝔楊��� coachClassID = "+coachClassID);
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_MEMBERID);
+
+			pstmt.setString(1, coachClassID);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				coachClassVO = new CoachClassVO();
+				coachClassVO.setMemberID(rs.getString("memberID"));
+				System.out.println("�閰Ｙ��蝺刻�� = "+ rs.getString("memberID"));
+				list.add(coachClassVO);
+			}
+			
+			for(CoachClassVO a : list)	
+				{
+				mm = a.getMemberID();
+				}
+			
+//				System.out.println("���� = "+mm);
+			
+			pstmt1 = con.prepareStatement(GET_MEMBER_NAME);
+			pstmt1.setString(1, mm);
+			rs1 = pstmt1.executeQuery();
+
+			while (rs1.next()) {
+				memberVO = new MemberVO();
+				memberVO.setName(rs1.getString("name"));
+				list1.add(memberVO);
+			}
+			
+			for(MemberVO a : list1)	
+			{
+			nn = a.getName();
+			}
+		
+		System.out.println("��������� = "+nn);
+			
+			
+			
+		
+			// Handle any driver errors
+		}catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+		return nn;
+	}
+	
+	
+	
+	
 		public static void main(String[] args) {
 //
 		CoachClassJDBCDAO dao = new CoachClassJDBCDAO();
 //
-//		// 新增
+		CoachClassVO coachClassVO1 = new CoachClassVO();
+		coachClassVO1.setCoachClassID("COC00001");
+		dao.getMemberName("COC00001");
+		
+		
+//		// �憓�
 //		CoachClassVO coachClassVO1 = new CoachClassVO();
 //		coachClassVO1.setMemberID("M006");
 //		coachClassVO1.setClassName("className");
@@ -430,7 +538,7 @@ public class CoachClassJDBCDAO implements CoachClassDAO_interface {
 //		coachClassVO1.setEditDate(new Date(System.currentTimeMillis()));
 //		dao.insert(coachClassVO1);
 //
-//		// 修改
+//		// 靽格
 //		CoachClassVO coachClassVO2 = new CoachClassVO();
 //		coachClassVO2.setCoachClassID("COC00001");
 //		coachClassVO2.setMemberID("M003");
@@ -446,26 +554,26 @@ public class CoachClassJDBCDAO implements CoachClassDAO_interface {
 //		
 //		dao.update(coachClassVO2);
 //
-//		// 刪除
+//		// ��
 //		dao.delete("COC00006");
 //
-//		// 查詢
-		CoachClassVO coachClassVO3 = dao.findByPrimaryKey("COC00001");
-		System.out.print(coachClassVO3.getCoachClassID() + ",");
-		System.out.print(coachClassVO3.getMemberID() + ",");
-		System.out.print(coachClassVO3.getClassName()+ ",");
-		System.out.print(coachClassVO3.getClassContext()+ ",");
-		System.out.print(coachClassVO3.getPhoto()+ ",");
-		System.out.print(coachClassVO3.getStartTime()+ ",");
-		System.out.print(coachClassVO3.getPrice()+ ",");
-		System.out.print(coachClassVO3.getQuantity()+ ",");
-		System.out.print(coachClassVO3.getAddress()+ ",");
-		System.out.print(coachClassVO3.getAddDate()+ ",");
-		System.out.print(coachClassVO3.getEditDate());
-		System.out.println();
-		System.out.println("---------------------");
+//		// �閰�
+//		CoachClassVO coachClassVO3 = dao.findByPrimaryKey("COC00001");
+//		System.out.print(coachClassVO3.getCoachClassID() + ",");
+//		System.out.print(coachClassVO3.getMemberID() + ",");
+//		System.out.print(coachClassVO3.getClassName()+ ",");
+//		System.out.print(coachClassVO3.getClassContext()+ ",");
+//		System.out.print(coachClassVO3.getPhoto()+ ",");
+//		System.out.print(coachClassVO3.getStartTime()+ ",");
+//		System.out.print(coachClassVO3.getPrice()+ ",");
+//		System.out.print(coachClassVO3.getQuantity()+ ",");
+//		System.out.print(coachClassVO3.getAddress()+ ",");
+//		System.out.print(coachClassVO3.getAddDate()+ ",");
+//		System.out.print(coachClassVO3.getEditDate());
+//		System.out.println();
+//		System.out.println("---------------------");
 //
-//		// 查詢部門
+//		// �閰ａ��
 //		List<CoachClassVO> list = dao.getAll();
 //		for (CoachClassVO aCoachClass : list) {
 //			System.out.print(aCoachClass.getCoachClassID() + ",");
@@ -482,7 +590,7 @@ public class CoachClassJDBCDAO implements CoachClassDAO_interface {
 //			System.out.println();
 //		}
 //		
-//		// 查詢某部門的員工
+//		// �閰Ｘ�����撌�
 //		Set<ClassDetailVO> set = dao.getClassDetailByCoachClassID("COC00001");
 //		for (ClassDetailVO aClassDetail : set) {
 //			System.out.print(aClassDetail.getClassDetailID() + ",");
@@ -492,6 +600,8 @@ public class CoachClassJDBCDAO implements CoachClassDAO_interface {
 //			System.out.println();
 //		}
 	}
+
+	
 
 	
 

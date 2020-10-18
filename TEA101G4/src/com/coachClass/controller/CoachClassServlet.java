@@ -24,19 +24,21 @@ public class CoachClassServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
-		System.out.println("servlet");
+		System.out.println("==================================================");
+		System.out.println("======      Coach Class Servlet   ================");
+		System.out.println("==================================================");
+		
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 
 		if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求
-
-			System.out.println("=== Servlet getOne_For_Display ===");
+			
+			System.out.println("=== Coach Class Servlet ___ getOne_For_Display ===");
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
 			try {
-				System.out.println("=== servlet_getOne_For_Display ===");
 
 				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 				String str = req.getParameter("coachClassID");
@@ -91,8 +93,78 @@ public class CoachClassServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
+		
+		
+		if ("getOne_For_Display_front".equals(action)) { // 來自select_page.jsp的請求
+
+			System.out.println("顯示單一課程畫面   方法 : getOne_For_Display_front");
+			System.out.println("課程ID coachClassID = "+ req.getParameter("coachClassID"));
+
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+			try {
+
+				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+				String str = req.getParameter("coachClassID");
+				if (str == null || (str.trim()).length() == 0) {
+					errorMsgs.add("請輸入coachClassID");
+				}
+
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/coachClass/select_page.jsp");
+					failureView.forward(req, res);
+					return;// 程式中斷
+				}
+
+				String coachClassID = null;
+				try {
+					coachClassID = new String(str);
+				} catch (Exception e) {
+					errorMsgs.add("coachClassID格式不正確");
+				}
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/coachClass/select_page.jsp");
+					failureView.forward(req, res);
+					return;// 程式中斷
+				}
+				
+				/*************************** 2.開始查詢資料 *****************************************/
+				CoachClassService cocService = new CoachClassService();
+				CoachClassVO coachClassVO = cocService.getOneCoachClass(coachClassID);
+				if (coachClassVO == null) {
+					errorMsgs.add("查無資料");
+				}
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/coachClass/select_page.jsp");
+					failureView.forward(req, res);
+					return;// 程式中斷
+				}
+
+				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
+				req.setAttribute("coachClassVO", coachClassVO); // 資料庫取出的coachClassVO物件,存入req
+				String url = "/front-end/coachClass/listOneCoachClass.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
+				System.out.println("顯示單一課程畫面 == end");
+				successView.forward(req, res);
+
+				/*************************** 其他可能的錯誤處理 *************************************/
+			} catch (Exception e) {
+				errorMsgs.add("無法取得資料:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/coachClass/select_page.jsp");
+				failureView.forward(req, res);
+			}
+		}
+		
 
 		if ("update".equals(action)) { // 來自update_coachClass_input.jsp的請求
+			
+			System.out.println("=== Coach Class Servlet ___ update ===");
+
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
@@ -203,6 +275,9 @@ public class CoachClassServlet extends HttpServlet {
 		}
 
 		if ("insert".equals(action)) { // 來自addCoachClass.jsp的請求
+			
+			System.out.println("=== Coach Class Servlet ___ insert ===");
+
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
@@ -288,7 +363,7 @@ public class CoachClassServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("coachClassVO", coachClassVO); // 含有輸入格式錯誤的ClassDetailVO物件,也存入req
-					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/coachClass/addCoachClass.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/coachClass/addCoachClass.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -299,14 +374,14 @@ public class CoachClassServlet extends HttpServlet {
 						quantity, address, addDate, editDate);
 
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-				String url = "/back-end/coachClass/listAllCoachClass.jsp";
+				String url = "/front-end/coachClass/listAllCoachClass.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllClassOrder.jsp
 				successView.forward(req, res);
 
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
 				errorMsgs.add(e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/coachClass/addCoachClass.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/coachClass/addCoachClass.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -341,6 +416,7 @@ public class CoachClassServlet extends HttpServlet {
 
 		if ("getOne_For_Update".equals(action)) { // 來自listAllCoachClass.jsp的請求
 
+			System.out.println("=== Coach Class Servlet ___ getOne_For_Update ===");
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
@@ -348,8 +424,9 @@ public class CoachClassServlet extends HttpServlet {
 
 			try {
 				/*************************** 1.接收請求參數 ****************************************/
+				
 				String coachClassID = new String(req.getParameter("coachClassID"));
-
+				System.out.println("目標 修改課程ID = "+ coachClassID);
 //				1.接收請求參數
 				try {
 					String str = req.getParameter("coachClassID");
@@ -377,6 +454,7 @@ public class CoachClassServlet extends HttpServlet {
 					/*************************** 2.開始查詢資料 ****************************************/
 					CoachClassService cocService = new CoachClassService();
 					CoachClassVO coachClassVO = cocService.getOneCoachClass(coachClassID);
+					System.out.println("取得課程ID = "+ coachClassID);
 
 					/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 					req.setAttribute("coachClassVO", coachClassVO); // 資料庫取出的CoachClassVO物件,存入req

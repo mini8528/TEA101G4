@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.classDetail.model.ClassDetailService;
 import com.classDetail.model.ClassDetailVO;
+import com.classOrder.model.ClassOrderService;
 
 @WebServlet("/back-end/classDetail/classDetail.do")
 public class ClassDetailServlet extends HttpServlet{
@@ -288,6 +289,47 @@ public class ClassDetailServlet extends HttpServlet{
 				errorMsgs.add("刪除資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("/back-end/classDetail/listAllClassDetail.jsp");
+				failureView.forward(req, res);
+			}
+		}
+		
+		
+//		(會員)瀏覽訂單明細(依訂單ID)
+		if ("getOneList_classOrderID".equals(action)) {
+			
+			System.out.println("==================================================");
+			System.out.println("===  Class Detail Servlet  __  getOneList_classOrderID ====");
+			System.out.println("==================================================");
+			
+			
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			try {
+//				1.接收請求參數
+				String classOrderID = new String(req.getParameter("classOrderID"));
+//				2.開始查詢資料
+				System.out.println("開始查詢 明細資料 classOrderID =" +classOrderID);
+				ClassDetailService cdService = new ClassDetailService();
+				List<ClassDetailVO> list = cdService.getDetailByOrder(classOrderID); // 用FK classOrderID 查詢 detail 資料
+				req.getSession().setAttribute("list", list);
+					System.out.println("查詢到的 list = " + list);
+					for(ClassDetailVO test : list) {
+						System.out.println("ClassDetailID = "+test.getClassDetailID());
+						System.out.println("ClassOrderID = "+test.getClassOrderID());
+						System.out.println("CoachClassID = "+test.getCoachClassID());
+						System.out.println("Quantity = "+test.getQuantity());
+					}
+//				3.查詢完成,準備轉交
+				System.out.println("===  Class Detail Servlet  __  查詢完成,準備轉交  list One Class Detail .jsp ====");
+				RequestDispatcher successView = req.getRequestDispatcher("/front-end/classDetail/listOneClassDetail.jsp");
+				successView.forward(req, res);
+				
+//				其他 JSP 可能的錯誤處理
+			} catch (Exception e) {
+				errorMsgs.add("** 無法取得資料 ** :"+e.getMessage());
+				System.out.println(errorMsgs);
+				System.out.println("轉交失敗 classDetail servlet");
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/classOrder/listAllClassOrder.jsp");
 				failureView.forward(req, res);
 			}
 		}

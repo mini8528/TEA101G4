@@ -9,7 +9,7 @@ public class CoachClassService {
 	private CoachClassDAO_interface dao;
 
 	public CoachClassService() {
-		dao = new CoachClassJDBCDAO();
+		dao = new CoachClassDAO();
 	}
 
 	public CoachClassVO addCoachClass(  String memberID, String className, String classContext, byte[] photo, 
@@ -67,6 +67,10 @@ public class CoachClassService {
 	
 	public List<CoachClassVO> getCoachClass(String className){
 		return dao.getCoachClassByName(className);
+	}
+	
+	public String getMemberName(String coachClassID) {
+		return dao.getMemberName(coachClassID);
 	}
 	
 }

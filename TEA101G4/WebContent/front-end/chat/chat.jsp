@@ -91,7 +91,6 @@
 				if (jsonObj.sender === self) {
 					var li = document.createElement('li');
 					console.log("jsonObj.sender === self");
-<%-- 					var memimg = '<img class="img-circle" style="width:20%" src="<%=request.getContextPath()%>/front-end/member/memberShow.do?memberid='+ key +'">'; --%>
 					jsonObj.sender === self ? li.className += 'me' : li.className += 'friend';
 					li.innerHTML = jsonObj.message;
 					console.log(li);
@@ -103,11 +102,8 @@
 				} else {
 					var li = document.createElement('li');
 					var friendno = $("#statusOutput").text();
-<%-- 					var memimg = '<img class="img-circle" style="width:20%" src="<%=request.getContextPath()%>/front-end/member/memberShow.do?memberid='+ friendno +'">'; --%>
 					jsonObj.sender === self ? li.className += 'me' : li.className += 'friend';
 					li.className === 'me'? li.innerHTML = '<div class="avatar"> '+ showMsg + '</div>': li.innerHTML = '<div class="avatar"><img style="height: 50px " src="<%=request.getContextPath()%>/front-end/member/memberShow.do?memberid='+ friendno +'"></div> <div class="msg">' + jsonObj.message + '</div>';
-// 					li.innerHTML = ( meming + jsonObj.message);
-// 					li.innerHTML = (jsonObj.message);
 					
 					console.log(li);
 					document.getElementById("area").appendChild(li);
@@ -160,14 +156,8 @@
 		for (var key in friends) {
 			console.log(friends[key]);
 			if (key === self) { continue; } //去除自己
-<%-- 			row.innerHTML += '<img class="img-circle" style="width:20%" src="<%=request.getContextPath()%>/front-end/member/memberShow.do?memberid='+ key +'">'; --%>
 			row.innerHTML +='<div id=' + key +  ' data-no=' + key + ' class="column" name="friendName" value=' + key + '>'+'<img class="img-circle" style="width: 40px" src="<%=request.getContextPath()%>/front-end/member/memberShow.do?memberid='+ key +'">'+'<h2 class="namerow">' +friends[key] + '</h2></div>';
 			
-			
-			
-<%-- 			row.innerHTML += '<img class="img-circle" style="width:20%" src="<%=request.getContextPath()%>/front-end/member/memberShow.do?memberid='+ key +'">'; --%>
-// 			row.innerHTML +='<div id=' + key +  ' data-no=' + key + ' class="column" name="friendName" value=' + key + ' style="background-color: #b5d56a"><h2>' +friends[key] + '</h2></div>';
-// 			row.innerHTML +='<input type="hidden" id="coachName" value=" '+ key +' "/>';
 		}
 			addListener();
 		
@@ -189,26 +179,8 @@
 						"message" : ""
 					};
 			  webSocket.send(JSON.stringify(jsonObj));
-			  
-			  
 			 });
 		
-		
-		
-// 		var container = document.getElementById("row");
-// 		container.addEventListener("click", function(e) {
-// 			var friend = document.getElementById("key")
-// // 			var friend = e.srcElement.textContent.substring(0,4);
-// 			console.log('friend = '+ friend);
-// 			updateFriendName(friend);
-// 			var jsonObj = {
-// 					"type" : "history",
-// 					"sender" : self,
-// 					"receiver" : friend,
-// 					"message" : ""
-// 				};
-// 			webSocket.send(JSON.stringify(jsonObj));
-// 		});
 	}
 	
 	function disconnect() {

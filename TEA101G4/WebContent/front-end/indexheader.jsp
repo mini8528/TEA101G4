@@ -177,8 +177,8 @@
                                 href="<%=request.getContextPath()%>/front-end/trainingcls/trainingindex.jsp" role="button"> <i class="fa fa-list-ul nav-icon"
                                     aria-hidden="true"></i> <span>Training</span>
                             </a></li>
-                        <li class="nav-item dropdown mega-dropdown bg-success"><a class="nav-link dropdown-toggle "
-                                href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                       <li class="nav-item dropdown mega-dropdown bg-success"><a class="nav-link dropdown-toggle "
+                                href="<%=request.getContextPath()%>/front-end/coachClass/listAllCoachClass.jsp" role="button" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-file-text-o nav-icon" aria-hidden="true"></i> <span>Courses</span>
                             </a></li>
 <!-- ======================================================================================================================== -->

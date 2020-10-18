@@ -328,11 +328,11 @@ public class CusServlet  extends HttpServlet{
 				String memberid = req.getParameter("memberid");
 				String memberReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
 				String memtest = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{0,40}$";
-				if (memberid == null || memberid.trim().length() == 0) {
-					errorMsgs.add("會員編號: 請勿空白");
-				} else if(!memberid.trim().matches(memberReg)) { //以下練習正則(規)表示式(regular-expression)
-					errorMsgs.add("會員編號: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
-	            }
+//				if (memberid == null || memberid.trim().length() == 0) {
+//					errorMsgs.add("會員編號: 請勿空白");
+//				} else if(!memberid.trim().matches(memberReg)) { //以下練習正則(規)表示式(regular-expression)
+//					errorMsgs.add("會員編號: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
+//	            }
 				/***************************1b.管理員編號**********************/
 				System.out.println("yaaa3");
 //				String adminid = req.getParameter("adminid").trim();
@@ -420,7 +420,7 @@ public class CusServlet  extends HttpServlet{
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("cusVO", cusVO); // 含有輸入格式錯誤的empVO物件,也存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/cus/addCus.jsp");
+							.getRequestDispatcher("/front-end/cus/addCus.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -431,7 +431,7 @@ public class CusServlet  extends HttpServlet{
 				cusVO = cusSvc.addCus(memberid, subject, email, problemtext, complaintdate);
 				System.out.println("AAA6");
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				String url = "/front-end/cus/update_cus_input.jsp";
+				String url = "/front-end/cus/addCus.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);				
 				System.out.println("AAA7");
@@ -439,7 +439,7 @@ public class CusServlet  extends HttpServlet{
 			} catch (Exception e) {
 				errorMsgs.add(e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back-end/cus/addCus.jsp");
+						.getRequestDispatcher("/front-end/cus/addCus.jsp");
 				failureView.forward(req, res);
 			}
 		}

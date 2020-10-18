@@ -262,6 +262,10 @@ public class CoachCommentServlet extends HttpServlet{
 
         if ("insert".equals(action)) { // 來自addEmp.jsp的請求  
 			
+        	System.out.println("==================================================");
+        	System.out.println("===  新增教練評論    add Coach Comment .servlet === in === insert ===");
+        	System.out.println("==================================================");
+        	
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
@@ -269,6 +273,11 @@ public class CoachCommentServlet extends HttpServlet{
 
 			try {
 				/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
+				
+				System.out.println("接收請求參數 : ");
+				System.out.println("教練 memberID = "+req.getParameter("memberID"));
+				System.out.println("使用者 memberID2 = "+req.getParameter("memberID2"));
+				
 				String memberID = req.getParameter("memberID");
 				String memberIDReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
 				if (memberID == null || memberID.trim().length() == 0) {
@@ -327,7 +336,8 @@ public class CoachCommentServlet extends HttpServlet{
 						(memberID, memberID2, commText, commStar, addDate, editDate, status);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				String url = "/back-end/coachComment/listAllCoachComment.jsp";
+				String url = "/front-end/coachClass/listAllCoachClass.jsp";
+				System.out.println("success");
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllCoachComment.jsp
 				successView.forward(req, res);				
 				
@@ -376,7 +386,84 @@ public class CoachCommentServlet extends HttpServlet{
 		
 		
 		
-		
+		if ("getOneCoachCommentByMember".equals(action)) { // 來自select_page.jsp的請求
+			
+			System.out.println("=== coach Comment .servlet === in === getOneCoachCommentByMember === 搜尋教練評論 ===");
+
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+			try {
+				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
+				System.out.println("=== 接收請求參數 ===");
+				
+				String str = req.getParameter("memberID");
+				if (str == null || (str.trim()).length() == 0) {
+					errorMsgs.add("請輸入memberID");
+				}
+				System.out.println("=== 接收請求參數 1");
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/front-end/coachComment/select_page.jsp");
+					failureView.forward(req, res);
+					return;//程式中斷
+				}
+				System.out.println("=== 接收請求參數 2");
+				String memberID = null;
+				try {
+					memberID = new String(str);
+				} catch (Exception e) {
+					errorMsgs.add("memberID格式不正確");
+				}
+				System.out.println("=== 接收請求參數 3");
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					System.out.println("進入 error");
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/front-end/coachComment/select_page.jsp");
+					failureView.forward(req, res);
+					return;//程式中斷
+				}
+				/***************************2.開始查詢資料*****************************************/
+				System.out.println("=== 開始查詢資料 ===");
+				CoachCommentService ccService = new CoachCommentService();
+				System.out.println("=== 開始查詢資料 1 ===");
+				List<CoachCommentVO> coachCommentVO = (List<CoachCommentVO>) ccService.getOneCoachCommentByMember(memberID);
+				System.out.println("memberID = "+ memberID);
+				System.out.println("coachCommentVO = "+ coachCommentVO);
+				if (coachCommentVO == null) {
+					errorMsgs.add("查無資料");
+				}
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/front-end/coachComment/select_page.jsp");
+					failureView.forward(req, res);
+					return;//程式中斷
+				}
+				
+				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
+				System.out.println("=== 查詢完成,準備轉交 ===");
+				req.setAttribute("coachCommentVO", coachCommentVO); // 資料庫取出的coachCommentVO物件,存入req
+				System.out.println("=== 查詢完成,準備轉交 1 ===");
+				String url = "/front-end/coachComment/listOneCoachComment.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
+				System.out.println("=== 查詢完成,準備轉交 2 === req =" + req);
+				successView.forward(req, res);
+
+				/***************************其他可能的錯誤處理*************************************/
+			} catch (Exception e) {
+				System.out.println("=== 錯誤處理 ===");
+				errorMsgs.add("無法取得資料:" + e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/front-end/coachComment/select_page.jsp");
+				failureView.forward(req, res);
+			}
+			
+			
+		}
 		
 		
 		

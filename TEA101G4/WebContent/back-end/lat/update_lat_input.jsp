@@ -9,39 +9,9 @@ LatVO latVO = (LatVO) request.getAttribute("latVO"); //EmpServlet.java (Concroll
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>管理員資料修改 - update_lat_input.jsp</title>
+<title>最新消息修改 - update_lat_input.jsp</title>
 
-<style>
-  table#table-1 {
-	background-color: #CCCCFF;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
-  }
-</style>
 
-<style>
-  table {
-	width: 450px;
-	background-color: white;
-	margin-top: 1px;
-	margin-bottom: 1px;
-  }
-  table, th, td {
-    border: 0px solid #CCCCFF;
-  }
-  th, td {
-    padding: 1px;
-  }
-</style>
 
 </head>
 <body bgcolor='white'>
@@ -64,8 +34,7 @@ LatVO latVO = (LatVO) request.getAttribute("latVO"); //EmpServlet.java (Concroll
         <!-- Begin Page Content -->
         <div class="container-fluid">
 
-          <!-- Page Heading -->
-          <h1 class="h3 mb-4 text-gray-800">Blank Page</h1>
+         
     
 <div>
 <!-- ---------------------------------------------------------------- -->         
@@ -76,7 +45,6 @@ LatVO latVO = (LatVO) request.getAttribute("latVO"); //EmpServlet.java (Concroll
 	</td></tr>
 </table>
 
-<h3>資料修改:</h3>
 
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
@@ -91,19 +59,21 @@ LatVO latVO = (LatVO) request.getAttribute("latVO"); //EmpServlet.java (Concroll
 <table>
 	<tr>
 		<td>管理員姓名:</td>
-		<td><input type="TEXT" name="adminid" size="45" 
-			 value="<%= (latVO==null)? "" : latVO.getAdminid()%>" /></td>
+		<td>${latVO.adminid}</td>
+		<td><input type="hidden" name="adminid" size="45" 
+			 value="<%=latVO.getAdminid()%>" /></td>
 	</tr>
 	<tr>
 		<td>管理員姓名2:</td>
-		<td><input type="TEXT" name="admin2id" size="45" 
-			 value="<%= (latVO==null)? "" : latVO.getAdmin2id()%>" /></td>
+		<td>${adminVO.adminid}</td>
+		<td><input type="hidden" name="admin2id" size="45" 
+			 value="<%=latVO.getAdmin2id()%>" /></td>
 	</tr>
 	
 	<tr>
 		<td>內容:</td>
 		<td><input type="TEXT" name="text" size="45" 
-			 value="<%= (latVO==null)? "xxxxxxxx" : latVO.getText()%>" /></td>
+			 value="<%=latVO.getText()%>" /></td>
 	</tr>
 	
 	<tr>
@@ -111,15 +81,16 @@ LatVO latVO = (LatVO) request.getAttribute("latVO"); //EmpServlet.java (Concroll
 		<td><input type="file" name="image" id="p_file"> <br> 
 			<div id="preview">
 						<span class="text"> 預覽 </span>
-						<img src="<%=request.getContextPath()%>/back-end/lat/latshow.do?latestnewsid=${latVo.latestnewsid}" width="100" height="100">
+						<img
+						src="<%=request.getContextPath()%>/back-end/lat/latshow.do?latestnewsid=${latVo.latestnewsid}" 
+						width="100" height="100">
 		</div>
 	</tr>
 	
 	<tr>
-		<td>新增日期:<font color=blue><b>*</b></font></td>
-		<td>
-		<%=latVO.getAdddate()%>
-		<input type="hidden" name="adddate" value="<%=latVO.getAdddate()%>" />
+		<td>新增日期:</td>
+		<td><%=latVO.getAdddate()%></td>
+		<td><input type="hidden" name="adddate" value="<%=latVO.getAdddate()%>" />
 		</td>
 	</tr>
 	<!--<tr>
@@ -128,7 +99,8 @@ LatVO latVO = (LatVO) request.getAttribute("latVO"); //EmpServlet.java (Concroll
 	</tr>-->
 	<tr>
 		<td>文章上傳日期:</td>
-		<td><input name="uploaddate" id="uploaddate" type="text"></td>
+		<td>${latVO.uploaddate}</td>
+		<td><input name="uploaddate" id="uploaddate" type="hidden"></td>
 	</tr>
 
 </table>

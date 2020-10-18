@@ -125,6 +125,19 @@
           </div>
         </div>
       </li>
+      <!-- 課程預約管理 -->
+       <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFive" aria-expanded="true" aria-controls="collapseTwo">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>課程預約管理</span>
+        </a>
+        <div id="collapseFive" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="<%=request.getContextPath()%>/back-end/coachComment/listAllCoachComment.jsp">課程留言管理</a>
+            <a class="collapse-item" href="<%=request.getContextPath()%>/back-end/coachClass/listAllCoachClass.jsp">課程管理</a>
+          </div>
+        </div>
+      </li>
       
          <!-- 客服 -->
    

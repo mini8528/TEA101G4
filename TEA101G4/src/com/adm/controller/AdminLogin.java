@@ -54,12 +54,12 @@ System.out.print("1");
 
 		System.out.println(memberuser + passwd);
 
-		AdminnoVO userVO = null;
+		AdminnoVO adminVO = null;
 		System.out.print("1");
 		if (errorMsgs.isEmpty()) {
 			try {
 				//帳號比對
-				userVO = memSer.getAlluser(memberuser);
+				adminVO = memSer.getAlluser(memberuser);
 			} catch (Exception e) {
 				e.printStackTrace();
 				errorMsgs.add("查無此帳號");
@@ -69,7 +69,7 @@ System.out.print("1");
 				return;
 			}
 			System.out.print("1");
-			if(userVO == null) {
+			if(adminVO == null) {
 				errorMsgs.add("查無此帳號");
 //				System.out.println("查無此帳號2");
 				req.setAttribute("errorMsgs", errorMsgs);
@@ -78,9 +78,9 @@ System.out.print("1");
 			}
 			
 			//密碼正確，存userVO
-			if (userVO.getPasswd().equals(passwd)) {
+			if (adminVO.getPasswd().equals(passwd)) {
 				
-				session.setAttribute("userVO", userVO);
+				session.setAttribute("adminVO", adminVO);
 			
 			} else {
 				errorMsgs.add("輸入密碼錯誤");

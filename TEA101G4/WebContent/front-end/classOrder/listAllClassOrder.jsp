@@ -1,0 +1,141 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="javax.servlet.http.*"%>
+<%@ page import="javax.servlet.*"%>
+<%@ page import="java.util.*"%>
+<%@ page import="com.classOrder.model.*"%>
+<%@ page import="com.member.model.*"%>
+
+<%-- 此頁練習採用 EL 的寫法取值 --%>
+
+<%
+
+System.out.println("==================================================");
+System.out.println("===  List All Class Order . JSP  ====");
+System.out.println("==================================================");
+
+	MemberVO userVO= (MemberVO) session.getAttribute("userVO");
+	if(userVO!=null)
+		{System.out.println("（one_product.jsp）當前會員= "+userVO.getMemberid());
+	};
+	pageContext.setAttribute("userVO", userVO);
+
+	String memberid = new String(userVO.getMemberid());
+	ClassOrderService coService = new ClassOrderService();
+	List<ClassOrderVO> list = coService.getOrderByMemberId(memberid);
+	System.out.println("符合的Ordermaster共：" + list.size());
+	request.getSession().setAttribute("list", list);
+%>
+
+
+<html>
+<head>
+<title>所有訂單資料 - listAllClassOrder.jsp</title>
+
+
+</head>
+<body bgcolor='white'>
+<jsp:include page="/front-end/header.jsp" flush="true" />
+
+<table id="table-1">
+	<tr><td>
+		 <h3>所有ClassOrder資料 - listAllClassOrder.jsp</h3>
+	</td></tr>
+</table>
+
+<%-- 錯誤表列 --%>
+<c:if test="${not empty errorMsgs}">
+	<font style="color:red">請修正以下錯誤:</font>
+	<ul>
+		<c:forEach var="message" items="${errorMsgs}">
+			<li style="color:red">${message}</li>
+		</c:forEach>
+	</ul>
+</c:if>
+
+<table>
+	<tr>
+		<th>classOrderID</th>
+		<th>會員ID</th>
+		<th>付款方式</th>
+		<th>付款狀態</th>
+		<th>訂單時間</th>
+		<th>付款到期時間</th>
+		<th>查看明細</th>
+	</tr>
+	<%@ include file="page1.file" %> 
+	<c:forEach var="classOrderVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+		
+		<tr>
+			<td>${classOrderVO.classOrderID}</td>
+			<td>${classOrderVO.memberID}</td>
+			<td>${classOrderVO.payment}</td>
+			<td>${classOrderVO.paymentStatus}</td>
+			<td>${classOrderVO.orderDate}</td>
+			<td>${classOrderVO.payExpire}</td>
+			
+			<td>
+			<FORM METHOD = "post" ACTION = "<%=request.getContextPath()%>/back-end/classDetail/classDetail.do" style = "margin-bottom: 0px;">
+				<input type = "submit" value = "View">
+				<input type = "hidden" name = "classOrderID" value = "${classOrderVO.classOrderID}">
+				<input type = "hidden" name = "action" value = "getOneList_classOrderID">
+			</FORM>
+		</td>
+		
+		</tr>
+<%-- 	</c:forEach> --%>
+<!-- </table> -->
+<%-- <%@ include file="page2.file" %> --%>
+
+
+
+<!-- ====================================
+———	COURSES SECTION
+===================================== -->
+<section class="py-8 py-md-1 list-fullwidth">
+  <div class="container">
+
+		<div class="media media-list-view mb-5">
+
+		  <div class="media-body">
+		    <h3 class="mb-3 mb-lg-2 mb-xl-3">
+          <a class="text-purple text-capitalize font-weight-bold" href="course-single-left-sidebar.html">訂單編號　</a><b>-　${classOrderVO.classOrderID}</b>
+        </h3>
+
+				<ul class="list-unstyled d-flex text-muted mb-2">
+					<li class="mr-3 text-capitalize font-weight-bold">
+						<i class="fa fa-calendar-o mr-2 " aria-hidden="true"></i>訂購時間 ${classOrderVO.orderDate}
+					</li>
+					<li class="text-capitalize font-weight-bold">
+						<i class="fa fa-clock-o mr-2" aria-hidden="true"></i>付款到期時間 ${classOrderVO.payExpire}
+					</li>
+				</ul>
+
+		    <p class="text-capitalize font-weight-bold mb-lg-2">付款方式　：　${classOrderVO.payment}</p>
+		    <p class="text-capitalize font-weight-bold mb-lg-2">付款狀態　：　${classOrderVO.paymentStatus}</p>
+
+				<div class="">
+					<a href="product-cart.html" class="btn btn-sm btn-white text-uppercase mb-1 mr-2 btn-hover-purple">
+            <i class="fa fa-angle-double-right mr-2" aria-hidden="true"></i>更多明細
+          </a>
+          
+        </div>
+		  </div>
+		</div>
+
+  </div>
+
+
+
+
+
+	</c:forEach>
+</table>
+<%@ include file="page2.file" %>
+
+
+
+
+<jsp:include page="/front-end/footer.jsp" flush="true" />
+</body>
+</html>
