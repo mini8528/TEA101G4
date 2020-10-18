@@ -3,10 +3,8 @@ package com.wishList.model;
 import java.sql.Date;
 import java.util.List;
 
-import javax.servlet.http.HttpServlet;
 
-
-public class WishListService extends HttpServlet{
+public class WishListService {
 
 	private WishListDAO_interface dao;
 
@@ -56,5 +54,10 @@ public class WishListService extends HttpServlet{
 	public List<WishListVO> getAll() {
 		return dao.getAll();
 	}
-	
+	public List<WishListVO> getWishList(String memberId){
+		return dao.getWishListByMemberId(memberId);
+	}
+//	public List<WishListVO> getMemberBlog(String memberId){
+//		return dao.findByMemberid(memberId);
+//	}
 }

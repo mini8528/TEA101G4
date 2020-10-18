@@ -93,18 +93,37 @@
                                         </div>
                                         <div class="dropdown-menu dropdown-menu-right">
                                             <ul class="bg-white list-unstyled">
-                                                <a href="<%=request.getContextPath() %>/front-end/member/listOneMember.jsp">
-                                                    <li>
-                                                        <div class="media">
-                                                            <div class="media-body">
-                                                                <div class="d-flex justify-content-between">
-                                                                    <h4 class="text-dark">Profile</h4>
-
-                                                                </div>
-                                                            </div>
-                                                            <hr>
-                                                    </li>
-                                                </a>
+                                            <c:choose>
+                                            <c:when test="${userVO.authority eq 'Y'}">
+	                                            <a href="<%=request.getContextPath() %>/front-end/member/listCoachMember.jsp">
+		                                                    <li>
+		                                                        <div class="media">
+		                                                            <div class="media-body">
+		                                                                <div class="d-flex justify-content-between">
+		                                                                    <h4 class="text-dark">Profile</h4>
+		
+		                                                                </div>
+		                                                            </div>
+		                                                            <hr>
+		                                                    </li>
+		                                                </a>
+                                            </c:when>
+                                            <c:otherwise>
+	                                            <a href="<%=request.getContextPath() %>/front-end/member/listOneMember.jsp">
+	                                                    <li>
+	                                                        <div class="media">
+	                                                            <div class="media-body">
+	                                                                <div class="d-flex justify-content-between">
+	                                                                    <h4 class="text-dark">Profile</h4>
+	
+	                                                                </div>
+	                                                            </div>
+	                                                            <hr>
+	                                                    </li>
+	                                                </a>
+                                            </c:otherwise>
+                                            </c:choose>
+                                                
                                                 <hr>
                                                 <a href="<%=request.getContextPath() %>/chat.do?memberid=${userVO.memberid}">
                                                     <li>
@@ -217,7 +236,7 @@
                         <%-- <a class="dropdown-item " href="<%=request.getContextPath()%>/front-end/cart/cart.do?memberid=${userVO.memberid}&action=getMemberCartRedis">購物車</a> --%>
                       </li>
                       <li>
-                        <a class="dropdown-item " href="">收藏商品</a>
+                        <a class="dropdown-item " href="<%=request.getContextPath()%>/wishList/WishListServlet?action=getSomeList&memberId=${userVO.memberid}">收藏商品</a>
                       </li>
                         </ul>
                   </li>

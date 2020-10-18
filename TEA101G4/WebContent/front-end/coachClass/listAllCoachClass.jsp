@@ -24,7 +24,7 @@ System.out.println("==================================================");
 	pageContext.setAttribute("userVO", userVO);
 %>
 
-
+<!DOCTYPE html>
 <html>
 <head>
 <title>所有CoachClass資料 - listAllCoachClass.jsp</title>

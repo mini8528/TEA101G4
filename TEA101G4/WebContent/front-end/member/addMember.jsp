@@ -80,7 +80,7 @@ img {
 <!-- 	</table> -->
 
 	<div class="col-sm-6 offset-lg-4 col-lg-4">
-        <div class="mb-4 mb-sm-0" style="margin-top: 30px">
+        <div class="mb-4 mb-sm-0">
           <div class="bg-warning rounded-top p-2">
             <h3 class="text-white font-weight-bold mb-0 ml-2">資料新增:</h3>
           </div>
@@ -96,19 +96,19 @@ img {
 			<tr>
 				<td>姓名:</td>
 				<td><input type="TEXT" name="name" class="form-control border" placeholder="Name"
-					value="<%=(memberVO == null) ? "" : memberVO.getName()%>" /></td>
+					value="<%=(memberVO == null) ? "" : memberVO.getName()%>" required/></td>
 			</tr>
 
 			<tr>
 				<td>帳號:</td>
 				<td><input type="TEXT" name="account" class="form-control border" placeholder="Account"
-					value="<%=(memberVO == null) ? "" : memberVO.getAccount()%>" /></td>
+					value="<%=(memberVO == null) ? "" : memberVO.getAccount()%>" required/></td>
 			</tr>
 
 			<tr>
 				<td>密碼:</td>
 				<td><input type="password" name="password" class="form-control border" placeholder="Password"
-					value="<%=(memberVO == null) ? "" : memberVO.getPassword()%>" /></td>
+					value="<%=(memberVO == null) ? "" : memberVO.getPassword()%>" required/></td>
 			</tr>
 
 			<tr>
@@ -122,19 +122,19 @@ img {
 			<tr>
 				<td>電話:</td>
 				<td><input type="TEXT" name="phone" class="form-control border" placeholder="Phone"
-					value="<%=(memberVO == null) ? "" : memberVO.getPhone()%>" /></td>
+					value="<%=(memberVO == null) ? "" : memberVO.getPhone()%>" required/></td>
 			</tr>
 
 			<tr>
 				<td>生日:</td>
 				<td><input type="date" name="birthday" class="form-control border" placeholder="Birthday"
-					value="<%=(memberVO == null) ? "" : memberVO.getBirthday()%>" /></td>
+					value="<%=(memberVO == null) ? "" : memberVO.getBirthday()%>" required/></td>
 			</tr>
 
 			<tr>
 				<td>email:</td>
 				<td><input type="email" name="email" class="form-control border" placeholder="Email"
-					value="<%=(memberVO == null) ? "" : memberVO.getEmail()%>" /></td>
+					value="<%=(memberVO == null) ? "" : memberVO.getEmail()%>" required/></td>
 			</tr>
 
 			<tr>
@@ -148,7 +148,7 @@ img {
 			<tr>
 				<td>地址:</td>
 				<td><input type="TEXT" name="address" class="form-control border" placeholder="Address"
-					value="<%=(memberVO == null) ? "" : memberVO.getAddress()%>" /></td>
+					value="<%=(memberVO == null) ? "" : memberVO.getAddress()%>" required/></td>
 			</tr>
 
 <!-- 			<tr> -->
@@ -160,49 +160,48 @@ img {
 <!-- 			</tr> -->
 			
 			<tr>
-				<td>資歷:</td>
-				<td><input type="TEXT" name="qualifications" class="form-control border" placeholder="Qualifications"
+<!-- 				<td>資歷:</td> -->
+				<td><input type="hidden" name="qualifications" class="form-control border" placeholder="Qualifications"
 					value="<%=(memberVO == null) ? "" : memberVO.getQualifications()%>" /></td>
 			</tr>
 			
 			<tr>
-				<td>專長:</td>
-				<td><input type="TEXT" name="expertise" class="form-control border" placeholder="Expertise"
+<!-- 				<td>專長:</td> -->
+				<td><input type="hidden" name="expertise" class="form-control border" placeholder="Expertise"
 					value="<%=(memberVO == null) ? "" : memberVO.getExpertise()%>" /></td>
 			</tr>
 			
 			<tr>
-				<td>個人介紹:</td>
-				<td><input type="TEXT" name="introduction" class="form-control border" placeholder="Introduction"
+<!-- 				<td>個人介紹:</td> -->
+				<td><input type="hidden" name="introduction" class="form-control border" placeholder="Introduction"
 					value="<%=(memberVO == null) ? "" : memberVO.getIntroduction()%>" /></td>
 			</tr>
 			
 			<tr>
-				<td>照片:</td>
-				<td><input type="file" name="photo1" id="p_file" class="form-control border" placeholder="Photo" multiple> <br>
+<!-- 				<td>照片:</td> -->
+				<td><input type="hidden" name="photo1" id="p_file" class="form-control border" placeholder="Photo" multiple> <br>
 					<div id="preview">
 						<span class="text"></span>
 					</div>
 			</tr>
 			
 			<tr>
-				<td>照片:</td>
-				<td><input type="file" name="photo2" id="p_file" class="form-control border" placeholder="Photo"> <br>
+<!-- 				<td>照片:</td> -->
+				<td><input type="hidden" name="photo2" id="p_file" class="form-control border" placeholder="Photo"> <br>
 					<div id="preview">
 						<span class="text"></span>
 					</div>
 			</tr>
 			
 			<tr>
-				<td>照片:</td>
-				<td><input type="file" name="photo3" id="p_file" class="form-control border" placeholder="Photo"> <br>
+<!-- 				<td>照片:</td> -->
+				<td><input type="hidden" name="photo3" id="p_file" class="form-control border" placeholder="Photo"> <br>
 					<div id="preview">
 						<span class="text"></span>
 					</div>
 			</tr>
 		</table>
 		
-		<br>
 		 <input type="hidden" name="action" value="insert">
 		 <input type="submit" class="btn btn-danger text-uppercase w-100" value="送出新增">
 		    </form>
@@ -311,7 +310,8 @@ window.addEventListener("load", function(){
 		        document.getElementById("preview3").innerHTML = "";
 		      }
 		    });
-	});
+	    }
+	
 
 </script>
 

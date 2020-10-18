@@ -4,7 +4,7 @@
 <%-- 此頁暫練習採用 Script 的寫法取值 --%>
 
 <%
-// MemberVO memberVO = (MemberVO) session.getAttribute("userVO"); //ClassDetailServlet.java(Concroller), 存入req的coachCommentVO物件
+MemberVO memberVO = (MemberVO) request.getAttribute("memberVO"); //ClassDetailServlet.java(Concroller), 存入req的coachCommentVO物件
 %>
 
 <!DOCTYPE html>
@@ -115,93 +115,60 @@
                 </div>
 
                 <div class="form-group form-group-icon col-lg-6">
-                  <label for="country">新增日期</label>
-                  <div class="form-control border-success rounded-sm" id="country">${userVO.adddate}</div>
+                  <label for="country">資歷</label>
+                  <div class="form-control border-success rounded-sm" id="country">${userVO.qualifications}</div>
+                </div>
+              </div>
+                
+                <div class="row">
+                <div class="form-group form-group-icon col-lg-6">
+                  <label for="first-name">專長</label>
+                  <div class="form-control border-danger rounded-sm" id="first-name" >${userVO.expertise}</div>
                 </div>
 
-<!--       <div class="col-sm-8 col-xs-12"> -->
-        
-<!--                 <h2 class="text-danger font-weight-medium mb-3 ">會員資料</h2> -->
+                <div class="form-group form-group-icon col-lg-6">
+                  <label for="last-name">個人介紹</label>
+                  <div class="form-control border-info rounded-sm" id="last-name">${userVO.introduction}</div>
+                </div>
+              </div>
 
-<!--         <div class="text-white rounded bg-warning text-uppercase font-weight-medium px-6 py-3 mb-3">name</div> -->
+              <div class="row">
+                <div class="form-group form-group-icon col-lg-6">
+                  <label for="photo1">證照</label>
+                  <div class="image mb-5 mb-md-0" id="photo1">
+                  	<img class="w rounded" src="<%=request.getContextPath()%>/front-end/member/memberShow1.do?memberid=${userVO.memberid}"  width="180" height="120">
+                  </div>
+                </div>
 
-<%--         <div class="text-muted text-capitalize font-weight-medium ml-4 mb-5 font-size-20"><%=memberVO.getName()%></div> --%>
+                <div class="form-group form-group-icon col-lg-6">
+                  <label for="photo2">證照</label>
+                  <div class="image mb-5 mb-md-0" id="photo2">
+                  	<img class="w rounded" src="<%=request.getContextPath()%>/front-end/member/memberShow2.do?memberid=${userVO.memberid}"  width="180" height="120">
+                  </div>
+                </div>
+              </div>
 
-<!--         <div class="text-white rounded bg-success text-uppercase font-weight-medium px-6 py-3 mb-3">account</div> -->
+              <div class="row">
+                <div class="form-group form-group-icon col-lg-5">
+                  <label for="photo3">證照</label>
+                  <div class="image mb-5 mb-md-0" id="photo3">
+                  	<img class="w rounded" src="<%=request.getContextPath()%>/front-end/member/memberShow3.do?memberid=${userVO.memberid}"  width="180" height="120">
+                  </div>
+                </div>
 
-<%--         <div class="text-muted text-capitalize font-weight-medium ml-4 mb-5 font-size-20"><%=memberVO.getAccount()%></div> --%>
-
-<!--         <div class="text-white rounded bg-danger text-uppercase font-weight-medium px-6 py-3 mb-3">gender</div> -->
-
-<%--         <div class="text-muted text-capitalize font-weight-medium ml-4 mb-5 font-size-20"><%=memberVO.getGender()%></div> --%>
-
-<!--         <div class="text-white rounded bg-info text-uppercase font-weight-medium px-6 py-3 mb-3">phone</div> -->
-
-<%--         <div class="text-muted text-capitalize font-weight-medium ml-4 mb-5 font-size-20"><%=memberVO.getPhone()%></div> --%>
-
-<!--         <div class="text-white rounded bg-purple text-uppercase font-weight-medium px-6 py-3 mb-3">birthday</div> -->
-
-<%--         <div class="text-muted text-capitalize font-weight-medium ml-4 mb-5 font-size-20"><%=memberVO.getBirthday()%></div> --%>
-        
-<!--         <div class="text-white rounded bg-warning text-uppercase font-weight-medium px-6 py-3 mb-3">email</div> -->
-
-<%--         <div class="text-muted text-capitalize font-weight-medium ml-4 mb-5 font-size-20"><%=memberVO.getEmail()%></div> --%>
-
-<!--         <div class="text-white rounded bg-success text-uppercase font-weight-medium px-6 py-3 mb-3">address</div> -->
-
-<%--         <div class="text-muted text-capitalize font-weight-medium ml-4 mb-5 font-size-20"><%=memberVO.getAddress()%></div> --%>
-
-<!--         <div class="text-white rounded bg-danger text-uppercase font-weight-medium px-6 py-3 mb-3">authority</div> -->
-
-<%--         <div class="text-muted text-capitalize font-weight-medium ml-4 mb-5 font-size-20"><%=memberVO.getAuthority()%></div> --%>
-
-<!--         <div class="text-white rounded bg-info text-uppercase font-weight-medium px-6 py-3 mb-3">qualifications</div> -->
-
-<%--         <div class="text-muted text-capitalize font-weight-medium ml-4 mb-5 font-size-20"><%=memberVO.getQualifications()%></div> --%>
-        
-<!--         <div class="text-white rounded bg-purple text-uppercase font-weight-medium px-6 py-3 mb-3">expertise</div> -->
-
-<%--         <div class="text-muted text-capitalize font-weight-medium ml-4 mb-5 font-size-20"><%=memberVO.getExpertise()%></div> --%>
-        
-<!--         <div class="text-white rounded bg-warning text-uppercase font-weight-medium px-6 py-3 mb-3">introduction</div> -->
-
-<%--         <div class="text-muted text-capitalize font-weight-medium ml-4 mb-5 font-size-20"><%=memberVO.getIntroduction()%></div> --%>
-
-<!--         <div class="text-white rounded bg-success text-uppercase font-weight-medium px-6 py-3 mb-3">證照一</div> -->
-
-<!-- 		<div class="image mb-5 mb-md-0"> -->
-<%--           <img class="w rounded" src="<%=request.getContextPath()%>/front-end/member/memberShow1.do?memberid=${memberVO.memberid}"  width="100" height="100"> --%>
-<!--         </div> -->
-<!--         <div class="text-white rounded bg-danger text-uppercase font-weight-medium px-6 py-3 mb-3">證照二</div> -->
-		
-<!-- 		<div class="image mb-5 mb-md-0"> -->
-<%--           <img class="w rounded" src="<%=request.getContextPath()%>/front-end/member/memberShow2.do?memberid=${memberVO.memberid}"  width="100" height="100"> --%>
-<!--         </div> -->
-
-<!--         <div class="text-white rounded bg-info text-uppercase font-weight-medium px-6 py-3 mb-3">證照三</div> -->
-		
-<!-- 		<div class="image mb-5 mb-md-0"> -->
-<%--           <img class="w rounded" src="<%=request.getContextPath()%>/front-end/member/memberShow3.do?memberid=${memberVO.memberid}"  width="100" height="100"> --%>
-<!--         </div> -->
-
-<!--         <div class="text-white rounded bg-purple text-uppercase font-weight-medium px-6 py-3 mb-3">adddate</div> -->
-
-<%--         <div class="text-muted text-capitalize font-weight-medium ml-4 mb-5 font-size-20"><%=memberVO.getAdddate()%></div> --%>
+                <div class="form-group form-group-icon col-lg-7">
+                  <label for="adddate">新增日期</label>
+                  <div class="form-control border-pink rounded-sm" id="adddate">${userVO.adddate}</div>
+                </div>
         <table>
         <tr>
-        	<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/member/MemberServlet" style="margin-bottom: 0px;">
-			  
-			     <input type="submit" value="申請成為教練" class="btn btn-danger mb-2">
-			     <input type="hidden" name="memberid"  value="${memberVO.memberid}">
-			     <input type="hidden" name="action"	value="getOne_For_Update1"></FORM>
-			</td>
+        	
 			<br>
             <td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/member/MemberServlet" style="margin-bottom: 0px;">
 			  
 			     <input type="submit" value="修改" class="btn btn-danger mb-2">
-			     <input type="hidden" name="memberid"  value="${memberVO.memberid}">
+			     <input type="hidden" name="memberid"  value="${userVO.memberid}">
 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
 			</td>
 			

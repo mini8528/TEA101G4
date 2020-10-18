@@ -8,6 +8,7 @@ CusVO cusVO = (CusVO) request.getAttribute("cusVO");
 MemberVO userVO = (MemberVO) request.getAttribute("userVO");
 %>
 
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>

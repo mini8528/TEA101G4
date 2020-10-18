@@ -32,7 +32,14 @@
 		<url-pattern>/front-end/blog/addBlog.jsp</url-pattern>
 		<url-pattern>/front-end/blog/userArticle.jsp</url-pattern>
 		<url-pattern>/front-end/chat/chat.jsp</url-pattern>
+
 		<!-- <url-pattern>/front-end/blog/*</url-pattern> -->
+<!-- 		會員-建宇 -->
+		<url-pattern>/front-end/wishList/listSomeWishList.jsp</url-pattern>
+		<url-pattern>/front-end/member/listOneMember.jsp</url-pattern>
+		<url-pattern>/front-end/member/listCoachMember.jsp</url-pattern>
+		<url-pattern>/front-end/member/update_member_input.jsp</url-pattern>
+		<url-pattern>/front-end/member/update_member_input1.jsp</url-pattern>
 		<!-- 商城-詩惠 -->
 		<url-pattern>/front-end/cart/Checkout.jsp</url-pattern>
 		<url-pattern>/front-end/orderdetail/one_orderdetail.jsp</url-pattern>

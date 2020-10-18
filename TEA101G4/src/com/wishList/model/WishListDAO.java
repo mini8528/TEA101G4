@@ -9,57 +9,54 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import com.member.model.MemberVO;
 
-public class WishListJDBCDAO implements WishListDAO_interface {
+public class WishListDAO implements WishListDAO_interface {
 
-	private static final String driver = "oracle.jdbc.driver.OracleDriver";
-	private static final String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	private static final String userid = "TEA101G4";
-	private static final String passwd = "123456";
-	
-	private static final String INSERT_STMT =  
-			"INSERT INTO wishList (wishListId, memberId, productId, likeStatus, addDate, editDate) VALUES ('WL'|| lpad(WISHLIST_SEQ.NEXTVAL, 5,'0'), ?, ?, ?, ?, ?)";
-		private static final String GET_ALL_STMT = 
-			"SELECT wishListId, memberId, productId, likeStatus, addDate, editDate FROM wishList order by wishListId";
-		private static final String GET_ONE_STMT = 
-			"SELECT wishListId, memberId, productId, likeStatus, addDate, editDate FROM wishList where wishListId = ?";
-		private static final String DELETE = 
-			"DELETE FROM wishList where wishListId = ?";
-		private static final String UPDATE = 
-			"UPDATE wishList set  memberId=?, productId=?, likeStatus=?, addDate=?, editDate=? where wishListId = ?";
-		private static final String GET_WISHLIST_ACCOUNT =
-			"SELECT wishListId, memberId, productId, likeStatus, addDate, editDateFROM wishlist where account = ?";
-		private static final String GET_STMT_BY_MEMBERID = 
-			"SELECT * FROM WISHLIST WHERE MEMBERID LIKE ? ORDER BY addDate ASC";
-		
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TEA101G4");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private static final String INSERT_STMT = "INSERT INTO wishList (wishListId, memberId, productId, likeStatus, addDate, editDate) VALUES ('WL'|| lpad(WISHLIST_SEQ.NEXTVAL, 5,'0'), ?, ?, ?, ?, ?)";
+	private static final String GET_ALL_STMT = "SELECT wishListId, memberId, productId, likeStatus, addDate, editDate FROM wishList order by wishListId";
+	private static final String GET_ONE_STMT = "SELECT wishListId, memberId, productId, likeStatus, addDate, editDate FROM wishList where wishListId = ?";
+	private static final String DELETE = "DELETE FROM wishList where wishListId = ?";
+	private static final String UPDATE = "UPDATE wishList set  memberId=?, productId=?, likeStatus=?, addDate=?, editDate=? where wishListId = ?";
+	private static final String GET_WISHLIST_ACCOUNT = "SELECT wishListId, memberId, productId, likeStatus, addDate, editDateFROM wishlist where account = ?";
+	private static final String GET_STMT_BY_MEMBERID = "SELECT * FROM WISHLIST WHERE MEMBERID LIKE ? ORDER BY addDate ASC";
+
 	@Override
 	public void insert(WishListVO wishListVO) {
-		
+
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 			pstmt.setString(1, wishListVO.getMemberId());
 			pstmt.setString(2, wishListVO.getProductId());
 			pstmt.setString(3, wishListVO.getLikeStatus());
 			pstmt.setDate(4, wishListVO.getAddDate());
 			pstmt.setDate(5, wishListVO.getEditDate());
-			
+
 			pstmt.executeUpdate();
 
-			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (pstmt != null) {
@@ -81,16 +78,14 @@ public class WishListJDBCDAO implements WishListDAO_interface {
 
 	@Override
 	public void update(WishListVO wishListVO) {
-		
+
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
-
 
 			pstmt.setString(1, wishListVO.getMemberId());
 			pstmt.setString(2, wishListVO.getProductId());
@@ -101,10 +96,6 @@ public class WishListJDBCDAO implements WishListDAO_interface {
 
 			pstmt.executeUpdate();
 
-
-			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
@@ -129,28 +120,22 @@ public class WishListJDBCDAO implements WishListDAO_interface {
 
 	@Override
 	public void delete(String wishListId) {
-		
+
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
 			pstmt.setString(1, wishListId);
 
 			pstmt.executeUpdate();
 
-			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (pstmt != null) {
@@ -172,7 +157,7 @@ public class WishListJDBCDAO implements WishListDAO_interface {
 
 	@Override
 	public WishListVO findByPrimaryKey(String wishListId) {
-		
+
 		WishListVO wishListVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -180,8 +165,7 @@ public class WishListJDBCDAO implements WishListDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
 			pstmt.setString(1, wishListId);
@@ -199,9 +183,6 @@ public class WishListJDBCDAO implements WishListDAO_interface {
 				wishListVO.setEditDate(rs.getDate("editDate"));
 			}
 
-			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
@@ -234,7 +215,7 @@ public class WishListJDBCDAO implements WishListDAO_interface {
 
 	@Override
 	public List<WishListVO> getAll() {
-		
+
 		List<WishListVO> list = new ArrayList<WishListVO>();
 		WishListVO wishListVO = null;
 
@@ -244,8 +225,7 @@ public class WishListJDBCDAO implements WishListDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
 
@@ -261,14 +241,9 @@ public class WishListJDBCDAO implements WishListDAO_interface {
 				list.add(wishListVO); // Store the row in the list
 			}
 
-			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (rs != null) {
@@ -295,19 +270,18 @@ public class WishListJDBCDAO implements WishListDAO_interface {
 		}
 		return list;
 	}
-	
+
 	@Override
 	public WishListVO findByAccount(String account) {
-		
+
 		WishListVO wishListVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
+
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_WISHLIST_ACCOUNT);
 
 			pstmt.setString(1, account);
@@ -323,14 +297,10 @@ public class WishListJDBCDAO implements WishListDAO_interface {
 				wishListVO.setAddDate(rs.getDate("addDate"));
 				wishListVO.setEditDate(rs.getDate("editDate"));
 			}
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			
+
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
-			
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+
 		} finally {
 			if (rs != null) {
 				try {
@@ -356,24 +326,23 @@ public class WishListJDBCDAO implements WishListDAO_interface {
 		}
 		return wishListVO;
 	}
-	
+
 	@Override
-	public List<WishListVO> getWishListByMemberId(String memberId){
+	public List<WishListVO> getWishListByMemberId(String memberId) {
 		List<WishListVO> list = new ArrayList<WishListVO>();
 		WishListVO wishListVO = new WishListVO();
-		
+
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_STMT_BY_MEMBERID);
-			
+
 			pstmt.setString(1, memberId);
 
 			rs = pstmt.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				wishListVO = new WishListVO();
 				wishListVO.setWishListId(rs.getString("wishListId"));
 				wishListVO.setMemberId(rs.getString("memberId"));
@@ -383,26 +352,25 @@ public class WishListJDBCDAO implements WishListDAO_interface {
 				wishListVO.setEditDate(rs.getDate("editDate"));
 				list.add(wishListVO); // Store the row in the list
 			}
-		}catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't Load DataBase Driver. "+ e.getMessage());
+
 		} catch (SQLException e) {
-			throw new RuntimeException("A DataBase Error Occured. "+ e.getMessage());
-		}finally {
-			if(rs!=null) {
+			throw new RuntimeException("A DataBase Error Occured. " + e.getMessage());
+		} finally {
+			if (rs != null) {
 				try {
 					rs.close();
 				} catch (SQLException e) {
 					e.printStackTrace(System.err);
 				}
 			}
-			if(pstmt!=null) {
+			if (pstmt != null) {
 				try {
 					pstmt.close();
 				} catch (SQLException e) {
 					e.printStackTrace(System.err);
 				}
 			}
-			if(con!=null) {
+			if (con != null) {
 				try {
 					con.close();
 				} catch (Exception e) {
@@ -412,12 +380,12 @@ public class WishListJDBCDAO implements WishListDAO_interface {
 		}
 		return list;
 	}
-	
+
 //	public static void main(String[] args) {
 //
 //		WishListJDBCDAO dao = new WishListJDBCDAO();
 
-		// 新增
+	// 新增
 //		WishListVO WishListVO1 = new WishListVO();
 //		WishListVO1.setWishListId("CO00002");
 //		WishListVO1.setMemberId("M001");
@@ -427,7 +395,7 @@ public class WishListJDBCDAO implements WishListDAO_interface {
 //		WishListVO1.setEditDate(new Date(System.currentTimeMillis()));
 //		dao.insert(WishListVO1);
 
-		// 修改
+	// 修改
 //		WishListVO WishListVO2 = new WishListVO();
 //		WishListVO2.setWishListId("WL00001");
 //		WishListVO2.setMemberId("M001");
@@ -437,10 +405,10 @@ public class WishListJDBCDAO implements WishListDAO_interface {
 //		WishListVO2.setEditDate(new Date(System.currentTimeMillis()));
 //		dao.update(WishListVO2);
 
-		// 刪除
+	// 刪除
 //		dao.delete("WL00007");
 
-		// 查詢
+	// 查詢
 //		WishListVO WishListVO3 = dao.findByPrimaryKey("WL00001");
 //		System.out.print(WishListVO3.getWishListId() + ",");
 //		System.out.print(WishListVO3.getMemberId() + ",");
@@ -450,7 +418,7 @@ public class WishListJDBCDAO implements WishListDAO_interface {
 //		System.out.println(WishListVO3.getEditDate() );
 //		System.out.println("---------------------");
 
-		// 查詢
+	// 查詢
 //		List<WishListVO> list = dao.getAll();
 //		for (WishListVO aWishList : list) {
 //			System.out.print(aWishList.getWishListId() + ",");

@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.trainingcls.model.*"%>
@@ -10,7 +10,7 @@
     pageContext.setAttribute("list",list);
 %>
 
-
+<!DOCTYPE html>
 <html>
 <head>
 <title>Front-end所有訓練課程</title>

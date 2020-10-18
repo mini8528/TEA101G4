@@ -5,11 +5,12 @@
 <%
 	MemberVO memberVO = (MemberVO) session.getAttribute("userVO");
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<title>員工資料修改 - update_classDetail_input.jsp</title>
+<title>員工資料修改 - update_classDetail_input1</title>
 
 <style>
 table#table-1 {
@@ -81,12 +82,12 @@ img{
 		  <div class="col-sm-6 offset-lg-3 col-lg-7">
         	<div class="mb-4 mb-sm-0">
           <div class="bg-purple rounded-top p-2">
-            <h3 class="text-white font-weight-bold mb-0 ml-2">修改資料:</h3>
+            <h3 class="text-white font-weight-bold mb-0 ml-2">教練申請:</h3>
           </div>
           
           <div class="border rounded-bottom-sm border-top-0">
             <div class="p-3">
-<%--               <form action="<%=request.getContextPath()%>/member/MemberServlet" method="POST" role="form"> --%>
+<!--               <form action="#" method="POST" role="form"> -->
 
 			<tr>
 				<td>會員編號:<font color=red><b>*</b></font></td>
@@ -100,63 +101,63 @@ img{
 			</tr>
 			<br>
 			<tr>
-				<td>姓名:</td>
-				<td><input type="TEXT" name="name" class="form-control border" 
+<!-- 				<td>姓名:</td> -->
+				<td><input type="hidden" name="name" class="form-control border" 
 				value="<%=memberVO.getName()%>" /></td>
 			</tr>
 			
 			<tr>
-				<td>帳號:</td>
-				<td><input type="TEXT" name="account" class="form-control border" 
-				value="<%=memberVO.getAccount()%>" readonly/></td>
+<!-- 				<td>帳號:</td> -->
+				<td><input type="hidden" name="account" class="form-control border" 
+				value="<%=memberVO.getAccount()%>" /></td>
 			</tr>
 
 			<tr>
-				<td>密碼:</td>
-				<td><input type="password" name="password" class="form-control border"
+<!-- 				<td>密碼:</td> -->
+				<td><input type="hidden" name="password" class="form-control border"
 				value="<%=memberVO.getPassword()%>" /></td>
 			</tr>
 
 
-			<tr>
-				<td>性別：</td>
-				<td><select name="gender" class="form-control">
-						<option value="F" ${(memberVO.gender=="F")? 'selected':'' }>女</option>
-						<option value="M" ${(memberVO.gender=="M")? 'selected':'' }>男</option>
-				</select></td>
-			</tr>
+<!-- 			<tr> -->
+<!-- 				<td>性別：</td> -->
+<!-- 				<td><select name="gender" class="form-control"> -->
+<%-- 						<option value="F" ${(memberVO.gender=="F")? 'selected':'' }>女</option> --%>
+<%-- 						<option value="M" ${(memberVO.gender=="M")? 'selected':'' }>男</option> --%>
+<!-- 				</select></td> -->
+<!-- 			</tr> -->
 
 			<tr>
-				<td>電話:</td>
-				<td><input type="TEXT" name="phone" class="form-control border"
+<!-- 				<td>電話:</td> -->
+				<td><input type="hidden" name="phone" class="form-control border"
 				value="<%=memberVO.getPhone()%>" /></td>
 			</tr>
 			
 			<tr>
-				<td>生日:</td>
-				<td><input type="date" name="birthday" class="form-control border"
+<!-- 				<td>生日:</td> -->
+				<td><input type="hidden" name="birthday" class="form-control border"
 				value="<%=memberVO.getBirthday()%>" /></td>
 			</tr>
 
 			
 			<tr>
-				<td>email:</td>
-				<td><input type="email" name="email" class="form-control border"
+<!-- 				<td>email:</td> -->
+				<td><input type="hidden" name="email" class="form-control border"
 				value="<%=memberVO.getEmail()%>" /></td>
 			</tr>
 
 
 			<tr>
-				<td>照片:</td>
-				<td><input type="file" name="photo" id="p_file" class="form-control border"> <br>
+<!-- 				<td>照片:</td> -->
+				<td><input type="hidden" name="photo" id="p_file" class="form-control border">
 					<div id="preview">
 						<span class="text"></span>
 					</div>
 			</tr>
 			
 			<tr>
-				<td>地址:</td>
-				<td><input type="TEXT" name="address" class="form-control border"
+<!-- 				<td>地址:</td> -->
+				<td><input type="hidden" name="address" class="form-control border"
 				value="<%=memberVO.getAddress()%>" /></td>
 			</tr>
 
@@ -169,51 +170,52 @@ img{
 <!-- 			</tr> -->
 			
 			<tr>
-<!-- 				<td>資歷:</td> -->
-				<td><input type="hidden" name="qualifications" class="form-control border"
+				<td>資歷:</td>
+				<td><input type="TEXT" name="qualifications" class="form-control border"
 				value="<%=memberVO.getQualifications()%>" /></td>
 			</tr>
 			
 			<tr>
-<!-- 				<td>專長:</td> -->
-				<td><input type="hidden" name="expertise" class="form-control border"
+				<td>專長:</td>
+				<td><input type="TEXT" name="expertise" class="form-control border"
 				value="<%=memberVO.getExpertise()%>" /></td>
 			</tr>
 			
 			<tr>
-<!-- 				<td>個人介紹:</td> -->
-				<td><input type="hidden" name="introduction" class="form-control border"
+				<td>個人介紹:</td>
+				<td><input type="TEXT" name="introduction" class="form-control border"
 				value="<%=memberVO.getIntroduction()%>" /></td>
 			</tr>
 			
 			<tr>
-<!-- 				<td>照片:</td> -->
-				<td><input type="hidden" name="photo1" id="p_file1" class="form-control border">
+				<td>證照:</td>
+				<td><input type="file" name="photo1" id="p_file1" class="form-control border"> <br>
 					<div id="preview1">
 						<span class="text"></span>
 					</div>
 			</tr>
 			
 			<tr>
-<!-- 				<td>照片:</td> -->
-				<td><input type="hidden" name="photo2" id="p_file2" class="form-control border">
+				<td>證照:</td>
+				<td><input type="file" name="photo2" id="p_file2" class="form-control border"> <br>
 					<div id="preview2">
 						<span class="text"></span>
 					</div>
 			</tr>
 			
 			<tr>
-<!-- 				<td>照片:</td> -->
-				<td><input type="hidden" name="photo3" id="p_file3" class="form-control border"> 
+				<td>證照:</td>
+				<td><input type="file" name="photo3" id="p_file3" class="form-control border"> <br>
 					<div id="preview3">
 						<span class="text"></span>
 					</div>
 			</tr>
 
 
-		<br> <input type="hidden" name="action" value="update"> 
-			 <input	type="hidden" name="memberid" value="<%=memberVO.getMemberid()%>"> 
-			 <input type="submit" class="btn btn-danger text-uppercase w-100" value="送出修改">
+		<br> <input type="hidden" name="action" value="update1"> 
+		     <input	type="hidden" name="memberid" value="<%=memberVO.getMemberid()%>"> 
+		     <input type="hidden" name="gender" value="<%=memberVO.getGender()%>"> 
+		     <input	type="submit" class="btn btn-danger text-uppercase w-100" value="送出申請">
 <!-- 			</form> -->
 		  </div>
 		 </div>

@@ -14,11 +14,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.product.model.ProductService;
+import com.product.model.ProductVO;
 import com.wishList.model.WishListService;
 import com.wishList.model.WishListVO;
 
 @MultipartConfig
-@WebServlet("/wishList/wishList.do")
+@WebServlet("/wishList/WishListServlet")
 public class WishListServlet extends HttpServlet{
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
@@ -46,7 +48,7 @@ public class WishListServlet extends HttpServlet{
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/wishList/select_page.jsp");
+							.getRequestDispatcher("/front-end/wishList/select_page.jsp");
 					failureView.forward(req, res);
 //					return;//程式中斷
 				}
@@ -60,7 +62,7 @@ public class WishListServlet extends HttpServlet{
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/wishList/select_page.jsp");
+							.getRequestDispatcher("/front-end/wishList/select_page.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
@@ -74,14 +76,14 @@ public class WishListServlet extends HttpServlet{
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/wishList/select_page.jsp");
+							.getRequestDispatcher("/front-end/wishList/select_page.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("wishListVO", wishListVO); // 資料庫取出的classDetailVO物件,存入req
-				String url = "/back-end/wishList/listOneWishList.jsp";
+				String url = "/front-end/wishList/listOneWishList.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 				successView.forward(req, res);
 
@@ -89,7 +91,7 @@ public class WishListServlet extends HttpServlet{
 			} catch (Exception e) {
 				errorMsgs.add("無法取得資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back-end/wishList/select_page.jsp");
+						.getRequestDispatcher("/front-end/wishList/select_page.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -116,7 +118,7 @@ public class WishListServlet extends HttpServlet{
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
 				System.out.println("查詢完成,準備轉交");
 				req.setAttribute("wishListVO", wishListVO);         // 資料庫取出的empVO物件,存入req
-				String url = "/back-end/wishList/update_wishList_input.jsp";
+				String url = "/front-end/wishList/update_wishList_input.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
 				
 				successView.forward(req, res);
@@ -125,7 +127,7 @@ public class WishListServlet extends HttpServlet{
 			} catch (Exception e) {
 				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back-end/wishList/listAllWishList.jsp");
+						.getRequestDispatcher("/front-end/wishList/listAllWishList.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -177,7 +179,7 @@ public class WishListServlet extends HttpServlet{
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("wishListVO", wishListVO); // 含有輸入格式錯誤的empVO物件,也存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/wishList/update_wishList_input.jsp");
+							.getRequestDispatcher("/front-end/wishList/update_wishList_input.jsp");
 					failureView.forward(req, res);
 					return; //程式中斷
 				}
@@ -191,7 +193,7 @@ public class WishListServlet extends HttpServlet{
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				System.out.println("修改完成,準備轉交 ");
 				req.setAttribute("wishListVO", wishListVO); // 資料庫update成功後,正確的的empVO物件,存入req
-				String url = "/back-end/wishList/listOneWishList.jsp";
+				String url = "/front-end/wishList/listOneWishList.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 				successView.forward(req, res);
 				System.out.println("out --- 更新完成 ---- out  ");
@@ -199,7 +201,7 @@ public class WishListServlet extends HttpServlet{
 			} catch (Exception e) {
 				errorMsgs.add("修改資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back-end/wishList/update_wishList_input.jsp");
+						.getRequestDispatcher("/front-end/wishList/update_wishList_input.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -229,22 +231,22 @@ public class WishListServlet extends HttpServlet{
 					errorMsgs.add("coachClassID: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
 	            }	
 				
-				String likeStatus = null;
-				likeStatus = req.getParameter("likeStatus").trim();
-				if (likeStatus == null || likeStatus.trim().length() == 0) {
-					errorMsgs.add("likeStatus請勿空白");
-				}
+//				String likeStatus = null;
+//				likeStatus = req.getParameter("likeStatus").trim();
+//				if (likeStatus == null || likeStatus.trim().length() == 0) {
+//					errorMsgs.add("likeStatus請勿空白");
+//				}
 				
 				Date addDate = new java.sql.Date(System.currentTimeMillis());
 				
 				Date editDate = new java.sql.Date(System.currentTimeMillis());
 				
-				
+				System.out.println("匯入VO");
 				
 				WishListVO wishListVO = new WishListVO();
 				wishListVO.setMemberId(memberId);
 				wishListVO.setProductId(productId);
-				wishListVO.setLikeStatus(likeStatus);
+//				wishListVO.setLikeStatus(likeStatus);
 				wishListVO.setAddDate(addDate);
 				wishListVO.setEditDate(editDate);
 
@@ -252,7 +254,7 @@ public class WishListServlet extends HttpServlet{
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("wishListVO", wishListVO); // 含有輸入格式錯誤的ClassDetailVO物件,也存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/wishList/addWishList.jsp");
+							.getRequestDispatcher("/front-end/wishList/addWishList.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -260,10 +262,10 @@ public class WishListServlet extends HttpServlet{
 				/***************************2.開始新增資料***************************************/
 				WishListService wlService = new WishListService();
 				wishListVO = wlService.addWishList
-						(  memberId, productId, likeStatus,	addDate, editDate);
+						(  memberId, productId, "Y", addDate, editDate);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				String url = "/back-end/wishList/listAllWishList.jsp";
+				String url = "/front-end/wishList/listAllWishList.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllClassDetail.jsp
 				successView.forward(req, res);				
 				
@@ -271,7 +273,7 @@ public class WishListServlet extends HttpServlet{
 			} catch (Exception e) {
 				errorMsgs.add(e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back-end/wishList/addWishList.jsp");
+						.getRequestDispatcher("/front-end/wishList/addWishList.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -293,7 +295,7 @@ public class WishListServlet extends HttpServlet{
 				wlService.deleteWishList(wishListId);
 				
 				/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
-				String url = "/back-end/wishList/listAllWishList.jsp";
+				String url = "/front-end/wishList/listAllWishList.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 				successView.forward(req, res);
 				
@@ -301,11 +303,42 @@ public class WishListServlet extends HttpServlet{
 			} catch (Exception e) {
 				errorMsgs.add("刪除資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back-end/wishList/listAllWishList.jsp");
+						.getRequestDispatcher("/front-end/wishList/listAllWishList.jsp");
 				failureView.forward(req, res);
 			}
 		}
-	
+		
+		//首頁/查詢商品KEYWORD----------------
+		if ("getSomeList".equals(action)) {
+			System.out.println("getSome_For_Display:action---1");
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			try {
+//				1.接收請求參數
+				String memberId = new String(req.getParameter("memberId"));
+				System.out.println("test:"+memberId);
+				System.out.println("getSomeList:action---2");
+//				2.開始查詢資料
+				WishListService wishListSvc = new WishListService();
+				List<WishListVO> list = wishListSvc.getWishList(memberId);
+				System.out.println("符合的WishList共：" + list.size());
+				req.getSession().setAttribute("list", list);
+				System.out.println("getSomeList:action---3");
+//				3.查詢完成,準備轉交
+//				req.setAttribute("productVO", productVO);
+				RequestDispatcher successView = req.getRequestDispatcher("/front-end/wishList/listSomeWishList.jsp");
+				successView.forward(req, res);
+				System.out.println("getSomeList:action---4");
+//				其他可能的錯誤處理
+			} catch (Exception e) {
+				errorMsgs.add("無法取得資料:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/wishList/select_page.jsp");
+				failureView.forward(req, res);
+			}
+			System.out.println("end------getSomeList");
+		}
+
+		
 	}
 	
 }

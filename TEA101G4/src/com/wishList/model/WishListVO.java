@@ -49,5 +49,10 @@ public class WishListVO {
 		this.editDate = editDate;
 	}
 
-	
+	@Override
+	public String toString() {
+		return "WishListVO [wishListId=" + wishListId +",memberId=" + memberId +",productId=" + productId
+				+",likeStatus=" + likeStatus +",addDate=" + addDate + ",editDate=" + editDate
+				+"]";
+	}
 }

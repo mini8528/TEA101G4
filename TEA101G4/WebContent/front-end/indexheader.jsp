@@ -217,7 +217,7 @@
                         <%-- <a class="dropdown-item " href="<%=request.getContextPath()%>/front-end/cart/cart.do?memberid=${userVO.memberid}&action=getMemberCartRedis">購物車</a> --%>
                       </li>
                       <li>
-                        <a class="dropdown-item " href="">收藏商品</a>
+                        <a class="dropdown-item " href="<%=request.getContextPath()%>/wishList/WishListServlet?action=getSomeList&memberId=${userVO.memberid}">收藏商品</a>
                       </li>
                         </ul>
                   </li>

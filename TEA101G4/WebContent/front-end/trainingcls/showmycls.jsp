@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.trainingcls.model.*"%>
@@ -22,10 +22,10 @@ TrainingClsDetailService tcsSvc = new TrainingClsDetailService();
 TrainingClsDetailVO tcdVO = (TrainingClsDetailVO)request.getAttribute("tcdVO");
 %>
 
-
+<!DOCTYPE html>
 <html>
 <head>
-<title>·|­ûªº©Ò¦³°V½m½Òµ{</title>
+<title>æœƒå“¡çš„æ‰€æœ‰è¨“ç·´èª²ç¨‹</title>
 
 <style>
   table#table-1 {
@@ -66,9 +66,9 @@ TrainingClsDetailVO tcdVO = (TrainingClsDetailVO)request.getAttribute("tcdVO");
 
 
 
-<%-- ¿ù»~ªí¦C --%>
+<%-- éŒ¯èª¤è¡¨åˆ— --%>
 <c:if test="${not empty errorMsgs}">
-	<font style="color:red">½Ğ­×¥¿¥H¤U¿ù»~:</font>
+	<font style="color:red">è«‹ä¿®æ­£ä»¥ä¸‹éŒ¯èª¤:</font>
 	<ul>
 		<c:forEach var="message" items="${errorMsgs}">
 			<li style="color:red">${message}</li>
@@ -81,13 +81,13 @@ TrainingClsDetailVO tcdVO = (TrainingClsDetailVO)request.getAttribute("tcdVO");
         <div class="row no-gutters">
           <div class="col-md-4 ftco-animate py-5 nav-link-wrap js-fullheight">
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-              <a class="nav-link px-4" id="v-pills-1-tab"  href="${pageContext.request.contextPath}/front-end/trainingcls/addMyCls.jsp"role="button" aria-controls="v-pills-1" aria-selected="true"><span class="mr-3 flaticon-gym"></span>°·¨­°V½m­pµe</a>
+              <a class="nav-link px-4" id="v-pills-1-tab"  href="${pageContext.request.contextPath}/front-end/trainingcls/addMyCls.jsp"role="button" aria-controls="v-pills-1" aria-selected="true"><span class="mr-3 flaticon-gym"></span>å¥èº«è¨“ç·´è¨ˆç•«</a>
 
-              <a class="nav-link px-4" id="v-pills-2-tab"  href="${pageContext.request.contextPath}/front-end/action/listAllAction.jsp" role="tab" aria-controls="v-pills-2" aria-selected="false"><span class="mr-3 flaticon-body"></span>°·¨­°V½m¹B°Ê</a>
+              <a class="nav-link px-4" id="v-pills-2-tab"  href="${pageContext.request.contextPath}/front-end/action/listAllAction.jsp" role="tab" aria-controls="v-pills-2" aria-selected="false"><span class="mr-3 flaticon-body"></span>å¥èº«è¨“ç·´é‹å‹•</a>
 
-              <a class="nav-link px-4" id="v-pills-3-tab"  href="${pageContext.request.contextPath}/front-end/trainingcls/showmycls.jsp" role="tab" aria-controls="v-pills-3" aria-selected="false"><span class="mr-3 flaticon-woman"></span>§Úªº°·¨­½Òªí</a>
+              <a class="nav-link px-4" id="v-pills-3-tab"  href="${pageContext.request.contextPath}/front-end/trainingcls/showmycls.jsp" role="tab" aria-controls="v-pills-3" aria-selected="false"><span class="mr-3 flaticon-woman"></span>æˆ‘çš„å¥èº«èª²è¡¨</a>
 
-              <a class="nav-link px-4" id="v-pills-4-tab"  href="${pageContext.request.contextPath}/front-end/traininghist/showmyhist.jsp" role="tab" aria-controls="v-pills-4" aria-selected="false"><span class="mr-3 flaticon-abs"></span>§Úªº°·¨­¬ö¿ı</a>
+              <a class="nav-link px-4" id="v-pills-4-tab"  href="${pageContext.request.contextPath}/front-end/traininghist/showmyhist.jsp" role="tab" aria-controls="v-pills-4" aria-selected="false"><span class="mr-3 flaticon-abs"></span>æˆ‘çš„å¥èº«ç´€éŒ„</a>
 
               <a class="nav-link px-4" id="v-pills-5-tab" data-toggle="pill" href="#v-pills-5" role="tab" aria-controls="v-pills-5" aria-selected="false"><span class="mr-3 flaticon-running"></span> </a>
 
@@ -109,7 +109,7 @@ TrainingClsDetailVO tcdVO = (TrainingClsDetailVO)request.getAttribute("tcdVO");
           <div class="container-fluid">
             <div class="row justify-content-center">
               <div class="col-12">
-                <h2 class="page-title">§Úªº°·¨­°V½m½Òµ{</h2>
+                <h2 class="page-title">æˆ‘çš„å¥èº«è¨“ç·´èª²ç¨‹</h2>
                 <p>My training class</p>
                 <div class="row">
                   <div class="col-md-6 my-4">
@@ -118,7 +118,7 @@ TrainingClsDetailVO tcdVO = (TrainingClsDetailVO)request.getAttribute("tcdVO");
                       <table class="table table-hover" style="width:500px">
                         <thead>
                           <tr>
-                            <th>½Òµ{¦WºÙ</th>
+                            <th>èª²ç¨‹åç¨±</th>
                           </tr>
                         </thead>
                         <c:forEach var = "tcVO" items = "${list}">
@@ -149,7 +149,7 @@ TrainingClsDetailVO tcdVO = (TrainingClsDetailVO)request.getAttribute("tcdVO");
      
 <!-- <table> -->
 <!-- 	<tr> -->
-<!-- 		<th>½Òµ{¦WºÙ</th> -->
+<!-- 		<th>èª²ç¨‹åç¨±</th> -->
 <!-- 	</tr> -->
 <%-- <c:forEach var = "tcVO" items = "${list}"> --%>
 <!-- 		<tr> -->
