@@ -235,6 +235,9 @@
 			    <label>內文: </label><input class="form-control mr-sm-2" type="search" name="searchText" placeholder="Text" aria-label="Search" style="width: 150px; height: 35px" value="${searchText == null? '' : searchText}">
 			    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="width: 80px; height: 35px">Search</button>
 			  </form>
+			  <c:if test="${search != null }">
+    			<a href="<%=request.getContextPath()%>/back-end/blog/listAllBlog_Admin.jsp" class="btn btn-secondary" role="button" aria-pressed="true">返回</a>
+    		</c:if>
 			</nav>
             <div class="card-body">
               <div class="table-responsive  list-wrapper">

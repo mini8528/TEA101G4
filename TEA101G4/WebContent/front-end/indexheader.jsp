@@ -93,18 +93,36 @@
                                         </div>
                                         <div class="dropdown-menu dropdown-menu-right">
                                             <ul class="bg-white list-unstyled">
-                                                <a href="<%=request.getContextPath() %>/front-end/member/listOneMember.jsp">
-                                                    <li>
-                                                        <div class="media">
-                                                            <div class="media-body">
-                                                                <div class="d-flex justify-content-between">
-                                                                    <h4 class="text-dark">Profile</h4>
-
-                                                                </div>
-                                                            </div>
-                                                            <hr>
-                                                    </li>
-                                                </a>
+                                              <c:choose>
+	                                            <c:when test="${userVO.authority eq 'Y'}">
+		                                            <a href="<%=request.getContextPath() %>/front-end/member/listCoachMember.jsp">
+			                                                    <li>
+			                                                        <div class="media">
+			                                                            <div class="media-body">
+			                                                                <div class="d-flex justify-content-between">
+			                                                                    <h4 class="text-dark">Profile</h4>
+			
+			                                                                </div>
+			                                                            </div>
+			                                                            <hr>
+			                                                    </li>
+			                                                </a>
+	                                            </c:when>
+	                                            <c:otherwise>
+		                                            <a href="<%=request.getContextPath() %>/front-end/member/listOneMember.jsp">
+		                                                    <li>
+		                                                        <div class="media">
+		                                                            <div class="media-body">
+		                                                                <div class="d-flex justify-content-between">
+		                                                                    <h4 class="text-dark">Profile</h4>
+		
+		                                                                </div>
+		                                                            </div>
+		                                                            <hr>
+		                                                    </li>
+		                                                </a>
+	                                            </c:otherwise>
+	                                            </c:choose>
                                                 <hr>
                                                 <a href="<%=request.getContextPath() %>/chat.do?memberid=${userVO.memberid}">
                                                     <li>
@@ -161,16 +179,16 @@
 
                 <div class="collapse navbar-collapse" id="navbarContent">
                     <ul class="navbar-nav ml-lg-auto">
-                        <li class="nav-item dropdown bg-warning"><a class="nav-link dropdown-toggle "
-                                href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false">
-                                <i class="fa fa-home nav-icon" aria-hidden="true"></i> <span>Home</span>
-                            </a></li>
+<!--                         <li class="nav-item dropdown bg-warning"><a class="nav-link dropdown-toggle " -->
+<!--                                 href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" -->
+<!--                                 aria-expanded="false"> -->
+<!--                                 <i class="fa fa-home nav-icon" aria-hidden="true"></i> <span>Home</span> -->
+<!--                             </a></li> -->
 
                         <li class="nav-item dropdown bg-pink"><a class="nav-link dropdown-toggle "
-                                href="component-default.html">
-                                <i class="fa fa-pencil-square-o nav-icon" aria-hidden="true"></i>
-                                <span>News</span>
+                                href="<%=request.getContextPath()%>/front-end/index.jsp">
+                                <i class="fa fa-home nav-icon" aria-hidden="true"></i>
+                                <span>Home</span>
                             </a></li>
 
                         <li class="nav-item dropdown bg-danger"><a class="nav-link dropdown-toggle "

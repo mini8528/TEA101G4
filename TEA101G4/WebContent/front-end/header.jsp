@@ -181,9 +181,11 @@
                 <div class="collapse navbar-collapse" id="navbarContent">
                     <ul class="navbar-nav ml-lg-auto">
                             
-                            <li class="nav-item dropdown bg-danger"><a class="nav-link dropdown-toggle "
-                                href="<%=request.getContextPath()%>/front-end/index.jsp" role="button"> <i class="fa fa-home nav-icon"
-                                    aria-hidden="true"></i> <span>Home</span>
+                            
+                        <li class="nav-item dropdown bg-pink"><a class="nav-link dropdown-toggle "
+                                href="<%=request.getContextPath()%>/front-end/index.jsp">
+                                <i class="fa fa-home nav-icon" aria-hidden="true"></i>
+                                <span>Home</span>
                             </a></li>
 
 <!--                         <li class="nav-item dropdown bg-pink"><a class="nav-link dropdown-toggle " -->
