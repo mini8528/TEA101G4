@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.coachClass.model.*"%>
 <%-- 此頁練習採用 EL 的寫法取值 --%>
@@ -51,14 +52,11 @@
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-4 text-gray-800">搜尋 - 課程查詢 (MVC)</h1>
+          <h1 class="h3 mb-4 text-gray-800">課程管理</h1>
     
 <div>
 <!-- ---------------------------------------------------------------- -->         
 
-						<h4>
-							<a href="<%=request.getContextPath()%>/back-end/coachClass/select_page.jsp">回 課程 查詢</a>
-						</h4>
 
 						<%-- 錯誤表列 --%>
 						<c:if test="${not empty errorMsgs}">
@@ -70,7 +68,7 @@
 							</ul>
 						</c:if>
 
-						<table>
+						<table  class="table table-bordered list-item" id="dataTable" width="100%" cellspacing="0">
 							<tr>
 								<th>課程ID</th>
 								<th>教練ID</th>
@@ -103,8 +101,8 @@
 									<td>${coachClassVO.quantity}</td>
 									<td>${coachClassVO.address}</td>
 									<td>${coachClassVO.classContext}</td>
-									<td>${coachClassVO.addDate}</td>
-									<td>${coachClassVO.editDate}</td>
+									<td><fmt:formatDate value="${coachClassVO.addDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+									<td><fmt:formatDate value="${coachClassVO.editDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 
 									<td>
 										<FORM METHOD="post"

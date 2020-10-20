@@ -32,16 +32,12 @@ public class ClassOrderServlet extends HttpServlet{
 	public void doPost(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
 		
-		System.out.println("==================================================");
-		System.out.println("======      Class Order Servlet   ================");
-		System.out.println("==================================================");
 		
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		
 		
 		if ("customer_insert".equals(action)) {
-			System.out.println("======      customer_insert    ===  start  ===");
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 //			1.接收請求參數
@@ -69,73 +65,70 @@ public class ClassOrderServlet extends HttpServlet{
 
 				aa = req.getParameterValues("coachClassID");
 
-				System.out.println("coachClassID-length=>"+aa.length);
-
 				//將aa暫存的資料匯進 規格idAll 的list
 				List<String> coachClassIDAll = new ArrayList<String>();
 				for(String test:aa) {
-					System.out.println("test_id="+test);
 					coachClassIDAll.add(test);
 				}
+				System.out.println("coachClassIDAll = "+coachClassIDAll);
 
 //				規格idAll 的List 資料匯進各個 明細 VO
-				System.out.println("coachClassIDAll.toString()=>"+coachClassIDAll.toString());
 				for(String coachClassID2:coachClassIDAll) {
 					classDetailVO.setCoachClassID(coachClassID2);
 				}
+
 //				----------------------------------------------------
 
 				
 				//收集所有quantity
 				String[] bb = new String[(req.getParameterValues("quantity")).length];
 				bb = req.getParameterValues("quantity");
-				System.out.println("quantity-length=>"+bb.length);
 				List<Integer> quantityAll = new ArrayList<Integer>();
 				for(String test2:bb) {
-					System.out.println("test_qt="+test2);
 					Integer ii = Integer.parseInt(test2);
-					System.out.println("ii="+ii);
 					quantityAll.add(ii);
 				}
-				System.out.println(quantityAll.toString());
 				for(Integer quantity2:quantityAll) {
 					classDetailVO.setQuantity(quantity2);
 				}
 //--------------
 				
 				ClassOrderVO classOrderVO = new ClassOrderVO();
+				
 				classOrderVO.setMemberID(memberID);
 				classOrderVO.setPayment(payment);
-				
 				classOrderVO.setPaymentStatus(paymentStatus);
 				classOrderVO.setPayCode(payCode);
-				
 				classOrderVO.setOrderDate(orderDate);
 				classOrderVO.setPayExpire(payExpire);
+				
+				System.out.println("請求參數 memberID = "+ memberID);
+				System.out.println("請求參數 payment = "+ payment);
+				System.out.println("請求參數 paymentStatus = "+ paymentStatus);
+				System.out.println("請求參數 payCode = "+ payCode);
+				System.out.println("請求參數 payExpire = "+ payExpire);
 				
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("classOrderVO", classOrderVO);
 //					RequestDispatcher fv = req.getRequestDispatcher("/front-end/classOrderVO/addOrderMaster.jsp");
+					System.out.println("!errorMsgs.isEmpty()");
 					RequestDispatcher fv = req.getRequestDispatcher("/back-end/cartClass/CheckoutClass.jsp");
 					fv.forward(req, res);
 					return;
 				}
 				
-				System.out.println("開始新增資料");
-				System.out.println("classOrderVO="+classOrderVO.toString());
 				ClassOrderService coService = new ClassOrderService();
 				classOrderVO = coService.auto_addClassOrderAndDetail(  memberID,  payment,  paymentStatus,  payExpire,  payCode,  orderDate,  coachClassIDAll,  quantityAll);
-				System.out.println("_______  auto_addClassOrderAndDetail __ 完成");
-				
+				System.out.println("### classOrderVO = "+classOrderVO);
+				System.out.println("### ClassOrderID = "+classOrderVO.getClassOrderID());
+				System.out.println("### MemberID = "+classOrderVO.getMemberID());
+				System.out.println("### coachClassIDAll = "+ coachClassIDAll);
+				System.out.println("### getPayCode = "+classOrderVO.getPayCode());
 				HttpSession session = req.getSession();
 				session.removeAttribute("shoppingCartClass");
-				
 				RequestDispatcher successViw = req.getRequestDispatcher("/front-end/classOrder/listAllClassOrder.jsp");
-//				RequestDispatcher successViw = req.getRequestDispatcher("/front-end/orderdetail/one_orderdetail.jsp");
-				System.out.println("_______  Class Order Servlet  __  end  ____  轉交  listAllClassOrder.jsp_____");
 				successViw.forward(req, res); 
 			} catch (Exception e) {
-				System.out.println("add:Exception");
 				errorMsgs.add("add:Exception");
 				e.printStackTrace();
 			}
@@ -243,21 +236,17 @@ public class ClassOrderServlet extends HttpServlet{
 			try {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
 				String classOrderID = new String(req.getParameter("classOrderID").trim());
-				System.out.println("1_1 classOrderID =" + classOrderID);
 				
 				String memberID = req.getParameter("memberID");
-				System.out.println("memberID = " + memberID);
 				if (memberID == null || memberID.trim().length() == 0) {
 					errorMsgs.add("會員編號不可空白");
 				}
 				
-				System.out.println("2");
 				String payment = null;
 				payment = req.getParameter("payment").trim();
 				if (payment == null || payment.trim().length() == 0) {
 					errorMsgs.add("payment請勿空白");
 				}
-				System.out.println("3");
 				
 				String paymentStatus = null;
 				paymentStatus = req.getParameter("paymentStatus").trim();
@@ -265,18 +254,14 @@ public class ClassOrderServlet extends HttpServlet{
 					errorMsgs.add("paymentStatus請勿空白");
 				}
 				
-				System.out.println("4");
 				String payCode = null;
 				payCode = req.getParameter("payCode").trim();
 				if (payCode == null || payCode.trim().length() == 0) {
 					errorMsgs.add("payCode請勿空白");
 				}
 				
-				System.out.println("5");
 				Timestamp orderDate = Timestamp.valueOf(req.getParameter("orderDate"));
-				System.out.println("6");
 				Date payExpire = Date.valueOf(req.getParameter("payExpire"));
-				System.out.println("7");
 				
 				ClassOrderVO classOrderVO = new ClassOrderVO();
 				classOrderVO.setClassOrderID(classOrderID);
@@ -366,14 +351,12 @@ public class ClassOrderServlet extends HttpServlet{
 				}
 				
 				/***************************2.開始新增資料***************************************/
-				System.out.println("=== sevlet_insert 開始新增資料 ===");
 				
 				ClassOrderService coService = new ClassOrderService();
 				classOrderVO = coService.addClassOrder
 						(memberID, payment, paymentStatus,payExpire, payCode, orderDate);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				System.out.println("=== sevlet_insert 新增完成,準備轉交 ===");
 				
 				String url = "/back-end/classOrder/listAllClassOrder.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllClassOrder.jsp
@@ -390,7 +373,6 @@ public class ClassOrderServlet extends HttpServlet{
 		
 		
 		if ("delete".equals(action)) { // 來自listAllClassOrder.jsp
-				System.out.println("=== servlet_delete start ===");
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
@@ -398,18 +380,15 @@ public class ClassOrderServlet extends HttpServlet{
 	
 			try {
 				/***************************1.接收請求參數***************************************/
-				System.out.println("=== servlet_delete 接收請求參數 ===");
 				
 				String classOrderID = new String(req.getParameter("classOrderID"));
 				
 				/***************************2.開始刪除資料***************************************/
-				System.out.println("=== servlet_delete 開始刪除資料 ===");
 				
 				ClassOrderService coService = new ClassOrderService();
 				coService.deleteClassOrder(classOrderID);
 				
 				/***************************3.刪除完成,準備轉交(Send the Success view)***********/
-				System.out.println("=== servlet_delete 刪除完成,準備轉交 ===");
 				
 				String url = "/back-end/classOrder/listAllClassOrder.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁

@@ -5,11 +5,12 @@
 <%
 // 	MemberVO memberVO = (MemberVO) session.getAttribute("userVO");
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<title>員工資料修改 - update_classDetail_input.jsp</title>
+<title>教練資料修改 - update_classDetail_input2</title>
 
 <style>
 table#table-1 {
@@ -86,7 +87,7 @@ img{
           
           <div class="border rounded-bottom-sm border-top-0">
             <div class="p-3">
-<%--               <form action="<%=request.getContextPath()%>/member/MemberServlet" method="POST" role="form"> --%>
+<!--               <form action="#" method="POST" role="form"> -->
 
 			<tr>
 				<td>會員編號:<font color=red><b>*</b></font></td>
@@ -148,7 +149,7 @@ img{
 
 			<tr>
 				<td>照片:</td>
-				<td><input type="file" name="photo" id="p_file" class="form-control border"> <br>
+				<td><input type="file" name="photo" id="p_file" class="form-control border">
 					<div id="preview">
 						<span class="text"></span>
 					</div>
@@ -169,52 +170,53 @@ img{
 <!-- 			</tr> -->
 			
 			<tr>
-<!-- 				<td>資歷:</td> -->
-				<td><input type="hidden" name="qualifications" class="form-control border"
+				<td>資歷:</td>
+				<td><input type="TEXT" name="qualifications" class="form-control border"
 				value="${userVO.qualifications}" /></td>
 			</tr>
 			
 			<tr>
-<!-- 				<td>專長:</td> -->
-				<td><input type="hidden" name="expertise" class="form-control border"
+				<td>專長:</td>
+				<td><input type="TEXT" name="expertise" class="form-control border"
 				value="${userVO.expertise}" /></td>
 			</tr>
 			
 			<tr>
-<!-- 				<td>個人介紹:</td> -->
-				<td><input type="hidden" name="introduction" class="form-control border"
+				<td>個人介紹:</td>
+				<td><input type="TEXT" name="introduction" class="form-control border"
 				value="${userVO.introduction}" /></td>
 			</tr>
 			
 			<tr>
-<!-- 				<td>照片:</td> -->
-				<td><input type="hidden" name="photo1" id="p_file1" class="form-control border">
+				<td>證照:</td>
+				<td><input type="file" name="photo1" id="p_file1" class="form-control border"> <br>
 					<div id="preview1">
 						<span class="text"></span>
 					</div>
 			</tr>
 			
 			<tr>
-<!-- 				<td>照片:</td> -->
-				<td><input type="hidden" name="photo2" id="p_file2" class="form-control border">
+				<td>證照:</td>
+				<td><input type="file" name="photo2" id="p_file2" class="form-control border"> <br>
 					<div id="preview2">
 						<span class="text"></span>
 					</div>
 			</tr>
 			
 			<tr>
-<!-- 				<td>照片:</td> -->
-				<td><input type="hidden" name="photo3" id="p_file3" class="form-control border"> 
+				<td>證照:</td>
+				<td><input type="file" name="photo3" id="p_file3" class="form-control border"> <br>
 					<div id="preview3">
 						<span class="text"></span>
 					</div>
 			</tr>
 
 
-		<br> <input type="hidden" name="action" value="update"> 
-			 <input	type="hidden" name="memberid" value="${userVO.memberid}"> 
-			 <input	type="hidden" name="authority" value="${userVO.authority}"> 
-			 <input type="submit" class="btn btn-danger text-uppercase w-100" value="送出修改">
+		<br> <input type="hidden" name="action" value="update3"> 
+		     <input	type="hidden" name="memberid" value="${userVO.memberid}"> 
+<%-- 		     <input type="hidden" name="gender" value="${userVO.gender}"> --%>
+		     <input	type="hidden" name="authority" value="${userVO.authority}">  
+		     <input	type="submit" class="btn btn-danger text-uppercase w-100" value="送出修改">
 <!-- 			</form> -->
 		  </div>
 		 </div>

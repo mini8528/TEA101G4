@@ -10,24 +10,23 @@
 
 <%
 
-System.out.println("==================================================");
-System.out.println("===  List All Class Order . JSP  ====");
-System.out.println("==================================================");
 
 	MemberVO userVO= (MemberVO) session.getAttribute("userVO");
-	if(userVO!=null)
-		{System.out.println("（one_product.jsp）當前會員= "+userVO.getMemberid());
-	};
 	pageContext.setAttribute("userVO", userVO);
+	if(userVO!=null){System.out.println("（Cart.jsp）當前會員= "+userVO.getMemberid());};
 
 	String memberid = new String(userVO.getMemberid());
+	
 	ClassOrderService coService = new ClassOrderService();
+	
 	List<ClassOrderVO> list = coService.getOrderByMemberId(memberid);
-	System.out.println("符合的Ordermaster共：" + list.size());
 	request.getSession().setAttribute("list", list);
+	
+	System.out.println("list = "+list);
+	
 %>
 
-
+<!DOCTYPE html>
 <html>
 <head>
 <title>所有訂單資料 - listAllClassOrder.jsp</title>
@@ -115,16 +114,26 @@ System.out.println("==================================================");
 		    <p class="text-capitalize font-weight-bold mb-lg-2">付款狀態　：　${classOrderVO.paymentStatus}</p>
 
 				<div class="">
-					<a href="product-cart.html" class="btn btn-sm btn-white text-uppercase mb-1 mr-2 btn-hover-purple">
-            <i class="fa fa-angle-double-right mr-2" aria-hidden="true"></i>更多明細
-          </a>
+<!-- 					<a href="product-cart.html" class="btn btn-sm btn-white text-uppercase mb-1 mr-2 btn-hover-purple"> -->
+<!-- 			            <i class="fa fa-angle-double-right mr-2" aria-hidden="true"></i>更多明細 -->
+<!-- 			        </a> -->
+			        
+			        
+			        <FORM METHOD = "post" ACTION = "<%=request.getContextPath()%>/back-end/classDetail/classDetail.do" style = "margin-bottom: 0px;">
+						<i class="fa fa-angle-double-right mr-2" aria-hidden="true">
+						<input class="btn btn-sm btn-white text-uppercase mb-1 mr-2 btn-hover-purple fa-angle-double-right" type = "submit" value = "更多明細">
+						</i>
+						<input type = "hidden" name = "classOrderID" value = "${classOrderVO.classOrderID}">
+						<input  type = "hidden" name = "action" value = "getOneList_classOrderID">
+					</FORM>
+			        
           
-        </div>
+        		</div>
 		  </div>
 		</div>
 
   </div>
-
+</section>
 
 
 

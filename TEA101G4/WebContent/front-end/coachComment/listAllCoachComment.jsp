@@ -16,7 +16,7 @@
     
 %>
 
-
+<!DOCTYPE html>
 <html>
 <head>
 <title>所有CoachComment資料 - listAllCoachComment.jsp</title>
@@ -97,8 +97,8 @@
 			<td>${coachCommentVO.memberID2}</td>
 			<td>${coachCommentVO.commText}</td>
 			<td>${coachCommentVO.commStar}</td>
-			<td>${coachCommentVO.addDate}</td> 
-			<td>${coachCommentVO.editDate}</td>
+			<td><fmt:formatDate value="${coachCommentVO.addDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td> 
+			<td><fmt:formatDate value="${coachCommentVO.editDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td> 
 			<td>${coachCommentVO.status}</td>
 			
 			<td>

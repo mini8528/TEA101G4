@@ -5,7 +5,7 @@
 <%
 	CoachClassVO coachClassVO = (CoachClassVO) request.getAttribute("coachClassVO"); //coachClassServlet.java (Concroller) 存入req的coachClassVO物件 (包括幫忙取出的coachClassVO, 也包括輸入資料錯誤時的coachClassVO物件)
 %>
-
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />

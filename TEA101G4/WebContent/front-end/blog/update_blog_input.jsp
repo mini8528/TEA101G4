@@ -160,7 +160,7 @@
                                 <input type="file" name="photo" class="custom-file-input" id="photo2">
                                 <label class="custom-file-label" for="customFile">Choose
                                     photo</label>
-                                    <img width="400" id="photopreview" style="margin-top:30px; margin-left:220px">
+                                    <img width="400" id="photopreview" name="photopreview" style="margin-top:30px; margin-left:220px" src="<%=request.getContextPath()%>/blog/ShowPicture?blogno=${blogVO.blogno}">
                             </div>
 
                             <div class="custom-file" id="showVideo" style="display:none"

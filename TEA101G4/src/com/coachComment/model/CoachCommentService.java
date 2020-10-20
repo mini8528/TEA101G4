@@ -78,6 +78,11 @@ public class CoachCommentService {
 		return dao.getMemberCommentName(memberID);
 		
 	}
+
+	public void update_status(String coachCommentID, String status, Timestamp editDate) {
+		dao.update_status(coachCommentID, status, editDate);
+		
+	}
 	
 	
 }

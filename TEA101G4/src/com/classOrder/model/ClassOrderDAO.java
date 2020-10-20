@@ -16,7 +16,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import com.classDetail.model.ClassDetailJDBCDAO;
+import com.classDetail.model.ClassDetailDAO;
+
 import com.classDetail.model.ClassDetailVO;
 
 public class ClassOrderDAO implements ClassOrderDAO_interface {
@@ -51,7 +52,6 @@ public class ClassOrderDAO implements ClassOrderDAO_interface {
 
 	@Override
 	public void insert(ClassOrderVO classOrderVO) {
-		System.out.println("=== JDBC_insert start ===");
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -60,7 +60,6 @@ public class ClassOrderDAO implements ClassOrderDAO_interface {
 
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
-			System.out.println("=== JDBC_insert data ===");
 
 			pstmt.setString(1, classOrderVO.getMemberID());
 			pstmt.setString(2, classOrderVO.getPayment());
@@ -69,7 +68,6 @@ public class ClassOrderDAO implements ClassOrderDAO_interface {
 			pstmt.setString(5, classOrderVO.getPayCode());
 			pstmt.setTimestamp(6, classOrderVO.getOrderDate());
 			pstmt.executeUpdate();
-			System.out.println("=== JDBC_insert complete ===");
 
 			// Handle any driver errors
 		}  catch (SQLException se) {
@@ -98,7 +96,6 @@ public class ClassOrderDAO implements ClassOrderDAO_interface {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
-			System.out.println("JDBC_update");
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 			pstmt.setString(1, classOrderVO.getMemberID());
@@ -159,7 +156,6 @@ public class ClassOrderDAO implements ClassOrderDAO_interface {
 			// 2●設定於 pstm.executeUpdate()之後
 			con.commit();
 			con.setAutoCommit(true);
-			System.out.println("刪除訂單編號" + classOrderID + "時,共有明細 " + updateCount_ClassDetail + " 筆同時被刪除");
 
 			// Handle any driver errors
 		}  catch (SQLException se) {
@@ -448,10 +444,7 @@ public class ClassOrderDAO implements ClassOrderDAO_interface {
 	@Override
 	public void insertWithClassOrder(ClassOrderVO classOrderVO, List<ClassDetailVO> testList) {
 
-		System.out.println("==================================================");
-		System.out.println("===  Class Order JDBC  __  insertWithClassOrder ================");
-		System.out.println("==================================================");
-		
+		System.out.println("DAO _insertWithClassOrder __ in");
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -460,32 +453,42 @@ public class ClassOrderDAO implements ClassOrderDAO_interface {
 			con.setAutoCommit(false);
 			// 先新增商品
 			String cols[] = { "ClassOrderID" };
+			System.out.println("DAO _cols[] ="+cols);
+			
 			pstmt = con.prepareStatement(INSERT_STMT2, cols);
 
-			System.out.println("=== JDBC_insert data ===");
 			pstmt.setString(1, classOrderVO.getMemberID());
 			pstmt.setString(2, classOrderVO.getPayment());
 			pstmt.setString(3, classOrderVO.getPaymentStatus());
 			pstmt.setDate(4, classOrderVO.getPayExpire());
 			pstmt.setString(5, classOrderVO.getPayCode());
 			pstmt.setTimestamp(6, classOrderVO.getOrderDate());
+			
+			System.out.println("DAO _classOrderVO.getClassOrderID() ="+classOrderVO.getClassOrderID());
+			System.out.println("DAO _classOrderVO.getMemberID() ="+classOrderVO.getMemberID());
+			System.out.println("DAO _classOrderVO.getPayment() ="+classOrderVO.getPayment());
+			System.out.println("DAO _classOrderVO.getPaymentStatus() ="+classOrderVO.getPaymentStatus());
+			System.out.println("DAO _classOrderVO.getPayExpire() ="+classOrderVO.getPayExpire());
+			System.out.println("DAO _classOrderVO.getPayCode() ="+classOrderVO.getPayCode());
+			System.out.println("DAO _classOrderVO.getOrderDate() ="+classOrderVO.getOrderDate());
+			try {
 			pstmt.executeUpdate();
-			System.out.println("=== JDBC_insert complete ===");
-
+			System.out.println("DAO _executeUpdate __ end");
+			}catch(Exception e) {
+				System.out.println("000088888");
+			}
 			// 掘取對應的自增主鍵值
 			String next_classOrderID = null;
 			ResultSet rs = pstmt.getGeneratedKeys();
 			if (rs.next()) {
 				next_classOrderID = rs.getString(1);
-				System.out.println("自增主鍵值= " + next_classOrderID + "(剛新增成功的訂單編號)");
+				System.out.println("自增主鍵值 = "+next_classOrderID);
 			} else {
-				System.out.println("未取得自增主鍵值");
 			}
 			rs.close();
 
 			// 再同時新增明細
-			ClassDetailJDBCDAO dao = new ClassDetailJDBCDAO();
-			System.out.println("list.size()-A=" + testList.size());
+			ClassDetailDAO dao = new ClassDetailDAO();
 			for (ClassDetailVO aClassDetail : testList) {
 				aClassDetail.setClassOrderID(new String(next_classOrderID));
 				dao.insert2(aClassDetail, con);
@@ -522,68 +525,5 @@ public class ClassOrderDAO implements ClassOrderDAO_interface {
 		}
 	}
 
-	public static void main(String[] args) {
-
-		ClassOrderDAO dao = new ClassOrderDAO();
-
-		// 新增
-//		ClassOrderVO classOrderVO1 = new ClassOrderVO();
-//		classOrderVO1.setMemberID("M006");
-//		classOrderVO1.setPayment("credit");
-//		classOrderVO1.setPaymentStatus("Y");
-//		classOrderVO1.setPayExpire(new Date(System.currentTimeMillis()));
-//		classOrderVO1.setPayCode("DDDT");
-//		classOrderVO1.setOrderDate(new Date(System.currentTimeMillis()));
-//		dao.insert(classOrderVO1);
-
-		// 修改
-//		ClassOrderVO classOrderVO2 = new ClassOrderVO();
-//		classOrderVO2.setClassOrderID("CO00006");
-//		classOrderVO2.setMemberID("M003");
-//		classOrderVO2.setPayment("credit");
-//		classOrderVO2.setPaymentStatus("N");
-//		classOrderVO2.setPayExpire(new Date(System.currentTimeMillis()));
-//		classOrderVO2.setPayCode("DTT");
-//		classOrderVO2.setOrderDate(new Date(System.currentTimeMillis()));
-//		dao.update(classOrderVO2);
-
-		// 刪除
-//		dao.delete("CO00006");
-
-		// 查詢
-		ClassOrderVO classOrderVO3 = dao.findByPrimaryKey("CO00001");
-		System.out.print(classOrderVO3.getClassOrderID() + ",");
-		System.out.print(classOrderVO3.getMemberID() + ",");
-		System.out.print(classOrderVO3.getPayment() + ",");
-		System.out.print(classOrderVO3.getPaymentStatus() + ",");
-		System.out.print(classOrderVO3.getPayExpire() + ",");
-		System.out.print(classOrderVO3.getPayCode() + ",");
-		System.out.print(classOrderVO3.getOrderDate());
-		System.out.println();
-		System.out.println("---------------------");
-
-		// 查詢部門
-//		List<ClassOrderVO> list = dao.getAll();
-//		for (ClassOrderVO aClassOrder : list) {
-//			System.out.print(aClassOrder.getClassOrderID() + ",");
-//			System.out.print(aClassOrder.getMemberID() + ",");
-//			System.out.print(aClassOrder.getPayment() + ",");
-//			System.out.print(aClassOrder.getPaymentStatus() + ",");
-//			System.out.print(aClassOrder.getPayExpire() + ",");
-//			System.out.print(aClassOrder.getPayCode() + ",");
-//			System.out.print(aClassOrder.getOrderDate());
-//			System.out.println();
-//		}
-
-		// 查詢某部門的員工
-//		Set<ClassDetailVO> set = dao.getClassDetailByClassOrderID("CO00001");
-//		for (ClassDetailVO aClassDetail : set) {
-//			System.out.print(aClassDetail.getClassDetailID() + ",");
-//			System.out.print(aClassDetail.getClassOrderID() + ",");
-//			System.out.print(aClassDetail.getCoachClassID() + ",");
-//			System.out.print(aClassDetail.getQuantity() );
-//			System.out.println();
-//		}
-	}
 
 }

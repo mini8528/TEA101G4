@@ -8,6 +8,7 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
+import com.blog.model.BlogService;
 import com.coachComment.model.*;
 
 @WebServlet("/back-end/coachComment/coachComment.do")
@@ -156,7 +157,6 @@ public class CoachCommentServlet extends HttpServlet{
 		
 		if ("update".equals(action)) { // 來自update_emp_input.jsp的請求
 			
-			System.out.println("update 開始 接收請求參數 ");
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
@@ -169,17 +169,6 @@ public class CoachCommentServlet extends HttpServlet{
 				String memberID = req.getParameter("memberID");
 				String memberIDReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
 
-//				System.out.println("1 memberID = " + req.getParameter("member"));
-//				System.out.println("1 errorMsgs = "+errorMsgs);
-				
-//				CoachCommentService ccService4 = new CoachCommentService();
-//				CoachCommentVO coachCommentVO4 = ccService4.getOnememberID(memberID);
-//				if (coachCommentVO4 == null) {
-//					errorMsgs.add("查無資料");
-//				}
-				
-//				System.out.println("2 memberID = " + req.getParameter("member"));
-//				System.out.println("2 errorMsgs = "+errorMsgs);
 				
 				
 				if (memberID == null || memberID.trim().length() == 0) {
@@ -187,8 +176,6 @@ public class CoachCommentServlet extends HttpServlet{
 				} else if(!memberID.trim().matches(memberIDReg)) { //以下練習正則(規)表示式(regular-expression)
 					errorMsgs.add("memberID: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
 	            } 
-//				System.out.println("3 memberID = " + req.getMemberID());
-//				System.out.println("3 errorMsgs = "+errorMsgs);
 				
 				
 				String memberID2 = req.getParameter("memberID2");
@@ -228,8 +215,6 @@ public class CoachCommentServlet extends HttpServlet{
 				coachCommentVO.setEditDate(editDate);
 				coachCommentVO.setStatus(status);
 				
-//				System.out.println("4 memberID = " + coachCommentVO.getMemberID());
-//				System.out.println("4 errorMsgs = "+errorMsgs);
 				
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
@@ -240,7 +225,6 @@ public class CoachCommentServlet extends HttpServlet{
 					return; //程式中斷
 				}
 				/***************************2.開始修改資料*****************************************/
-				System.out.println("=== servlet_update start 修改資料 ===");
 				
 				CoachCommentService ccService = new CoachCommentService();
 				coachCommentVO = ccService.updateCoachComment
@@ -251,7 +235,6 @@ public class CoachCommentServlet extends HttpServlet{
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 				successView.forward(req, res);
 				/***************************其他可能的錯誤處理*************************************/
-				System.out.println("=== servlet_update 錯誤處理 ===");
 			} catch (Exception e) {
 				errorMsgs.add("修改資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
@@ -262,9 +245,6 @@ public class CoachCommentServlet extends HttpServlet{
 
         if ("insert".equals(action)) { // 來自addEmp.jsp的請求  
 			
-        	System.out.println("==================================================");
-        	System.out.println("===  新增教練評論    add Coach Comment .servlet === in === insert ===");
-        	System.out.println("==================================================");
         	
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
@@ -274,9 +254,6 @@ public class CoachCommentServlet extends HttpServlet{
 			try {
 				/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
 				
-				System.out.println("接收請求參數 : ");
-				System.out.println("教練 memberID = "+req.getParameter("memberID"));
-				System.out.println("使用者 memberID2 = "+req.getParameter("memberID2"));
 				
 				String memberID = req.getParameter("memberID");
 				String memberIDReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
@@ -319,8 +296,6 @@ public class CoachCommentServlet extends HttpServlet{
 				coachCommentVO.setAddDate(addDate);
 				coachCommentVO.setEditDate(editDate);
 				coachCommentVO.setStatus(status);
-				System.out.println("req.getParameter(\"addDate\") = "+coachCommentVO.getAddDate());
-				System.out.println("req.getParameter(\"addDate\") = "+req.getParameter("addDate"));
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("coachCommentVO", coachCommentVO); // 含有輸入格式錯誤的empVO物件,也存入req
@@ -337,7 +312,6 @@ public class CoachCommentServlet extends HttpServlet{
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 				String url = "/front-end/coachClass/listAllCoachClass.jsp";
-				System.out.println("success");
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllCoachComment.jsp
 				successView.forward(req, res);				
 				
@@ -352,24 +326,20 @@ public class CoachCommentServlet extends HttpServlet{
 		
 		
 		if ("delete".equals(action)) { // 來自listAllCoachComment.jsp
-			System.out.println("進入 servlet 刪除");
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
 	
 			try {
-				System.out.println("接收 刪除 請求參數");
 				/***************************1.接收請求參數***************************************/
 				String coachCommentID = new String(req.getParameter("coachCommentID"));
 				
 				/***************************2.開始刪除資料***************************************/
-				System.out.println("開始刪除資料");
 				CoachCommentService ccService = new CoachCommentService();
 				ccService.deleteCoachComment(coachCommentID);
 				
 				/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
-				System.out.println("刪除完成");
 				String url = "/back-end/coachComment/listAllCoachComment.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 				successView.forward(req, res);
@@ -388,21 +358,17 @@ public class CoachCommentServlet extends HttpServlet{
 		
 		if ("getOneCoachCommentByMember".equals(action)) { // 來自select_page.jsp的請求
 			
-			System.out.println("=== coach Comment .servlet === in === getOneCoachCommentByMember === 搜尋教練評論 ===");
-
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
 			try {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
-				System.out.println("=== 接收請求參數 ===");
 				
 				String str = req.getParameter("memberID");
 				if (str == null || (str.trim()).length() == 0) {
 					errorMsgs.add("請輸入memberID");
 				}
-				System.out.println("=== 接收請求參數 1");
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
@@ -410,14 +376,12 @@ public class CoachCommentServlet extends HttpServlet{
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
-				System.out.println("=== 接收請求參數 2");
 				String memberID = null;
 				try {
 					memberID = new String(str);
 				} catch (Exception e) {
 					errorMsgs.add("memberID格式不正確");
 				}
-				System.out.println("=== 接收請求參數 3");
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					System.out.println("進入 error");
@@ -427,12 +391,8 @@ public class CoachCommentServlet extends HttpServlet{
 					return;//程式中斷
 				}
 				/***************************2.開始查詢資料*****************************************/
-				System.out.println("=== 開始查詢資料 ===");
 				CoachCommentService ccService = new CoachCommentService();
-				System.out.println("=== 開始查詢資料 1 ===");
 				List<CoachCommentVO> coachCommentVO = (List<CoachCommentVO>) ccService.getOneCoachCommentByMember(memberID);
-				System.out.println("memberID = "+ memberID);
-				System.out.println("coachCommentVO = "+ coachCommentVO);
 				if (coachCommentVO == null) {
 					errorMsgs.add("查無資料");
 				}
@@ -445,17 +405,13 @@ public class CoachCommentServlet extends HttpServlet{
 				}
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
-				System.out.println("=== 查詢完成,準備轉交 ===");
 				req.setAttribute("coachCommentVO", coachCommentVO); // 資料庫取出的coachCommentVO物件,存入req
-				System.out.println("=== 查詢完成,準備轉交 1 ===");
 				String url = "/front-end/coachComment/listOneCoachComment.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
-				System.out.println("=== 查詢完成,準備轉交 2 === req =" + req);
 				successView.forward(req, res);
 
 				/***************************其他可能的錯誤處理*************************************/
 			} catch (Exception e) {
-				System.out.println("=== 錯誤處理 ===");
 				errorMsgs.add("無法取得資料:" + e.getMessage());
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("/front-end/coachComment/select_page.jsp");
@@ -463,6 +419,38 @@ public class CoachCommentServlet extends HttpServlet{
 			}
 			
 			
+		}
+		
+		
+		if ("Comment_Status".equals(action)) { 
+
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				/*************************** 1.接收請求參數 ****************************************/
+				String coachCommentID = req.getParameter("coachCommentID");
+				String status = req.getParameter("status");
+				Timestamp editDate = new Timestamp(System.currentTimeMillis());
+
+				/*************************** 2.開始隱藏資料 ****************************************/
+				CoachCommentService coService = new CoachCommentService();
+				coService.update_status(coachCommentID, status, editDate);
+				
+				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
+				String url = "/back-end/coachComment/listAllCoachComment.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
+				successView.forward(req, res);
+
+				/*************************** 其他可能的錯誤處理 **********************************/
+			} catch (Exception e) {
+				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/coachComment/listAllCoachComment.jsp");
+				failureView.forward(req, res);
+		
+			}
 		}
 		
 		

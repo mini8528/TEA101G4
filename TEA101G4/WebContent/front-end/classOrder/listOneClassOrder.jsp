@@ -5,7 +5,7 @@
 <%
 ClassOrderVO classOrderVO = (ClassOrderVO) request.getAttribute("classOrderVO"); //ClassOrderServlet.java(Concroller), 存入req的ClassOrderVO物件
 %>
-
+<!DOCTYPE html>
 <html>
 <head>
 <title>ClassOrder資料 - listOneClassOrder.jsp</title>

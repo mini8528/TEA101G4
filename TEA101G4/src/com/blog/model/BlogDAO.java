@@ -28,7 +28,7 @@ public class BlogDAO implements BlogDAO_interface {
 
 	private static final String INSERT_STMT = "INSERT INTO blog (blogno,memberid,blogclass,postdate,title,text,photo,video,status,updatetime) VALUES ('B' || lpad(BLOG_SEQ.NEXTVAL, 5, '0'), ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = "SELECT blogno,memberid,blogclass,to_char(postdate,'yyyy-mm-dd hh24:mi:ss') postdate,title,text,status,to_char(updatetime,'yyyy-mm-dd hh24:mi:ss') updatetime FROM blog order by blogno";
-	private static final String GET_ONE_STMT = "SELECT blogno,memberid,blogclass,to_char(postdate,'yyyy-mm-dd hh24:mi:ss') postdate,title,text,status,to_char(updatetime,'yyyy-mm-dd hh24:mi:ss') updatetime FROM blog where blogno = ? order by blogno";
+	private static final String GET_ONE_STMT = "SELECT blogno,memberid,blogclass,to_char(postdate,'yyyy-mm-dd hh24:mi:ss') postdate,title,text,photo,video,status,to_char(updatetime,'yyyy-mm-dd hh24:mi:ss') updatetime FROM blog where blogno = ? order by blogno";
 	private static final String DELETE = "DELETE FROM blog where blogno = ?";
 	private static final String UPDATE = "UPDATE blog set memberid=?, blogclass=?, postdate=?, title=?, text=? , photo=?, video=?, status=?, updatetime=? where blogno = ?";
 	private static final String SEARCH_TITLE = "SELECT blogno,memberid,blogclass,to_char(postdate,'yyyy-mm-dd hh24:mi:ss') postdate,title,text,status,to_char(updatetime,'yyyy-mm-dd hh24:mi:ss') updatetime FROM blog where title like ? order by blogno";
@@ -195,8 +195,8 @@ public class BlogDAO implements BlogDAO_interface {
 				blogVO.setPostDate(rs.getTimestamp("postdate"));
 				blogVO.setTitle(rs.getString("title"));
 				blogVO.setText(rs.getString("text"));
-//				blogVO.setPhoto(rs.getBytes("photo"));
-//				blogVO.setVideo(rs.getBytes("video"));
+				blogVO.setPhoto(rs.getBytes("photo"));
+				blogVO.setVideo(rs.getBytes("video"));
 				blogVO.setStatus(rs.getString("status"));
 				blogVO.setUpdateTime(rs.getTimestamp("updatetime"));
 				

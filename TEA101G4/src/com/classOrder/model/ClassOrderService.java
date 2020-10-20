@@ -21,11 +21,9 @@ public class ClassOrderService {
 	public ClassOrderVO auto_addClassOrderAndDetail( String memberID, String payment, String paymentStatus,
 			Date payExpire, String payCode, Timestamp orderDate, List<String> coachClassIDAll, List<Integer> quantityAll) {
 		
-		System.out.println("==================================================");
-		System.out.println("===  Class Order Service  __  auto_addClassOrderAndDetail ================");
-		System.out.println("==================================================");
-		
+		System.out.println("auto_addClassOrderAndDetail __ in");
 		ClassOrderVO classOrderVO = new ClassOrderVO();
+		
 		classOrderVO.setMemberID(memberID);
 		classOrderVO.setPayment(payment);
 		classOrderVO.setPaymentStatus(paymentStatus);
@@ -33,18 +31,19 @@ public class ClassOrderService {
 		classOrderVO.setPayCode(payCode);
 		classOrderVO.setOrderDate(orderDate);
 		
+		System.out.println("1");
 		ArrayList<ClassDetailVO> testList =new ArrayList<ClassDetailVO>();
+		System.out.println("2");
 		
 		for( int i = 0; i < coachClassIDAll.size() ; i++) {
 			ClassDetailVO classDetailVO = new ClassDetailVO();
 			classDetailVO.setCoachClassID(coachClassIDAll.get(i));
 			classDetailVO.setQuantity(quantityAll.get(i));
-			System.out.println("classDetailVO=>"+classDetailVO.toString());
 			testList.add(classDetailVO);
-			System.out.println("testList===>"+testList.toString());
-
 		}
+		System.out.println("3");
 		dao.insertWithClassOrder( classOrderVO,  testList); 
+		System.out.println("4");
 		return classOrderVO;
 	}
 	

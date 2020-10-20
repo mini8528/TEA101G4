@@ -3,14 +3,14 @@
 <%@ page import="com.member.model.*"%>
 
 <%
-	MemberVO memberVO = (MemberVO) session.getAttribute("userVO");
+// 	MemberVO memberVO = (MemberVO) session.getAttribute("userVO");
 %>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<title>員工資料修改 - update_classDetail_input1</title>
+<title>申請成為教練 - update_classDetail_input1</title>
 
 <style>
 table#table-1 {
@@ -91,59 +91,59 @@ img{
 
 			<tr>
 				<td>會員編號:<font color=red><b>*</b></font></td>
-				<td><%=memberVO.getMemberid()%></td>
+				<td>${userVO.memberid}</td>
 			</tr>
 			<br>			
 			<tr>
 				<td>新增日：<font color=blue><b>*</b></font></td>
-				<td><%=memberVO.getAdddate()%> <input type="hidden"
-					name="adddate" value="<%=memberVO.getAdddate()%>" /></td>
+				<td>${userVO.adddate} <input type="hidden"
+					name="adddate" value="${userVO.adddate}" /></td>
 			</tr>
 			<br>
 			<tr>
 <!-- 				<td>姓名:</td> -->
 				<td><input type="hidden" name="name" class="form-control border" 
-				value="<%=memberVO.getName()%>" /></td>
+				value="${userVO.name}" /></td>
 			</tr>
 			
 			<tr>
 <!-- 				<td>帳號:</td> -->
 				<td><input type="hidden" name="account" class="form-control border" 
-				value="<%=memberVO.getAccount()%>" /></td>
+				value="${userVO.account}" /></td>
 			</tr>
 
 			<tr>
 <!-- 				<td>密碼:</td> -->
 				<td><input type="hidden" name="password" class="form-control border"
-				value="<%=memberVO.getPassword()%>" /></td>
+				value="${userVO.password}" /></td>
 			</tr>
 
 
 <!-- 			<tr> -->
 <!-- 				<td>性別：</td> -->
 <!-- 				<td><select name="gender" class="form-control"> -->
-<%-- 						<option value="F" ${(memberVO.gender=="F")? 'selected':'' }>女</option> --%>
-<%-- 						<option value="M" ${(memberVO.gender=="M")? 'selected':'' }>男</option> --%>
+<%-- 						<option value="F" ${(userVO.gender=="F")? 'selected':'' }>女</option> --%>
+<%-- 						<option value="M" ${(userVO.gender=="M")? 'selected':'' }>男</option> --%>
 <!-- 				</select></td> -->
 <!-- 			</tr> -->
 
 			<tr>
 <!-- 				<td>電話:</td> -->
 				<td><input type="hidden" name="phone" class="form-control border"
-				value="<%=memberVO.getPhone()%>" /></td>
+				value="${userVO.phone}" /></td>
 			</tr>
 			
 			<tr>
 <!-- 				<td>生日:</td> -->
 				<td><input type="hidden" name="birthday" class="form-control border"
-				value="<%=memberVO.getBirthday()%>" /></td>
+				value="${userVO.birthday}" /></td>
 			</tr>
 
 			
 			<tr>
 <!-- 				<td>email:</td> -->
 				<td><input type="hidden" name="email" class="form-control border"
-				value="<%=memberVO.getEmail()%>" /></td>
+				value="${userVO.email}" /></td>
 			</tr>
 
 
@@ -158,33 +158,33 @@ img{
 			<tr>
 <!-- 				<td>地址:</td> -->
 				<td><input type="hidden" name="address" class="form-control border"
-				value="<%=memberVO.getAddress()%>" /></td>
+				value="${userVO.address}" /></td>
 			</tr>
 
 <!-- 			<tr> -->
 <!-- 				<td>權限：</td> -->
 <!-- 				<td><select name="authority" class="form-control"> -->
-<%-- 						<option value="N" ${(memberVO.gender=="N")? 'selected':'' }>N</option> --%>
-<%-- 						<option value="Y" ${(memberVO.gender=="Y")? 'selected':'' }>Y</option> --%>
+<%-- 						<option value="N" ${(userVO.authority=="N")? 'selected':'' }>N</option> --%>
+<%-- 						<option value="Y" ${(userVO.authority=="Y")? 'selected':'' }>Y</option> --%>
 <!-- 				</select></td> -->
 <!-- 			</tr> -->
 			
 			<tr>
 				<td>資歷:</td>
 				<td><input type="TEXT" name="qualifications" class="form-control border"
-				value="<%=memberVO.getQualifications()%>" /></td>
+				value="${userVO.qualifications}" /></td>
 			</tr>
 			
 			<tr>
 				<td>專長:</td>
 				<td><input type="TEXT" name="expertise" class="form-control border"
-				value="<%=memberVO.getExpertise()%>" /></td>
+				value="${userVO.expertise}" /></td>
 			</tr>
 			
 			<tr>
 				<td>個人介紹:</td>
 				<td><input type="TEXT" name="introduction" class="form-control border"
-				value="<%=memberVO.getIntroduction()%>" /></td>
+				value="${userVO.introduction}" /></td>
 			</tr>
 			
 			<tr>
@@ -213,8 +213,9 @@ img{
 
 
 		<br> <input type="hidden" name="action" value="update1"> 
-		     <input	type="hidden" name="memberid" value="<%=memberVO.getMemberid()%>"> 
-		     <input type="hidden" name="gender" value="<%=memberVO.getGender()%>"> 
+		     <input	type="hidden" name="memberid" value="${userVO.memberid}"> 
+		     <input type="hidden" name="gender" value="${userVO.gender}">
+		     <input	type="hidden" name="authority" value="${userVO.authority}">  
 		     <input	type="submit" class="btn btn-danger text-uppercase w-100" value="送出申請">
 <!-- 			</form> -->
 		  </div>

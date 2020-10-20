@@ -97,7 +97,7 @@ CusService cusSvc = new CusService();
 		<th>客訴日期</th>
 		<th>回覆內容</th>
 		<th>回覆日期</th>
-		
+		<th>操作</th>
 	</tr>
 	<%@ include file="page1.file" %> 
 	<c:forEach var="cusVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
@@ -117,18 +117,18 @@ CusService cusSvc = new CusService();
 			
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/cus/cus.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="修改">
+			     <input type="submit" value="回覆">
 			     <input type="hidden" name="customerserviceid"  value="${cusVO.customerserviceid}">
 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
 			</td>
-			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/cus/cus.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="刪除">
-			     <input type="hidden" name="customerserviceid"  value="${cusVO.customerserviceid}">
-			     <input type="hidden" name="action" value="delete"></FORM>
+<!-- 			<td> -->
+<%-- 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/cus/cus.do" style="margin-bottom: 0px;"> --%>
+<!-- 			     <input type="submit" value="刪除"> -->
+<%-- 			     <input type="hidden" name="customerserviceid"  value="${cusVO.customerserviceid}"> --%>
+<!-- 			     <input type="hidden" name="action" value="delete"></FORM> -->
 			     
 			     
-			</td>
+<!-- 			</td> -->
 		</tr>
 	</c:forEach>
 </table>

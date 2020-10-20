@@ -4,7 +4,7 @@
 <%-- 此頁暫練習採用 Script 的寫法取值 --%>
 
 <%
-MemberVO memberVO = (MemberVO) request.getAttribute("memberVO"); //ClassDetailServlet.java(Concroller), 存入req的coachCommentVO物件
+// MemberVO memberVO = (MemberVO) request.getAttribute("memberVO"); //ClassDetailServlet.java(Concroller), 存入req的coachCommentVO物件
 %>
 
 <!DOCTYPE html>
@@ -169,9 +169,16 @@ MemberVO memberVO = (MemberVO) request.getAttribute("memberVO"); //ClassDetailSe
 			  
 			     <input type="submit" value="修改" class="btn btn-danger mb-2">
 			     <input type="hidden" name="memberid"  value="${userVO.memberid}">
-			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
+			     <input type="hidden" name="action"	value="getOne_For_Update3"></FORM>
 			</td>
-			
+			<br>
+			<div>
+				<ul>
+   					<li class="btn btn-warning mb-2">
+   					<a href='<%=request.getContextPath()%>/front-end/coachClass/addCoachClass.jsp'>新增課程</a>
+    				</li>
+  				</ul>
+			</div>
 <!-- 			<td> -->
 <%-- 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/member/MemberServlet" style="margin-bottom: 0px;"> --%>
 <!-- 			     <input type="submit" value="刪除" class="btn btn-danger mb-2"> -->

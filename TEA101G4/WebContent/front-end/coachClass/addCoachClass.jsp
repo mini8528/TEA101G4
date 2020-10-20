@@ -15,7 +15,7 @@ if(userVO!=null){
 };
 
 %>
-
+<!DOCTYPE html>
 <html>
 <head>
 <title>教練課程新增 - addCoachClass.jsp</title>

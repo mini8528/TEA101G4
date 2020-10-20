@@ -193,7 +193,7 @@
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/member/MemberServlet" style="margin-bottom: 0px;">
 			  
 			     <input type="submit" value="申請成為教練" class="btn btn-danger mb-2">
-			     <input type="hidden" name="memberid"  value="${memberVO.memberid}">
+			     <input type="hidden" name="memberid"  value="${userVO.memberid}">
 			     <input type="hidden" name="action"	value="getOne_For_Update1"></FORM>
 			</td>
 			<br>
@@ -201,7 +201,7 @@
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/member/MemberServlet" style="margin-bottom: 0px;">
 			  
 			     <input type="submit" value="修改" class="btn btn-danger mb-2">
-			     <input type="hidden" name="memberid"  value="${memberVO.memberid}">
+			     <input type="hidden" name="memberid"  value="${userVO.memberid}">
 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
 			</td>
 			

@@ -7,69 +7,19 @@
 CusVO cusVO = (CusVO) request.getAttribute("cusVO");
 MemberVO userVO = (MemberVO) request.getAttribute("userVO");
 %>
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 <title>員工資料新增 - addEmp.jsp</title>
 
-<style>
-  table#table-1 {
-	background-color: #CCCCFF;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
-  }
-</style>
 
-<style>
-  table {
-	width: 450px;
-	background-color: white;
-	margin-top: 1px;
-	margin-bottom: 1px;
-  }
-  table, th, td {
-    border: 0px solid #CCCCFF;
-  }
-  th, td {
-    padding: 1px;
-  }
-</style>
 
 </head>
 <body bgcolor='white'>
 <jsp:include page="/front-end/header.jsp" flush="true" />
 <!-- ------------------以下複製到虛線----include所在位置------------------------------------------ -->
-  <!-- Page Wrapper -->
-<!--   <div id="wrapper"> -->
-<%-- 	<%@ include file="/back-end/component/sidebar.jsp" %> --%>
 
-
-<!--     Content Wrapper -->
-<!--     <div id="content-wrapper" class="d-flex flex-column"> -->
-
-<!--       Main Content -->
-      
-<!--       <div id="content"> -->
-		
-
-<%--        <%@ include file="/back-end/component/topbar.jsp" %> --%>
-
-<!--         Begin Page Content -->
-<!--         <div class="container-fluid"> -->
-
-<!--           Page Heading -->
-<!--           <h1 class="h3 mb-4 text-gray-800">Blank Page</h1> -->
     
 <div>
 <!-- ---------------------------------------------------------------- -->         
@@ -88,21 +38,19 @@ MemberVO userVO = (MemberVO) request.getAttribute("userVO");
     <div class="" action="index.jsp" method="post">
       <form>
         <div class="row">
+
+              <input type="hidden" name="memberid" class="form-control border-warning" 
+              value = ${userVO.memberid} />
+
+			<input type="hidden" name="email" class="form-control border-warning" 
+              value = ${userVO.email} />
 <!--           <div class="col-sm-6 col-xs-12"> -->
 <!--             <div class="form-group form-group-icon"> -->
-<!--               <i class="fa fa-user"></i> -->
-              <input type="hidden" name="memberid" class="form-control border-warning" 
-              placeholder="" required="" value = ${userVO.memberid} />
+<!--               <i class="fa fa-envelope"></i> -->
+<!--               <input type="email"name="email" class="form-control border-success" -->
+<!--               placeholder="電子信箱" required=""> -->
 <!--             </div> -->
 <!--           </div> -->
-
-          <div class="col-sm-6 col-xs-12">
-            <div class="form-group form-group-icon">
-              <i class="fa fa-envelope"></i>
-              <input type="email"name="email" class="form-control border-success"
-              placeholder="電子信箱" required="">
-            </div>
-          </div>
 
           <div class="col-sm-6 col-xs-12">
             <div class="form-group form-group-icon">
@@ -136,25 +84,9 @@ MemberVO userVO = (MemberVO) request.getAttribute("userVO");
 
 <!-- ==================================== ———	FOOTER ===================================== -->
 
-
-<!-- -----------以下複製到虛線----------------------------以下複製到虛線------------------------- -->
 			
 			</div>
-       <!--   </div>-->
-        
-        <!-- /.container-fluid -->
-
-    <!--  </div>-->
-      <!-- End of Main Content -->
-
       
-      <!-- End of Footer -->
-
-  <!--  </div>-->
-    <!-- End of Content Wrapper -->
-
-  <!--</div>-->
-  <!-- End of Page Wrapper -->
 
  
 <!-- ---------------------------------------------------------------- -->

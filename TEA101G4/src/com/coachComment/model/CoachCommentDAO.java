@@ -39,6 +39,7 @@ public class CoachCommentDAO implements CoachCommentDAO_interface {
 
 	private static final String UPDATE_SATAUS = "UPDATE CoachComment SET status=?,editDate=? WHERE coachCommentID = ?";
 	
+	
 //	 memberID2=?
 
 	@Override
@@ -62,7 +63,6 @@ public class CoachCommentDAO implements CoachCommentDAO_interface {
 
 			pstmt.executeUpdate();
 
-			System.out.println("------------insert 成功--------");
 			// Handle any driver errors
 		}  catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
@@ -97,7 +97,6 @@ public class CoachCommentDAO implements CoachCommentDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 
-			System.out.println("=== JDBC_update start ===");
 
 			pstmt.setString(1, coachCommentVO.getMemberID());
 			pstmt.setString(2, coachCommentVO.getMemberID2());
@@ -110,7 +109,6 @@ public class CoachCommentDAO implements CoachCommentDAO_interface {
 
 			pstmt.executeUpdate();
 
-			System.out.println("=== JDBC_update success ===");
 
 			// Handle any driver errors
 		} catch (SQLException se) {
@@ -292,7 +290,7 @@ public class CoachCommentDAO implements CoachCommentDAO_interface {
 	}
 
 	@Override
-	public void update_status(CoachCommentVO coachCommentVO) {
+	public void update_status(String coachCommentID, String status, Timestamp editDate) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -300,9 +298,9 @@ public class CoachCommentDAO implements CoachCommentDAO_interface {
 
 			pstmt = con.prepareStatement(UPDATE_SATAUS);
 
-			pstmt.setString(1, coachCommentVO.getStatus());
-			pstmt.setTimestamp(2, coachCommentVO.getEditDate());
-			pstmt.setString(3, coachCommentVO.getCoachCommentID());
+			pstmt.setString(1, status);
+			pstmt.setTimestamp(2, editDate);
+			pstmt.setString(3, coachCommentID);
 
 			pstmt.executeUpdate();
 		}  catch (SQLException se) {
@@ -396,16 +394,12 @@ public class CoachCommentDAO implements CoachCommentDAO_interface {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-//		System.out.println("=== JDBC 1");
 		try {
 
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_COACH_COMMENT);
-//			System.out.println("=== JDBC 2");
 			pstmt.setString(1, memberID);
-//			System.out.println("=== JDBC 3");
 			rs = pstmt.executeQuery();
-//			System.out.println("=== JDBC 4");
 			while (rs.next()) {
 				coachCommentVO = new CoachCommentVO();
 				coachCommentVO.setCoachCommentID(rs.getString("coachCommentID"));
@@ -417,17 +411,8 @@ public class CoachCommentDAO implements CoachCommentDAO_interface {
 				coachCommentVO.setEditDate(rs.getTimestamp("editDate"));
 				coachCommentVO.setStatus(rs.getString("status"));
 				
-//				System.out.println(coachCommentVO.getCoachCommentID());
-//				System.out.println(coachCommentVO.getMemberID());
-//				System.out.println(coachCommentVO.getMemberID2());
-//				System.out.println(coachCommentVO.getCommText());
-//				System.out.println(coachCommentVO.getCommStar());
-//				System.out.println(coachCommentVO.getAddDate());
-//				System.out.println(coachCommentVO.getEditDate());
-//				System.out.println(coachCommentVO.getStatus());
 				
 				list.add(coachCommentVO); // Store the row in the list
-//				System.out.println("=== JDBC 5 list = "+list);
 			}
 
 			// Handle any driver errors
@@ -457,14 +442,13 @@ public class CoachCommentDAO implements CoachCommentDAO_interface {
 				}
 			}
 		}
+		System.out.println("list1111111111111111="+list);
 		return list;
 	}
 
 	@Override
 	public String getMemberIDFromCoachClassID(String coachClassID) {
 		
-		System.out.println("從課程編號 查詢會員編號    方法 : getMemberIDFromCoachClassID");
-		System.out.println(" 課程編號 coachClassID = "+coachClassID);
 		CoachClassVO coachClassVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -479,13 +463,12 @@ public class CoachCommentDAO implements CoachCommentDAO_interface {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				// empVo 也稱為 Domain objects
-				coachClassVO = new CoachClassVO();
-				coachClassVO.setMemberID(rs.getString("memberID"));
+				//coachClassVO = new CoachClassVO();
+				//coachClassVO.setMemberID(rs.getString("memberID"));
+				getM=rs.getString("memberID");                 
 			}
-			
 
-			System.out.println(" 教練編號 memberID = "+ coachClassVO.getMemberID());
-			getM =  coachClassVO.getMemberID();
+//			getM =  coachClassVO.getMemberID();
 
 			// Handle any driver errors
 		}  catch (SQLException se) {
@@ -520,7 +503,6 @@ public class CoachCommentDAO implements CoachCommentDAO_interface {
 	@Override
 	public List<MemberVO> getMemberCommentName(String memberID) {
 		
-		System.out.println("=== coach Comment JDBC === in === getMemberCommentName ===");
 		
 		List<MemberVO> list_MemberName = new ArrayList<MemberVO>();
 		MemberVO memberVO = null;
@@ -528,24 +510,18 @@ public class CoachCommentDAO implements CoachCommentDAO_interface {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-//		System.out.println("=== JDBC 1");
 		try {
 
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_MEMBER_NAME_FROM_MEMBERID);
-//			System.out.println("=== JDBC 2");
 			pstmt.setString(1, memberID);
-//			System.out.println("=== JDBC 3");
 			rs = pstmt.executeQuery();
-//			System.out.println("=== JDBC 4");
 			while (rs.next()) {
 				memberVO = new MemberVO();
 				memberVO.setName(rs.getString("name"));
 				
-				System.out.println("Name = "+ memberVO.getName());
 				
 				list_MemberName.add(memberVO); // Store the row in the list
-				System.out.println("=== JDBC 5 list = "+list_MemberName);
 			}
 
 			// Handle any driver errors
@@ -575,75 +551,10 @@ public class CoachCommentDAO implements CoachCommentDAO_interface {
 				}
 			}
 		}
-		System.out.println("=== coach Comment JDBC === out === getMemberCommentName ===");
 		return list_MemberName;
 	}
-		
-	
-	
-	
-	
-	
-//	public static void main(String[] args) {
-//
-//		CoachCommentJDBCDAO dao = new CoachCommentJDBCDAO();
 
-		// 新增
-//		CoachCommentVO coachCommentVO1 = new CoachCommentVO();
-//		coachCommentVO1.setMemberID("M001");
-//		coachCommentVO1.setMemberID2("M002");
-//		coachCommentVO1.setCommText("CommText");
-//		coachCommentVO1.setCommStar(new Integer(5));
-//		coachCommentVO1.setAddDate(new Timestamp(System.currentTimeMillis()));
-//		coachCommentVO1.setEditDate(new Timestamp(System.currentTimeMillis()));
-//		coachCommentVO1.setStatus("Y");
-//		dao.insert(coachCommentVO1);
 
-		// 修改
-//		CoachCommentVO coachCommentVO2 = new CoachCommentVO();
-//
-//		coachCommentVO2.setCoachCommentID("CC00003");
-//		coachCommentVO2.setMemberID("M001");
-//		coachCommentVO2.setMemberID2("M002");
-//		coachCommentVO2.setCommText("CommText999");
-//		coachCommentVO2.setCommStar(new Integer(5));
-//		coachCommentVO2.setAddDate(new Timestamp(System.currentTimeMillis()));
-//		coachCommentVO2.setEditDate(new Timestamp(System.currentTimeMillis()));
-//		coachCommentVO2.setStatus("Y");
-//
-//		dao.update(coachCommentVO2);
-
-//		// 刪除
-//		dao.delete("CC00002");
-//		System.out.println("----刪除成功-----");
-
-		// 查詢
-//		CoachCommentVO coachCommentVO3 = dao.findByPrimaryKey("CC00003");
-//		System.out.println("----------查詢-----------");
-//		System.out.print(coachCommentVO3.getCoachCommentID() + ",");
-//		System.out.print(coachCommentVO3.getMemberID() + ",");
-//		System.out.print(coachCommentVO3.getMemberID2() + ",");
-//		System.out.print(coachCommentVO3.getCommText() + ",");
-//		System.out.print(coachCommentVO3.getCommStar() + ",");
-//		System.out.print(coachCommentVO3.getAddDate() + ",");
-//		System.out.print(coachCommentVO3.getEditDate() + ",");
-//		System.out.println(coachCommentVO3.getStatus());
-//		System.out.println("---------------------");
-//
-//		// 查詢
-//		List<CoachCommentVO> list = dao.getAll();
-//		for (CoachCommentVO aEmp : list) {
-//			System.out.print(aEmp.getCoachCommentID() + ",");
-//			System.out.print(aEmp.getMemberID() + ",");
-//			System.out.print(aEmp.getMemberID2() + ",");
-//			System.out.print(aEmp.getCommText() + ",");
-//			System.out.print(aEmp.getCommStar() + ",");
-//			System.out.print(aEmp.getAddDate() + ",");
-//			System.out.print(aEmp.getEditDate() + ",");
-//			System.out.print(aEmp.getStatus() + ",");
-//			System.out.println();
-//		}
-//	}
 
 	
 }

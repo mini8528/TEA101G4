@@ -27,7 +27,6 @@ public class ShowPhoto_CartClassServlet extends HttpServlet {
 		doPost(req, res);
 	}
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		System.out.println("?²å…¥ ShowPhoto_CoachClassServlet");
 
 		res.setContentType("image/gif");
 		ServletOutputStream outpho = res.getOutputStream();
@@ -38,7 +37,6 @@ public class ShowPhoto_CartClassServlet extends HttpServlet {
 			PreparedStatement pstmt = con.prepareStatement(SHOW_PHOTO);
 			pstmt.setString(1, coachClassID);
 			ResultSet rs = pstmt.executeQuery();
-			System.out.println("?²å…¥ ShowPhoto_CoachClassServlet ??çµè?‡æ?™åº«ä¸¦æŸ¥è©? :" + coachClassID );
 			try {
 				if (rs.next()) {
 					BufferedInputStream in    = new BufferedInputStream(rs.getBinaryStream("PHOTO"));
@@ -53,9 +51,7 @@ public class ShowPhoto_CartClassServlet extends HttpServlet {
 				rs.close();
 				pstmt.close();
 				con.close();
-				System.out.println("?²å…¥ ShowPhoto_CoachClassServlet ??çµè?‡æ?™åº«ä¸¦æŸ¥è©? :" + coachClassID + "?…§???, ?Ÿ¥è©¢æ?å?Ÿé?œé?‰é??ç·?" );
 			} catch (IOException e) {
-				System.out.println("?²å…¥ ShowPhoto_CoachClassServlet ??çµè?‡æ?™åº«ä¸¦æŸ¥è©? :" + coachClassID + "?…§???, å¯«å…¥?…§??‡å¤±???, ä½¿ç”¨??è¨­?…§???" );
 				InputStream in = getServletContext().getResourceAsStream("/back-end/coachClass/images/tomcat.png");
 				byte[] b = new byte[in.available()];
 				in.read(b);
@@ -65,7 +61,6 @@ public class ShowPhoto_CartClassServlet extends HttpServlet {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
-			System.out.println("?²å…¥ ShowPhoto_CoachClassServlet ??çµè?‡æ?™åº«ä¸¦æŸ¥è©¢ç…§???, ?Ÿ¥è©¢å¤±???, ä½¿ç”¨??è¨­?…§???" );
 			InputStream in = getServletContext().getResourceAsStream("/back-end/coachClass/images/tomcat.png");
 			byte[] b = new byte[in.available()];
 			in.read(b);

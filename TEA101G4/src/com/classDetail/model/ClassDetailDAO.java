@@ -58,7 +58,6 @@ public class ClassDetailDAO implements ClassDetailDAO_interface {
 			pstmt.setInt(3, classDetailVO.getQuantity());
 			
 			pstmt.executeUpdate();
-			System.out.println("------------insert 成功--------");
 
 			// Handle any driver errors
 		}  catch (SQLException se) {
@@ -93,7 +92,6 @@ public class ClassDetailDAO implements ClassDetailDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 
-			System.out.println("------------update start--------");
 
 			pstmt.setString(1, classDetailVO.getClassOrderID());
 			pstmt.setString(2, classDetailVO.getCoachClassID());
@@ -102,7 +100,6 @@ public class ClassDetailDAO implements ClassDetailDAO_interface {
 
 			pstmt.executeUpdate();
 
-			System.out.println("------------update success--------");
 
 			// Handle any driver errors
 		}  catch (SQLException se) {
@@ -280,10 +277,7 @@ public class ClassDetailDAO implements ClassDetailDAO_interface {
 	@Override
 	public void insert2(ClassDetailVO classDetailVO, Connection con) {
 		
-		System.out.println("==================================================");
-		System.out.println("===  Class Detail JDBC  __  insert2 ================");
-		System.out.println("==================================================");
-		
+		System.out.println("insert2 ");
 		
 		PreparedStatement pstmt = null;
 		try {
@@ -292,9 +286,10 @@ public class ClassDetailDAO implements ClassDetailDAO_interface {
 			pstmt.setString(1, classDetailVO.getClassOrderID());
 			pstmt.setString(2, classDetailVO.getCoachClassID());
 			pstmt.setInt(3, classDetailVO.getQuantity());
-			
+			System.out.println("classDetailVO.getClassOrderID() ="+classDetailVO.getClassOrderID());
+			System.out.println("classDetailVO.getCoachClassID() ="+classDetailVO.getCoachClassID());
+			System.out.println("classDetailVO.getQuantity() ="+classDetailVO.getQuantity());
 			pstmt.executeUpdate();
-			System.out.println("===  Class Detail JDBC  __  insert2 ===  end  ==");
 
 			// Handle any SQL errors
 		} catch (SQLException se) {
@@ -328,9 +323,6 @@ public class ClassDetailDAO implements ClassDetailDAO_interface {
 	@Override
 	public List<ClassDetailVO> findbyFK(String classOrderID) {
 		
-		System.out.println("==================================================");
-		System.out.println("===  Class Detail JDBC  __  findbyFK ================");
-		System.out.println("==================================================");
 		
 		List<ClassDetailVO> list = new ArrayList<ClassDetailVO>();
 		ClassDetailVO classDetailVO = null;
@@ -355,15 +347,8 @@ public class ClassDetailDAO implements ClassDetailDAO_interface {
 				classDetailVO.setCoachClassID(rs.getString("coachClassID"));
 				classDetailVO.setQuantity(rs.getInt("quantity"));
 				
-				System.out.println("FK "+classOrderID+" 找到的資料");
-				System.out.println("classDetailID =" + rs.getString("classDetailID"));
-				System.out.println("classOrderID =" + rs.getString("classOrderID"));
-				System.out.println("coachClassID =" + rs.getString("coachClassID"));
-				System.out.println("quantity =" + rs.getString("quantity"));
-				System.out.println("輸入進 list"+ list);
 				
 				list.add(classDetailVO); // Store the row in the list
-				System.out.println(list);
 			}
 		} catch (SQLException e) {
 			throw new RuntimeException("A database error occured. " + e.getMessage());
@@ -390,7 +375,6 @@ public class ClassDetailDAO implements ClassDetailDAO_interface {
 				}
 			}
 		}
-		System.out.println("===  Class Detail JDBC  __  findbyFK ____ end ========");
 
 		return list;
 	}
@@ -450,56 +434,6 @@ public class ClassDetailDAO implements ClassDetailDAO_interface {
 	
 	
 	
-//	public static void main(String[] args) {
-//
-//		ClassDetailJDBCDAO dao = new ClassDetailJDBCDAO();
-
-//		查詢FK
-//		List<ClassDetailVO> a =  dao.findbyFK("CO00001");
-//		System.out.println("a = "+a);	
-//		for(ClassDetailVO test : a) {
-//			System.out.println(test.getClassDetailID());
-//			System.out.println(test.getClassOrderID());
-//			System.out.println(test.getCoachClassID());
-//			System.out.println(test.getQuantity());
-//		}
-		
-		// 新增
-//		ClassDetailVO classDetailVO1 = new ClassDetailVO();
-//		classDetailVO1.setClassOrderID("CO00002");
-//		classDetailVO1.setCoachClassID("COC00001");
-//		classDetailVO1.setQuantity(new Integer(6));
-//		dao.insert(classDetailVO1);
-
-		// 修改
-//		ClassDetailVO classDetailVO2 = new ClassDetailVO();
-//		classDetailVO2.setClassDetailID("CD00009");
-//		classDetailVO2.setClassOrderID("CO00003");
-//		classDetailVO2.setCoachClassID("COC00001");
-//		classDetailVO2.setQuantity(new Integer(6));
-//		dao.update(classDetailVO2);
-
-		// 刪除
-//		dao.delete("CD00009");
-
-		// 查詢
-//		ClassDetailVO classDetailVO3 = dao.findByPrimaryKey("CD00001");
-//		System.out.print(classDetailVO3.getClassDetailID() + ",");
-//		System.out.print(classDetailVO3.getClassOrderID() + ",");
-//		System.out.print(classDetailVO3.getCoachClassID() + ",");
-//		System.out.print(classDetailVO3.getQuantity() + ",");
-//		System.out.println("---------------------");
-
-		// 查詢
-//		List<ClassDetailVO> list = dao.getAll();
-//		for (ClassDetailVO aClassDetail : list) {
-//			System.out.print(aClassDetail.getClassDetailID() + ",");
-//			System.out.print(aClassDetail.getClassOrderID() + ",");
-//			System.out.print(aClassDetail.getCoachClassID() + ",");
-//			System.out.print(aClassDetail.getQuantity() + ",");
-//			System.out.println();
-//		}
-//	}
 
 	
 

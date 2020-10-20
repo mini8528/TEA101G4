@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>SB Admin 2 - Blank</title>
+  <title>GYMPAYZ管理員</title>
 
   <!-- Custom fonts for this template-->
   <link href="<%=request.getContextPath()%>/back-assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -31,22 +31,12 @@
       <!-- Divider -->
       <hr class="sidebar-divider my-0">
 
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item">
-        <a class="nav-link" href="<%=request.getContextPath()%>/back-end/index.jsp">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
-      </li>
+
 
       <!-- Divider -->
       <hr class="sidebar-divider">
 
-      <!-- Heading -->
-      <div class="sidebar-heading">
-        Interface
-      </div>
 
-      <!-- Nav Item - Pages Collapse Menu -->
     <!-- 管理員 -->
       
 
@@ -59,19 +49,6 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="<%=request.getContextPath()%>/back-end/adm/listAllEmp.jsp">查詢全部管理員</a>
             <a class="collapse-item" href="<%=request.getContextPath()%>/back-end/adm/addEmp.jsp">新增管理員工</a>
-          </div>
-        </div>
-      </li>
-<!--       會員管理 -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseTwo">
-          <i class="fas fa-fw fa-cog"></i>
-          <span>會員管理</span>
-        </a>
-        <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Custom Components:</h6>
-            <a class="collapse-item" href="<%=request.getContextPath()%>/back-end/member/listAllMember.jsp">管理會員</a>
           </div>
         </div>
       </li>
@@ -110,11 +87,11 @@
       <!-- =================================================================== -->
 <!--       部落格管理 -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFore" aria-expanded="true" aria-controls="collapseTwo">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapselistAllBlog" aria-expanded="true" aria-controls="collapseTwo">
           <i class="fas fa-fw fa-cog"></i>
           <span>部落格管理</span>
         </a>
-        <div id="collapseFore" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="collapselistAllBlog" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Custom Components:</h6>
             <a class="collapse-item" href="<%=request.getContextPath()%>/back-end/blog/listAllBlog_Admin.jsp">文章管理</a>
@@ -127,11 +104,11 @@
       <!-- 健身動作管理 -->
    
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFive" aria-expanded="true" aria-controls="collapseTwo">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapselistAllAction" aria-expanded="true" aria-controls="collapseTwo">
           <i class="fas fa-fw fa-cog"></i>
           <span>健身動作管理</span>
         </a>
-        <div id="collapseFive" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="collapselistAllAction" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="<%=request.getContextPath()%>/back-end/action/listAllAction.jsp">查詢全部健身動作</a>
             <a class="collapse-item" href="<%=request.getContextPath()%>/back-end/action/addAction.jsp">新增健身動作</a>
@@ -140,11 +117,11 @@
       </li>
       <!-- 課程預約管理 -->
        <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFive" aria-expanded="true" aria-controls="collapseTwo">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapselistAllCoachComment" aria-expanded="true" aria-controls="collapseTwo">
           <i class="fas fa-fw fa-cog"></i>
           <span>課程預約管理</span>
         </a>
-        <div id="collapseFive" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="collapselistAllCoachComment" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="<%=request.getContextPath()%>/back-end/coachComment/listAllCoachComment.jsp">課程留言管理</a>
             <a class="collapse-item" href="<%=request.getContextPath()%>/back-end/coachClass/listAllCoachClass.jsp">課程管理</a>
@@ -155,15 +132,14 @@
          <!-- 客服 -->
    
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFore" aria-expanded="true" aria-controls="collapseTwo">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapselistAllCus" aria-expanded="true" aria-controls="collapseTwo">
           <i class="fas fa-fw fa-cog"></i>
           <span>客服管理</span>
         </a>
-        <div id="collapseFore" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="collapselistAllCus" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Custom Components:</h6>
             <a class="collapse-item" href="<%=request.getContextPath()%>/back-end/cus/listAllCus.jsp">查詢全部管理員</a>
-            <a class="collapse-item" href="<%=request.getContextPath()%>/back-end/cus/addCus.jsp">新增客服</a>
           </div>
         </div>
       </li>
@@ -181,64 +157,7 @@
         </div>
       </li>
       
-      <!-- Nav Item - Utilities Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-          <i class="fas fa-fw fa-wrench"></i>
-          <span>Utilities</span>
-        </a>
-        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Custom Utilities:</h6>
-            <a class="collapse-item" href="utilities-color.html">Colors</a>
-            <a class="collapse-item" href="utilities-border.html">Borders</a>
-            <a class="collapse-item" href="utilities-animation.html">Animations</a>
-            <a class="collapse-item" href="utilities-other.html">Other</a>
-          </div>
-        </div>
-      </li>
 
-      <!-- Divider -->
-      <hr class="sidebar-divider">
-
-      <!-- Heading -->
-      <div class="sidebar-heading">
-        Addons
-      </div>
-
-      <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item active">
-        <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-          <i class="fas fa-fw fa-folder"></i>
-          <span>Pages</span>
-        </a>
-        <div id="collapsePages" class="collapse show" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Login Screens:</h6>
-            <a class="collapse-item" href="login.html">Login</a>
-            <a class="collapse-item" href="register.html">Register</a>
-            <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-            <div class="collapse-divider"></div>
-            <h6 class="collapse-header">Other Pages:</h6>
-            <a class="collapse-item" href="404.html">404 Page</a>
-            <a class="collapse-item active" href="blank.html">Blank Page</a>
-          </div>
-        </div>
-      </li>
-
-      <!-- Nav Item - Charts -->
-      <li class="nav-item">
-        <a class="nav-link" href="charts.html">
-          <i class="fas fa-fw fa-chart-area"></i>
-          <span>Charts</span></a>
-      </li>
-
-      <!-- Nav Item - Tables -->
-      <li class="nav-item">
-        <a class="nav-link" href="tables.html">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Tables</span></a>
-      </li>
 
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">

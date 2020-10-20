@@ -7,15 +7,16 @@ public class CartClassVO implements Serializable{
 	
 	private String memberid;
 	private String coachClassID;
-	private String className;//
-	private byte[] photo;//
-	private String memberid_Coach;//??™ç·´ 
+	private String className;
+	private byte[] photo;
+	private String memberid_Coach;
 	
 	private Timestamp startTime;
 	private Integer price;
 	private String address;
 	private Integer quantity;
 	
+	private String coachName;
 	
 	
 	public CartClassVO() {
@@ -134,6 +135,18 @@ public class CartClassVO implements Serializable{
 
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
+	}
+
+
+
+	public String getCoachName() {
+		return coachName;
+	}
+
+
+
+	public void setCoachName(String coachName) {
+		this.coachName = coachName;
 	}
 
 	

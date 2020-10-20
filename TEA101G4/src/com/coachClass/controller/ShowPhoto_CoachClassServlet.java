@@ -39,7 +39,6 @@ public class ShowPhoto_CoachClassServlet extends HttpServlet {
 	}
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		
-		System.out.println("==  顯示課程照片    ShowPhoto_CoachClassServlet =");
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -53,7 +52,6 @@ public class ShowPhoto_CoachClassServlet extends HttpServlet {
 			pstmt = con.prepareStatement(SHOW_PHOTO);
 			pstmt.setString(1, coachClassID);
 			ResultSet rs = pstmt.executeQuery();
-			System.out.println("資料庫查詢 :" + coachClassID );
 			try {
 				if (rs.next()) {
 					BufferedInputStream in    = new BufferedInputStream(rs.getBinaryStream("PHOTO"));
@@ -68,9 +66,7 @@ public class ShowPhoto_CoachClassServlet extends HttpServlet {
 				rs.close();
 				pstmt.close();
 				con.close();
-				System.out.println("資料庫查詢 :" + coachClassID + "照片, 成功" );
 			} catch (IOException e) {
-				System.out.println("資料庫查詢 :" + coachClassID + "照片, 失敗, 使用預設照片" );
 				InputStream in = getServletContext().getResourceAsStream("/back-end/coachClass/images/tomcat.png");
 				byte[] b = new byte[in.available()];
 				in.read(b);
@@ -78,7 +74,6 @@ public class ShowPhoto_CoachClassServlet extends HttpServlet {
 				in.close();
 			}
 		}  catch (SQLException e) {
-			System.out.println("資料庫查詢照片, 失敗, 使用預設照片" );
 			InputStream in = getServletContext().getResourceAsStream("/back-end/coachClass/images/tomcat.png");
 			byte[] b = new byte[in.available()];
 			in.read(b);

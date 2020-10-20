@@ -34,7 +34,7 @@
 		<url-pattern>/front-end/chat/chat.jsp</url-pattern>
 
 		<!-- <url-pattern>/front-end/blog/*</url-pattern> -->
-<!-- 		會員-建宇 -->
+		<!-- 會員-建宇 -->
 		<url-pattern>/front-end/wishList/listSomeWishList.jsp</url-pattern>
 		<url-pattern>/front-end/member/listOneMember.jsp</url-pattern>
 		<url-pattern>/front-end/member/listCoachMember.jsp</url-pattern>
@@ -50,6 +50,7 @@
 		<!-- Training-柳慧 -->
 		<url-pattern>/front-end/trainingcls/addMyCls.jsp</url-pattern>
 		<url-pattern>/front-end/trainingcls/showmycls.jsp</url-pattern>
+		<url-pattern>/front-end/traininghist/showmyhist.jsp</url-pattern>
 		<!-- 教練課程-振言 -->
 		<url-pattern>/front-end/classOrder/addClassOrder.jsp</url-pattern>
 		<url-pattern>/front-end/classOrder/listAllClassOrder.jsp</url-pattern>
@@ -59,6 +60,7 @@
 		<url-pattern>/front-end/coachClass/update_coachClass_input.jsp</url-pattern>
 		<url-pattern>/front-end/coachComment/addCoachComment.jsp</url-pattern>
 		<url-pattern>/front-end/coachComment/update_coachComment_input.jsp</url-pattern>
+		<url-pattern>/front-end/cartClass/*</url-pattern>
 
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>

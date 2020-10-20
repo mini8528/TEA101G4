@@ -214,7 +214,7 @@ public class CusServlet  extends HttpServlet{
 				/***************************1a.會員編號**********************/
 				System.out.println("yaaa2");
 //				String memberid = req.getParameter("memberid");
-				String memberReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
+				String memberReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{1,300}$";
 
 				/***************************1b.管理員編號**********************/
 //				System.out.println("yaaa3");
@@ -326,8 +326,8 @@ public class CusServlet  extends HttpServlet{
 				/***************************1a.會員編號**********************/
 				System.out.println("yaaa2");
 				String memberid = req.getParameter("memberid");
-				String memberReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
-				String memtest = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{0,40}$";
+				String memberReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{1,300}$";
+//				String memtest = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{0,40}$";
 //				if (memberid == null || memberid.trim().length() == 0) {
 //					errorMsgs.add("會員編號: 請勿空白");
 //				} else if(!memberid.trim().matches(memberReg)) { //以下練習正則(規)表示式(regular-expression)
@@ -368,7 +368,7 @@ public class CusServlet  extends HttpServlet{
 				if (problemtext == null || problemtext.trim().length() == 0 ) {
 					errorMsgs.add("問題描述請勿空白");
 				}else if(!problemtext.trim().matches(memberReg)) { //以下練習正則(規)表示式(regular-expression)
-					errorMsgs.add("問題描述只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
+					errorMsgs.add("問題描述只能是中、英文字母、數字和_ , 且長度必需在1到300s之間");
 	            }
 				/***************************1d.客訴日期**********************/
 				System.out.println("yaaa7");

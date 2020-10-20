@@ -5,7 +5,7 @@
 <%
 	CoachCommentVO coachCommentVO = (CoachCommentVO) request.getAttribute("coachCommentVO"); //CoachCommentServlet.java (Concroller) 存入req的coachCommentVO物件 (包括幫忙取出的coachCommentVO, 也包括輸入資料錯誤時的coachCommentVO物件)
 %>
-
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
