@@ -135,7 +135,7 @@ public class TrainingScheServlet extends HttpServlet {
 //			List<TrainingHistVO> thList = (List<TrainingHistVO>) session.getAttribute("thList");
 			TrainingHistService thSvc = new TrainingHistService();
 			String trainingscheid = req.getParameter("trainingscheid");
-			
+			List<TrainingHistVO> resultList = new ArrayList();
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			System.out.println("開始UPDATE");
@@ -149,6 +149,11 @@ public class TrainingScheServlet extends HttpServlet {
 //用traininghistid來判斷迴圈要跑幾次(選幾個健身動作跑幾次)				
 				for (int i = 0; i < traininghistid.length; i++){				
 					thSvc.updatehistTrainingHist(Integer.parseInt(trainingset[i]), Integer.parseInt(trainingrep[i]), Integer.parseInt(trainingwt[i]), traininghistid[i]);
+					System.out.println("A............. " + Integer.parseInt(trainingset[i]));
+					System.out.println("B............. " + Integer.parseInt(trainingrep[i]));
+					System.out.println("C............. " + traininghistid[i]);
+					TrainingHistVO tempVO = thSvc.getOneTrainingHist(traininghistid[i]);
+					resultList.add(tempVO);
 				}
 
 				java.sql.Timestamp endtime = new java.sql.Timestamp(System.currentTimeMillis());
@@ -169,8 +174,13 @@ public class TrainingScheServlet extends HttpServlet {
 				/*************************** 2.開始修改資料 *****************************************/
 				TrainingScheService tsSvc = new TrainingScheService();
 				tsVO = tsSvc.updateenddtimeTrainingSche(endtime, trainingscheid);
+				req.setAttribute("endtime", endtime);
+				ActionService actionSvc = new ActionService();
+				Map<String, ActionVO> actionMap = actionSvc.getActionMap();
+				req.setAttribute("actionMap", actionMap);
 				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 				req.setAttribute("tsVO", tsVO);
+				req.setAttribute("thlist", resultList);
 				String url = "/front-end/traininghist/Finishedworkout.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);

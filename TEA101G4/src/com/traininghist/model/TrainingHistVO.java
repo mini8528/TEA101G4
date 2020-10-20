@@ -7,6 +7,7 @@ public class TrainingHistVO implements java.io.Serializable {
 	private String memberid;
 	private String trainingscheid;
 	private String actionid;
+	private String actionnm;
 	private Integer trainingtime;
 	private Integer trainingset;
 	private Integer trainingrep;
@@ -65,8 +66,13 @@ public class TrainingHistVO implements java.io.Serializable {
 	public void setTrainingwt(Integer trainingwt) {
 		this.trainingwt = trainingwt;
 	}
-
+	public String getActionnm() {
+		return actionnm;
 	}
+	public void setActionnm(String actionnm) {
+		this.actionnm = actionnm;
+	}
+}
 
 	
 

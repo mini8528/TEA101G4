@@ -1,3 +1,4 @@
+<%@page import="com.trainingsche.model.TrainingScheVO"%>
 <%@page import="com.traininghist.model.TrainingHistVO"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -6,6 +7,8 @@
 <%@ page import="com.member.model.*"%>
 <%@ page import="com.trainingclsdetail.model.*"%>
 <%@ page import="com.traininghist.model.*"%>
+<%@ page import="com.trainingsche.model.*"%>
+
 
 
 <%
@@ -16,22 +19,27 @@ TrainingClsService tcSvc = new TrainingClsService();
 
 String memberid = new String(userVO.getMemberid());
 TrainingHistService thSvc = new TrainingHistService();
-List<TrainingHistVO> list = thSvc.select(memberid);
-System.out.println("MEMBERid="+memberid);
-System.out.println("list="+list);
-pageContext.setAttribute("list", list);
+ TrainingHistVO thVO = (TrainingHistVO)request.getAttribute("thVO");
+// TrainingScheService tsSvc = new TrainingScheService();
+// TrainingScheVO tsVO = (TrainingScheVO)request.getAttribute("tsVO");
+
+
+
+ List<TrainingHistVO> list = thSvc.SELECT_BY_MEMBERID(memberid);
+ pageContext.setAttribute("list", list);
 TrainingClsDetailService tcsSvc = new TrainingClsDetailService();
 TrainingClsDetailVO tcdVO = (TrainingClsDetailVO)request.getAttribute("tcdVO");
 %>
 <jsp:useBean id="actionSvc" scope="page" class="com.action.model.ActionService" />
+<jsp:useBean id="tsSvc" scope="page" class="com.trainingsche.model.TrainingScheService" />
 
 <html>
 <head>
-<title>會員的所有訓練hist</title>
+
 
 <style>
   table#table-1 {
-	background-color: #CCCCFF;
+	background-color: #ADADAD;
     border: 2px solid black;
     text-align: center;
   }
@@ -48,13 +56,13 @@ TrainingClsDetailVO tcdVO = (TrainingClsDetailVO)request.getAttribute("tcdVO");
 
 <style>
   table {
-	width: 800px;
+	width: 500px;
 	background-color: white;
 	margin-top: 5px;
 	margin-bottom: 5px;
   }
   table, th, td {
-    border: 1px solid #CCCCFF;
+    border: 1px solid #ADADAD;
   }
   th, td {
     padding: 5px;
@@ -106,26 +114,34 @@ TrainingClsDetailVO tcdVO = (TrainingClsDetailVO)request.getAttribute("tcdVO");
                 <div class="col-md-6 my-4">
                   <div class="card shadow" style="width:600px">
                     <div class="card-body" style="width:600px">
+                    
                       <table class="table table-hover" style="width:500px">
-                        <thead>
                           <tr>
                                 <th>訓練動作名稱 </th>
                             	<th>訓練運動組數</th>
 		               			<th>訓練運動次數</th>
 								<th>訓練運動重量</th>
+								<th>訓練時間</th>
                           </tr>
-                        </thead>
-                        <c:forEach var = "thVO" items = "${list}" >
-                        <tbody>
-                          <tr>
-                            <td>${actionMap.get(thVO.actionid).actionnm} </td>
-                            <td>${thVO.trainingset}</td> 
-			                <td>${thVO.trainingrep}</td>
-			                <td>${thVO.trainingwt}</td>
-                          </tr>
-                          </c:forEach>
-                        </tbody>
+                 <%@ include file="frontendpage1.file" %> 
+		         <c:forEach var="thVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+                               <tr>
+                                  <td>${thVO.actionnm}</td>
+                                  <td>${thVO.trainingset}</td> 
+			                      <td>${thVO.trainingrep}</td>
+			                      <td>${thVO.trainingwt}</td>
+			                      <td>${tsSvc.getOneTrainingSche(thVO.trainingscheid).endtime}</td>
+                               </tr>
+<!-- 	    <tr> -->
+<%-- 		<td>${actionSvc.getOneAction(traininghistVO.actionid).actionnm}</td> --%>
+<%-- 			<td>${traininghistVO.trainingset}</td>  --%>
+<%-- 			<td>${traininghistVO.trainingrep}</td> --%>
+<%-- 			<td>${traininghistVO.trainingwt}</td> --%>
+<%-- 			<td>${tsSvc.getOneTrainingSche(thVO.trainingscheid).endtime}</td> --%>
+<!-- 		</tr> -->
+                            </c:forEach>
                       </table>
+                      <%@ include file="frontendpage2.file" %>
                    </div>
                   </div>
                  </div>
@@ -145,34 +161,6 @@ TrainingClsDetailVO tcdVO = (TrainingClsDetailVO)request.getAttribute("tcdVO");
 		</c:forEach>
 	</ul>
 </c:if>
-
-     
-
-<!-- <table> -->
-<!-- 	<tr> -->
-
-<!-- 		<th>訓練動作名稱</th> -->
-<!-- 		<th>訓練時間</th> -->
-<!-- 		<th>訓練運動組數</th> -->
-<!-- 		<th>訓練運動次數</th> -->
-<!-- 		<th>訓練運動重量</th> -->
-<!-- 	</tr> -->
-<%-- 	<c:forEach var="thVO" items="${list}"> --%>
-
-<!-- 		<tr> -->
-
-
-<%-- 			<td>${actionSvc.getOneAction(traininghistVO.actionid).actionnm}</td> --%>
-<%-- 			<td>${thVO.trainingtime}</td> --%>
-<%-- 			<td>${thVO.trainingset}</td>  --%>
-<%-- 			<td>${thVO.trainingrep}</td> --%>
-<%-- 			<td>${thVO.trainingwt}</td> --%>
-
-<!-- 		</tr> -->
-<%-- 	</c:forEach> --%>
-<!-- </table> -->
-
-          
 
 <jsp:include page="/front-end/footer.jsp" flush="true" />
 </body>

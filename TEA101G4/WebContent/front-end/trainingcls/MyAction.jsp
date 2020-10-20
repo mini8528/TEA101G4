@@ -15,30 +15,22 @@
 	pageContext.setAttribute("actSvc", actionSvc);
 
 	TrainingClsService tcSvc = new TrainingClsService();
-	// TrainingClsVO tcVO = (TrainingClsVO)request.getAttribute("tcVO");
 	String memberid = new String(userVO.getMemberid());
 	List<TrainingClsVO> list = tcSvc.getSomeByMemberid(memberid);
-	// OrdermasterService ordermasterSvc = new OrdermasterService();
-
 	TrainingClsDetailService tcsSvc = new TrainingClsDetailService();
 	TrainingClsDetailVO tcdVO = (TrainingClsDetailVO) request.getAttribute("tcdVO");
 
-	///////
 	List<TrainingClsDetailVO> listActions3 = (List<TrainingClsDetailVO>) session.getAttribute("listAction3");
-	///////
 %>
 
-<!DOCTYPE html>
+
 <html lang="en">
 
 <head>
 
-
-
-
 <style>
 table#table-1 {
-	background-color: #CCCCFF;
+	background-color: #ADADAD;
 	border: 2px solid black;
 	text-align: center;
 }
@@ -64,12 +56,21 @@ table {
 }
 
 table, th, td {
-	border: 1px solid #CCCCFF;
+	border: 1px solid #ADADAD;
 }
 
 th, td {
 	padding: 5px;
 	text-align: center;
+}
+div.the_relative{
+/*   border:1px solid red; */
+
+  position: relative;
+  
+  top: 50px;
+  left:80px;
+  
 }
 </style>
 
@@ -79,7 +80,28 @@ th, td {
 	<jsp:include page="/front-end/header.jsp" flush="true" />
 
 
+    <section class="ftco-section ftco-no-pb ftco-no-pt ftco-program bg-light" id="programs-section">
+      <div class="container">
+        <div class="row no-gutters">
+          <div class="col-md-4 ftco-animate py-5 nav-link-wrap js-fullheight">
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+              <a class="nav-link px-4" id="v-pills-1-tab"  href="${pageContext.request.contextPath}/front-end/trainingcls/addMyCls.jsp"role="button" aria-controls="v-pills-1" aria-selected="true"><span class="mr-3 flaticon-gym"></span>健身訓練計畫</a>
 
+              <a class="nav-link px-4" id="v-pills-2-tab"  href="${pageContext.request.contextPath}/front-end/action/listAllAction.jsp" role="tab" aria-controls="v-pills-2" aria-selected="false"><span class="mr-3 flaticon-body"></span>健身訓練運動</a>
+
+              <a class="nav-link px-4" id="v-pills-3-tab"  href="${pageContext.request.contextPath}/front-end/trainingcls/showmycls.jsp" role="tab" aria-controls="v-pills-3" aria-selected="false"><span class="mr-3 flaticon-woman"></span>我的健身課表</a>
+
+              <a class="nav-link px-4" id="v-pills-4-tab"  href="${pageContext.request.contextPath}/front-end/traininghist/showmyhist.jsp" role="tab" aria-controls="v-pills-4" aria-selected="false"><span class="mr-3 flaticon-abs"></span>我的健身紀錄</a>
+
+              <a class="nav-link px-4" id="v-pills-5-tab" data-toggle="pill" href="#v-pills-5" role="tab" aria-controls="v-pills-5" aria-selected="false"><span class="mr-3 flaticon-running"></span> </a>
+
+              <a class="nav-link px-4" id="v-pills-6-tab" data-toggle="pill" href="#v-pills-6" role="tab" aria-controls="v-pills-6" aria-selected="false"><span class="mr-3 flaticon-meditation"></span></a>
+
+              <a class="nav-link px-4" id="v-pills-7-tab" data-toggle="pill" href="#v-pills-7" role="tab" aria-controls="v-pills-7" aria-selected="false"><span class="mr-3 flaticon-aerobic"></span></a>
+
+            	<a class="nav-link px-4" id="v-pills-08-tab" data-toggle="pill" href="#v-pills-08" role="tab" aria-controls="v-pills-08" aria-selected="false"><span class="mr-3 flaticon-gym"></span> </a>
+            </div>
+          </div>
 	<%-- 錯誤表列 --%>
 	<c:if test="${not empty errorMsgs}">
 		<font style="color: red">請修正以下錯誤:</font>
@@ -89,36 +111,41 @@ th, td {
 			</c:forEach>
 		</ul>
 	</c:if>
-	
-
-	<h3>課程名稱: ${tcVO.trainingclsnm}</h3>
-	<table>
-		<tr>
-			<th>健身訓練動作</th>
-
-		</tr>
+	<div>
+			<div class="the_relative">
+			<h3>課程名稱: ${tcVO.trainingclsnm}</h3>
+			<table style="width:380px">
+				<tr>
+					<th>健身訓練動作 </th>
+				</tr>
+				<c:forEach var="tcdVO" items="${listActions3}">
+				<tr>	
+						<td>${tcdVO.actionidnm } </td>
+				</tr>	
+				</c:forEach>
+				
+			</table>
+			
 		
-          
-		<c:forEach var="tcdVO" items="${listActions3}">
-		<tr>	
-				<td>${tcdVO.actionidnm }</td>
-		</tr>	
-		</c:forEach>
-		
-	</table>
+			<FORM METHOD="post" 
+				ACTION="<%=request.getContextPath()%>/trainingsche/TrainingScheServlet"
+				style="margin-bottom: 0px;">
+				<input type="hidden" name="actionid" value="${actionVO.actionnm}">
+				<input type="hidden" name="trainingclsid" value="${clsVO.trainingclsid}"> 
+				<input type="hidden" name="memberid" value="${clsVO.memberid}"> 
+				<input type="hidden" name="action" value="insert"> 
+				<input type="submit" value="開始運動" >
+			</FORM>
+	   </div>
+	   </div>
 
-	<FORM METHOD="post"
-		ACTION="<%=request.getContextPath()%>/trainingsche/TrainingScheServlet"
-		style="margin-bottom: 0px;">
-		<input type="hidden" name="actionid" value="${actionVO.actionnm}">
-		<input type="hidden" name="trainingclsid" value="${clsVO.trainingclsid}"> 
-		<input type="hidden" name="memberid" value="${clsVO.memberid}"> 
-		<input type="hidden" name="action" value="insert"> 
-		<input type="submit" value="開始運動" >
-	</FORM>
-
-</div>
-</div>
+				</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
 	<jsp:include page="/front-end/footer.jsp" flush="true" />
 </body>

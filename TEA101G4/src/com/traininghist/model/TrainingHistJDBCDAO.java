@@ -25,7 +25,11 @@ public class TrainingHistJDBCDAO implements TrainingHistDAOIntf {
 	private static final String GET_ONE_STMT = "SELECT traininghistid,memberid,trainingScheid,actionid,trainingtime,trainingSet,trainingRep,trainingWt FROM traininghist where traininghistid = ?";
 	private static final String DELETE = "DELETE FROM traininghist where traininghistid= ?";
 	private static final String UPDATE = "UPDATE traininghist set memberid=?, trainingScheid=?, actionid=?, trainingtime=?, trainingSet=?,trainingRep=?, trainingWt=? where traininghistid = ?";
-	private static final String SELECT_BY_MEMBERID = "SELECT traininghistid,memberid,trainingScheid,actionid,trainingtime,trainingSet,trainingRep,trainingWt FROM traininghist where memberid = ?";
+	private static final String SELECT_BY_MEMBERID = "SELECT traininghistid,memberid,trainingScheid,traininghist.actionid,actionnm,trainingtime,trainingSet,trainingRep,trainingWt" +  
+			" FROM traininghist" + 
+			" left join action on action.actionid = traininghist.actionid" + 
+			" where memberid = ?";
+		
 	private static final String UPDATEHIST = "UPDATE traininghist set trainingSet=?,trainingRep=?, trainingWt=? where traininghistid = ?";
 
 	public String insert(TrainingHistVO trainingHistVO) {
@@ -349,6 +353,7 @@ public class TrainingHistJDBCDAO implements TrainingHistDAOIntf {
 				trainingHistVO.setMemberid(rs.getString("memberid"));
 				trainingHistVO.setTrainingscheid(rs.getString("trainingscheid"));
 				trainingHistVO.setActionid(rs.getString("actionid"));
+				trainingHistVO.setActionnm(rs.getString("actionnm"));
 				trainingHistVO.setTrainingtime(rs.getInt("trainingtime"));
 				trainingHistVO.setTrainingset(rs.getInt("trainingset"));
 				trainingHistVO.setTrainingrep(rs.getInt("trainingrep"));

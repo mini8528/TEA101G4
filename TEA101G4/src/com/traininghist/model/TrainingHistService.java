@@ -71,7 +71,7 @@ public class TrainingHistService {
 		return JDBCdao.getAll();
 	}
 
-	public List<TrainingHistVO> select(String memberid) {
+	public List<TrainingHistVO> SELECT_BY_MEMBERID(String memberid) {
 		return JDBCdao.select(memberid);
 	}
 

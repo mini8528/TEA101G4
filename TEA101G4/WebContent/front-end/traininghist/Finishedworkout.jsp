@@ -14,7 +14,8 @@
 	pageContext.setAttribute("userVO", userVO);
 
 	ActionService actionSvc = new ActionService();
-	pageContext.setAttribute("actSvc", actionSvc);
+	List<ActionVO> listAction = actionSvc.getAll();
+	pageContext.setAttribute("listAction",listAction);
 
 	TrainingClsService tcSvc = new TrainingClsService();
 	String memberid = new String(userVO.getMemberid());
@@ -22,14 +23,12 @@
 
 	TrainingClsDetailService tcsSvc = new TrainingClsDetailService();
 	TrainingClsDetailVO tcdVO = (TrainingClsDetailVO) request.getAttribute("tcdVO");
-	TrainingScheService tsSvc = new TrainingScheService();
-	TrainingScheVO tsVO = (TrainingScheVO) request.getAttribute("tsVO");
+// 	TrainingScheService tsSvc = new TrainingScheService();
+// 	TrainingScheVO tsVO = (TrainingScheVO) request.getAttribute("tsVO");
 	TrainingHistService thSvc = new TrainingHistService();
 	TrainingHistVO thVO = (TrainingHistVO) request.getAttribute("thVO");
-
-	///////
 	List<TrainingClsDetailVO> listActions3 = (List<TrainingClsDetailVO>) session.getAttribute("listAction3");
-	///////
+	
 %>    
     
     
@@ -56,7 +55,7 @@
 
 <style>
   table {
-	width: 800px;
+	width: 500px;
 	background-color: white;
 	margin-top: 5px;
 	margin-bottom: 5px;
@@ -67,7 +66,18 @@
   th, td {
     padding: 5px;
     text-align: center;
+    
   }
+ h3.the_relative{
+  
+
+  position: relative;
+   top: 20px; 
+  
+  bottom: 30px;
+  left: 100px;
+}
+
   
 </style>
 <meta charset="UTF-8">
@@ -88,44 +98,41 @@
   </div>
   
   <div class="col-sm-6 col-xs-12">
-				<div class="">
-          <div class="section-title mb-4">
+		<div class="">
+           <div class="section-title mb-4">
            <div class="section-title justify-content-center mb-4 mb-md-8 wow fadeInUp">
-       <span class="shape shape-left bg-info"></span>
-         <h1 class="text-danger">Complete WorkOut</h1>
-       <span class="shape shape-right bg-info"></span>
-  </div>
-
-          </div>
-  </div>
-  <p class="text-dark font-size-15 mb-4">恭喜你!完成了個人化健身課表，為了維持更好的體態，別忘了每周回來紀錄您的健身歷程</p>
+       <h3 class="the_relative">  <h1 class="text-danger">Complete WorkOut</h1> </h3>
+    	   </div>
+           </div>
+       </div>
+          <p class="text-dark font-size-15 mb-4">恭喜你!完成了個人化健身課表，為了維持更好的體態，別忘了每周回來紀錄您的健身歷程</p>
           <p class="text-danger font-size-15 mb-4">Gympayz 隨時掌握您的體態紀錄，讓您傭有更好的身材</p>
+		<div class="the_relative">
+			<h2>${tcVO.trainingclsnm}</h2>
+			<table >
+<!-- 想問問題 1.從上頁資料導入到這一個網頁 -->
+			 	<th>健身動作</th>
+			 	<th>組數</th>
+			 	<th>次數</th>
+			 	<th>重量</th>
+	
+	       <c:forEach var="thVO" items="${thlist}">
+	          <tr>
+			    <td >${actionMap.get(thVO.actionid).actionnm}</td>
+	            <td >${thVO.trainingset}</td>
+	            <td >${thVO.trainingrep}</td>
+	            <td >${thVO.trainingwt}</td>
+	         </tr>
+		   </c:forEach>
 
-          <ul class="list-unstyled mb-5">
-            <li class="d-flex align-items-baseline text-muted mb-2">
-							<i class="fa fa-check mr-2" aria-hidden="true"></i>
-							提供最專業的教學
-						</li>
-            <li class="d-flex align-items-baseline text-muted mb-2">
-							<i class="fa fa-check mr-2" aria-hidden="true"></i>
-							提供各式健身影片
-						</li>
-            <li class="d-flex align-items-baseline text-muted mb-2">
-							<i class="fa fa-check mr-2" aria-hidden="true"></i>
-							最準確掌握您的健身紀錄
-            </li>
-            <li class="d-flex align-items-baseline text-muted mb-2">
-              <i class="fa fa-check mr-2" aria-hidden="true"></i>
-                                                                          個人化課表設計
-            </li>
-            <li class="d-flex align-items-baseline text-muted mb-2">
-              <i class="fa fa-check mr-2" aria-hidden="true"></i>
-                                                                       全方位訓練身體各部位肌群
-            </li>
-          </ul>
-        </div>
+		</table>
+
 			</div>
-		</div>
+		 </div>
+	    </div>
+	   </div>
+     </div>
+    </div>
  
  <jsp:include page="/front-end/footer.jsp" flush="true" />
 

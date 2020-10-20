@@ -51,7 +51,7 @@
 
 <style>
   table#table-1 {
-	background-color: #CCCCFF;
+	background-color: #ADADAD;
     border: 2px solid black;
     text-align: center;
   }
@@ -85,7 +85,7 @@
 	margin-bottom: 5px;
   }
   table, th, td {
-    border: 1px solid #CCCCFF;
+    border: 1px solid #ADADAD;
   }
   th, td {
     padding: 5px;

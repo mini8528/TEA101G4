@@ -20,10 +20,8 @@ for(ActionVO tempVO: list) {
 	sb.append("data:video/mp4;base64,");
 	sb.append(StringUtils.newStringUtf8(Base64.encodeBase64(v_byte, false)));
 	String videoUrl = sb.toString();
-//		System.out.println("QQQQQQ "+tempVO.getActionid());
 	tempVO.setVideoBase64Url(videoUrl);
 }
-// System.out.println("list...."+list.size());
 pageContext.setAttribute("listxx",list);
 
 	MemberVO userVO = (MemberVO) session.getAttribute("userVO");
@@ -46,11 +44,11 @@ pageContext.setAttribute("listxx",list);
 <html>
 <head>
 <style>
-table#table-1 {
-	background-color: #CCCCFF;
-	border: 2px solid black;
-	text-align: center;
-}
+/* table#table-1 { */
+/* 	background-color: #CCCCFF; */
+/* 	border: 2px solid black; */
+/* 	text-align: center; */
+/* } */
 
 
 form{
@@ -66,17 +64,17 @@ form{
 <style>
 table {
 	width: 400px;
-	background-color: white;
+/* 	background-color: white; */
 	margin-top: 5px;
 	margin-bottom: 5px;
 }
 
 table, th, td {
-	border: 1px solid #CCCCFF;
+/*  	border: 1px solid #CCCCFF;  */
 }
 
 th, td {
-   border:1px solid #CCCCFF; 
+/*     border:1px solid #CCCCFF;   */
 	padding: 5px;
 	text-align: center;
 }
@@ -122,14 +120,13 @@ th, td {
           </div>
 
 <form></form>
-	<FORM  METHOD="post" 
-		ACTION="<%=request.getContextPath()%>/trainingsche/TrainingScheServlet"
-		style="margin-bottom: 0px;">
-		<%-- 			<input type="hidden" name="trainingscheid"  value="${tsVO.trainingscheid}"> --%>
-		<input type="hidden" name="trainingclsid" value="${tcVO.trainingclsid}"> 
-		<input type="hidden" name="action" value="mytraininghist"> 
-		<input type="submit" value="開始運動">
-	</FORM>
+<!-- 	<FORM  METHOD="post"  -->
+<%-- 		ACTION="<%=request.getContextPath()%>/trainingsche/TrainingScheServlet" --%>
+<!-- 		style="margin-bottom: 0px;"> -->
+<%-- 		<input type="hidden" name="trainingclsid" value="${tcVO.trainingclsid}">  --%>
+<!-- 		<input type="hidden" name="action" value="mytraininghist">  -->
+<!-- 		<input type="submit" value="開始運動"> -->
+<!-- 	</FORM> -->
 	
 
     <FORM METHOD="post"
@@ -145,7 +142,7 @@ th, td {
 		
 				   <tr> 
 				      <td>
-							<video id="addVideo" controls autoplay width="320" height="240">
+							<video id="addVideo" controls autoplay width="320" height="240" muted>
 				               <source src="${actionVOxx.videoBase64Url}"/>
 				            </video>
 					  </td>
@@ -194,16 +191,7 @@ th, td {
               </div>
          </div>
     </section>
-	
 
-	<!-- <input type="hidden" name="action" value="mytraininghist"> -->
-	<!-- <input type="submit" value="送出新增"></FORM> -->
-
-	<%--         <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/trainingsche/TrainingScheServlet" style="margin-bottom: 0px;"> --%>
-	<%-- 			<input type="hidden" name="trainingscheid"  value="${tsVO.trainingscheid}"> --%>
-	<!-- 			<input type="hidden" name="action"	value="insert"> -->
-	<!--   	    	<input type="submit" value="運動結束"> -->
-	<!--   	    </FORM> -->
 
 
 	<jsp:include page="/front-end/footer.jsp" flush="true" />
