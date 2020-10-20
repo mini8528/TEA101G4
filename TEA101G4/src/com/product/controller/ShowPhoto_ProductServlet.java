@@ -1,82 +1,95 @@
 package com.product.controller;
 
-import java.io.*;
-import java.sql.*;
-
-import javax.naming.Context;
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
-import javax.sql.DataSource;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/back-end/product/productshow.do")
 public class ShowPhoto_ProductServlet extends HttpServlet {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 696609752947444363L;
+	
+	private static final String driver = "oracle.jdbc.driver.OracleDriver";
+	private static final String url = "jdbc:oracle:thin:@localhost:1521:XE";
+	private static final String userid = "TEA101G4";
+	private static final String passwd = "123456";
 	private static final String SHOW_PHOTO = "SELECT PHOTO1 FROM PRODUCT WHERE PRODUCTID = ?";
 
-	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		doPost(req, res);
-	}
-
-	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+	Connection con = null;
+	public void doGet(HttpServletRequest req, HttpServletResponse res)
+			throws ServletException, IOException {
 
 		res.setContentType("image/gif");
-		ServletOutputStream outpho = res.getOutputStream();
+		ServletOutputStream out = res.getOutputStream();
+
 		try {
-			Context ctx = new javax.naming.InitialContext();
-			DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TEA101G4");
+			PreparedStatement pstmt = con.prepareStatement(SHOW_PHOTO);
+			String productid = new String(req.getParameter("productid").trim());
+			pstmt.setString(1, productid);
+			ResultSet rs = pstmt.executeQuery();
 
-			if (ds != null) {
-
-				Connection con = ds.getConnection();
-				String productid = new String(req.getParameter("productid").trim());
-				PreparedStatement pstmt = con.prepareStatement(SHOW_PHOTO);
-				pstmt.setString(1, productid);
-				ResultSet rs = pstmt.executeQuery();
-				try {
-					if (rs.next()) {
-						if (rs.getBlob("PHOTO1") == null) {
-							InputStream in = getServletContext()
-									.getResourceAsStream("/back-end/product/images/non_default.png");
-							byte[] b = new byte[in.available()];
-							in.read(b);
-							outpho.write(b);
-							in.close();
-						} else {
-							BufferedInputStream in = new BufferedInputStream(rs.getBinaryStream("PHOTO1"));
-							byte[] buf = new byte[4 * 1024];
-							int len;
-							while ((len = in.read(buf)) != -1) {
-								outpho.write(buf, 0, len);
-							}
-							in.close();
-						}
-					} else {
-						System.out.println("1run here:--rs.next()_else--");
-						res.sendError(HttpServletResponse.SC_NOT_FOUND);
-					}
-					rs.close();
-					pstmt.close();
-					if (con != null)
-						con.close();
-				} catch (Exception e) {
-//				e.printStackTrace();
-					System.out.println("1.1run here:--IOException--");
-					InputStream in = getServletContext()
-							.getResourceAsStream("/back-end/product/images/non_default.png");
+			if (rs.next()) {
+				if (rs.getBlob("PHOTO1") == null) {
+//					System.out.println("PHOTO1=null");
+					InputStream in = getServletContext().getResourceAsStream("/images/non_default.png");
 					byte[] b = new byte[in.available()];
 					in.read(b);
-					outpho.write(b);
+					out.write(b);
 					in.close();
+				}else {
+					BufferedInputStream in = new BufferedInputStream(rs.getBinaryStream("PHOTO1"));
+					byte[] buf = new byte[8 * 1024]; // 4K buffer
+					int len;
+					while ((len = in.read(buf)) != -1) {
+						out.write(buf, 0, len);
+					}
+					in.close();
+					
 				}
+			} else {
+				res.sendError(HttpServletResponse.SC_NOT_FOUND);
+				
 			}
+			rs.close();
+			pstmt.close();
+//			con.close();
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println(e);
+			System.out.println(req.getParameter("productid").trim());
+			InputStream in = getServletContext().getResourceAsStream("/images/non_default.png");
+			byte[] b = new byte[in.available()];
+			in.read(b);
+			out.write(b);
+			in.close();
 		}
 	}
+
+	public void init() throws ServletException {
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+		} catch (ClassNotFoundException e1) {
+			e1.printStackTrace();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+	}
+
+	public void destroy() {
+		try {
+			if (con != null) con.close();
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
+	}
+
 }

@@ -9,6 +9,7 @@ MemberVO userVO= (MemberVO) session.getAttribute("userVO");
 if(userVO!=null){System.out.println("（Cart.jsp）當前會員= "+userVO.getMemberid());};
 pageContext.setAttribute("userVO", userVO);
 String memberid = new String(userVO.getMemberid());
+
 	OrdermasterService ordermasterSvc = new OrdermasterService();
 	List<OrdermasterVO> list = ordermasterSvc.getOrderByMemberid(memberid);
 	System.out.println("符合的Ordermaster共：" + list.size());
@@ -84,86 +85,21 @@ String memberid = new String(userVO.getMemberid());
 <!--  -->		
 		<td>
 			<FORM METHOD = "post" ACTION = "<%=request.getContextPath()%>/back-end/orderdetail/orderdetail.do" style = "margin-bottom: 0px;">
-				<input type = "submit" value = "View" class="btn-dark mb-2">
 				<input type = "hidden" name = "ordermasterid" value = "${ordermasterVO.ordermasterid}">
 				<input type = "hidden" name = "payment" value = "${ordermasterVO.payment}">
 				<input type = "hidden" name = "paycode" value = "${ordermasterVO.paycode}">
 				<input type = "hidden" name = "paystatus" value = "${ordermasterVO.paystatus}">
 				<input type = "hidden" name = "address" value = "${ordermasterVO.address}">
 				<input type = "hidden" name = "action" value = "getOneList_ordermasterid">
+				<input type = "submit" value = "View" class="btn-dark mb-2">
 			</FORM>
 		</td>
 <!--  -->	
 	</tr>
 </c:forEach>
-			<!-- <tr>
-				<td class="py-5 align-middle text-muted font-weight-medium">9.00 - 10.00 AM</td>
-				<td class="py-5 text-muted">
-					<span class="text-success d-block font-weight-bold font-size-18 mb-2 ">History</span>
-					School History
-				</td>
-				<td class="py-5 text-muted">
-					<span class="text-danger d-block font-weight-bold font-size-18 mb-2">Math</span>
-					Larning Numbers
-				</td>
-				<td class="py-5 text-muted">
-					<span class="text-info d-block font-weight-bold font-size-18 mb-2 ">Geography</span>
-					Making a Map
-				</td>
-				<td class="py-5 text-muted">
-					<span class="text-purple d-block font-weight-bold font-size-18 mb-2">English</span>
-					Speaking English
-				</td>
-				<td class="py-5 text-muted">
-					<span class="text-pink d-block font-weight-bold font-size-18 mb-2">Art</span>
-					Art
-				</td>
-			</tr> -->
 		</tbody>
 	</table>
 </div>
-	<%-- <table>
-	<tr>
-		<th>訂單編號</th>
-		<!-- <th>會員編號</th> -->
-		<th>付款方式</th>
-		<th>付款狀態</th>
-		<th>下單日期</th>
-		<th>付款期限</th>
-		<th>超商付款代碼</th>
-		<th>收貨人</th>
-		<th>收貨人電話</th>
-		<th>收貨地址</th>
-		<th>訂單狀態</th>
-		<th>查看明細</th>
-	</tr>
-<c:forEach var = "ordermasterVO" items = "${list}">
-	<tr>
-		<td>${ordermasterVO.ordermasterid}</td>
-		<td>${ordermasterVO.memberid}</td>
-		<td>${ordermasterVO.payment}</td>
-		<td>${ordermasterVO.paystatus}</td>
-		<td>${ordermasterVO.orderdate}</td>
-		<td><fmt:formatDate value="${ordermasterVO.orderdate}" pattern="yyyy-MM-dd"/></td>
-		<td>${ordermasterVO.payexpire}</td>
-		<td><fmt:formatDate value="${ordermasterVO.payexpire}" pattern="yyyy-MM-dd"/></td>
-		<td>${ordermasterVO.paycode}</td>
-		<td>${ordermasterVO.receiver}</td>
-		<td>${ordermasterVO.tel}</td>
-		<td>${ordermasterVO.address}</td>
-		<td>${ordermasterVO.orderstatus}</td>
-<!--  -->		
-		<td>
-			<FORM METHOD = "post" ACTION = "<%=request.getContextPath()%>/back-end/orderdetail/orderdetail.do" style = "margin-bottom: 0px;">
-				<input type = "submit" value = "View">
-				<input type = "hidden" name = "ordermasterid" value = "${ordermasterVO.ordermasterid}">
-				<input type = "hidden" name = "action" value = "getOneList_ordermasterid">
-			</FORM>
-		</td>
-<!--  -->	
-	</tr>
-</c:forEach>
-	</table> --%>
 <p>
 <jsp:include page="/front-end/footer.jsp" flush="true" />
 </body>

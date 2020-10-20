@@ -4,9 +4,9 @@
 <%@ page import="com.brand.model.*"%>
 <%@ page import="com.adm.model.*"%>
 <%
- 	AdminnoVO userVO = (AdminnoVO) session.getAttribute("userVO");
-	if(userVO!=null){System.out.println("（Brand_select_page.jsp）當前管理員= "+userVO.getAdminid());};
-	pageContext.setAttribute("userVO", userVO);
+ 	AdminnoVO adminVO = (AdminnoVO) session.getAttribute("adminVO");
+	if(adminVO!=null){System.out.println("（Brand_select_page.jsp）當前管理員= "+adminVO.getAdminid());};
+	pageContext.setAttribute("adminVO", adminVO);
 	
 	BrandVO brandVO = (BrandVO) request.getAttribute("brandVO");
 	System.out.println("listOneBrand.jsp_brandVO:"+brandVO);

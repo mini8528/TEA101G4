@@ -207,8 +207,12 @@ input:disabled{
 									<p>&emsp;
 									<p>&emsp;
 									<input class="btn btn-danger text-uppercase" type="submit" name="Submit" value="放入購物車"> 
+									<!--  -->
 									<!-- <p>Click on the heart to love or un-love this post.</p> -->
-									<span id = heart><i class="fa fa-heart-o" aria-hidden="true" ></i> </span>
+									<span id = heart>
+									<!-- <svg width="2.5em" height="2.5em" aria-hidden="true" focusable="false" data-prefix="far" data-icon="heart" class="svg-inline--fa fa-heart fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill="currentColor" d="M458.4 64.3C400.6 15.7 311.3 23 256 79.3 200.7 23 111.4 15.6 53.6 64.3-21.6 127.6-10.6 230.8 43 285.5l175.4 178.7c10 10.2 23.4 15.9 37.6 15.9 14.3 0 27.6-5.6 37.6-15.8L469 285.6c53.5-54.7 64.7-157.9-10.6-221.3zm-23.6 187.5L259.4 430.5c-2.4 2.4-4.4 2.4-6.8 0L77.2 251.8c-36.5-37.2-43.9-107.6 7.3-150.7 38.9-32.7 98.9-27.8 136.5 10.5l35 35.7 35-35.7c37.8-38.5 97.8-43.2 136.5-10.6 51.1 43.1 43.5 113.9 7.3 150.8z"></path></svg> -->
+									<i class="fa fa-heart-o" aria-hidden="true" ></i>
+									</span>
 									<!--  -->
 									<input type="hidden" name="productid" value="${productVO.productid}"> 
 									<input type="hidden" name="productname" value="${productVO.name}">
@@ -352,6 +356,81 @@ $(document).ready(function(){
   });
 });
 </script>
+<%-- <script>
+	$(function(){
+		likeChange();
+		saveChange()
+	});
+	
+	$("textarea#usermessage").on("keydown", function(event) {
+		if (event.which == 13) {
+			$("input#msgsubmit").click();
+		}
+		;
+	});
+	function likeChange(){
+		$('#showLike').on('click', function(){
+			var status = $('#heartlike').attr('name');
+			console.log(status);
+			$.ajax({
+			     url: "<%=request.getContextPath()%>/blog_Likes/Blog_LikesServlet",
+			     type: "get",
+			     data: { 
+			       action: 'clickheart', 
+			       blogno: '${blogVO.blogno}',
+			       memberid:'${userVO.memberid}',
+			       status: status
+			      },
+			     dataType: 'json',
+			     success: function(res){
+			    	console.log(res.status);
+			    	if('Y' == res.status){
+			    		var htmlString = '<svg width="2.5em" height="2.5em" viewBox="0 0 16 16" class="bi bi-suit-heart-fill" id="heartlike" name="Y" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z"/></svg>';
+			    		$('#showLike').html( htmlString );
+					}else{
+						var htmlString = '<svg width="2.5em" height="2.5em" viewBox="0 0 16 16" class="bi bi-suit-heart" id="heartlike" name="N" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 6.236l.894-1.789c.222-.443.607-1.08 1.152-1.595C10.582 2.345 11.224 2 12 2c1.676 0 3 1.326 3 2.92 0 1.211-.554 2.066-1.868 3.37-.337.334-.721.695-1.146 1.093C10.878 10.423 9.5 11.717 8 13.447c-1.5-1.73-2.878-3.024-3.986-4.064-.425-.398-.81-.76-1.146-1.093C1.554 6.986 1 6.131 1 4.92 1 3.326 2.324 2 4 2c.776 0 1.418.345 1.954.852.545.515.93 1.152 1.152 1.595L8 6.236zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.55 7.55 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z"/></svg>';
+			    		$('#showLike').html( htmlString );
+					}
+			    	$('#showLikeCount').text( res.likescount );
+			     },
+			     error: function(res){
+			       alert("出現問題!");
+			     }
+			 });
+		});
+	}
+	
+	function saveChange(){
+		$('#showSave').on('click', function(){
+			var status = $('#collection').attr('name');
+			console.log(status);
+			$.ajax({
+			     url: "<%=request.getContextPath()%>/blog_Save/Blog_SaveServlet",
+			     type: "get",
+			     data: { 
+			       action: 'clickCollection', 
+			       blogno: '${blogVO.blogno}',
+			       memberid:'${userVO.memberid}',
+			       status: status
+			      },
+			     dataType: 'json',
+			     success: function(res){
+			    	console.log(res.status);
+			    	if('Y' == res.status){
+			    		var htmlString = '<svg id="showSave" width="2.5em" height="2.5em" viewBox="0 0 16 16" class="bi bi-bookmark-heart-fill" id="collection" name="Y" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4 0a2 2 0 0 0-2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4zm4 4.41c1.387-1.425 4.854 1.07 0 4.277C3.146 5.48 6.613 2.986 8 4.412z"/></svg>';
+			    		$('#showSave').html( htmlString );
+					}else{
+						var htmlString = '<svg width="2.5em" height="2.5em" viewBox="0 0 16 16" class="bi bi-bookmark-heart" id="collection" name="N" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/><path fill-rule="evenodd" d="M8 4.41c1.387-1.425 4.854 1.07 0 4.277C3.146 5.48 6.613 2.986 8 4.412z"/>';
+			    		$('#showSave').html( htmlString );
+					}
+			     },
+			     error: function(res){
+			       alert("出現問題!");
+			     }
+			 });
+		});
+	}
+</script> --%>
 <p>
 <jsp:include page="/front-end/footer.jsp" flush="true" />
 </body>

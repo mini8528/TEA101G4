@@ -6,9 +6,9 @@
 <%@ page import="com.orderdetail.model.*"%>
 <%@ page import="com.adm.model.*"%>
 <%
- 	AdminnoVO userVO = (AdminnoVO) session.getAttribute("userVO");
-	if(userVO!=null){System.out.println("（Brand_select_page.jsp）當前管理員= "+userVO.getAdminid());};
-	pageContext.setAttribute("userVO", userVO);
+ 	AdminnoVO adminVO = (AdminnoVO) session.getAttribute("adminVO");
+	if(adminVO!=null){System.out.println("（Brand_select_page.jsp）當前管理員= "+adminVO.getAdminid());};
+	pageContext.setAttribute("adminVO", adminVO);
 	
 	OrderdetailVO orderdetailVO = (OrderdetailVO) request.getAttribute("orderdetailVO");
 	System.out.println(orderdetailVO);
@@ -29,7 +29,7 @@
 <!-- ============================================================ -->  
 <h4>
 	<a href="<%=request.getContextPath()%>/back-end/ordermaster/listAllordermaster.jsp">
-	<img src="images/usagi.png" width="100" height="100" border="0"></a>
+	<img src="<%=request.getContextPath()%>/images/usagi.png" width="100" height="100" border="0"></a>
 </h4>
 <!-- ============================================================ --> 
     <h3 class="card-title text-warning">編輯訂單內容：</h3>

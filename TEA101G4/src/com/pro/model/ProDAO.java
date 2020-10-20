@@ -8,12 +8,22 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 
-public class ProJDBCDAO implements Pro_interface{
-	private static final String DRIVER = "oracle.jdbc.driver.OracleDriver";
-	private static final String URL = "jdbc:oracle:thin:@localhost:1521:XE";
-	private static final String USER = "TEA101G4";
-	private static final String PASSWORD = "123456";
+
+public class ProDAO implements Pro_interface{
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TEA101G4");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 	//----新增評論----
 	private static final String INSERT_STMT = "INSERT INTO PRODCOMM (prodcommid,productid, memberid, commtext,commstar, adddate, status)VALUES ('PROD'|| lpad(PRODCOMM_SEQ.NEXTVAL, 4, '0'),?,?,?,?,?,?)";
 	//----修改評論狀態----
@@ -35,27 +45,22 @@ public class ProJDBCDAO implements Pro_interface{
 
 		try {
 
-			Class.forName(DRIVER);
-			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 			
 			
 			pstmt.setString(1, proVO.getProductid());
 			pstmt.setString(2, proVO.getMemberid());
-			pstmt.setString(1, proVO.getCommtext());
-			pstmt.setInt(2, proVO.getCommstar());
+			pstmt.setString(3, proVO.getCommtext());
+			pstmt.setInt(4, proVO.getCommstar());
 			pstmt.setDate(5, proVO.getAdddate());
-			pstmt.setDate(6, proVO.getEditdate());
-			pstmt.setString(7, proVO.getStatus());
+			pstmt.setString(6, proVO.getStatus());
 		
 
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException ce) {
-			throw new RuntimeException("Couldn't load database driver. " + ce.getMessage());
-			// Handle any SQL errors
-		} catch (SQLException se) {
+		}catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
@@ -83,8 +88,7 @@ public class ProJDBCDAO implements Pro_interface{
 
 		try {
 
-			Class.forName(DRIVER);
-			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE_STMT);
 			
 			
@@ -99,9 +103,6 @@ public class ProJDBCDAO implements Pro_interface{
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException ce) {
-			throw new RuntimeException("Couldn't load database driver. " + ce.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -130,8 +131,7 @@ public class ProJDBCDAO implements Pro_interface{
 
 		try {
 
-			Class.forName(DRIVER);
-			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE_TEXT);
 			
 			
@@ -146,10 +146,7 @@ public class ProJDBCDAO implements Pro_interface{
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException ce) {
-			throw new RuntimeException("Couldn't load database driver. " + ce.getMessage());
-			// Handle any SQL errors
-		} catch (SQLException se) {
+		}catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
@@ -177,8 +174,7 @@ public class ProJDBCDAO implements Pro_interface{
 
 		try {
 
-			Class.forName(DRIVER);
-			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE_STMT);
 
 			pstmt.setString(1, prodcommid);
@@ -186,10 +182,7 @@ public class ProJDBCDAO implements Pro_interface{
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException ce) {
-			throw new RuntimeException("Couldn't load database driver. " + ce.getMessage());
-			// Handle any SQL errors
-		} catch (SQLException se) {
+		}catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
@@ -221,8 +214,7 @@ public class ProJDBCDAO implements Pro_interface{
 
 		try {
 
-			Class.forName(DRIVER);
-			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(FIND_BY_PK);
 			pstmt.setString(1, prodcommid);
 			rs = pstmt.executeQuery();
@@ -239,10 +231,7 @@ public class ProJDBCDAO implements Pro_interface{
 				pro.setStatus(rs.getString("status"));
 			}
 
-		} catch (ClassNotFoundException ce) {
-			throw new RuntimeException("Couldn't load database driver. " + ce.getMessage());
-			// Handle any SQL errors
-		} catch (SQLException se) {
+		}  catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
@@ -281,8 +270,7 @@ public class ProJDBCDAO implements Pro_interface{
 
 		try {
 
-			Class.forName(DRIVER);
-			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL);
 			rs = pstmt.executeQuery();
 
@@ -304,9 +292,6 @@ public class ProJDBCDAO implements Pro_interface{
 				
 			}
 
-		} catch (ClassNotFoundException ce) {
-			throw new RuntimeException("Couldn't load database driver. " + ce.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources

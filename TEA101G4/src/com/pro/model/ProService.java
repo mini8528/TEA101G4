@@ -11,11 +11,11 @@ public class ProService {
 	private Pro_interface dao;
 
 	public ProService() {
-		dao = new ProJDBCDAO();
+		dao = new ProDAO();
 }
 	public ProVO addPro( String productid,String memberid,
 	  String commtext, Integer commstar, Date adddate,
-	  Date editdate,String status) {
+	 String status) {
 
 		ProVO proVO = new ProVO();
 		proVO.setProductid(productid);
@@ -23,7 +23,6 @@ public class ProService {
 		proVO.setCommtext(commtext);
 		proVO.setCommstar(commstar);
 		proVO.setAdddate(adddate);
-		proVO.setEditdate(editdate);
 		proVO.setStatus(status);
 	
 		dao.insert(proVO);

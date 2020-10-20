@@ -5,9 +5,9 @@
 <%@ page import="com.spec.model.*"%>
 <%@ page import="com.adm.model.*"%>
 <%
- 	AdminnoVO userVO = (AdminnoVO) session.getAttribute("userVO");
-	if(userVO!=null){System.out.println("（Brand_select_page.jsp）當前管理員= "+userVO.getAdminid());};
-	pageContext.setAttribute("userVO", userVO);
+ 	AdminnoVO adminVO = (AdminnoVO) session.getAttribute("adminVO");
+	if(adminVO!=null){System.out.println("（Brand_select_page.jsp）當前管理員= "+adminVO.getAdminid());};
+	pageContext.setAttribute("adminVO", adminVO);
 
 	ProductVO productVO = (ProductVO) request.getAttribute("productVO");
 	System.out.println(productVO);
@@ -37,7 +37,7 @@ img.preview_img {
 <!-- ============================================================ -->  
 <h4>
 	<a href="<%=request.getContextPath()%>/back-end/product/listAllproduct.jsp">
-	<img src="images/usagi.png" width="100" height="100" border="0"></a>
+	<img src="<%=request.getContextPath()%>/images/usagi.png" width="100" height="100" border="0"></a>
 </h4>
 <!-- ============================================================ --> 
     <h3 class="card-title text-warning">商品內容：</h3>
@@ -62,8 +62,8 @@ img.preview_img {
 		<tr>
 			<td>目前管理員：</td>
 			<td>
-			<%=userVO.getAdminid()%>
-			<input type="hidden" name="adminid"  value="<%=userVO.getAdminid()%>" />
+			<%=adminVO.getAdminid()%>
+			<input type="hidden" name="adminid"  value="<%=adminVO.getAdminid()%>" />
 			</td>
 			<%-- <td>目前管理員：</td>
 			<td>

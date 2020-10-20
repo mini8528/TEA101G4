@@ -6,21 +6,22 @@
 <%@ page import="com.ordermaster.model.*"%>
 <%@ page import="com.member.model.*"%>
 <%@ page import="com.cart.model.*"%>
-<%-- <jsp:useBean id="ordermasterSvc" scope="page" class="com.ordermaster.model.OrdermasterService" /> --%>
 <% 
-	/* OrderdetailService orderdetailSvc = new OrderdetailService();
-	String ordermasterid = new String(request.getParameter("ordermasterid"));
-	List<OrderdetailVO> list = orderdetailSvc.getDetailByMaster(ordermasterid);
-	System.out.println("符合的Orderdetail共：" + list.size());
-	request.getSession().setAttribute("list", list); */
 	MemberVO userVO= (MemberVO) session.getAttribute("userVO");
 	if(userVO!=null){System.out.println("（one_orderdetail.jsp）當前會員= "+userVO.getMemberid());};
 %>
 <%
-	OrdermasterVO ordermaster = (OrdermasterVO) session.getAttribute("OrdermasterVO"); 
-	String payment =  (String) session.getAttribute("payment"); 
+	OrdermasterVO ordermasterVO = (OrdermasterVO) session.getAttribute("OrdermasterVO"); 
+	String payment =  (String) session.getAttribute("payment");
+	session.setAttribute("ordermasterVO", ordermasterVO);
+	
+	
+	OrderdetailVO orderdetailVO = (OrderdetailVO)session.getAttribute("orderdetailVO");
+	String specid = (String)session.getAttribute("specid");
+	session.setAttribute("orderdetailVO", orderdetailVO);
 %>	
 <jsp:useBean id="list" scope="session" type="java.util.List<OrderdetailVO>" />
+<!DOCTYPE html>
 <html>
 <head>
 <style>
@@ -28,57 +29,10 @@
 color:#ff0047;
 } */
 </style>
-<!-- <title>訂單成立-明細資料 - one_orderdetail.jsp</title> -->
 
-<!-- <style>
-table#table-1 {
-	background-color: #d9ffef;
-	border: 2px solid black;
-	text-align: center;
-}
-table#table-1 h4 {
-	color: red;
-	display: block;
-	margin-bottom: 1px;
-}
-
-h4 {
-	color: blue;
-	display: inline;
-}
-</style>
-<style>
-table {
-	width: 800px;
-	background-color: white;
-	margin-top: 5px;
-	margin-bottom: 5px;
-}
-
-table, th, td {
-	border: 1px solid #CCCCFF;
-}
-
-th, td {
-	padding: 5px;
-	text-align: center;
-}
-
-</style> -->
 </head>
 <body bgcolor='white'>
 <jsp:include page="../header.jsp" flush="true" />
-<%-- <table id="table-1">
-	<tr>
-		<td>
-			<h3>你的訂單-明細資料 - one_orderdetail.jsp</h3>
-			<h4>
-				<a href="<%=request.getContextPath()%>/front-end/product/list_product.jsp"> 
-				<img src="<%=request.getContextPath()%>/images/usagi.png" width="100" height="100" border="0">返回商品首頁</a>
-			</h4>
-		</td>
-	</tr>
-</table> --%>
 <!-- 錯誤列表 -->
 <c:if test="${not empty errorMsgs}">
 	<font style = "color: red">請修正以下錯誤：</font>
@@ -96,7 +50,7 @@ th, td {
 
 <h3 class="pricing font-size-25">付款方式：<%=request.getParameter("payment")%></h3>
 
-<c:if test="${ordermaster.payment=='超商代碼'}">
+<c:if test="${ordermasterVO.payment=='超商代碼'}">
 <h3 class="pricing font-size-25">超商代碼：<%=request.getParameter("paycode")%></h3>
 </c:if>
 <%-- <h3 class="pricing font-size-25">付款狀態：<%=request.getParameter("paystatus")%></h3> --%>
@@ -110,164 +64,53 @@ th, td {
 </c:choose>
 <h3 class="pricing font-size-25">地址：<%=request.getParameter("address")%></h3>
 <div class="table-responsive table-class-schedule">
-	<table class="table table-bordered text-center">
-	  <thead>
-	    <tr>
-	      <th class="bg-dark text-white text-uppercase" scope="col">商品圖</th>
-	      <th class="bg-dark text-white text-uppercase" scope="col">商品名稱</th>
-	      <th class="bg-dark text-white text-uppercase" scope="col">規格</th>
-	      <th class="bg-dark text-white text-uppercase" scope="col">單價</th>
-	      <th class="bg-dark text-white text-uppercase" scope="col">購買數量</th>
-	    </tr>
-	  </thead>
-		<tbody>
-		<c:forEach var = "orderdetailVO" items = "${list}">
-	
-		<%-- <td>${orderdetailVO.ordermasterid}</td> --%>
-		<!-- <td> -->
-			<%-- <c:forEach var="i" begin="1" end="5" step="1"> --%>
-				<%-- <span>${i}</span> --%>
-			<%-- </c:forEach> --%>
-		<!-- </td> -->
-<!-- ---------------------------------- -->
-	
-	<tr>
-	<td>
-		<c:forEach var="specVO" items="${specSvc.all}">
-			<c:if test="${orderdetailVO.specid==specVO.specid}">
-				<c:forEach var="productVO" items="${productSvc.all}">
-					<c:if test="${specVO.productid==productVO.productid}">
-					<img src="<%=request.getContextPath()%>/back-end/product/productshow.do?productid=${productVO.productid}" width="100" height="100">
-			 		</c:if>
-			</c:forEach>
-	 		</c:if>
-		</c:forEach>
-	</td>
-<!-- ---------------------------------- -->	
-	<td>
-		<c:forEach var="specVO" items="${specSvc.all}">
-			<c:if test="${orderdetailVO.specid==specVO.specid}">
-				<c:forEach var="productVO" items="${productSvc.all}">
-					<c:if test="${specVO.productid==productVO.productid}">
-					${productVO.name}
-			 		</c:if>
-			</c:forEach>
-	 		</c:if>
-		</c:forEach>
-	</td>
-<!-- ---------------------------------- -->	
-<td>
-		<c:forEach var="specVO" items="${specSvc.all}">
-			<c:if test="${orderdetailVO.specid==specVO.specid}">
-				${specVO.specific}
-	 		</c:if>
-		</c:forEach>
-	</td>
-<!-- ---------------------------------- -->	
-	<%-- <td>${orderdetailVO.specid}</td> --%>
-<!-- ---------------------------------- -->	
-	<td>
-		<c:forEach var="specVO" items="${specSvc.all}">
-			<c:if test="${orderdetailVO.specid==specVO.specid}">
-				<c:forEach var="productVO" items="${productSvc.all}">
-					<c:if test="${specVO.productid==productVO.productid}">
-					${productVO.price}
-			 		</c:if>
-			</c:forEach>
-	 		</c:if>
-		</c:forEach>
-	</td>
-<!-- ---------------------------------- -->	
-		<td>${orderdetailVO.quantity}</td>
-	</tr>
-</c:forEach>
-		</tbody>
-	</table>
-</div>
-<%-- <table>
-	<tr>
-		<!-- <th>訂單編號</th> -->
-		<!-- <th>項目</th> -->
-		<th>商品縮圖</th>
-		<th>商品名稱</th>
-		<th>規格</th>
-		<!-- <th>*規格ID</th> -->
-		<th>單價</th>
-		<th>購買數量</th>
-	</tr>
-<c:forEach var="i" begin="1" end="${list.size()}" step="1">
+<table class="table table-bordered text-center">
+  <thead>
+    <tr>
+      <th class="bg-dark text-white text-uppercase" scope="col">商品圖</th>
+      <th class="bg-dark text-white text-uppercase" scope="col">商品名稱</th>
+      <th class="bg-dark text-white text-uppercase" scope="col">規格</th>
+      <th class="bg-dark text-white text-uppercase" scope="col">單價</th>
+      <th class="bg-dark text-white text-uppercase" scope="col">購買數量</th>
+      <th class="bg-dark text-white text-uppercase" scope="col"></th>
+    </tr>
+  </thead>
+<tbody>
 <c:forEach var = "orderdetailVO" items = "${list}">
-	
-		<td>${orderdetailVO.ordermasterid}</td>
-		<!-- <td> -->
-			<c:forEach var="i" begin="1" end="5" step="1">
-				<span>${i}</span>
-			</c:forEach>
-		<!-- </td> -->
-<!-- ---------------------------------- -->
-	
-	
-	<td>
+	<tr>
 		<c:forEach var="specVO" items="${specSvc.all}">
 			<c:if test="${orderdetailVO.specid==specVO.specid}">
 				<c:forEach var="productVO" items="${productSvc.all}">
 					<c:if test="${specVO.productid==productVO.productid}">
-					<img src="<%=request.getContextPath()%>/back-end/product/productshow.do?productid=${productVO.productid}" width="100" height="100">
+					<td>
+						<a class="img-link list_pds2"
+						href="<%=request.getContextPath()%>/back-end/product/product.do?productid=${productVO.productid}&action=getOne_For_Display_Front">
+						<img src="<%=request.getContextPath()%>/back-end/product/productshow.do?productid=${productVO.productid}" width="50" height="50">
+				 		</a>
+				 	</td>
+				 	<td>${productVO.name}</td>
+				 	<td>${specVO.specific}</td>
+				 	<td>${productVO.price}</td>
+				 	<td>${orderdetailVO.quantity}</td>
 			 		</c:if>
-			</c:forEach>
+				</c:forEach>
 	 		</c:if>
 		</c:forEach>
-	</td>
-<!-- ---------------------------------- -->	
 	<td>
-		<c:forEach var="specVO" items="${specSvc.all}">
-			<c:if test="${orderdetailVO.specid==specVO.specid}">
-				<c:forEach var="productVO" items="${productSvc.all}">
-					<c:if test="${specVO.productid==productVO.productid}">
-					${productVO.name}
-			 		</c:if>
-			</c:forEach>
-	 		</c:if>
-		</c:forEach>
+		<FORM METHOD = "post" ACTION = "<%=request.getContextPath()%>/front-end/pro/addPro.jsp" style = "margin-bottom: 0px;">
+			<input type = "hidden" name = "specid" value = "${orderdetailVO.specid}">
+			<input type = "submit" value = "評論" class="btn-dark mb-2">
+		</FORM>
 	</td>
-<!-- ---------------------------------- -->	
-<td>
-		<c:forEach var="specVO" items="${specSvc.all}">
-			<c:if test="${orderdetailVO.specid==specVO.specid}">
-				${specVO.specific}
-	 		</c:if>
-		</c:forEach>
-	</td>
-<!-- ---------------------------------- -->	
-	<td>${orderdetailVO.specid}</td>
-<!-- ---------------------------------- -->	
-	<td>
-		<c:forEach var="specVO" items="${specSvc.all}">
-			<c:if test="${orderdetailVO.specid==specVO.specid}">
-				<c:forEach var="productVO" items="${productSvc.all}">
-					<c:if test="${specVO.productid==productVO.productid}">
-					${productVO.price}
-			 		</c:if>
-			</c:forEach>
-	 		</c:if>
-		</c:forEach>
-	</td>
-<!-- ---------------------------------- -->	
-		<td>${orderdetailVO.quantity}</td>
-	</tr>
+</tr>
 </c:forEach>
-</c:forEach>
-</table> --%>
+</tbody>
+</table>
+</div>
+
 <br>
 <br>
-<%-- <jsp:useBean id="ordermasterSvc" scope="page" class="com.ordermaster.model.OrdermasterService" /> --%>
 	<FORM METHOD="get" ACTION="<%=request.getContextPath()%>/back-end/ordermaster/ordermaster.do">
-	<%-- <c:forEach var="ordermasterVO" items="${ordermasterSvc.all}">
-		<c:if test="${orderdetailVO.ordermasterid==ordermasterVO.ordermasterid}">
-		${ordermasterVO.memberid}
-			<input type="hidden" name="memberid" value="${ordermasterVO.memberid}">
- 		</c:if>
-	</c:forEach> --%>
 		<input type="hidden" name="action" value="getOrdermasterList_memberid"> 
 		<input type="hidden" name="memberid" value="${userVO.memberid}">
 		<input type="submit" value="返回個人訂單列表" class="btn btn-warning mb-2">

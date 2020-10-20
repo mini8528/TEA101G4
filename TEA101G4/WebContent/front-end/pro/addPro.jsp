@@ -3,29 +3,35 @@
 <%@ page import="com.pro.model.*"%>
 <%@ page import="com.member.model.*"%>
 <%@ page import="com.product.model.*"%>
+<%@ page import="com.spec.model.*"%>
+<%@ page import="com.orderdetail.model.*"%>
+<%@ page import="com.ordermaster.model.*"%>
 <%
 ProVO proVO = (ProVO) request.getAttribute("proVO");
+
 ProductVO productVO = (ProductVO) request.getAttribute("productVO");
 MemberVO userVO= (MemberVO) session.getAttribute("userVO");
-%>
 
+OrderdetailVO orderdetailVO= (OrderdetailVO) session.getAttribute("orderdetailVO");
+OrdermasterVO ordermasterVO= (OrdermasterVO) session.getAttribute("ordermasterVO");
+
+String ordermasterid =  (String) session.getAttribute("ordermasterid");
+String specid =  (String) session.getAttribute("specid");
+
+
+%>
+<jsp:useBean id="specSvc" scope="page" class="com.spec.model.SpecService" />
+<jsp:useBean id="productSvc" scope="page" class="com.product.model.ProductService" />
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>員工資料新增 - addEmp.jsp</title>
-
-
 
 </head>
 <body bgcolor='white'>
+<jsp:include page="/front-end/header.jsp" flush="true" />
 
-<table id="table-1">
-	<tr><td>
-		 <h3>課服資料新增 - addPro.jsp</h3></td><td>
-	</td></tr>
-</table>
-
-<h3>資料新增:</h3>
+<div>
 
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
@@ -38,54 +44,56 @@ MemberVO userVO= (MemberVO) session.getAttribute("userVO");
 </c:if>
 
 
-<FORM METHOD="post" ACTION="pro.do" name="form1" enctype="multipart/form-data">
-
+<FORM METHOD="get" ACTION="<%=request.getContextPath()%>/back-end/pro/pro.do" name="form1" enctype="multipart/form-data">
 <table>
-	
-	
 	<tr>
-		<td>商品編號:</td>
-		<td><input type="hidden" name="productid" size="45" 
-			 value="<%=productVO.getProductid()%>"/></td>
-			 
-			 
+		<td>規格編號:</td>
+		<td><%=request.getParameter("specid")%></td>
 	</tr>
 	
 	<tr>
-		<td>一般會員編號:</td>
-		<td><input type="hidden" name="memberid" size="45" 
-			 value="<%=userVO.getMemberid()%>"/></td>
-			
+		<td>會員編號:</td>
+		<td><%=userVO.getMemberid()%></td>		
 	</tr>
-	
 	<tr>
 		<td>評論內容 :</td>
 		<td><input type="TEXT" name="commtext" size="45" 
-			 value="<%= proVO.getCommtext()%>"/></td>
+			 value="<%=(proVO==null)? "" : proVO.getCommtext()%>"/></td>
 	</tr>
 	
 	<tr>
 		<td>星級數:</td>
-		<td><input type="TEXT" name="commstar" size="45" 
-			 value="<%= proVO.getCommstar()%>" /></td>
+		<td><select name="commstar" ${proVO.getCommstar}>
+						<option>5</option>
+						<option>4</option>
+						<option>3</option>
+						<option>2</option>
+						<option>1</option>
+				</select>
 	</tr>
 
-	<tr>
-		<td>新增日期:</td>
+	<tr>	
+<!-- 	<td>新增時間:</td>
 		<td><input name="adddate" id="adddate" type="hidden"
-		 value="<%=proVO.getAdddate()%>" /></td>
-	</tr>
+		 value="" /></td>
+	</tr> -->
 	
-	<tr>
+<!-- 	<tr> -->
 		
-		<td><input type="hidden" name="status" size="45" 
-			 value="Y"/></td>
-	</tr>
+<!-- 		<td><input type="hidden" name="status" size="45"  -->
+<!-- 			 value="Y"/></td> -->
+<!-- 	</tr> -->
 	
 </table>
 <br>
+<input type="hidden" name="productid" value="<%=specSvc.getOneSpec(request.getParameter("specid")).getProductid()%>">
+<input type="hidden" name="memberid" value="<%=userVO.getMemberid()%>">
 <input type="hidden" name="action" value="insert">
-<input type="submit" value="送出新增"></FORM>
+<input type="submit" value="送出新增">
+</FORM>
+</div>
+<jsp:include page="/front-end/footer.jsp" flush="true" />
+
 </body>
 
 

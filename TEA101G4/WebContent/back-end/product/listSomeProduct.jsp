@@ -5,9 +5,9 @@
 <%@ page import="com.brand.model.*"%>
 <%@ page import="com.adm.model.*"%>
 <%
- 	AdminnoVO userVO = (AdminnoVO) session.getAttribute("userVO");
-	if(userVO!=null){System.out.println("（Brand_select_page.jsp）當前管理員= "+userVO.getAdminid());};
-	pageContext.setAttribute("userVO", userVO);
+ 	AdminnoVO adminVO = (AdminnoVO) session.getAttribute("adminVO");
+	if(adminVO!=null){System.out.println("（Brand_select_page.jsp）當前管理員= "+adminVO.getAdminid());};
+	pageContext.setAttribute("adminVO", adminVO);
 %>
 <jsp:useBean id="list" scope="session" type="java.util.List<ProductVO>" />
 <%
@@ -32,7 +32,7 @@
 <!-- ============================================================ -->  
 <h4>
 	<a href="<%=request.getContextPath()%>/back-end/product/listAllproduct.jsp">
-	<img src="images/usagi.png" width="100" height="100" border="0"></a>
+	<img src="<%=request.getContextPath()%>/images/usagi.png" width="100" height="100" border="0"></a>
 </h4>
 <!-- ============================================================ --> 
     <h3 class="card-title text-warning">所有商品列表：</h3>
@@ -72,6 +72,11 @@
 			<input type="submit" value="送出">
 	</FORM>
 </li>
+<li>
+    <label>
+      <input type="checkbox" name="CheckAll" value="核取方塊" id="CheckAll" />
+      全選</label>
+    </li>
 </ul>
 <!--  -->
 <!-- ============================================================ --> 
@@ -170,5 +175,20 @@
 </div>
 <!-- End of Page Wrapper -->
 <!-- ---------------------------------------------------------------- -->
+<script>
+ $(document).ready(function(){
+  $("#CheckAll").click(function(){
+   if($("#CheckAll").prop("checked")){//如果全選按鈕有被選擇的話（被選擇是true）
+    $("input[name='productid']").each(function(){
+     $(this).prop("checked",true);//把所有的核取方框的property都變成勾選
+    })
+   }else{
+    $("input[name='productid']").each(function(){
+     $(this).prop("checked",false);//把所有的核方框的property都取消勾選
+    })
+   }
+  })
+ })
+</script>
 </body>
 </html>
