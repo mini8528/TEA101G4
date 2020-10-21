@@ -36,11 +36,6 @@
 <body bgcolor='white'>
 <jsp:include page="/front-end/header.jsp" flush="true" />
 
-<table id="table-1">
-	<tr><td>
-		 <h3>所有ClassOrder資料 - listAllClassOrder.jsp</h3>
-	</td></tr>
-</table>
 
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
@@ -52,40 +47,9 @@
 	</ul>
 </c:if>
 
-<table>
-	<tr>
-		<th>classOrderID</th>
-		<th>會員ID</th>
-		<th>付款方式</th>
-		<th>付款狀態</th>
-		<th>訂單時間</th>
-		<th>付款到期時間</th>
-		<th>查看明細</th>
-	</tr>
 	<%@ include file="page1.file" %> 
 	<c:forEach var="classOrderVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-		
-		<tr>
-			<td>${classOrderVO.classOrderID}</td>
-			<td>${classOrderVO.memberID}</td>
-			<td>${classOrderVO.payment}</td>
-			<td>${classOrderVO.paymentStatus}</td>
-			<td>${classOrderVO.orderDate}</td>
-			<td>${classOrderVO.payExpire}</td>
-			
-			<td>
-			<FORM METHOD = "post" ACTION = "<%=request.getContextPath()%>/back-end/classDetail/classDetail.do" style = "margin-bottom: 0px;">
-				<input type = "submit" value = "View">
-				<input type = "hidden" name = "classOrderID" value = "${classOrderVO.classOrderID}">
-				<input type = "hidden" name = "action" value = "getOneList_classOrderID">
-			</FORM>
-		</td>
-		
-		</tr>
-<%-- 	</c:forEach> --%>
-<!-- </table> -->
-<%-- <%@ include file="page2.file" %> --%>
-
+	
 
 
 <!-- ====================================

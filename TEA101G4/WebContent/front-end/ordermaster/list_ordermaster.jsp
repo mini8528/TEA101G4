@@ -52,9 +52,9 @@ String memberid = new String(userVO.getMemberid());
 		<tbody>
 		<c:forEach var = "ordermasterVO" items = "${list}">
 	<tr>
-		<td>${ordermasterVO.ordermasterid}</td>
+		<td class="py-5 align-middle text-muted font-weight-medium">${ordermasterVO.ordermasterid}</td>
 		<%-- <td>${ordermasterVO.memberid}</td> --%>
-		<td>${ordermasterVO.payment}</td>
+		<td class="py-5 align-middle text-muted font-weight-medium">${ordermasterVO.payment}</td>
 		<c:choose>
 			<c:when test="${ordermasterVO.paystatus == 'Y'}">
 			<td class="py-5 align-middle text-muted font-weight-medium">已付款</td>
@@ -66,9 +66,9 @@ String memberid = new String(userVO.getMemberid());
 		<%-- <td>${ordermasterVO.paystatus}</td> --%>
 		
 		<%-- <td>${ordermasterVO.orderdate}</td> --%>
-		<td><fmt:formatDate value="${ordermasterVO.orderdate}" pattern="yyyy-MM-dd"/></td>
+		<td class="py-5 align-middle text-muted font-weight-medium"><fmt:formatDate value="${ordermasterVO.orderdate}" pattern="yyyy-MM-dd"/></td>
 		<%-- <td>${ordermasterVO.payexpire}</td> --%>
-		<td><fmt:formatDate value="${ordermasterVO.payexpire}" pattern="yyyy-MM-dd"/></td>
+		<td class="py-5 align-middle text-muted font-weight-medium"><fmt:formatDate value="${ordermasterVO.payexpire}" pattern="yyyy-MM-dd"/></td>
 		<c:choose>
 			<c:when test="${ordermasterVO.payment == '超商代碼'}">
 			<td class="py-5 align-middle text-muted font-weight-medium">${ordermasterVO.paycode}</td>
@@ -78,12 +78,12 @@ String memberid = new String(userVO.getMemberid());
 			</c:otherwise>
 		</c:choose>
 		
-		<td>${ordermasterVO.receiver}</td>
-		<td>${ordermasterVO.tel}</td>
-		<td>${ordermasterVO.address}</td>
-		<td>${ordermasterVO.orderstatus}</td>
+		<td class="py-5 align-middle text-muted font-weight-medium">${ordermasterVO.receiver}</td>
+		<td class="py-5 align-middle text-muted font-weight-medium">${ordermasterVO.tel}</td>
+		<td class="py-5 align-middle text-muted font-weight-medium">${ordermasterVO.address}</td>
+		<td class="py-5 align-middle text-muted font-weight-medium">${ordermasterVO.orderstatus}</td>
 <!--  -->		
-		<td>
+		<td class="py-5 align-middle text-muted font-weight-medium">
 			<FORM METHOD = "post" ACTION = "<%=request.getContextPath()%>/back-end/orderdetail/orderdetail.do" style = "margin-bottom: 0px;">
 				<input type = "hidden" name = "ordermasterid" value = "${ordermasterVO.ordermasterid}">
 				<input type = "hidden" name = "payment" value = "${ordermasterVO.payment}">

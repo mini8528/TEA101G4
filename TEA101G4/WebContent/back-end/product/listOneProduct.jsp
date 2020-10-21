@@ -93,7 +93,17 @@
 		<td>${productVO.adminid}</td>
 		<td>${productVO.editdate}</td>
 		<td>${productVO.adminid2}</td> --%>
-		<td class="py-5 align-middle text-muted font-weight-medium">${productVO.status}</td>
+		<!--  -->
+			<c:choose>
+			<c:when test="${productVO.status == 'Y'}">
+			<td class="py-5 align-middle text-muted font-weight-medium"><span style="color:green;">上架中</span></td>
+			</c:when>
+			<c:otherwise>
+			<td class="py-5 align-middle text-muted font-weight-medium"><span style="color:black;">已下架</span></td>
+			</c:otherwise>
+			</c:choose>
+		<!--  -->
+		<%-- <td class="py-5 align-middle text-muted font-weight-medium">${productVO.status}</td> --%>
 		
 		<td class="py-5 align-middle text-muted font-weight-medium">
 			<FORM METHOD = "post" ACTION = "<%=request.getContextPath()%>/back-end/product/product.do" style = "margin-bottom: 0px;">

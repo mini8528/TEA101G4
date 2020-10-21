@@ -221,7 +221,7 @@ public class ActionServlet extends HttpServlet {
 					actVO = actionSvc.updateAction(actionid ,actionnm, part, myFileArray, posttime,updatetime);
 					/***************************3.修改完成,準備轉交(Send the Success view)*************/
 					req.setAttribute("actionVO", actVO); // 資料庫update成功後,正確的的empVO物件,存入req
-					String url = "/back-end/action/listOneAction.jsp";
+					String url = "/back-end/action/listAllAction.jsp";
 					RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 					successView.forward(req, res);
 

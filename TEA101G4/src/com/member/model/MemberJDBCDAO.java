@@ -18,7 +18,7 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 
 	private static final String INSERT_STMT = "INSERT INTO member (memberid,name,account,password,gender,phone,birthday,email,photo,address,authority,qualifications,expertise,introduction,photo1,photo2,photo3,adddate) VALUES ('M' || lpad(MEMBER_SEQ.NEXTVAL, 3, '0'),?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 	private static final String GET_ALL_STMT = "SELECT memberid,name,account,password,gender,phone,birthday,email,address,authority,qualifications,expertise,introduction,adddate FROM member order by memberid";
-	private static final String GET_ONE_STMT = "SELECT memberid,name,account,password,gender,phone,birthday,email,address,authority,qualifications,expertise,introduction,adddate FROM member where memberid = ?";
+	private static final String GET_ONE_STMT = "SELECT memberid,name,account,password,gender,phone,birthday,email,photo,address,authority,qualifications,expertise,introduction,photo1,photo2,photo3,adddate FROM member where memberid = ?";
 	private static final String DELETE = "DELETE FROM member where memberid = ?";
 	private static final String UPDATE = "UPDATE member set  name=? ,account=? ,password=? ,gender=? ,phone=? ,birthday=? ,email=? ,photo=? ,address=? ,authority=? ,qualifications=? ,expertise=? ,introduction=? ,photo1=? ,photo2=? ,photo3=? ,adddate=?  where memberid =? ";
 	private static final String GET_MEMBER_ACCOUNT ="SELECT memberid,name,account,password,gender,phone,to_char(birthday,'yyyy-mm-dd') birthday,email,photo,address,authority,qualifications,expertise,introduction,photo1,photo2,photo3,to_char(adddate,'yyyy-mm-dd') adddate FROM member where account = ?";
@@ -211,15 +211,15 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 				memberVO.setPhone(rs.getString("phone"));
 				memberVO.setBirthday(rs.getDate("birthday"));
 				memberVO.setEmail(rs.getString("email"));
-//				memberVO.setPhoto(rs.getBytes("photo"));
+				memberVO.setPhoto(rs.getBytes("photo"));
 				memberVO.setAddress(rs.getString("address"));
 				memberVO.setAuthority(rs.getString("authority"));
 				memberVO.setQualifications(rs.getString("qualifications"));
 				memberVO.setExpertise(rs.getString("expertise"));
 				memberVO.setIntroduction(rs.getString("introduction"));
-//				memberVO.setPhoto1(rs.getBytes("photo1"));
-//				memberVO.setPhoto2(rs.getBytes("photo2"));
-//				memberVO.setPhoto3(rs.getBytes("photo3"));
+				memberVO.setPhoto1(rs.getBytes("photo1"));
+				memberVO.setPhoto2(rs.getBytes("photo2"));
+				memberVO.setPhoto3(rs.getBytes("photo3"));
 				memberVO.setAdddate(rs.getDate("adddate"));
 			}
 

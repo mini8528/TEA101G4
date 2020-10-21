@@ -22,11 +22,11 @@
       <table class="table mb-0">
       <thead>
           <tr>
-            <th scope="col">Product Name</th>
-            <th scope="col">Brand</th>
-            <th scope="col">Price</th>
-            <th scope="col">Quantity</th>
-            <th scope="col">Specific</th>
+            <th class="bg-info text-white text-uppercase" scope="col"><div align="center">名稱</div></th>
+            <th class="bg-info text-white text-uppercase" scope="col"><div align="center">品牌</div></th>
+            <th class="bg-info text-white text-uppercase" scope="col"><div align="center">價格</div></th>
+            <th class="bg-info text-white text-uppercase" scope="col"><div align="center">數量</div></th>
+            <th class="bg-info text-white text-uppercase" scope="col"><div align="center">規格</div></th>
             <!-- <th scope="col">*specID</th> -->
           </tr>
        </thead>
@@ -81,61 +81,7 @@
 </button>
 </div>
 </section>
-<%-- <table>
-	<tr>
-		<th>商品名稱</th>
-		<th>品牌</th>
-		<th>價格</th>
-		<th>數量</th>
-		<th>規格</th>
-		<th>*規格ID</th>
-	</tr>
- 	<%
-		List<CartVO> buylist = (List<CartVO>) session.getAttribute("shoppingcart"); 
-		String amount =  (String) session.getAttribute("amount"); 
-	%>	
-	<%	for (int i = 0; i < buylist.size(); i++) {
-			CartVO order = buylist.get(i);
-			pageContext.setAttribute("order", order);
-			String productid = order.getProductid();
-			String brandname = order.getBrandname();
-			String productname = order.getProductname();
-			Integer quantity = order.getQuantity();
-			Integer price = order.getPrice();
-			String specific = order.getSpecific();
-			String specid = order.getSpecid();
-			
-	%>
-	<tr>
-		<td width="200"><div align="center"><b><%=productname%></b></div></td>
-		<td width="200"><div align="center"><b><%=brandname%></b></div></td>
-		<td width="200"><div align="center"><b><%=price%></b></div></td>
-		<td width="200"><div align="center"><b><%=quantity%></b></div></td>
-<jsp:useBean id="specSvc" scope="page" class="com.spec.model.SpecService" />
-	<!-- <td> -->
-	<c:forEach var="specVO" items="${specSvc.all}">
-	${order.specid}
-		<c:if test="${order.specid==specVO.specid}">
-		<td width="200"><div align="center"><b>${specVO.specific}</b></div></td>
- 		</c:if>
-	</c:forEach>
-<!-- 	</td> -->
-		<td width="200"><div align="center"><b><%=specific%></b></div></td>
-		<td width="200"><div align="center"><b><%=specid%></b></div></td>
-	</tr>
-	<%
-		}
-	%>
-	<tr>
-		<td></td>
-		<td></td>
-		<td><div align="center"><font color="red"><b>總金額：</b></font></div></td>
-		<td></td>
-		<td> <font color="red"><b>$<%=amount%></b></font> </td>
-	</tr>
-</table> --%>
 
-<%-- <p><a href="<%=request.getContextPath()%>/front-end/product/list_product.jsp">繼續購物</a> --%>
 <jsp:include page="/front-end/ordermaster/addOrderMaster.jsp" flush="true" />
 <jsp:include page="/front-end/footer.jsp" flush="true" />
 </body>

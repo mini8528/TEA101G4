@@ -120,7 +120,7 @@ TrainingClsDetailVO tcdVO = (TrainingClsDetailVO)request.getAttribute("tcdVO");
                                 <th>訓練動作名稱 </th>
                             	<th>訓練運動組數</th>
 		               			<th>訓練運動次數</th>
-								<th>訓練運動重量</th>
+								<th>訓練運動重量(KG)</th>
 								<th>訓練時間</th>
                           </tr>
                  <%@ include file="frontendpage1.file" %> 

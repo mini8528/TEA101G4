@@ -102,10 +102,13 @@ public class CartClassServlet extends HttpServlet {
 				rd.forward(req, res);
 			}
 		}
-//			else {
-//			RequestDispatcher rd = req.getRequestDispatcher("/front-end/login.jsp");
-//			rd.forward(req, res);
-//		}
+			else {
+				
+				System.out.println("cart servlet userVO = "+userVO);
+				
+			RequestDispatcher rd = req.getRequestDispatcher("/front-end/login.jsp");
+			rd.forward(req, res);
+		}
 	}
 
 	private CartClassVO getCartClassVO(HttpServletRequest req) {

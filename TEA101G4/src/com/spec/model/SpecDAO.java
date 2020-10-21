@@ -26,7 +26,7 @@ public class SpecDAO implements SpecDAO_interface {
 	private static final String INSERT_STMT = "INSERT INTO spec (specid,productid,specific,stock) "
 			+ "VALUES ('SD' || lpad(SPEC_SEQ.NEXTVAL, 4, '0'),?,?,?)";
 //----查詢所有商品----
-	private static final String GET_ALL_STMT = "SELECT specid, productid,specific,stock " + "FROM spec order by specid";
+	private static final String GET_ALL_STMT = "SELECT specid, productid,specific,stock " + "FROM spec order by specid DESC";
 //----查詢單筆商品----
 	private static final String GET_ONE_STMT = "SELECT specid, productid,specific,stock "
 			+ "FROM spec where specid = ?";

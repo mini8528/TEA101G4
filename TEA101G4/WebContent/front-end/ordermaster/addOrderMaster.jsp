@@ -38,11 +38,11 @@ for(CartVO aa:buylist){
 	pageContext.setAttribute("quantityAll", quantityAll);
 }
 for(String ss:detailidAll){
-	ss.toString();
+// 	ss.toString();
 	pageContext.setAttribute("ss", ss);
 }
 for(String tt:quantityAll){
-	tt.toString();
+// 	tt.toString();
 	pageContext.setAttribute("tt", tt);
 }
 

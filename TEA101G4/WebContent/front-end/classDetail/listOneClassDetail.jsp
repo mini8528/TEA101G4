@@ -10,6 +10,8 @@
 
 <%
 	MemberVO userVO = (MemberVO) session.getAttribute("userVO");
+
+	
 %>
 
 <jsp:useBean id="list" scope="session"
@@ -58,10 +60,11 @@
 					<p class="text-capitalize font-weight-bold mb-lg-2">付款狀態 ：
 						${classOrderVO.paymentStatus}</p>
 				</div>
-				<h4>
-					<a
+				
+				<div class="d-flex justify-content-left mt-8">
+				<a class="btn btn-danger text-uppercase"
 						href="<%=request.getContextPath()%>/front-end/classOrder/listAllClassOrder.jsp">返回購物清單</a>
-				</h4>
+						</div>
 			</div>
 		</div>
 	</section>
@@ -70,7 +73,7 @@
 		<div class="container">
 			<div class="table-responsive-sm table-cart">
 				<table class="table mb-0">
-					<tr >
+					<tr>
 						<th>照片</th>
 						<th>課程名稱</th>
 						<th>教練</th>
@@ -90,63 +93,77 @@
 
 						<c:forEach var="classOrderVO" items="${coService.all}">
 							<tr>
-							
-							
-							
+
+								<c:if
+									test="${classDetailVO.classOrderID == classOrderVO.classOrderID}">
+									<c:forEach var="coachClassVO" items="${cocService.all}">
 										<c:if
-											test="${classDetailVO.classOrderID == classOrderVO.classOrderID}">
-											<c:forEach var="coachClassVO" items="${cocService.all}">
-												<c:if
-													test="${classDetailVO.coachClassID == coachClassVO.coachClassID}">
-													<!-- 課程名稱 -->
-													<td>${coachClassVO.className}</td>
-												</c:if>
-											</c:forEach>
+											test="${classDetailVO.coachClassID == coachClassVO.coachClassID}">
+											<!-- 照片 -->
+											<td 
+												class="mr-4"> <img class="cart-image d-none d-md-block" width="100px" 
+												src="<%=request.getContextPath()%>/back-end/coachClass/coachClassShow.do?coachClassID=${coachClassVO.coachClassID}"
+												alt="Card image">
+											</td>
 										</c:if>
-		
+									</c:forEach>
+								</c:if>
+
+
+								<c:if
+									test="${classDetailVO.classOrderID == classOrderVO.classOrderID}">
+									<c:forEach var="coachClassVO" items="${cocService.all}">
 										<c:if
-											test="${classDetailVO.classOrderID == classOrderVO.classOrderID}">
-											<c:forEach var="coachClassVO" items="${cocService.all}">
-												<c:if
-													test="${classDetailVO.coachClassID == coachClassVO.coachClassID}">
-													<!-- 教練名字 -->
-													<td>${cocService.getMemberName(coachClassVO.coachClassID)}</td>
-												</c:if>
-											</c:forEach>
+											test="${classDetailVO.coachClassID == coachClassVO.coachClassID}">
+											<!-- 課程名稱 -->
+											<td>${coachClassVO.className}</td>
 										</c:if>
-		
+									</c:forEach>
+								</c:if>
+
+								<c:if
+									test="${classDetailVO.classOrderID == classOrderVO.classOrderID}">
+									<c:forEach var="coachClassVO" items="${cocService.all}">
 										<c:if
-											test="${classDetailVO.classOrderID == classOrderVO.classOrderID}">
-											<c:forEach var="coachClassVO" items="${cocService.all}">
-												<c:if
-													test="${classDetailVO.coachClassID == coachClassVO.coachClassID}">
-													<!-- 開課時間 -->
-													<td>${coachClassVO.startTime}</td>
-												</c:if>
-											</c:forEach>
+											test="${classDetailVO.coachClassID == coachClassVO.coachClassID}">
+											<!-- 教練名字 -->
+											<td>${cocService.getMemberName(coachClassVO.coachClassID)}</td>
 										</c:if>
-		
+									</c:forEach>
+								</c:if>
+
+								<c:if
+									test="${classDetailVO.classOrderID == classOrderVO.classOrderID}">
+									<c:forEach var="coachClassVO" items="${cocService.all}">
 										<c:if
-											test="${classDetailVO.classOrderID == classOrderVO.classOrderID}">
-											<c:forEach var="coachClassVO" items="${cocService.all}">
-												<c:if
-													test="${classDetailVO.coachClassID == coachClassVO.coachClassID}">
-													<!-- 上課地址 -->
-													<td>${coachClassVO.address}</td>
-												</c:if>
-											</c:forEach>
+											test="${classDetailVO.coachClassID == coachClassVO.coachClassID}">
+											<!-- 開課時間 -->
+											<td>${coachClassVO.startTime}</td>
 										</c:if>
-		
+									</c:forEach>
+								</c:if>
+
+								<c:if
+									test="${classDetailVO.classOrderID == classOrderVO.classOrderID}">
+									<c:forEach var="coachClassVO" items="${cocService.all}">
 										<c:if
-											test="${classDetailVO.classOrderID == classOrderVO.classOrderID}">
-											<c:forEach var="coachClassVO" items="${cocService.all}">
-												<c:if
-													test="${classDetailVO.coachClassID == coachClassVO.coachClassID}">
-													<!-- 價格 -->
-													<td>${coachClassVO.price}</td>
-												</c:if>
-											</c:forEach>
+											test="${classDetailVO.coachClassID == coachClassVO.coachClassID}">
+											<!-- 上課地址 -->
+											<td>${coachClassVO.address}</td>
 										</c:if>
+									</c:forEach>
+								</c:if>
+
+								<c:if
+									test="${classDetailVO.classOrderID == classOrderVO.classOrderID}">
+									<c:forEach var="coachClassVO" items="${cocService.all}">
+										<c:if
+											test="${classDetailVO.coachClassID == coachClassVO.coachClassID}">
+											<!-- 價格 -->
+											<td>${coachClassVO.price}</td>
+										</c:if>
+									</c:forEach>
+								</c:if>
 
 							</tr>
 						</c:forEach>

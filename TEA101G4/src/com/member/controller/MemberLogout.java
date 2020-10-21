@@ -25,7 +25,7 @@ public class MemberLogout extends HttpServlet {
 		HttpSession session = req.getSession();
 		session.invalidate();
 //		session.removeAttribute("userVO");
-		String url = req.getContextPath() + "/front-end/blog/listAllBlog.jsp"; 
+		String url = req.getContextPath() + "/front-end/index.jsp"; 
 		res.sendRedirect(url);
 		
 

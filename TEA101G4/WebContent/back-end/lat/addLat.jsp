@@ -104,6 +104,7 @@ System.out.print(latVO);
 		<td>¤º®e:</td>
 		<td><input type="TEXT" name="text" size="45" 
 			 value="<%= (latVO==null)? "xxxxxxxx" : latVO.getText()%>" /></td>
+			 <textarea style="width:400px;height:500px;"></textarea>
 	</tr>
 	
 	<tr>

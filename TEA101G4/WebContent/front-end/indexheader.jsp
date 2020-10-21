@@ -195,10 +195,26 @@
                                 href="<%=request.getContextPath()%>/front-end/trainingcls/trainingindex.jsp" role="button"> <i class="fa fa-list-ul nav-icon"
                                     aria-hidden="true"></i> <span>Training</span>
                             </a></li>
-                       <li class="nav-item dropdown mega-dropdown bg-success"><a class="nav-link dropdown-toggle "
-                                href="<%=request.getContextPath()%>/front-end/coachClass/listAllCoachClass.jsp" role="button" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-file-text-o nav-icon" aria-hidden="true"></i> <span>Courses</span>
-                            </a></li>
+<li class="nav-item dropdown bg-success"><a class="nav-link dropdown-toggle "
+                                href="<%=request.getContextPath()%>/front-end/coachClass/listAllCoachClass.jsp" id="Courses" role="button" aria-haspopup="true"
+                                aria-expanded="false"> <i class="fa fa-pencil-square-o nav-icon" aria-hidden="true"></i>
+                                <span>Courses</span>
+                            </a><ul class="dropdown-menu dropdown-menu-right" aria-labelledby="Courses">
+                      <li>
+                       			 <c:choose>
+						            <c:when test="${userVO.memberid == null}">
+						            <a class="dropdown-item " href="<%=request.getContextPath()%>/front-end/login.jsp">購物車</a>
+						            </c:when>
+						            <c:otherwise>
+						            <a class="dropdown-item " href="<%=request.getContextPath()%>/front-end/cart/cartClass.do?memberid=${userVO.memberid}&action=getMemberCartRedis">購物車</a>
+						            </c:otherwise>
+						      	</c:choose>
+                      </li>
+                      <li>
+                        <a class="dropdown-item " href="<%=request.getContextPath()%>/front-end/classOrder/listAllClassOrder.jsp">訂單記錄</a>
+                      </li>
+                        </ul>
+                  </li>
 <!-- ======================================================================================================================== -->
                        <li class="nav-item dropdown bg-info"><a class="nav-link dropdown-toggle "
                                 href="<%=request.getContextPath()%>/back-end/product/product.do?action=getAll_select&type=" id="stores" role="button" aria-haspopup="true"

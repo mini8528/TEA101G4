@@ -27,9 +27,9 @@ public class ProductDAO implements ProductDAO_interface {
 //----查詢所有商品----
 	private static final String GET_ALL_STMT = "SELECT PRODUCTID, "
 			+ "ADMINID, ADMINID2, BRANDID, NAME, CATEGORY, PRICE, "
-			+ "ADDDATE, STATUS, EDITDATE, PHOTO1, PHOTO2, PHOTO3, INTRO  FROM PRODUCT ORDER BY PRODUCTID";
+			+ "ADDDATE, STATUS, EDITDATE, PHOTO1, PHOTO2, PHOTO3, INTRO  FROM PRODUCT ORDER BY ADDDATE DESC";
 //----查詢上架商品----
-	private static final String GET_ALL_STMT_customer = "SELECT * FROM PRODUCT WHERE STATUS = ? ORDER BY PRICE";
+	private static final String GET_ALL_STMT_customer = "SELECT * FROM PRODUCT WHERE STATUS = ? ORDER BY ADDDATE DESC";
 //----查詢單筆商品----
 	private static final String GET_ONE_STMT = "SELECT PRODUCTID, "
 			+ "ADMINID, ADMINID2, BRANDID, NAME, CATEGORY, PRICE, "
@@ -46,7 +46,7 @@ public class ProductDAO implements ProductDAO_interface {
 //	private static final String SHOW_PHOTO = "SELECT PHOTO1 FROM PRODUCT WHERE PRODUCTID =?";
 	
 ////	--（管理員）查多筆商品，用NAME(KW)。
-	private static final String GET_STMT_BY_NAME = "SELECT * FROM PRODUCT WHERE NAME LIKE ? ORDER BY PRICE ASC";
+	private static final String GET_STMT_BY_NAME = "SELECT * FROM PRODUCT WHERE NAME LIKE ? ORDER BY ADDDATE DESC";
 ////	--（會員）查多筆商品，用種類。
 	private static final String GET_STMT_BY_CATEGORY = "SELECT * FROM PRODUCT WHERE CATEGORY LIKE ? AND STATUS = ?";
 ////	--（管理員）查多筆商品，用PRICE(dec.inc.BETWEEN)。
@@ -260,7 +260,7 @@ public class ProductDAO implements ProductDAO_interface {
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
 			
-			System.out.println("ProductJDBDDAO_getAll_test");
+			System.out.println("?_ProductJDBDDAO_getAll_test");
 			while (rs.next()) {
 				productVO = new ProductVO();
 				productVO.setProductid(rs.getString("productid"));

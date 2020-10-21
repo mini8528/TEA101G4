@@ -28,6 +28,19 @@ LatService latSvc = new LatService();
 
 <title>Gympayz首頁</title>
 
+<style>
+#ellipsis {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 4; /*最多顯示5行*/
+            -webkit-box-orient: vertical;
+            white-space: normal;
+        }
+ 
+</style>
+
 </head>
 
 <body id="body" class="up-scroll">
@@ -63,7 +76,7 @@ LatService latSvc = new LatService();
 			</div>
 			<div class="text-center mt-1">
 <!-- 				<p class="text-white p-text-large mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod</p> -->
-				<a href="<%=request.getContextPath()%>/front-end/login.jsp" class="btn btn-white text-danger text-uppercase mt-5 font-size-16" style="background-color: lightgray">
+				<a href="<%=request.getContextPath()%>/front-end/login.jsp" class="btn btn-white text-danger text-uppercase mt-5 font-size-16" style="background-color: #f0c24b">
 					<i class="fa fa-sign-in" aria-hidden="true"></i>&nbsp &nbsp Join us
 				</a>
 			</div>
@@ -91,9 +104,9 @@ LatService latSvc = new LatService();
           <div class="section-title align-items-baseline mt-5 mt-md-0 mb-3 px-5 pl-md-1">
             <h2 class="text-color text-uppercase pl-lg-0"><span class="small text-danger font-weight-bold" style="font-size:60px">Gympayz <br> </span></h2>
           </div>
-          <p class="font-size-18 font-weight-medium px-7 pl-md-6 pr-md-0 pl-lg-0" style="color: #f0c24b"><i class="fa fa-check-square-o" aria-hidden="true"></i>&nbsp有效率的安排健身課表</p>
-          <p class="font-size-18 font-weight-medium px-7 pl-md-6 pr-md-0 pl-lg-0" style="color: #f0c24b"><i class="fa fa-check-square-o" aria-hidden="true"></i>&nbsp多元化挑選適合自己的教練</p>
-          <p class="font-size-18 font-weight-medium px-7 pl-md-6 pr-md-0 pl-lg-0" style="color: #f0c24b"><i class="fa fa-check-square-o" aria-hidden="true"></i>&nbsp輕鬆交流分享資訊</p>
+          <p class="font-size-18 font-weight-medium px-7 pl-md-6 pr-md-0 pl-lg-0" style="color: #f0c24b; font-size:25px"><i class="fa fa-check-square-o" aria-hidden="true"></i>&nbsp簡單便利安排專屬的健身課表</p>
+          <p class="font-size-18 font-weight-medium px-7 pl-md-6 pr-md-0 pl-lg-0" style="color: #f0c24b; font-size:25px"><i class="fa fa-check-square-o" aria-hidden="true"></i>&nbsp多元選擇找到適合自己的教練</p>
+          <p class="font-size-18 font-weight-medium px-7 pl-md-6 pr-md-0 pl-lg-0" style="color: #f0c24b; font-size:25px"><i class="fa fa-check-square-o" aria-hidden="true"></i>&nbsp輕鬆交流分享健身資訊</p>
           <div class="px-7 pr-md-0 pl-md-6 pl-lg-0">
 <%--             <a href="<%=request.getContextPath()%>/front-end/login.jsp" class="btn btn-danger text-uppercase mt-5">Join us</a> --%>
           </div>
@@ -111,7 +124,7 @@ LatService latSvc = new LatService();
   <div class="container">
     <div class="section-title justify-content-center mb-4 mb-md-8 wow fadeInUp">
       <span class="shape shape-left bg-info"></span>
-      <h2 class="text-danger">Latest News</h2>
+      <h2 style="color:#2f3c43">Latest News</h2>
       <span class="shape shape-right bg-info"></span>
     </div>
 

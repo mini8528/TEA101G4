@@ -320,25 +320,16 @@ public class MemberServlet extends HttpServlet {
 					errorMsgs.add("email請勿空白");
 				}
 
-				byte[] photo = null;
-				Part photo_a = req.getPart("photo");
-				try {
-					if (photo_a == null) {
-						errorMsgs.add("請上傳照片");
-					} else {
-						InputStream fis = photo_a.getInputStream();
-						ByteArrayOutputStream baos = new ByteArrayOutputStream();
-						byte[] buffer = new byte[8192];
-						int i;
-						while ((i = fis.read(buffer)) != -1) {
-							baos.write(buffer, 0, i);
-						}
-						baos.close();
-						fis.close();
-						photo = baos.toByteArray();
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
+				MemberService memberSvc = new MemberService();
+				Part photo = req.getPart("photo");
+				InputStream in = photo.getInputStream();
+				byte[] buf = null;
+				if (in.available() != 0) {
+					buf = new byte[in.available()];
+					in.read(buf);
+					in.close();
+				} else {
+					buf = memberSvc.getOneMember(memberid).getPhoto();
 				}
 
 				String address = req.getParameter("address").trim();
@@ -357,67 +348,37 @@ public class MemberServlet extends HttpServlet {
 
 				String introduction = req.getParameter("introduction").trim();
 
-				byte[] photo1 = null;
-				Part photo_b = req.getPart("photo1");
-				try {
-					if (photo_b == null) {
-						errorMsgs.add("請上傳照片");
-					} else {
-						InputStream fis = photo_b.getInputStream();
-						ByteArrayOutputStream baos = new ByteArrayOutputStream();
-						byte[] buffer = new byte[8192];
-						int i;
-						while ((i = fis.read(buffer)) != -1) {
-							baos.write(buffer, 0, i);
-						}
-						baos.close();
-						fis.close();
-						photo1 = baos.toByteArray();
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
+				Part photo1 = req.getPart("photo1");
+				InputStream in1 = photo1.getInputStream();
+				byte[] buf1 = null;
+				if (in1.available() != 0) {
+					buf1 = new byte[in1.available()];
+					in1.read(buf1);
+					in1.close();
+				} else {
+					buf1 = memberSvc.getOneMember(memberid).getPhoto1();
 				}
-
-				byte[] photo2 = null;
-				Part photo_c = req.getPart("photo2");
-				try {
-					if (photo_c == null) {
-						errorMsgs.add("請上傳照片");
-					} else {
-						InputStream fis = photo_c.getInputStream();
-						ByteArrayOutputStream baos = new ByteArrayOutputStream();
-						byte[] buffer = new byte[8192];
-						int i;
-						while ((i = fis.read(buffer)) != -1) {
-							baos.write(buffer, 0, i);
-						}
-						baos.close();
-						fis.close();
-						photo2 = baos.toByteArray();
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
+				
+				Part photo2 = req.getPart("photo2");
+				InputStream in2 = photo2.getInputStream();
+				byte[] buf2 = null;
+				if (in2.available() != 0) {
+					buf2 = new byte[in2.available()];
+					in2.read(buf2);
+					in2.close();
+				} else {
+					buf2 = memberSvc.getOneMember(memberid).getPhoto2();
 				}
-
-				byte[] photo3 = null;
-				Part photo_d = req.getPart("photo3");
-				try {
-					if (photo_d == null) {
-						errorMsgs.add("請上傳照片");
-					} else {
-						InputStream fis = photo_d.getInputStream();
-						ByteArrayOutputStream baos = new ByteArrayOutputStream();
-						byte[] buffer = new byte[8192];
-						int i;
-						while ((i = fis.read(buffer)) != -1) {
-							baos.write(buffer, 0, i);
-						}
-						baos.close();
-						fis.close();
-						photo3 = baos.toByteArray();
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
+				
+				Part photo3 = req.getPart("photo3");
+				InputStream in3 = photo3.getInputStream();
+				byte[] buf3 = null;
+				if (in3.available() != 0) {
+					buf3 = new byte[in3.available()];
+					in3.read(buf3);
+					in3.close();
+				} else {
+					buf3 = memberSvc.getOneMember(memberid).getPhoto3();
 				}
 
 				Date adddate = Date.valueOf(req.getParameter("adddate"));
@@ -432,15 +393,15 @@ public class MemberServlet extends HttpServlet {
 				memberVO.setPhone(phone);
 				memberVO.setBirthday(birthday);
 				memberVO.setEmail(email);
-				memberVO.setPhoto(photo);
+				memberVO.setPhoto(buf);
 				memberVO.setAddress(address);
 				memberVO.setAuthority(authority);
 				memberVO.setQualifications(qualifications);
 				memberVO.setExpertise(expertise);
 				memberVO.setIntroduction(introduction);
-				memberVO.setPhoto1(photo1);
-				memberVO.setPhoto2(photo2);
-				memberVO.setPhoto3(photo3);
+				memberVO.setPhoto1(buf1);
+				memberVO.setPhoto2(buf2);
+				memberVO.setPhoto3(buf3);
 				memberVO.setAdddate(adddate);
 
 				// Send the use back to the form, if there were errors
@@ -457,7 +418,7 @@ public class MemberServlet extends HttpServlet {
 				System.out.println("開始修改資料 ");
 				MemberService mService = new MemberService();
 				memberVO = mService.updateMember(memberid, name, account, password, gender, phone, birthday, email,
-						photo, address, authority, qualifications, expertise, introduction, photo1, photo2, photo3, adddate);
+						buf, address, authority, qualifications, expertise, introduction, buf1, buf2, buf3, adddate);
 
 				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 //				req.setAttribute("userVO", memberVO); // 資料庫update成功後,正確的的empVO物件,存入req
@@ -530,25 +491,16 @@ public class MemberServlet extends HttpServlet {
 					errorMsgs.add("email請勿空白");
 				}
 
-				byte[] photo = null;
-				Part photo_a = req.getPart("photo");
-				try {
-					if (photo_a == null) {
-						errorMsgs.add("請上傳照片");
-					} else {
-						InputStream fis = photo_a.getInputStream();
-						ByteArrayOutputStream baos = new ByteArrayOutputStream();
-						byte[] buffer = new byte[8192];
-						int i;
-						while ((i = fis.read(buffer)) != -1) {
-							baos.write(buffer, 0, i);
-						}
-						baos.close();
-						fis.close();
-						photo = baos.toByteArray();
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
+				MemberService memberSvc = new MemberService();
+				Part photo = req.getPart("photo");
+				InputStream in = photo.getInputStream();
+				byte[] buf = null;
+				if (in.available() != 0) {
+					buf = new byte[in.available()];
+					in.read(buf);
+					in.close();
+				} else {
+					buf = memberSvc.getOneMember(memberid).getPhoto();
 				}
 
 				String address = req.getParameter("address").trim();
@@ -567,67 +519,37 @@ public class MemberServlet extends HttpServlet {
 
 				String introduction = req.getParameter("introduction").trim();
 
-				byte[] photo1 = null;
-				Part photo_b = req.getPart("photo1");
-				try {
-					if (photo_b == null) {
-						errorMsgs.add("請上傳照片");
-					} else {
-						InputStream fis = photo_b.getInputStream();
-						ByteArrayOutputStream baos = new ByteArrayOutputStream();
-						byte[] buffer = new byte[8192];
-						int i;
-						while ((i = fis.read(buffer)) != -1) {
-							baos.write(buffer, 0, i);
-						}
-						baos.close();
-						fis.close();
-						photo1 = baos.toByteArray();
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
+				Part photo1 = req.getPart("photo1");
+				InputStream in1 = photo1.getInputStream();
+				byte[] buf1 = null;
+				if (in1.available() != 0) {
+					buf1 = new byte[in1.available()];
+					in1.read(buf1);
+					in1.close();
+				} else {
+					buf1 = memberSvc.getOneMember(memberid).getPhoto1();
 				}
-
-				byte[] photo2 = null;
-				Part photo_c = req.getPart("photo2");
-				try {
-					if (photo_c == null) {
-						errorMsgs.add("請上傳照片");
-					} else {
-						InputStream fis = photo_c.getInputStream();
-						ByteArrayOutputStream baos = new ByteArrayOutputStream();
-						byte[] buffer = new byte[8192];
-						int i;
-						while ((i = fis.read(buffer)) != -1) {
-							baos.write(buffer, 0, i);
-						}
-						baos.close();
-						fis.close();
-						photo2 = baos.toByteArray();
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
+				
+				Part photo2 = req.getPart("photo2");
+				InputStream in2 = photo2.getInputStream();
+				byte[] buf2 = null;
+				if (in2.available() != 0) {
+					buf2 = new byte[in2.available()];
+					in2.read(buf2);
+					in2.close();
+				} else {
+					buf2 = memberSvc.getOneMember(memberid).getPhoto2();
 				}
-
-				byte[] photo3 = null;
-				Part photo_d = req.getPart("photo3");
-				try {
-					if (photo_d == null) {
-						errorMsgs.add("請上傳照片");
-					} else {
-						InputStream fis = photo_d.getInputStream();
-						ByteArrayOutputStream baos = new ByteArrayOutputStream();
-						byte[] buffer = new byte[8192];
-						int i;
-						while ((i = fis.read(buffer)) != -1) {
-							baos.write(buffer, 0, i);
-						}
-						baos.close();
-						fis.close();
-						photo3 = baos.toByteArray();
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
+				
+				Part photo3 = req.getPart("photo3");
+				InputStream in3 = photo3.getInputStream();
+				byte[] buf3 = null;
+				if (in3.available() != 0) {
+					buf3 = new byte[in3.available()];
+					in3.read(buf3);
+					in3.close();
+				} else {
+					buf3 = memberSvc.getOneMember(memberid).getPhoto3();
 				}
 
 				Date adddate = Date.valueOf(req.getParameter("adddate"));
@@ -642,15 +564,15 @@ public class MemberServlet extends HttpServlet {
 				memberVO.setPhone(phone);
 				memberVO.setBirthday(birthday);
 				memberVO.setEmail(email);
-				memberVO.setPhoto(photo);
+				memberVO.setPhoto(buf);
 				memberVO.setAddress(address);
 				memberVO.setAuthority(authority);
 				memberVO.setQualifications(qualifications);
 				memberVO.setExpertise(expertise);
 				memberVO.setIntroduction(introduction);
-				memberVO.setPhoto1(photo1);
-				memberVO.setPhoto2(photo2);
-				memberVO.setPhoto3(photo3);
+				memberVO.setPhoto1(buf1);
+				memberVO.setPhoto2(buf2);
+				memberVO.setPhoto3(buf3);
 				memberVO.setAdddate(adddate);
 
 				// Send the use back to the form, if there were errors
@@ -667,7 +589,7 @@ public class MemberServlet extends HttpServlet {
 				System.out.println("開始修改資料 ");
 				MemberService mService = new MemberService();
 				memberVO = mService.updateMember(memberid, name, account, password, gender, phone, birthday, email,
-						photo, address, authority, qualifications, expertise, introduction, photo1, photo2, photo3, adddate);
+						buf, address, authority, qualifications, expertise, introduction, buf1, buf2, buf3, adddate);
 
 				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 				req.setAttribute("userVO", memberVO); // 資料庫update成功後,正確的的empVO物件,存入req
@@ -738,25 +660,16 @@ public class MemberServlet extends HttpServlet {
 					errorMsgs.add("email請勿空白");
 				}
 
-				byte[] photo = null;
-				Part photo_a = req.getPart("photo");
-				try {
-					if (photo_a == null) {
-						errorMsgs.add("請上傳照片");
-					} else {
-						InputStream fis = photo_a.getInputStream();
-						ByteArrayOutputStream baos = new ByteArrayOutputStream();
-						byte[] buffer = new byte[8192];
-						int i;
-						while ((i = fis.read(buffer)) != -1) {
-							baos.write(buffer, 0, i);
-						}
-						baos.close();
-						fis.close();
-						photo = baos.toByteArray();
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
+				MemberService memberSvc = new MemberService();
+				Part photo = req.getPart("photo");
+				InputStream in = photo.getInputStream();
+				byte[] buf = null;
+				if (in.available() != 0) {
+					buf = new byte[in.available()];
+					in.read(buf);
+					in.close();
+				} else {
+					buf = memberSvc.getOneMember(memberid).getPhoto();
 				}
 
 				String address = req.getParameter("address").trim();
@@ -775,67 +688,37 @@ public class MemberServlet extends HttpServlet {
 
 				String introduction = req.getParameter("introduction").trim();
 
-				byte[] photo1 = null;
-				Part photo_b = req.getPart("photo1");
-				try {
-					if (photo_b == null) {
-						errorMsgs.add("請上傳照片");
-					} else {
-						InputStream fis = photo_b.getInputStream();
-						ByteArrayOutputStream baos = new ByteArrayOutputStream();
-						byte[] buffer = new byte[8192];
-						int i;
-						while ((i = fis.read(buffer)) != -1) {
-							baos.write(buffer, 0, i);
-						}
-						baos.close();
-						fis.close();
-						photo1 = baos.toByteArray();
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
+				Part photo1 = req.getPart("photo1");
+				InputStream in1 = photo1.getInputStream();
+				byte[] buf1 = null;
+				if (in1.available() != 0) {
+					buf1 = new byte[in1.available()];
+					in1.read(buf1);
+					in1.close();
+				} else {
+					buf1 = memberSvc.getOneMember(memberid).getPhoto1();
 				}
-
-				byte[] photo2 = null;
-				Part photo_c = req.getPart("photo2");
-				try {
-					if (photo_c == null) {
-						errorMsgs.add("請上傳照片");
-					} else {
-						InputStream fis = photo_c.getInputStream();
-						ByteArrayOutputStream baos = new ByteArrayOutputStream();
-						byte[] buffer = new byte[8192];
-						int i;
-						while ((i = fis.read(buffer)) != -1) {
-							baos.write(buffer, 0, i);
-						}
-						baos.close();
-						fis.close();
-						photo2 = baos.toByteArray();
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
+				
+				Part photo2 = req.getPart("photo2");
+				InputStream in2 = photo2.getInputStream();
+				byte[] buf2 = null;
+				if (in2.available() != 0) {
+					buf2 = new byte[in2.available()];
+					in2.read(buf2);
+					in2.close();
+				} else {
+					buf2 = memberSvc.getOneMember(memberid).getPhoto2();
 				}
-
-				byte[] photo3 = null;
-				Part photo_d = req.getPart("photo3");
-				try {
-					if (photo_d == null) {
-						errorMsgs.add("請上傳照片");
-					} else {
-						InputStream fis = photo_d.getInputStream();
-						ByteArrayOutputStream baos = new ByteArrayOutputStream();
-						byte[] buffer = new byte[8192];
-						int i;
-						while ((i = fis.read(buffer)) != -1) {
-							baos.write(buffer, 0, i);
-						}
-						baos.close();
-						fis.close();
-						photo3 = baos.toByteArray();
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
+				
+				Part photo3 = req.getPart("photo3");
+				InputStream in3 = photo3.getInputStream();
+				byte[] buf3 = null;
+				if (in3.available() != 0) {
+					buf3 = new byte[in3.available()];
+					in3.read(buf3);
+					in3.close();
+				} else {
+					buf3 = memberSvc.getOneMember(memberid).getPhoto3();
 				}
 
 				Date adddate = Date.valueOf(req.getParameter("adddate"));
@@ -850,15 +733,15 @@ public class MemberServlet extends HttpServlet {
 				memberVO.setPhone(phone);
 				memberVO.setBirthday(birthday);
 				memberVO.setEmail(email);
-				memberVO.setPhoto(photo);
+				memberVO.setPhoto(buf);
 				memberVO.setAddress(address);
 				memberVO.setAuthority(authority);
 				memberVO.setQualifications(qualifications);
 				memberVO.setExpertise(expertise);
 				memberVO.setIntroduction(introduction);
-				memberVO.setPhoto1(photo1);
-				memberVO.setPhoto2(photo2);
-				memberVO.setPhoto3(photo3);
+				memberVO.setPhoto1(buf1);
+				memberVO.setPhoto2(buf2);
+				memberVO.setPhoto3(buf3);
 				memberVO.setAdddate(adddate);
 
 				// Send the use back to the form, if there were errors
@@ -875,7 +758,7 @@ public class MemberServlet extends HttpServlet {
 				System.out.println("開始修改資料 ");
 				MemberService mService = new MemberService();
 				memberVO = mService.updateMember(memberid, name, account, password, gender, phone, birthday, email,
-						photo, address, authority, qualifications, expertise, introduction, photo1, photo2, photo3,
+						buf, address, authority, qualifications, expertise, introduction, buf1, buf2, buf3,
 						adddate);
 
 				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
@@ -947,25 +830,16 @@ public class MemberServlet extends HttpServlet {
 					errorMsgs.add("email請勿空白");
 				}
 
-				byte[] photo = null;
-				Part photo_a = req.getPart("photo");
-				try {
-					if (photo_a == null) {
-						errorMsgs.add("請上傳照片");
-					} else {
-						InputStream fis = photo_a.getInputStream();
-						ByteArrayOutputStream baos = new ByteArrayOutputStream();
-						byte[] buffer = new byte[8192];
-						int i;
-						while ((i = fis.read(buffer)) != -1) {
-							baos.write(buffer, 0, i);
-						}
-						baos.close();
-						fis.close();
-						photo = baos.toByteArray();
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
+				MemberService memberSvc = new MemberService();
+				Part photo = req.getPart("photo");
+				InputStream in = photo.getInputStream();
+				byte[] buf = null;
+				if (in.available() != 0) {
+					buf = new byte[in.available()];
+					in.read(buf);
+					in.close();
+				} else {
+					buf = memberSvc.getOneMember(memberid).getPhoto();
 				}
 
 				String address = req.getParameter("address").trim();
@@ -984,67 +858,37 @@ public class MemberServlet extends HttpServlet {
 
 				String introduction = req.getParameter("introduction").trim();
 
-				byte[] photo1 = null;
-				Part photo_b = req.getPart("photo1");
-				try {
-					if (photo_b == null) {
-						errorMsgs.add("請上傳照片");
-					} else {
-						InputStream fis = photo_b.getInputStream();
-						ByteArrayOutputStream baos = new ByteArrayOutputStream();
-						byte[] buffer = new byte[8192];
-						int i;
-						while ((i = fis.read(buffer)) != -1) {
-							baos.write(buffer, 0, i);
-						}
-						baos.close();
-						fis.close();
-						photo1 = baos.toByteArray();
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
+				Part photo1 = req.getPart("photo1");
+				InputStream in1 = photo1.getInputStream();
+				byte[] buf1 = null;
+				if (in1.available() != 0) {
+					buf1 = new byte[in1.available()];
+					in1.read(buf1);
+					in1.close();
+				} else {
+					buf1 = memberSvc.getOneMember(memberid).getPhoto1();
 				}
-
-				byte[] photo2 = null;
-				Part photo_c = req.getPart("photo2");
-				try {
-					if (photo_c == null) {
-						errorMsgs.add("請上傳照片");
-					} else {
-						InputStream fis = photo_c.getInputStream();
-						ByteArrayOutputStream baos = new ByteArrayOutputStream();
-						byte[] buffer = new byte[8192];
-						int i;
-						while ((i = fis.read(buffer)) != -1) {
-							baos.write(buffer, 0, i);
-						}
-						baos.close();
-						fis.close();
-						photo2 = baos.toByteArray();
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
+				
+				Part photo2 = req.getPart("photo2");
+				InputStream in2 = photo2.getInputStream();
+				byte[] buf2 = null;
+				if (in2.available() != 0) {
+					buf2 = new byte[in2.available()];
+					in2.read(buf2);
+					in2.close();
+				} else {
+					buf2 = memberSvc.getOneMember(memberid).getPhoto2();
 				}
-
-				byte[] photo3 = null;
-				Part photo_d = req.getPart("photo3");
-				try {
-					if (photo_d == null) {
-						errorMsgs.add("請上傳照片");
-					} else {
-						InputStream fis = photo_d.getInputStream();
-						ByteArrayOutputStream baos = new ByteArrayOutputStream();
-						byte[] buffer = new byte[8192];
-						int i;
-						while ((i = fis.read(buffer)) != -1) {
-							baos.write(buffer, 0, i);
-						}
-						baos.close();
-						fis.close();
-						photo3 = baos.toByteArray();
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
+				
+				Part photo3 = req.getPart("photo3");
+				InputStream in3 = photo3.getInputStream();
+				byte[] buf3 = null;
+				if (in3.available() != 0) {
+					buf3 = new byte[in3.available()];
+					in3.read(buf3);
+					in3.close();
+				} else {
+					buf3 = memberSvc.getOneMember(memberid).getPhoto3();
 				}
 
 				Date adddate = Date.valueOf(req.getParameter("adddate"));
@@ -1059,15 +903,15 @@ public class MemberServlet extends HttpServlet {
 				memberVO.setPhone(phone);
 				memberVO.setBirthday(birthday);
 				memberVO.setEmail(email);
-				memberVO.setPhoto(photo);
+				memberVO.setPhoto(buf);
 				memberVO.setAddress(address);
 				memberVO.setAuthority(authority);
 				memberVO.setQualifications(qualifications);
 				memberVO.setExpertise(expertise);
 				memberVO.setIntroduction(introduction);
-				memberVO.setPhoto1(photo1);
-				memberVO.setPhoto2(photo2);
-				memberVO.setPhoto3(photo3);
+				memberVO.setPhoto1(buf1);
+				memberVO.setPhoto2(buf2);
+				memberVO.setPhoto3(buf3);
 				memberVO.setAdddate(adddate);
 
 				// Send the use back to the form, if there were errors
@@ -1084,7 +928,7 @@ public class MemberServlet extends HttpServlet {
 				System.out.println("開始修改資料 ");
 				MemberService mService = new MemberService();
 				memberVO = mService.updateMember(memberid, name, account, password, gender, phone, birthday, email,
-						photo, address, authority, qualifications, expertise, introduction, photo1, photo2, photo3, adddate);
+						buf, address, authority, qualifications, expertise, introduction, buf1, buf2, buf3, adddate);
 
 				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 //				req.setAttribute("userVO", memberVO); // 資料庫update成功後,正確的的empVO物件,存入req
@@ -1293,7 +1137,7 @@ public class MemberServlet extends HttpServlet {
 						"N", qualifications, expertise, introduction, photo1, photo2, photo3, adddate);
 
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-				String url = "/front-end/member/listAllMember.jsp";
+				String url = "/front-end/login.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllClassDetail.jsp
 				successView.forward(req, res);
 

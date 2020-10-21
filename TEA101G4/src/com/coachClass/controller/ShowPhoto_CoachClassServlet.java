@@ -23,15 +23,10 @@ import javax.sql.DataSource;
 @WebServlet("/back-end/coachClass/coachClassShow.do")
 public class ShowPhoto_CoachClassServlet extends HttpServlet {
 	
-	private static DataSource ds = null;
-	static {
-		try {
-			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TEA101G4");
-		} catch (NamingException e) {
-			e.printStackTrace();
-		}
-	}
+	private static final String driver = "oracle.jdbc.driver.OracleDriver";
+	private static final String url = "jdbc:oracle:thin:@localhost:1521:XE";
+	private static final String userid = "TEA101G4";
+	private static final String passwd = "123456";
 	
 	private static final String SHOW_PHOTO = "SELECT PHOTO FROM coachClass WHERE coachClassID = ?";
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -39,17 +34,14 @@ public class ShowPhoto_CoachClassServlet extends HttpServlet {
 	}
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		
-
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		
 		res.setContentType("image/gif");
 		ServletOutputStream outpho = res.getOutputStream();
 		try {
 			
-			con = ds.getConnection();
+			Class.forName(driver);
+			Connection con = DriverManager.getConnection(url, userid, passwd);
 			String coachClassID = new String(req.getParameter("coachClassID").trim());
-			pstmt = con.prepareStatement(SHOW_PHOTO);
+			PreparedStatement pstmt = con.prepareStatement(SHOW_PHOTO);
 			pstmt.setString(1, coachClassID);
 			ResultSet rs = pstmt.executeQuery();
 			try {
@@ -73,6 +65,8 @@ public class ShowPhoto_CoachClassServlet extends HttpServlet {
 				outpho.write(b);
 				in.close();
 			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
 		}  catch (SQLException e) {
 			InputStream in = getServletContext().getResourceAsStream("/back-end/coachClass/images/tomcat.png");
 			byte[] b = new byte[in.available()];

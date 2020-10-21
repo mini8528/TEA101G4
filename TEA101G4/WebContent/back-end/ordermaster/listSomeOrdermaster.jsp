@@ -93,6 +93,10 @@
 <!--  -->
 <!-- ============================================================ --> 
 <div class="table-responsive table-class-schedule">
+<FORM METHOD="get" ACTION="<%=request.getContextPath()%>/back-end/ordermaster/ordermaster.do">
+<input type="hidden" name="action" value="update_some_orderstatus"> 
+<input type="submit" value="多筆出貨">
+<br>
 <table class="table table-bordered text-center">
 <thead>
 	<tr>
@@ -144,6 +148,16 @@
 	<td class="py-5 align-middle text-muted font-weight-medium">${ordermasterVO.orderstatus}</td>
 		
 	<td class="py-5 align-middle text-muted font-weight-medium">
+	<span>
+		<a href="<%=request.getContextPath()%>/back-end/ordermaster/ordermaster.do?ordermasterid=${ordermasterVO.ordermasterid}&action=update_some_orderstatus">
+		<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="shipping-fast" class="svg-inline--fa fa-shipping-fast fa-w-20" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path fill="currentColor" d="M624 352h-16V243.9c0-12.7-5.1-24.9-14.1-33.9L494 110.1c-9-9-21.2-14.1-33.9-14.1H416V48c0-26.5-21.5-48-48-48H112C85.5 0 64 21.5 64 48v48H8c-4.4 0-8 3.6-8 8v16c0 4.4 3.6 8 8 8h272c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H40c-4.4 0-8 3.6-8 8v16c0 4.4 3.6 8 8 8h208c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H8c-4.4 0-8 3.6-8 8v16c0 4.4 3.6 8 8 8h208c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H64v128c0 53 43 96 96 96s96-43 96-96h128c0 53 43 96 96 96s96-43 96-96h48c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zM160 464c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm320 0c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm80-208H416V144h44.1l99.9 99.9V256z"></path></svg>
+		click</a>
+		</span>
+	</td>
+	<td class="py-5 align-middle text-muted font-weight-medium">
+		<a href="<%=request.getContextPath()%>/back-end/ordermaster/ordermaster.do?ordermasterid=${ordermasterVO.ordermasterid}&action=getOne_For_Update">Edit</a>
+	</td>
+	<%-- <td class="py-5 align-middle text-muted font-weight-medium">
 		<FORM METHOD = "get" ACTION = "<%=request.getContextPath()%>/back-end/ordermaster/ordermaster.do" style = "margin-bottom: 0px;">
 			<input type = "submit" value = "出貨">
 			<input type = "hidden" name = "ordermasterid" value = "${ordermasterVO.ordermasterid}">
@@ -156,10 +170,11 @@
 			<input type = "hidden" name = "ordermasterid" value = "${ordermasterVO.ordermasterid}">
 			<input type = "hidden" name = "action" value = "getOne_For_Update">
 		</FORM>
-	</td>
+	</td> --%>
 </tr>
 </c:forEach>
 </table>
+</FORM>
 <%@ include file = "page2.file" %>
 <!-- ---------------------------------------------------------------- -->
 </div>

@@ -35,19 +35,20 @@ if(userVO!=null){System.out.println("（Cart.jsp）當前會員= "+userVO.getMem
       <table class="table mb-0">
       <thead>
           <tr>
-            <th scope="col">*Photo</th>
-            <th scope="col">Product Name</th>
-            <th scope="col">Brand</th>
-            <th scope="col">*specID</th>
-            <th scope="col">Specific</th>
-            <th scope="col">Price</th>
-            <th scope="col">Quantity</th>
-            <th width="10"></th>
+            <th class="bg-info text-white text-uppercase" align="center" scope="col" width="50"></th>
+            <th class="bg-info text-white text-uppercase" align="center" scope="col">名稱</th>
+            <th class="bg-info text-white text-uppercase" align="center" scope="col">品牌</th>
+            <th class="bg-info text-white text-uppercase" align="center" scope="col">*specID</th>
+            <th class="bg-info text-white text-uppercase" align="center" scope="col">規格</th>
+            <th class="bg-info text-white text-uppercase" align="center" scope="col">價格</th>
+            <th class="bg-info text-white text-uppercase" align="center" scope="col">數量</th>
+            <th class="bg-info text-white text-uppercase" align="center" scope="col" width="10"></th>
           </tr>
         </thead>
 <jsp:useBean id="specSvc" scope="page" class="com.spec.model.SpecService" />
 <%List<CartVO> buylist = (List<CartVO>) session.getAttribute("shoppingcart");%>
-<%	System.out.println("buylist.size()="+buylist.toString()); %>
+<%	 %>
+<%-- <%	System.out.println("buylist.size()="+buylist.toString()); %> --%>
 <%if (buylist != null && (buylist.size() > 0)) {%>
 <%
  for (int index = 0; index < buylist.size(); index++) {
@@ -57,7 +58,7 @@ if(userVO!=null){System.out.println("（Cart.jsp）當前會員= "+userVO.getMem
 <tbody>
 	<tr>
 		<td>
-			<img src="" alt="image" class="cart-image d-none d-md-block">
+			<img src="<%=request.getContextPath()%>/back-end/product/productshow.do?productid=${order.productid}" alt="image" class="cart-image d-none d-md-block" width="60" height="60">
 		</td>
 	  <!-- <td class="td-product-name">Product Name</td> -->
 		<td width="200"><div align="center"><b><%=order.getProductname()%></b></div></td>
@@ -99,6 +100,15 @@ if(userVO!=null){System.out.println("（Cart.jsp）當前會員= "+userVO.getMem
 </form>
 </td>
 <!--  -->
+<%-- <%}%> --%>
+ <%}else{%>
+	<a><img src="<%=request.getContextPath()%>/images/usagi.png" width="100" height="100" border="0">購物車是空的</a>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
 <%}%>
 </div>
 </section>

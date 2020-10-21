@@ -3,6 +3,7 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.product.model.*"%>
 <%@ page import="com.brand.model.*"%>
+<%@ page import="com.spec.model.*"%>
 <%@ page import="com.adm.model.*"%>
 <%
  	AdminnoVO adminVO = (AdminnoVO) session.getAttribute("adminVO");
@@ -15,7 +16,11 @@
 	List<ProductVO> list = productSvc.getProducts(request.getParameter("name"));
 	System.out.println("符合的Product共：" + list.size());
 	pageContext.setAttribute("list", list); */
+	/* SpecVO specVO = (SpecVO) request.getAttribute("specVO");
+	System.out.println(specVO);
+	pageContext.setAttribute("specVO", specVO); */
 %>
+<jsp:useBean id="specSvc" scope="page" class="com.spec.model.SpecService" />
 <html>
 <body id="page-top">
 <!-- =================================Page Wrapper(include)================================= -->
@@ -93,6 +98,7 @@
 		<th class="alert-info" scope="col">照片</th>
 		<th class="alert-info" scope="col">名稱</th>
 		<!-- <th>規格</th> join?-->
+		<th class="alert-info" scope="col">*規格</th>
 		<th class="alert-info" scope="col">價格</th>
 		<!-- <th>庫存</th> join?-->
 		<th class="alert-info" scope="col">品牌</th>
@@ -123,6 +129,20 @@
 			<img src="<%=request.getContextPath()%>/back-end/product/productshow.do?productid=${productVO.productid}" width="50" height="50">
 		</td>
 		<td class="py-5 align-middle text-muted font-weight-medium">${productVO.name}</td>
+		<!-- ---------------------------------- -->
+			<td class="py-5 align-middle text-muted font-weight-medium">
+				<a href="<%=request.getContextPath()%>/back-end/spec/addOneSpec.jsp?productid=${productVO.productid}">add+</a>
+				<br>
+				<select size="1" name="specid">
+					<c:forEach var="specVO" items="${specSvc.all}">
+						<c:if test="${productVO.productid==specVO.productid}">
+						<%-- <option>${specVO.specific} --%>
+						<option value="${specVO.specid}">${specVO.specific}
+				 		</c:if>
+					</c:forEach>
+				</select>
+			</td>
+		<!-- ---------------------------------- -->	
 		<td class="py-5 align-middle text-muted font-weight-medium">${productVO.price}</td>
 		<%-- <td>${productVO.brandid}</td> --%>
 		<jsp:useBean id="brandSvc" scope="page" class="com.brand.model.BrandService" />
@@ -137,7 +157,17 @@
 		<td class="py-5 align-middle text-muted font-weight-medium">${productVO.adminid}</td>
 		<%-- <td class="py-5 align-middle text-muted font-weight-medium">${productVO.editdate}</td>
 		<td class="py-5 align-middle text-muted font-weight-medium">${productVO.adminid2}</td> --%>
-		<td class="py-5 align-middle text-muted font-weight-medium">${productVO.status}</td>
+		<!--  -->
+			<c:choose>
+			<c:when test="${productVO.status == 'Y'}">
+			<td class="py-5 align-middle text-muted font-weight-medium"><span style="color:green;">上架中</span></td>
+			</c:when>
+			<c:otherwise>
+			<td class="py-5 align-middle text-muted font-weight-medium"><span style="color:black;">已下架</span></td>
+			</c:otherwise>
+			</c:choose>
+		<!--  -->
+		<%-- <td class="py-5 align-middle text-muted font-weight-medium">${productVO.status}</td> --%>
 
 		<td class="py-5 align-middle text-muted font-weight-medium">
 		<a href="<%=request.getContextPath()%>/back-end/product/product.do?productid=${productVO.productid}&action=getOne_For_Update">Edit</a>

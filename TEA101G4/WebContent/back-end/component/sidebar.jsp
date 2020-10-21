@@ -35,24 +35,21 @@
 
       <!-- Divider -->
       <hr class="sidebar-divider">
-
-
-    <!-- 管理員 -->
       
-
+    <!--       會員管理 -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMember" aria-expanded="true" aria-controls="collapseTwo">
           <i class="fas fa-fw fa-cog"></i>
-          <span>員工管理</span>
+          <span>會員管理</span>
         </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="collapseMember" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="<%=request.getContextPath()%>/back-end/adm/listAllEmp.jsp">查詢全部管理員</a>
-            <a class="collapse-item" href="<%=request.getContextPath()%>/back-end/adm/addEmp.jsp">新增管理員工</a>
+            <h6 class="collapse-header">Custom Components:</h6>
+            <a class="collapse-item" href="<%=request.getContextPath()%>/back-end/member/listAllMember.jsp">管理會員</a>
           </div>
         </div>
       </li>
-      
+
        <!-- 最新消息 -->
       
       <li class="nav-item">
@@ -153,6 +150,21 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Custom Components:</h6>
       		<a class="collapse-item" href="<%=request.getContextPath()%>/back-end/pro/listAllPro.jsp">查詢商品</a>
+          </div>
+        </div>
+      </li>
+      
+      <!-- 管理員 -->
+      
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>員工管理</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="<%=request.getContextPath()%>/back-end/adm/listAllEmp.jsp">查詢全部管理員</a>
+            <a class="collapse-item" href="<%=request.getContextPath()%>/back-end/adm/addEmp.jsp">新增管理員工</a>
           </div>
         </div>
       </li>

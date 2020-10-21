@@ -9,7 +9,6 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Part;
 
 import com.coachClass.model.*;
 
@@ -28,7 +27,7 @@ public class CoachClassServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 
-		if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求
+		if ("getOne_For_Display".equals(action)) { // 靘select_page.jsp�����
 			
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
@@ -36,62 +35,62 @@ public class CoachClassServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 			try {
 
-				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+				/*************************** 1.��隢�� - 頛詨�撘�隤方��� **********************/
 				String str = req.getParameter("coachClassID");
 				if (str == null || (str.trim()).length() == 0) {
-					errorMsgs.add("請輸入coachClassID");
+					errorMsgs.add("隢撓�coachClassID");
 				}
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/coachClass/select_page.jsp");
 					failureView.forward(req, res);
-					return;// 程式中斷
+					return;// 蝔�葉�
 				}
 
 				String coachClassID = null;
 				try {
 					coachClassID = new String(str);
 				} catch (Exception e) {
-					errorMsgs.add("coachClassID格式不正確");
+					errorMsgs.add("coachClassID�撘�迤蝣�");
 				}
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/coachClass/select_page.jsp");
 					failureView.forward(req, res);
-					return;// 程式中斷
+					return;// 蝔�葉�
 				}
 				
-				/*************************** 2.開始查詢資料 *****************************************/
+				/*************************** 2.���閰Ｚ��� *****************************************/
 				CoachClassService cocService = new CoachClassService();
 				CoachClassVO coachClassVO = cocService.getOneCoachClass(coachClassID);
 				if (coachClassVO == null) {
-					errorMsgs.add("查無資料");
+					errorMsgs.add("��鞈��");
 				}
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/coachClass/select_page.jsp");
 					failureView.forward(req, res);
-					return;// 程式中斷
+					return;// 蝔�葉�
 				}
 
-				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
-				req.setAttribute("coachClassVO", coachClassVO); // 資料庫取出的coachClassVO物件,存入req
+				/*************************** 3.�閰Ｗ���,皞��漱(Send the Success view) *************/
+				req.setAttribute("coachClassVO", coachClassVO); // 鞈�澈����oachClassVO�隞�,摮req
 				String url = "/back-end/coachClass/listOneCoachClass.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
+				RequestDispatcher successView = req.getRequestDispatcher(url); // ����漱 listOneEmp.jsp
 				
 
 				successView.forward(req, res);
 
-				/*************************** 其他可能的錯誤處理 *************************************/
+				/*************************** �隞���隤方��� *************************************/
 			} catch (Exception e) {
-				errorMsgs.add("無法取得資料:" + e.getMessage());
+				errorMsgs.add("�瘜�����:" + e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/coachClass/select_page.jsp");
 				failureView.forward(req, res);
 			}
 		}
 		
 		
-		if ("getOne_For_Display_front".equals(action)) { // 來自select_page.jsp的請求
+		if ("getOne_For_Display_front".equals(action)) { // 靘select_page.jsp�����
 
 
 			List<String> errorMsgs = new LinkedList<String>();
@@ -100,61 +99,64 @@ public class CoachClassServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 			try {
 
-				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+				/*************************** 1.��隢�� - 頛詨�撘�隤方��� **********************/
 				String str = req.getParameter("coachClassID");
 				if (str == null || (str.trim()).length() == 0) {
-					errorMsgs.add("請輸入coachClassID");
+					errorMsgs.add("隢撓�coachClassID");
 				}
 
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/coachClass/select_page.jsp");
 					failureView.forward(req, res);
-					return;// 程式中斷
+					return;// 蝔�葉�
 				}
 
 				String coachClassID = null;
 				try {
 					coachClassID = new String(str);
 				} catch (Exception e) {
-					errorMsgs.add("coachClassID格式不正確");
+					errorMsgs.add("coachClassID�撘�迤蝣�");
 				}
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/coachClass/select_page.jsp");
 					failureView.forward(req, res);
-					return;// 程式中斷
+					return;// 蝔�葉�
 				}
 				
-				/*************************** 2.開始查詢資料 *****************************************/
+				/*************************** 2.���閰Ｚ��� *****************************************/
 				CoachClassService cocService = new CoachClassService();
 				CoachClassVO coachClassVO = cocService.getOneCoachClass(coachClassID);
 				if (coachClassVO == null) {
-					errorMsgs.add("查無資料");
+					errorMsgs.add("��鞈��");
 				}
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/coachClass/select_page.jsp");
 					failureView.forward(req, res);
-					return;// 程式中斷
+					return;// 蝔�葉�
 				}
 
-				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
-				req.setAttribute("coachClassVO", coachClassVO); // 資料庫取出的coachClassVO物件,存入req
+				/*************************** 3.�閰Ｗ���,皞��漱(Send the Success view) *************/
+				HttpSession session = req.getSession();
+				session.setAttribute("coachClassVO", coachClassVO);
+				
+//				req.setAttribute("coachClassVO", coachClassVO); // 鞈�澈����oachClassVO�隞�,摮req
 				String url = "/front-end/coachClass/listOneCoachClass.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
+				RequestDispatcher successView = req.getRequestDispatcher(url); // ����漱 listOneEmp.jsp
 				successView.forward(req, res);
 
-				/*************************** 其他可能的錯誤處理 *************************************/
+				/*************************** �隞���隤方��� *************************************/
 			} catch (Exception e) {
-				errorMsgs.add("無法取得資料:" + e.getMessage());
+				errorMsgs.add("�瘜�����:" + e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/coachClass/select_page.jsp");
 				failureView.forward(req, res);
 			}
 		}
 		
 
-		if ("update".equals(action)) { // 來自update_coachClass_input.jsp的請求
+		if ("update".equals(action)) { // 靘update_coachClass_input.jsp�����
 			
 
 			List<String> errorMsgs = new LinkedList<String>();
@@ -165,22 +167,22 @@ public class CoachClassServlet extends HttpServlet {
 			try {
 
 				
-				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+				/*************************** 1.��隢�� - 頛詨�撘�隤方��� **********************/
 				String coachClassID = new String(req.getParameter("coachClassID").trim());
 				String memberID = req.getParameter("memberID");
 				String memberIDReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
 				if (memberID == null || memberID.trim().length() == 0) {
-					errorMsgs.add("memberID: 請勿空白");
-				} else if (!memberID.trim().matches(memberIDReg)) { // 以下練習正則(規)表示式(regular-expression)
-					errorMsgs.add("memberID: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
+					errorMsgs.add("memberID: 隢蝛箇");
+				} else if (!memberID.trim().matches(memberIDReg)) { // 隞乩�毀蝧迤���(閬�)銵函內撘�(regular-expression)
+					errorMsgs.add("memberID: ���銝准������摮� , 銝摨血���2�10銋��");
 				}
 				String className = req.getParameter("className").trim();
 				if (className == null || className.trim().length() == 0) {
-					errorMsgs.add("className請勿空白");
+					errorMsgs.add("className隢蝛箇");
 				}
 				String classContext = req.getParameter("classContext").trim();
 				if (classContext == null || classContext.trim().length() == 0) {
-					errorMsgs.add("classContext請勿空白");
+					errorMsgs.add("classContext隢蝛箇");
 				}
 
 				java.sql.Timestamp startTime = null;
@@ -188,21 +190,21 @@ public class CoachClassServlet extends HttpServlet {
 					startTime = java.sql.Timestamp.valueOf(req.getParameter("startTime").trim());
 				} catch (IllegalArgumentException e) {
 					startTime = new java.sql.Timestamp(System.currentTimeMillis());
-					errorMsgs.add("請輸入startTime!");
+					errorMsgs.add("隢撓�startTime!");
 				}
 				Integer price = new Integer(req.getParameter("price").trim());
 
 				Integer quantity = new Integer(req.getParameter("quantity").trim());
 				String address = req.getParameter("address").trim();
 				if (address == null || address.trim().length() == 0) {
-					errorMsgs.add("address請勿空白");
+					errorMsgs.add("address隢蝛箇");
 				}
 				
 				byte[] photo = null;
 				Part photo1 = req.getPart("photo");
 				try {
 					if (photo1 == null) {
-						errorMsgs.add("請上傳照片");
+						errorMsgs.add("隢�����");
 					} else {
 						InputStream fis = photo1.getInputStream();
 						ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -240,33 +242,33 @@ public class CoachClassServlet extends HttpServlet {
 
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
-					req.setAttribute("coachClassVO", coachClassVO); // 含有輸入格式錯誤的empVO物件,也存入req
+					req.setAttribute("coachClassVO", coachClassVO); // ���撓��撘隤斤�mpVO�隞�,銋�req
 					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/coachClass/update_coachClass_input.jsp");
 					failureView.forward(req, res);
-					return; // 程式中斷
+					return; // 蝔�葉�
 				}
 
-				/*************************** 2.開始修改資料 *****************************************/
+				/*************************** 2.���耨�鞈�� *****************************************/
 				CoachClassService cocService = new CoachClassService();
 				coachClassVO = cocService.updateCoachClass(coachClassID, memberID, className, classContext, photo,
 						startTime, price, quantity, address, addDate, editDate);
 
-				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
+				/*************************** 3.靽格摰��,皞��漱(Send the Success view) *************/
 
-				req.setAttribute("coachClassVO", coachClassVO); // 資料庫update成功後,正確的的CoachClassVO物件,存入req
+				req.setAttribute("coachClassVO", coachClassVO); // 鞈�澈update�����,甇�蝣箇��oachClassVO�隞�,摮req
 				String url = "/back-end/coachClass/listOneCoachClass.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneCoachClass.jsp
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 靽格�����,頧漱listOneCoachClass.jsp
 				successView.forward(req, res);
 
-				/*************************** 其他可能的錯誤處理 *************************************/
+				/*************************** �隞���隤方��� *************************************/
 			} catch (Exception e) {
-				errorMsgs.add("修改資料失敗:" + e.getMessage());
+				errorMsgs.add("靽格鞈�仃���:" + e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/coachClass/update_coachClass_input.jsp");
 				failureView.forward(req, res);
 			}
 		}
 
-		if ("insert".equals(action)) { // 來自addCoachClass.jsp的請求
+		if ("insert".equals(action)) { // 靘addCoachClass.jsp�����
 			
 
 			List<String> errorMsgs = new LinkedList<String>();
@@ -275,20 +277,20 @@ public class CoachClassServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			try {
-				/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
+				/*********************** 1.��隢�� - 頛詨�撘�隤方��� *************************/
 
 				String memberID = req.getParameter("memberID");
 				
 				String memberIDReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
 				if (memberID == null || memberID.trim().length() == 0) {
-					errorMsgs.add("memberID: 請勿空白");
-				} else if (!memberID.trim().matches(memberIDReg)) { // 以下練習正則(規)表示式(regular-expression)
-					errorMsgs.add("memberID: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
+					errorMsgs.add("memberID: 隢蝛箇");
+				} else if (!memberID.trim().matches(memberIDReg)) { // 隞乩�毀蝧迤���(閬�)銵函內撘�(regular-expression)
+					errorMsgs.add("memberID: ���銝准������摮� , 銝摨血���2�10銋��");
 				}
 
 				String className = req.getParameter("className").trim();
 				if (className == null || className.trim().length() == 0) {
-					errorMsgs.add("className請勿空白");
+					errorMsgs.add("className隢蝛箇");
 				}
 				
 				Integer price = new Integer(req.getParameter("price").trim());
@@ -299,13 +301,13 @@ public class CoachClassServlet extends HttpServlet {
 					startTime = java.sql.Timestamp.valueOf(req.getParameter("startTime").trim());
 				} catch (IllegalArgumentException e) {
 					startTime = new java.sql.Timestamp(System.currentTimeMillis());
-					errorMsgs.add("請輸入startTime!");
+					errorMsgs.add("隢撓�startTime!");
 				}
 				
 				Integer quantity = new Integer(req.getParameter("quantity").trim());
 				String address = req.getParameter("address").trim();
 				if (address == null || address.trim().length() == 0) {
-					errorMsgs.add("address請勿空白");
+					errorMsgs.add("address隢蝛箇");
 				}
 				
 				Timestamp addDate = new java.sql.Timestamp(System.currentTimeMillis());
@@ -314,14 +316,14 @@ public class CoachClassServlet extends HttpServlet {
 				
 				String classContext = req.getParameter("classContext").trim();
 				if (classContext == null || classContext.trim().length() == 0) {
-					errorMsgs.add("classContext請勿空白");
+					errorMsgs.add("classContext隢蝛箇");
 				}
 
 				byte[] photo = null;
 				Part photo1 = req.getPart("photo");
 				try {
 					if (photo1 == null) {
-						errorMsgs.add("請上傳照片");
+						errorMsgs.add("隢�����");
 					} else {
 						InputStream fis = photo1.getInputStream();
 						ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -352,23 +354,23 @@ public class CoachClassServlet extends HttpServlet {
 				coachClassVO.setEditDate(editDate);
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
-					req.setAttribute("coachClassVO", coachClassVO); // 含有輸入格式錯誤的ClassDetailVO物件,也存入req
+					req.setAttribute("coachClassVO", coachClassVO); // ���撓��撘隤斤�lassDetailVO�隞�,銋�req
 					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/coachClass/addCoachClass.jsp");
 					failureView.forward(req, res);
 					return;
 				}
 
-				/*************************** 2.開始新增資料 ***************************************/
+				/*************************** 2.���憓��� ***************************************/
 				CoachClassService cocService = new CoachClassService();
 				coachClassVO = cocService.addCoachClass(memberID, className, classContext, photo, startTime, price,
 						quantity, address, addDate, editDate);
 
-				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
+				/*************************** 3.�憓���,皞��漱(Send the Success view) ***********/
 				String url = "/front-end/coachClass/listAllCoachClass.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllClassOrder.jsp
+				RequestDispatcher successView = req.getRequestDispatcher(url); // �憓����漱listAllClassOrder.jsp
 				successView.forward(req, res);
 
-				/*************************** 其他可能的錯誤處理 **********************************/
+				/*************************** �隞���隤方��� **********************************/
 			} catch (Exception e) {
 				errorMsgs.add(e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/coachClass/addCoachClass.jsp");
@@ -376,7 +378,7 @@ public class CoachClassServlet extends HttpServlet {
 			}
 		}
 
-		if ("delete".equals(action)) { // 來自listAllCoachClass.jsp
+		if ("delete".equals(action)) { // 靘listAllCoachClass.jsp
 
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
@@ -384,27 +386,27 @@ public class CoachClassServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			try {
-				/*************************** 1.接收請求參數 ***************************************/
+				/*************************** 1.��隢�� ***************************************/
 				String coachClassID = new String(req.getParameter("coachClassID"));
 
-				/*************************** 2.開始刪除資料 ***************************************/
+				/*************************** 2.����鞈�� ***************************************/
 				CoachClassService cocService = new CoachClassService();
 				cocService.deleteCoachClass(coachClassID);
 
-				/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
+				/*************************** 3.��摰��,皞��漱(Send the Success view) ***********/
 				String url = "/back-end/coachClass/listAllCoachClass.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
+				RequestDispatcher successView = req.getRequestDispatcher(url);// �������,頧漱���������雯���
 				successView.forward(req, res);
 
-				/*************************** 其他可能的錯誤處理 **********************************/
+				/*************************** �隞���隤方��� **********************************/
 			} catch (Exception e) {
-				errorMsgs.add("刪除資料失敗:" + e.getMessage());
+				errorMsgs.add("��鞈�仃���:" + e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/coachClass/listAllCoachClass.jsp");
 				failureView.forward(req, res);
 			}
 		}
 
-		if ("getOne_For_Update".equals(action)) { // 來自listAllCoachClass.jsp的請求
+		if ("getOne_For_Update".equals(action)) { // 靘listAllCoachClass.jsp�����
 
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
@@ -412,52 +414,52 @@ public class CoachClassServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			try {
-				/*************************** 1.接收請求參數 ****************************************/
+				/*************************** 1.��隢�� ****************************************/
 				
 				String coachClassID = new String(req.getParameter("coachClassID"));
-//				1.接收請求參數
+//				1.��隢��
 				try {
 					String str = req.getParameter("coachClassID");
-//				錯誤處理
+//				�隤方���
 					if (str == null || (str.trim()).length() == 0) {
-						errorMsgs.add("請輸入訂單編號");
+						errorMsgs.add("隢撓�閮蝺刻��");
 					}
 					if (!errorMsgs.isEmpty()) {
 						RequestDispatcher failureView = req.getRequestDispatcher("/back-end/coachClass/select_page.jsp");
 						failureView.forward(req, res);
 						return;
 					}
-//				傳入字串格式有問題，拋出例外，顯示錯誤訊息｜轉跳頁面
+//				��摮葡�撘�����靘��＊蝷粹隤方�嚚�歲��
 					coachClassID = null;
 					try {
 						coachClassID = new String(str);
 					} catch (Exception e) {
-						errorMsgs.add("訂單編號格式不正確");
+						errorMsgs.add("閮蝺刻�撘�迤蝣�");
 					}
 					if (!errorMsgs.isEmpty()) {
 						RequestDispatcher failureView = req.getRequestDispatcher("/back-end/coachClass/select_page.jsp");
 						failureView.forward(req, res);
 						return;
 					}
-					/*************************** 2.開始查詢資料 ****************************************/
+					/*************************** 2.���閰Ｚ��� ****************************************/
 					CoachClassService cocService = new CoachClassService();
 					CoachClassVO coachClassVO = cocService.getOneCoachClass(coachClassID);
 
-					/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
-					req.setAttribute("coachClassVO", coachClassVO); // 資料庫取出的CoachClassVO物件,存入req
+					/*************************** 3.�閰Ｗ���,皞��漱(Send the Success view) ************/
+					req.setAttribute("coachClassVO", coachClassVO); // 鞈�澈����oachClassVO�隞�,摮req
 					String url = "/back-end/coachClass/update_coachClass_input.jsp";
-					RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_coachClass_input.jsp
+					RequestDispatcher successView = req.getRequestDispatcher(url);// ����漱 update_coachClass_input.jsp
 					successView.forward(req, res);
 
-					/*************************** 其他可能的錯誤處理 **********************************/
+					/*************************** �隞���隤方��� **********************************/
 				} catch (Exception e) {
-					errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
+					errorMsgs.add("�瘜���耨������:" + e.getMessage());
 					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/coachClass/listAllCoachClass.jsp");
 					failureView.forward(req, res);
 				}
 
 			} catch (Exception e) {
-				errorMsgs.add("servlet getOne_For_Update請求參數失敗:" + e.getMessage());
+				errorMsgs.add("servlet getOne_For_Update隢��憭望��:" + e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/coachClass/listAllCoachClass.jsp");
 				failureView.forward(req, res);
 			}

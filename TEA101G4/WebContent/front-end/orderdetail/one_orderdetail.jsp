@@ -55,8 +55,8 @@ color:#ff0047;
 </c:if>
 <%-- <h3 class="pricing font-size-25">付款狀態：<%=request.getParameter("paystatus")%></h3> --%>
 <c:choose>
-	<c:when test="${ordermasterVO.paystatus == 'Y'}">
-	<h3 class="pricing font-size-25">付款狀態：已付款</h3>
+	<c:when test="${ordermasterVO.paystatus == Y}">
+	<h3 class="pricing font-size-25">付款狀態：<span style="color:green;">已付款</span></h3>
 	</c:when>
 	<c:otherwise>
 	<h3 class="pricing font-size-25">付款狀態：<span style="color:red;">未付款</span></h3>

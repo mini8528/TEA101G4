@@ -134,29 +134,29 @@ img{
 		<table>
 			<tr>
 				<td>memberid:<font color=red><b>*</b></font></td>
-				<td><%=memberVO.getMemberid()%></td>
+				<td>${memberVO.memberid}</td>
 			</tr>
 			
 			
 			<tr>
 				<td>新增日：<font color=blue><b>*</b></font></td>
-				<td><%=memberVO.getAdddate()%> <input type="hidden"
-					name="adddate" value="<%=memberVO.getAdddate()%>" /></td>
+				<td>${memberVO.adddate} <input type="hidden"
+					name="adddate" value="${memberVO.adddate}" /></td>
 			</tr>
 			
 			<tr>
 				<td>姓名:</td>
-				<td><input type="TEXT" name="name" size="45" value="<%=memberVO.getName()%>" readonly/></td>
+				<td><input type="TEXT" name="name" size="45" value="${memberVO.name}" readonly/></td>
 			</tr>
 			
 			<tr>
 				<td>帳號:</td>
-				<td><input type="TEXT" name="account" size="45" value="<%=memberVO.getAccount()%>" readonly/></td>
+				<td><input type="TEXT" name="account" size="45" value="${memberVO.account}" readonly/></td>
 			</tr>
 
 			<tr>
 				<td>密碼:</td>
-				<td><input type="password" name="password" size="45" value="<%=memberVO.getPassword()%>" readonly/></td>
+				<td><input type="password" name="password" size="45" value="${memberVO.password}" readonly/></td>
 			</tr>
 
 
@@ -170,18 +170,18 @@ img{
 
 			<tr>
 				<td>電話:</td>
-				<td><input type="TEXT" name="phone" size="45" value="<%=memberVO.getPhone()%>" readonly/></td>
+				<td><input type="TEXT" name="phone" size="45" value="${memberVO.phone}" readonly/></td>
 			</tr>
 			
 			<tr>
 				<td>生日:</td>
-				<td><input type="TEXT" name="birthday" size="45" value="<%=memberVO.getBirthday()%>" readonly/></td>
+				<td><input type="TEXT" name="birthday" size="45" value="${memberVO.birthday}" readonly/></td>
 			</tr>
 
 			
 			<tr>
 				<td>email:</td>
-				<td><input type="email" name="email" size="45" value="<%=memberVO.getEmail()%>" readonly/></td>
+				<td><input type="email" name="email" size="45" value="${memberVO.email}" readonly/></td>
 			</tr>
 
 
@@ -195,30 +195,30 @@ img{
 			
 			<tr>
 				<td>地址:</td>
-				<td><input type="TEXT" name="address" size="45" value="<%=memberVO.getAddress()%>" readonly/></td>
+				<td><input type="TEXT" name="address" size="45" value="${memberVO.address}" readonly/></td>
 			</tr>
 
 			<tr>
 				<td>權限：</td>
 				<td><select name="authority">
-						<option value="N" ${(memberVO.gender=="N")? 'selected':'' }>N</option>
-						<option value="Y" ${(memberVO.gender=="Y")? 'selected':'' }>Y</option>
+						<option value="N" ${(memberVO.authority=="N")? 'selected':'' }>N</option>
+						<option value="Y" ${(memberVO.authority=="Y")? 'selected':'' }>Y</option>
 				</select></td>
 			</tr>
 			
 			<tr>
 				<td>資歷:</td>
-				<td><input type="TEXT" name="qualifications" size="45" value="<%=memberVO.getQualifications()%>" readonly/></td>
+				<td><input type="TEXT" name="qualifications" size="45" value="${memberVO.qualifications}" readonly/></td>
 			</tr>
 			
 			<tr>
 				<td>專長:</td>
-				<td><input type="TEXT" name="expertise" size="45" value="<%=memberVO.getExpertise()%>" readonly/></td>
+				<td><input type="TEXT" name="expertise" size="45" value="${memberVO.expertise}" readonly/></td>
 			</tr>
 			
 			<tr>
 				<td>個人介紹:</td>
-				<td><input type="TEXT" name="introduction" size="45" value="<%=memberVO.getIntroduction()%>" readonly/></td>
+				<td><input type="TEXT" name="introduction" size="45" value="${memberVO.introduction}" readonly/></td>
 			</tr>
 			
 			<tr>
@@ -249,8 +249,8 @@ img{
 
 		</table>
 		<br> <input type="hidden" name="action" value="update2">
-			 <input	type="hidden" name="memberid" value="<%=memberVO.getMemberid()%>">
-			 <input type="hidden" name="gender" value="<%=memberVO.getGender()%>"> 
+			 <input	type="hidden" name="memberid" value="${memberVO.memberid}">
+			 <input type="hidden" name="gender" value="${memberVO.gender}"> 
 			 <input	type="submit" value="送出修改">
      </FORM>
     </thead>

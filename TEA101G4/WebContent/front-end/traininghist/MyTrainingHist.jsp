@@ -165,7 +165,7 @@ th, td {
 						value="${thVO.trainingrep}"></td>
 				</tr>
 				<tr>
-					<td>重量:</td>
+					<td>重量(KG):</td>
 					<td><input type="TEXT" name="trainingwt" size="15"
 						value="${thVO.trainingwt}"></td>
 				</tr>
