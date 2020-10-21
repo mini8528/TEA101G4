@@ -189,7 +189,7 @@ public class CoachCommentDAO implements CoachCommentDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// empVo 也稱為 Domain objects
+				// empVo 銋迂� Domain objects
 				coachCommentVO = new CoachCommentVO();
 				coachCommentVO.setCoachCommentID(rs.getString("coachCommentID"));
 				coachCommentVO.setMemberID(rs.getString("memberID"));
@@ -342,7 +342,7 @@ public class CoachCommentDAO implements CoachCommentDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// empVo 也稱為 Domain objects
+				// empVo 銋迂� Domain objects
 				coachCommentVO = new CoachCommentVO();
 				coachCommentVO.setCoachCommentID(rs.getString("coachCommentID"));
 				coachCommentVO.setMemberID(rs.getString("memberID"));
@@ -442,7 +442,6 @@ public class CoachCommentDAO implements CoachCommentDAO_interface {
 				}
 			}
 		}
-		System.out.println("list1111111111111111="+list);
 		return list;
 	}
 
@@ -462,7 +461,7 @@ public class CoachCommentDAO implements CoachCommentDAO_interface {
 			pstmt.setString(1, coachClassID);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				// empVo 也稱為 Domain objects
+				// empVo 銋迂� Domain objects
 				//coachClassVO = new CoachClassVO();
 				//coachClassVO.setMemberID(rs.getString("memberID"));
 				getM=rs.getString("memberID");                 

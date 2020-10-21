@@ -10,10 +10,8 @@
 	CoachCommentService cocService = new CoachCommentService();
  	String getM = cocService.getMemberIDFromCoachClassID(request.getParameter("coachClassID"));
 // 	String getM = cocService.getMemberIDFromCoachClassID("COC00001");
-System.out.println("getM="+getM);
 	CoachCommentService ccService = new CoachCommentService();
 	List<CoachCommentVO> list = ccService.getOneCoachCommentByMember(getM);
-System.out.println("list="+list);
 	pageContext.setAttribute("list", list);
 
 	int list_number = list.size();

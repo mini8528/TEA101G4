@@ -72,13 +72,6 @@ System.out.print(admVO);
           
 <!-- ---------------------------------------------------------------- -->
 <div>
-<table id="table-1">
-	<tr><td>
-		 <h3>管理員資料新增 - addEmp.jsp</h3></td><td>
-	</td></tr>
-</table>
-
-<h3>資料新增:</h3>
 
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">

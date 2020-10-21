@@ -15,67 +15,21 @@ if(userVO!=null){
 };
 
 %>
+
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
 <title>教練課程新增 - addCoachClass.jsp</title>
 
-<style>
-table#table-1 {
-	background-color: #CCCCFF;
-	border: 2px solid black;
-	text-align: center;
-}
 
-table#table-1 h4 {
-	color: red;
-	display: block;
-	margin-bottom: 1px;
-}
-
-h4 {
-	color: blue;
-	display: inline;
-}
-
-img{
-	max-width: 200px;
-}
-
-</style>
-
-<style>
-table {
-	width: 450px;
-	background-color: white;
-	margin-top: 1px;
-	margin-bottom: 1px;
-}
-
-table, th, td {
-	border: 0px solid #CCCCFF;
-}
-
-th, td {
-	padding: 1px;
-}
-</style>
 
 </head>
 <body bgcolor='white'>
 <jsp:include page="/front-end/header.jsp" flush="true" />
 
-	<table id="table-1">
-		<tr>
-			<td>
-				<h4>
-					<a href="<%=request.getContextPath()%>/front-end/coachClass/listAllCoachClass.jsp">回首頁</a>
-				</h4>
-			</td>
-		</tr>
-	</table>
-
-	<h3>資料新增:</h3>
 
 	<%-- 錯誤表列 --%>
 	<c:if test="${not empty errorMsgs}">
@@ -87,81 +41,115 @@ th, td {
 		</ul>
 	</c:if>
 
-	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/coachClass/coachClass.do" name="form1" enctype="multipart/form-data">
-	
-				<!-- enctype="multipart/form-data"這段沒寫, 會跑出multipart 錯誤 -->
-		<table>
 
+<section class="py-8 py-md-10">
+  <div class="container">
+  
+  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/coachClass/coachClass.do" name="form1" enctype="multipart/form-data">
+  
+                <div class="card bg-transparent shadow-none">
+						<div class="card-header card-header-lg bg-warning text-white p-6 rounded-top">
+              <h4 class="font-weight-bold mb-0">新增課程</h4>
+          	</div>
 
-			
-			
+            <div class="card-body border border-top-0 rounded-bottom-sm p-10">
+             
+              <div class="row">
+                <div class="form-group form-group-icon col-lg-6">
+                  <label for="first-name">會員ID:</label>
+                  <div class="form-control border-warning rounded-sm" id="first-name" >${userVO.getMemberid()}</div>
+                </div>
+              </div>
 
-			<tr>
-				<td>會員ID:</td>
-				<td>${userVO.getMemberid()}</td>
-			</tr>
+              <div class="row">
+                <div class="form-group form-group-icon col-lg-6">
+                  <label for="address-1">課程名稱:</label>
+                  <input class="form-control border-danger rounded-sm" type="TEXT" name="className" size="45"
+					value="<%=(coachClassVO == null) ? "跑酷" : coachClassVO.getClassName()%>" />
+                </div>
+              </div>
 
-			<tr>
-				<td>課程名稱:</td>
-				<td><input type="TEXT" name="className" size="45"
-					value="<%=(coachClassVO == null) ? "not null" : coachClassVO.getClassName()%>" /></td>
-			</tr>
+              <div class="row">
+                <div class="form-group form-group-icon col-lg-6">
+                  <label for="city">價格:</label>
+                  <input type="number" name="price" size="45" class="form-control border-purple rounded-sm"
+					value="<%=(coachClassVO == null) ? "1300" : coachClassVO.getPrice()%>" />
+                </div>
+              </div>
 
-			<tr>
-				<td>價格:</td>
-				<td><input type="number" name="price" size="45"
-					value="<%=(coachClassVO == null) ? "10000" : coachClassVO.getPrice()%>" /></td>
-			</tr>
-			<tr>
-				<td>人數:</td>
-				<td><input type="number" name="quantity" size="45"
-					value="<%=(coachClassVO == null) ? "1" : coachClassVO.getQuantity()%>" /></td>
-			</tr>
+              <div class="row">
+                <div class="form-group form-group-icon col-lg-6">
+                  <label for="state">人數:</label>
+                  <input type="number" name="quantity" size="45" class="form-control border-warning rounded-sm"
+					value="<%=(coachClassVO == null) ? "5" : coachClassVO.getQuantity()%>" />
+                </div>
+              </div>
+                
+                <div class="row">
+                <div class="form-group form-group-icon col-lg-6">
+                  <label for="first-name">地址:</label>
+                  <input type="TEXT" name="address" size="45" class="form-control border-danger rounded-sm"
+					value="<%=(coachClassVO == null) ? "市立美術館前的公園" : coachClassVO.getClassContext()%>" />
+                </div>
+              </div>
 
-			<tr>
-				<td>地址:</td>
-				<td><input type="TEXT" name="address" size="45"
-					value="<%=(coachClassVO == null) ? "not null" : coachClassVO.getAddDate()%>" /></td>
-			</tr>
-			
-			<tr>
-				<td>課程內容:</td>
-				<td><input type="TEXT" name="classContext" size="45"
-					value="<%=(coachClassVO == null) ? "not null" : coachClassVO.getClassContext()%>" /></td>
-			</tr>
-			
-			<tr>
-				<td>課程開始時間:</td>
-				<td><input type="datetime" name="startTime" 
-				value="<%=(coachClassVO == null) ? "1987-09-10 10:00:00" : coachClassVO.getStartTime()%>"/></td>
-			</tr>
+              <div class="row">
+                <div class="form-group form-group-icon col-lg-6">
+                  <label for="photo1">課程內容:</label>
+                  <input type="TEXT"  name="classContext" size="45" class="form-control border-danger rounded-sm"
+					value="<%=(coachClassVO == null) ? "帥氣的跑酷, 可以順便鍛鍊你全身的肌肉 (課程費用已包含受傷保險費用)" : coachClassVO.getClassContext()%>" />
+                  </div>
+                </div>
 
-			<tr>
-				<td>照片:</td>
-				<td><input type="file" name="photo" id="p_file"> <br>
-					<div id="preview">
-						<span class="text"> 預覽 </span>
-					</div>
-			</tr>
-
-
-
-
-
+			 <div class="row">
+                <div class="form-group form-group-icon col-lg-6">
+                  <label for="photo2">課程開始時間:</label>
+                 <input type="datetime" name="startTime"  class="form-control border-danger rounded-sm"
+				value="<%=(coachClassVO == null) ? "2020-10-30 10:00:00" : coachClassVO.getStartTime()%>"/>
+                  </div>
+                  </div>
+                  
+                 <div class="row">
+	                 <div class="form-group form-group-icon col-lg-6">
+	                  <label for="photo3" >照片:</label>
+	                  <input  type="file" name="photo" id="p_file" class="form-control border-danger rounded-sm " > <br>
+						<div id="preview" >
+							<span class="text"> 預覽 </span>
+						</div>
+	                </div>
+                
+                </div>
+              </div>
 			<jsp:useBean id="cocService" scope="page" class="com.coachClass.model.CoachClassService" />
 
+        <table>
+        	<div>
+	           <input type="hidden" name="memberID" value="${userVO.getMemberid()}">
+				<input type="hidden" name="action" value="insert"> 
+				<input type="submit" value="送出新增" class="btn btn-danger mb-2">
+			</div>
 		</table>
-		<br> 
-		
-			<input type="hidden" name="memberID" value="${userVO.getMemberid()}">
-		
-			<input type="hidden" name="action" value="insert"> 
-			<input type="submit" value="送出新增">
-	</FORM>
-	
+		</FORM>
+      </div>
+     </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
 	
 	<jsp:include page="/front-end/footer.jsp" flush="true" />
 </body>
+
 
 <!-- 預覽圖片 -->
 <script>
@@ -180,7 +168,7 @@ window.addEventListener("load", function(){
 	        reader.readAsDataURL(this.files[0]);
 	        reader.addEventListener("load", function () {
 	          console.log(reader.result);
-	          let hh= "<img src='" + reader.result + "' class='preview_img' id='uu'>";
+	          let hh= "<img src='" + reader.result + "' class='preview_img' id='uu' width='500px'>";
 	          document.getElementById("preview").innerHTML = hh;
 	        });
 	      }else{

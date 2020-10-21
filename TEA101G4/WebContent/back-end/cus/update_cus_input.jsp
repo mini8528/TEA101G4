@@ -73,7 +73,7 @@ AdminnoVO admVO = (AdminnoVO) request.getAttribute("admVO");
 	<tr>
 		<td>管理員編號:</td>
 		<td><input type="hidden" name="adminid" size="45" 
-			 value=${userVO.adminid}>${userVO.adminid}</td>
+			 value=${adminVO.adminid}>${adminVO.adminid}</td>
 	</tr>
 	
 	<tr>
@@ -107,7 +107,8 @@ AdminnoVO admVO = (AdminnoVO) request.getAttribute("admVO");
 	</tr>
 	<tr>
 		<td>回覆日期:</td>
-		<td><input type="TEXT" name="replydate" size="45"
+		<td><%=cusVO.getReplydate()%></td>
+		<td><input type="hidden" name="replydate" size="45"
 			 value="<%=cusVO.getReplydate()%>"></td>
 	</tr>
 	

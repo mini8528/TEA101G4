@@ -46,6 +46,7 @@ public class ClassOrderDAO implements ClassOrderDAO_interface {
 
 	private static final String GET_LIST_BY_PAYMENTSTATUS = "SELECT * FROM ClassOrder WHERE paymentStatus = ? ORDER BY orderDate ASC";
 	private static final String GET_LIST_BY_MEMBERID = "SELECT * FROM ClassOrder WHERE memberID = ? ORDER BY orderDate ASC";
+	private static final String GET__BY_MEMBERID = "SELECT * FROM ClassOrder WHERE memberID = ? ";
 
 	private static final String INSERT_STMT2 = "INSERT INTO ClassOrder (classOrderID, memberID, payment, paymentStatus, payExpire, payCode, orderDate) "
 			+ "												   VALUES ('CO' || lpad(CLASSORDER_SEQ.NEXTVAL, 5, '0'), ?, ?, ?, ?, ?, ?)";
@@ -523,6 +524,58 @@ public class ClassOrderDAO implements ClassOrderDAO_interface {
 				}
 			}
 		}
+	}
+
+	@Override
+	public ClassOrderVO getOrderVOByMemberId(String memberId) {
+
+		ClassOrderVO classOrderVO = new ClassOrderVO();
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET__BY_MEMBERID);
+			pstmt.setString(1, memberId);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				classOrderVO = new ClassOrderVO();
+				classOrderVO.setClassOrderID(rs.getString("classOrderID"));
+				classOrderVO.setMemberID(rs.getString("memberID"));
+				classOrderVO.setPayment(rs.getString("payment"));
+				classOrderVO.setPaymentStatus(rs.getString("paymentStatus"));
+				classOrderVO.setPayExpire(rs.getDate("payExpire"));
+				classOrderVO.setPayCode(rs.getString("payCode"));
+				classOrderVO.setOrderDate(rs.getTimestamp("orderDate"));
+			}
+		}  catch (SQLException e) {
+			throw new RuntimeException("A DataBase Error Occured. " + e.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return classOrderVO;
+	
 	}
 
 

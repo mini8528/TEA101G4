@@ -11,6 +11,15 @@ LatVO latVO = (LatVO) request.getAttribute("latVO"); //EmpServlet.java(Concrolle
 <title>員工資料 - listOneEmp.jsp</title>
 
 <style>
+#ellipsis {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 5; /*最多顯示5行*/
+            -webkit-box-orient: vertical;
+            white-space: normal;
+        }
   table#table-1 {
 	background-color: #CCCCFF;
     border: 2px solid black;
@@ -64,18 +73,12 @@ LatVO latVO = (LatVO) request.getAttribute("latVO"); //EmpServlet.java(Concrolle
         <!-- Begin Page Content -->
         <div class="container-fluid">
 
-          <!-- Page Heading -->
-          <h1 class="h3 mb-4 text-gray-800">Blank Page</h1>
     
 <div>
 <!-- ---------------------------------------------------------------- -->         
-<table id="table-1">
-	<tr><td>
-		 <h3>最新消息資料 - ListOneLat.jsp</h3>
-	</td></tr>
-</table>
 
-<table>
+
+<table >
 	<tr>
 		<th>活動消息編號</th>
 		<th>管理員姓名</th>
@@ -90,9 +93,9 @@ LatVO latVO = (LatVO) request.getAttribute("latVO"); //EmpServlet.java(Concrolle
 			<td><%=latVO.getLatestnewsid()%></td>
 			<td><%=latVO.getAdminid()%></td>
 			<td><%=latVO.getAdmin2id()%></td>
-			<td><%=latVO.getText()%></td>
+			<td id="ellipsis"><%=latVO.getText()%></td>
 			<td>
-			<img  src="<%=request.getContextPath()%>/lat/latshow.do?latestnewsid=${latVO.latestnewsid}"  width="100" height="100">
+			<img  src="<%=request.getContextPath()%>/back-end/lat/latshow.do?latestnewsid=${latVO.latestnewsid}"  width="100" height="100">
 			</td>
 			<td><%=latVO.getAdddate()%></td>
 			<td><%=latVO.getUpdatetime()%></td>

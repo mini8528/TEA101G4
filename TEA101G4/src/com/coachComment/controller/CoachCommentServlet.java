@@ -311,7 +311,7 @@ public class CoachCommentServlet extends HttpServlet{
 						(memberID, memberID2, commText, commStar, addDate, editDate, status);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				String url = "/front-end/coachClass/listAllCoachClass.jsp";
+				String url = "/front-end/coachClass/listOneCoachClass.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllCoachComment.jsp
 				successView.forward(req, res);				
 				

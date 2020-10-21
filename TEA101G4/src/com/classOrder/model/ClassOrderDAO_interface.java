@@ -19,5 +19,7 @@ public interface ClassOrderDAO_interface {
 	public List<ClassOrderVO> getSomeByPaymentStatus(String paymentStatus); 	//（管理員）依照出貨狀態查詢訂單
 	
 	public void insertWithClassOrder(ClassOrderVO classOrderVO, List<ClassDetailVO> testList);
+	
+	public ClassOrderVO getOrderVOByMemberId(String memberId);
 }
 

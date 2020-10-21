@@ -11,7 +11,20 @@
 <%
 	MemberVO userVO = (MemberVO) session.getAttribute("userVO");
 
+
+
+pageContext.setAttribute("userVO", userVO);
+if(userVO!=null){System.out.println("（Cart.jsp）當前會員= "+userVO.getMemberid());};
+String memberid = new String(userVO.getMemberid());
+
+ClassOrderService coService1 = new ClassOrderService();
+ClassOrderVO list1 = coService1.getOrderVOByMemberId(memberid);
+request.getSession().setAttribute("list1", list1);
+
+
+
 	
+System.out.println("list1 = "+list1);
 %>
 
 <jsp:useBean id="list" scope="session"
@@ -48,17 +61,17 @@
 					<ul class="list-unstyled d-flex text-muted mb-2">
 						<li class="mr-3 text-capitalize font-weight-bold"><i
 							class="fa fa-calendar-o mr-2 " aria-hidden="true"></i>訂購時間
-							${classOrderVO.orderDate}</li>
+							${list1.orderDate}</li>
 					</ul>
 					<ul class="list-unstyled d-flex text-muted mb-2">
 						<li class="text-capitalize font-weight-bold"><i
 							class="fa fa-clock-o mr-2" aria-hidden="true"></i>付款到期時間
-							${classOrderVO.payExpire}</li>
+							${list1.payExpire}</li>
 					</ul>
 					<p class="text-capitalize font-weight-bold mb-lg-2">付款方式 ：
-						${classOrderVO.payment}</p>
+						${list1.payment}</p>
 					<p class="text-capitalize font-weight-bold mb-lg-2">付款狀態 ：
-						${classOrderVO.paymentStatus}</p>
+						${list1.paymentStatus}</p>
 				</div>
 				
 				<div class="d-flex justify-content-left mt-8">

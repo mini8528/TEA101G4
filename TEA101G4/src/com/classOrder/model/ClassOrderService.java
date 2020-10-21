@@ -107,6 +107,11 @@ public class ClassOrderService {
 	public List<ClassOrderVO> getOrderByMemberId(String memberId){
 		return dao.getSomeByMemberId(memberId);
 	}	
+	
+	public ClassOrderVO getOrderVOByMemberId(String memberId){
+		return dao.getOrderVOByMemberId(memberId);
+	}
+	
 	public List<ClassOrderVO> getOrderByOrderstatus(String paymentStatus){
 		return dao.getSomeByPaymentStatus(paymentStatus);
 	}

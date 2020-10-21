@@ -107,8 +107,8 @@
 								<div class="col">
 									<div class="form-group form-group-icon">
 										<i class="fa fa-comments "></i>
-										<textarea class="form-control border-info"
-											placeholder="Write message" rows="6"></textarea>
+										<textarea name="commText" class="form-control border-info"
+											placeholder="Write message" rows="6" value="<%= (coachCommentVO==null)? "" : coachCommentVO.getCommText()%>"></textarea>
 									</div>
 								</div>
 							</div>

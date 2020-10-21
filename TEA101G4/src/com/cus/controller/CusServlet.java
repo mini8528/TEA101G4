@@ -253,9 +253,10 @@ public class CusServlet  extends HttpServlet{
 
 				if (replytext == null || replytext.trim().length() == 0) {
 					errorMsgs.add("回覆內容請勿空白");
-				} else if(!replytext.trim().matches(memberReg)) { //以下練習正則(規)表示式(regular-expression)
-					errorMsgs.add("回覆內容只能是中、大寫英文字母、數字");
-	            }
+				} 
+//				else if(!replytext.trim().matches(memberReg)) { 
+//					errorMsgs.add("回覆內容只能是中、大寫英文字母、數字");
+//	            }
 				System.out.println("yaaa9");
 				
 				/***************************1e.回覆日期**********************/

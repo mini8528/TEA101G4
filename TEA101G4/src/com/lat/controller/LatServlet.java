@@ -144,7 +144,7 @@ public class LatServlet extends HttpServlet{
 				/***************************1a.管理員姓名**********************/
 		System.out.println("yaaa2");
 				String adminid = req.getParameter("adminid");
-				String memberReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
+				String memberReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{1,400}$";
 				if (adminid == null || adminid.trim().length() == 0) {
 					errorMsgs.add("管理員姓名: 請勿空白");
 				} else if(!adminid.trim().matches(memberReg)) { //以下練習正則(規)表示式(regular-expression)
@@ -164,9 +164,10 @@ public class LatServlet extends HttpServlet{
 				String text = req.getParameter("text").trim();
 				if (text == null || text.trim().length() == 0) {
 					errorMsgs.add("文章請勿空白");
-				}else if(!text.trim().matches(memberReg)) { //以下練習正則(規)表示式(regular-expression)
-					errorMsgs.add("文章只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
-	            }
+				}
+//				else if(!text.trim().matches(memberReg)) { //以下練習正則(規)表示式(regular-expression)
+//					errorMsgs.add("文章只能是中、英文字母、數字和_ , 且長度必需在1到300之間");
+//	            }
 				
 				/***************************1e.活動圖片**********************/
 		System.out.println("yaaa5");
@@ -210,7 +211,7 @@ public class LatServlet extends HttpServlet{
 				System.out.println("yaaa8");
 				java.sql.Date uploaddate = null;
 				try {
-					uploaddate = java.sql.Date.valueOf(req.getParameter("uploaddate").trim());
+					uploaddate=new java.sql.Date(System.currentTimeMillis());
 				} catch (IllegalArgumentException e) {
 					uploaddate=new java.sql.Date(System.currentTimeMillis());
 					errorMsgs.add("請輸入日期2!");
@@ -393,31 +394,31 @@ public class LatServlet extends HttpServlet{
 		if ("delete".equals(action)) { // 來自listAllEmp.jsp
 	System.out.println("d");
 			List<String> errorMsgs = new LinkedList<String>();
-			// Store this set in the request scope, in case we need to
-			// send the ErrorPage view.
+			
+			
 			req.setAttribute("errorMsgs", errorMsgs);
-			System.out.println("d1");
-			try {
+			
+//			try {
 				/***************************1.接收請求參數***************************************/
 				String latestnewsid = new String(req.getParameter("latestnewsid"));
-				System.out.println("d2");
+				System.out.println("latestnewsid="+latestnewsid);
 				/***************************2.開始刪除資料***************************************/
 				LatService ladSvc = new LatService();
 				ladSvc.deleteLat(latestnewsid);;
 				System.out.println("d3");
 				/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
-				String url = "/lat/listAllLat.jsp";
+				String url = "/back-end/lat/listAllLat.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 				successView.forward(req, res);
 				System.out.println("d4");
 				/***************************其他可能的錯誤處理**********************************/
-			} catch (Exception e) {
-				errorMsgs.add("刪除資料失敗:"+e.getMessage());
-				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back-end/lat/listAllLat.jsp");
-				failureView.forward(req, res);
-				System.out.println("d5");
-			}
+//			} catch (Exception e) {
+//				errorMsgs.add("刪除資料失敗:"+e.getMessage());
+//				RequestDispatcher failureView = req
+//						.getRequestDispatcher("/back-end/lat/listAllLat.jsp");
+//				failureView.forward(req, res);
+//				System.out.println("d5");
+//			}
 		}
 	}
 	

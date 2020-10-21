@@ -122,7 +122,7 @@
 								<form name="checkoutForm" action="<%=request.getContextPath()%>/front-end/cart/cartClass.do" method="get">
 								<input type="hidden" name="action" value="CHECKOUT"> 
 								<input type="hidden" name="memberid" value="${userVO.memberid}">
-								<input type="submit" value="前往結帳"  class="btn btn-danger text-uppercase btn-update" >
+								<input type="submit" value="結帳"  class="btn btn-danger text-uppercase btn-update" >
 								<i class="fa fa-arrow-circle-right ml-auto" aria-hidden="true"></i>
 								</form>
 								</td>

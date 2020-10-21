@@ -37,8 +37,6 @@ AdminnoService admSvc = new AdminnoService();
         <!-- Begin Page Content -->
         <div class="container-fluid">
 
-          <!-- Page Heading -->
-          <h1 class="h3 mb-4 text-gray-800">Blank Page</h1>
     
 <div>
 <!-- ---------------------測試------------------------------------------- -->         
@@ -60,7 +58,7 @@ AdminnoService admSvc = new AdminnoService();
 <!-- 	</ul> -->
 <%-- </c:if> --%>
 
-<table>
+<table class="table table-bordered text-center">
 	<tr>
 		<th>管理員編號</th>
 		<th>管理員姓名</th>

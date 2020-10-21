@@ -69,19 +69,9 @@ AdminnoVO admVO = (AdminnoVO) request.getAttribute("admVO"); //EmpServlet.java (
         <!-- Begin Page Content -->
         <div class="container-fluid">
 
-          <!-- Page Heading -->
-          <h1 class="h3 mb-4 text-gray-800">Blank Page</h1>
     
 <div>
 <!-- ---------------------------------------------------------------- -->         
-
-<table id="table-1">
-	<tr><td>
-		 <h3>管理員資料修改 - update_adm_input.jsp</h3>
-	</td></tr>
-</table>
-
-<h3>資料修改:</h3>
 
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
@@ -163,7 +153,7 @@ AdminnoVO admVO = (AdminnoVO) request.getAttribute("admVO"); //EmpServlet.java (
 <input type="hidden" name="action" value="update">
 <input type="hidden" name="adminid" value="<%=admVO.getAdminid()%>">
 <input type="submit" value="送出修改">
-<input type="file" name="upfile2"></FORM>
+</FORM>
 <!-- -----------以下複製到虛線----------------------------以下複製到虛線------------------------- -->
 			
 			</div>

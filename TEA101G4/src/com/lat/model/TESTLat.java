@@ -33,9 +33,9 @@ public class TESTLat {
 //		lad2.setUploaddate(java.sql.Date.valueOf("2051-8-9"));
 //		dao.update(lad2);
 
-//		// �R��
-//	dao.delete("LA05");
-
+//		
+		
+//		dao.delete("LA0003");
 		 //�d��
 //		LatVO lad3 = dao.findByPrimaryKey("LA0001");
 //		System.out.print(lad3.getLatestnewsid() + ",");
@@ -49,19 +49,19 @@ public class TESTLat {
 //		System.out.println("---------------------");
 
 		// �d��
-//		List<LatVO> list = dao.getAll();
-//		for (LatVO emp : list) {
-//			System.out.print(emp.getLatestnewsid() + ",");
-//			System.out.print(emp.getAdminid() + ",");
-//			System.out.print(emp.getAdmin2id() + ",");
-//			System.out.print(emp.getText() + ",");
-//			System.out.print(emp.getImage() + ",");
-//			System.out.print(emp.getAdddate() + ",");
-//			System.out.print(emp.getUpdatetime()+",");
-//			System.out.print(emp.getUploaddate() + ",");
-//			System.out.println();
-//					
-//		}
+		List<LatVO> list = dao.getAll();
+		for (LatVO emp : list) {
+			System.out.print(emp.getLatestnewsid() + ",");
+			System.out.print(emp.getAdminid() + ",");
+			System.out.print(emp.getAdmin2id() + ",");
+			System.out.print(emp.getText() + ",");
+			System.out.print(emp.getImage() + ",");
+			System.out.print(emp.getAdddate() + ",");
+			System.out.print(emp.getUpdatetime()+",");
+			System.out.print(emp.getUploaddate() + ",");
+			System.out.println();
+					
+		}
 	}
 
 }

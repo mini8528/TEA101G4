@@ -38,12 +38,7 @@ LatVO latVO = (LatVO) request.getAttribute("latVO"); //EmpServlet.java (Concroll
     
 <div>
 <!-- ---------------------------------------------------------------- -->         
-	
-<table id="table-1">
-	<tr><td>
-		 <h3>課服資料修改 - update_lat_input.jsp</h3>
-	</td></tr>
-</table>
+
 
 
 <%-- 錯誤表列 --%>
@@ -81,10 +76,9 @@ LatVO latVO = (LatVO) request.getAttribute("latVO"); //EmpServlet.java (Concroll
 		<td><input type="file" name="image" id="p_file"> <br> 
 			<div id="preview">
 						<span class="text"> 預覽 </span>
-						<img
-						src="<%=request.getContextPath()%>/back-end/lat/latshow.do?latestnewsid=${latVo.latestnewsid}" 
-						width="100" height="100">
-		</div>
+						<img                                                      
+						src="<%=request.getContextPath()%>/back-end/lat/latshow.do?latestnewsid=${latVO.latestnewsid}" width="100" height="100">
+		    </div>
 	</tr>
 	
 	<tr>
@@ -108,7 +102,7 @@ LatVO latVO = (LatVO) request.getAttribute("latVO"); //EmpServlet.java (Concroll
 <input type="hidden" name="action" value="update">
 <input type="hidden" name="latestnewsid" value="<%=latVO.getLatestnewsid()%>">
 <input type="submit" value="送出修改">
-<input type="file" name="upfile2"></FORM>
+</FORM>
 
 
 <!-- -----------以下複製到虛線----------------------------以下複製到虛線------------------------- -->

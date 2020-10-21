@@ -9,17 +9,7 @@
 LatService latSvc = new LatService();
     List<LatVO> list = latSvc.getAll();
     pageContext.setAttribute("list",list);
-    for (LatVO e : list) {
-    	System.out.print(e.getLatestnewsid() + ",");
-		System.out.print(e.getAdminid() + ",");
-		System.out.print(e.getAdmin2id() + ",");
-		System.out.print(e.getText() + ",");
-		System.out.print(e.getImage() + ",");
-		System.out.print(e.getAdddate() + ",");
-		System.out.print(e.getUpdatetime()+",");
-		System.out.print(e.getUploaddate() + ",");
-		System.out.println();
-    }
+   
 %>
 
 

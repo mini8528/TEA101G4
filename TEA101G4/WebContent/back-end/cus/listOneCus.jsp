@@ -64,38 +64,32 @@ CusVO cusVO = (CusVO) request.getAttribute("cusVO"); //EmpServlet.java(Concrolle
         <!-- Begin Page Content -->
         <div class="container-fluid">
 
-          <!-- Page Heading -->
-          <h1 class="h3 mb-4 text-gray-800">Blank Page</h1>
+         
     
 <div>
 <!-- ---------------------------------------------------------------- -->         
-	
-<table id="table-1">
-	<tr><td>
-		 <h3>員工資料 - ListOneEmp.jsp</h3>
-	</td></tr>
-</table>
+
 
 <table>
 	<tr>
 		<th>客服編號</th>
-		<th>一般會員編號</th>
+<!-- 		<th>一般會員編號</th> -->
 		<th>管理員編號</th>
-		<th>主旨</th>
-		<th>電子信箱 </th>
-		<th>問題描述</th>
-		<th>客訴日期</th>
+<!-- 		<th>主旨</th> -->
+<!-- 		<th>電子信箱 </th> -->
+<!-- 		<th>問題描述</th> -->
+<!-- 		<th>客訴日期</th> -->
 		<th>回覆內容</th>
 		<th>回覆日期</th>
 	</tr>
 	<tr>
 		<td><%=cusVO.getCustomerserviceid()%></td>
-		<td><%=cusVO.getMemberid()%></td>
-		<td><%=cusVO.getAdminid()%></td>
-		<td><%=cusVO.getSubject()%></td>
-		<td><%=cusVO.getEmail()%></td>
-		<td><%=cusVO.getProblemtext()%></td>
-		<td><%=cusVO.getComplaintdate()%></td>
+<%-- 		<td><%=cusVO.getMemberid()%></td> --%>
+		<td>${adminVO.adminid}</td>
+<%-- 		<td><%=cusVO.getSubject()%></td> --%>
+<%-- 		<td><%=cusVO.getEmail()%></td> --%>
+<%-- 		<td><%=cusVO.getProblemtext()%></td> --%>
+<%-- 		<td><%=cusVO.getComplaintdate()%></td> --%>
 		<td><%=cusVO.getReplytext()%></td>
 		<td><%=cusVO.getReplydate()%></td>
 	</tr>

@@ -68,7 +68,7 @@ public class LatService {
 	}
 	
 	
-	//����
+	
 	public static void main(String[] args) {
 		LatService dao = new LatService();
 		

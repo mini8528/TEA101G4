@@ -128,7 +128,7 @@ public class LatDAO implements Lat_interface{
 
 		try {
 
-			
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE_STMT);
 
 			pstmt.setString(1, latestnewsid);
