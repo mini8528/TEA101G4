@@ -310,6 +310,7 @@ public class ClassDetailDAO implements ClassDetailDAO_interface {
 		} finally {
 			if (pstmt != null) {
 				try {
+					con.commit();
 					pstmt.close();
 				} catch (SQLException se) {
 					se.printStackTrace(System.err);

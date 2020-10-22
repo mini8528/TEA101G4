@@ -23,7 +23,9 @@
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<%=request.getContextPath()%>/back-end/index.jsp">
         <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fas fa-laugh-wink"></i>
+<!--           <i class="fas fa-laugh-wink"></i> -->
+		<i class="fas fa-address-book"></i>
+          
         </div>
         <div class="sidebar-brand-text mx-3">GYMPAYZ管理員</div>
       </a>
@@ -136,7 +138,7 @@
         <div id="collapselistAllCus" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Custom Components:</h6>
-            <a class="collapse-item" href="<%=request.getContextPath()%>/back-end/cus/listAllCus.jsp">查詢全部管理員</a>
+            <a class="collapse-item" href="<%=request.getContextPath()%>/back-end/cus/listAllCus.jsp">查詢全部客服</a>
           </div>
         </div>
       </li>
@@ -149,7 +151,7 @@
         <div id="collapseFive" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Custom Components:</h6>
-      		<a class="collapse-item" href="<%=request.getContextPath()%>/back-end/pro/listAllPro.jsp">查詢商品</a>
+      		<a class="collapse-item" href="<%=request.getContextPath()%>/back-end/pro/listAllPro.jsp">查詢商品評論</a>
           </div>
         </div>
       </li>

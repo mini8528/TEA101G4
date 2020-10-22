@@ -287,7 +287,7 @@ input:disabled{
 
     <div class="tab-content" id="pills-tabContent">
       <div class="tab-pane fade show active px-5 py-6 bg-light rounded shadow-sm" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-        <h3 class="text-danger font-weight-medium mb-3">商品描述${productVO.intro}</h3>
+        <h3 class="font-weight-medium mb-3">商品描述${productVO.intro}</h3>
         <p class="font-size-15 mb-3">-內容-${productVO.intro}</p>
       </div>
 

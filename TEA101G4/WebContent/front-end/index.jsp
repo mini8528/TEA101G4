@@ -72,7 +72,7 @@ LatService latSvc = new LatService();
 	<div class="container">
 		<div class="wow fadeInUp">
 			<div class="section-title justify-content-center">
-				<h2 class="text-white text-center">Wellcome to GYMPAYZ</h2>
+				<h2 class="text-white text-center">Welcome to GYMPAYZ</h2>
 			</div>
 			<div class="text-center mt-1">
 <!-- 				<p class="text-white p-text-large mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod</p> -->

@@ -199,7 +199,7 @@ for(String tt:quantityAll){
               <div class="mb-5">
                 <div class="row align-items-center">
                   <div class="col-6 col-md-7 col-lg-4 col-xl-5">
-                    <h3 class="font-weight-bold text-danger mb-0">
+                    <h3 class="font-weight-bold mb-0">
                       Card
                       <span class="text-danger ml-2">
                         <i class="fa fa-credit-card" aria-hidden="true"></i>

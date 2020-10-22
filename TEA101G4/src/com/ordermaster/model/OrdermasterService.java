@@ -121,8 +121,9 @@ public class OrdermasterService {
 			ordermasterVO.setOrdermasterid(aa.toString());
 			ordermasterVO.setOrderstatus(orderstatus);
 			ordermasterVOlist.add(ordermasterVO);
+			dao.update_orderstatus2(ordermasterVOlist, orderstatus);
 		}
-		dao.update_orderstatus2(ordermasterVOlist, orderstatus);
+		
 		return ordermasterVO;
 	}
 }

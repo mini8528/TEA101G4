@@ -46,7 +46,7 @@
                             </div>
 
                             <div class="form-group text-center text-secondary mb-0">
-                                <a class="text-danger" href="<%=request.getContextPath() %>/front-end/member/addMember.jsp">Creat a new account</a>
+                                <a href="<%=request.getContextPath() %>/front-end/member/addMember.jsp">Creat a new account</a>
                             </div>
                                 </form>
                             </div>

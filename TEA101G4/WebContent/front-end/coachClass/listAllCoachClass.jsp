@@ -55,7 +55,7 @@
 								class="card-body border-top-5 px-3 rounded-bottom border-purple">
 								<h3 class="card-title">
 									<a class="text-purple text-capitalize d-block text-truncate"
-										href="course-single-left-sidebar.html">${coachClassVO.className}
+										href="#">${coachClassVO.className}
 										${cocService1.getMemberName(coachClassVO.coachClassID)}</a>
 								</h3>
 								<ul class="list-unstyled text-muted">

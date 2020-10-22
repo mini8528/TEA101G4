@@ -136,7 +136,7 @@ session.setAttribute("listActions3", listActions3);
 
 
 
-               <p class="text-dark font-size-15 mb-4">開始設計一個屬於自己的健身課表</p>
+<!--                <p class="text-dark font-size-15 mb-4">開始設計一個屬於自己的健身課表</p> -->
                <FORM METHOD="post" ACTION="${pageContext.request.contextPath}/trainingcls/TrainingClsServlet" name="form1">
 
 

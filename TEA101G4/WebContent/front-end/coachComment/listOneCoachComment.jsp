@@ -37,7 +37,7 @@
 				<div class="col-md-8 col-lg-12 order-md-1">
 
 					<div class="bg-light shadow-sm rounded px-3 pt-3 pb-6 mb-4">
-						<h1 class="mb-4 text-danger font-weight-bold">共
+						<h1 class="mb-4  font-weight-bold">共
 							${list_number} 則評論</h1>
 						<c:forEach var="coachCommentVO" items="${list}">
 							<div class="media py-1">

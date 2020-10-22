@@ -295,9 +295,10 @@ public class LatServlet extends HttpServlet{
 				String text = req.getParameter("text").trim();
 				if (text == null || text.trim().length() == 0) {
 					errorMsgs.add("文章請勿空白");
-				}else if(!text.trim().matches(memberReg)) { //以下練習正則(規)表示式(regular-expression)
-					errorMsgs.add("文章只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
-	            }
+				}
+//				else if(!text.trim().matches(memberReg)) { //以下練習正則(規)表示式(regular-expression)
+//					errorMsgs.add("文章只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
+//	            }
 				
 				/***************************1e.活動圖片**********************/
 				System.out.println("yaaa5");
