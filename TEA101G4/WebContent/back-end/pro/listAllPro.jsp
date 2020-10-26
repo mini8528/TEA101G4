@@ -1,8 +1,8 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.pro.model.*"%>
-<%-- ¦¹­¶½m²ß±Ä¥Î EL ªº¼gªk¨ú­È --%>
+
 
 <%
 ProService proSvc = new ProService();
@@ -16,111 +16,97 @@ ProService proSvc = new ProService();
 
 </head>
 <body bgcolor='white'>
-
-<!-- ------------------¥H¤U½Æ»s¨ìµê½u-------------------¥H¤U½Æ»s¨ìµê½u--------------------------- -->
-
+<!-- ------------------ä»¥ä¸‹è¤‡è£½åˆ°è™›ç·š----includeæ‰€åœ¨ä½ç½®------------------------------------------ -->
   <!-- Page Wrapper -->
-  <div id="wrapper">
-	
-	<%@ include file="/back-end/component/sidebar.jsp" %>
+       <div id="wrapper">
+ <%@ include file="/back-end/component/sidebar.jsp" %>
 
+       <div id="content-wrapper" class="d-flex flex-column">
 
-    <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
-
-      <!-- Main Content -->
+    
       
-      <div id="content">
-		
-
+         <div id="content">
        <%@ include file="/back-end/component/topbar.jsp" %>
-
-        <!-- Begin Page Content -->
+         <!-- Begin Page Content -->
         <div class="container-fluid">
 
-          <!-- Page Heading -->
-          
-    
 <div>
-<!-- ---------------------------------------------------------------- -->         
-
-
-<%-- ¿ù»~ªí¦C --%>
+<!-- ---------------------------------------------------------------- -->       
+<%-- éŒ¯èª¤è¡¨åˆ— --%>
 <c:if test="${not empty errorMsgs}">
-	<font style="color:red">½Ğ­×¥¿¥H¤U¿ù»~:</font>
-	<ul>
-		<c:forEach var="message" items="${errorMsgs}">
-			<li style="color:red">${message}</li>
-		</c:forEach>
-	</ul>
+ <font style="color:red">è«‹ä¿®æ­£ä»¥ä¸‹éŒ¯èª¤:</font>
+ <ul>
+  <c:forEach var="message" items="${errorMsgs}">
+   <li style="color:red">${message}</li>
+  </c:forEach>
+ </ul>
 </c:if>
 
+
+<div class="card shadow mb-4">
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
     <FORM METHOD="post" ACTION="pro.do" >
-        <b>¿é¤J°Ó«~½s¸¹:</b>
+        <b>è¼¸å…¥å•†å“ç·¨è™Ÿ:</b>
         <input type="text" name="productid">
         <input type="hidden" name="action" value="getSome_For_Display">
-        <input type="submit" value="°e¥X">
+        <input type="submit" value="é€å‡º">
     </FORM>
  
-<table>
-	
-	<tr>
-		<th>°Ó«~µû»ù½s¸¹</th>
-		<th>°Ó«~½s¸¹</th>
-		<th>¤@¯ë·|­û½s¸¹</th>
-		<th>µû½×¤º®e</th>
-		<th>¬P¯Å¼Æ</th>
-		<th>·s¼W¤é´Á</th>
-		<th>­×§ï¤é´Á</th>
-		<th>µû½×ª¬ºA</th>
-		<th>¾Ş§@</th>
-	</tr>
-	<%@ include file="page1.file" %> 
-	<c:forEach var="proVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-		
-	<tr>
-			
-					
-			<td>${proVO.prodcommid}</td>
-			<td>${proVO.productid}</td>
-			<td>${proVO.memberid}</td>
-			<td>${proVO.commtext}</td>
-			<td>${proVO.commstar}</td>
-			<td>${proVO.adddate}</td>
-			<td>${proVO.editdate}</td>
-			<td>${proVO.status}</td>
-			
-			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/pro/pro.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="­×§ï">
-			     <input type="hidden" name="prodcommid"  value="${proVO.prodcommid}">
-			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
-			</td>
-		
-		</tr>
-	</c:forEach>
-	
+
+ 
+ <tr>
+  <th>å•†å“è©•åƒ¹ç·¨è™Ÿ</th>
+  <th>å•†å“ç·¨è™Ÿ</th>
+  <th>ä¸€èˆ¬æœƒå“¡ç·¨è™Ÿ</th>
+  <th>è©•è«–å…§å®¹</th>
+  <th>æ˜Ÿç´šæ•¸</th>
+  <th>æ–°å¢æ—¥æœŸ</th>
+  <th>ä¿®æ”¹æ—¥æœŸ</th>
+  <th>è©•è«–ç‹€æ…‹</th>
+  <th>æ“ä½œ</th>
+ </tr>
+ <%@ include file="page1.file" %> 
+ <c:forEach var="proVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+  
+ <tr>
+   
+     
+   <td>${proVO.prodcommid}</td>
+   <td>${proVO.productid}</td>
+   <td>${proVO.memberid}</td>
+   <td>${proVO.commtext}</td>
+   <td>${proVO.commstar}</td>
+   <td>${proVO.adddate}</td>
+   <td>${proVO.editdate}</td>
+   <td>${proVO.status}</td>
+   
+   <td>
+     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/pro/pro.do" style="margin-bottom: 0px;">
+        <input type="submit" value="ä¿®æ”¹">
+        <input type="hidden" name="prodcommid"  value="${proVO.prodcommid}">
+        <input type="hidden" name="action" value="getOne_For_Update"></FORM>
+   </td>
+  
+  </tr>
+ </c:forEach>
+ </thead>
 </table>
-<%@ include file="page2.file" %>
-<!-- -----------¥H¤U½Æ»s¨ìµê½u----------------------------¥H¤U½Æ»s¨ìµê½u------------------------- -->
-			
-			</div>
-        </div>
-        
-        <!-- /.container-fluid -->
-
+<!-- -----------ä»¥ä¸‹è¤‡è£½åˆ°è™›ç·š----------------------------ä»¥ä¸‹è¤‡è£½åˆ°è™›ç·š------------------------- -->
+   
+   </div>
+   </div>
       </div>
-      <!-- End of Main Content -->
-
-      <!-- Footer -->
-      
-      <!-- End of Footer -->
-
+      <%@ include file="page2.file" %>
     </div>
-    <!-- End of Content Wrapper -->
-
   </div>
-  <!-- End of Page Wrapper -->
+</div>
+  </div>
+</div>
+
+ 
 <!-- ---------------------------------------------------------------- -->
 
 </body>

@@ -158,7 +158,7 @@ public class CoachClassDAO implements CoachClassDAO_interface {
 
 			// 先刪除員工
 			pstmt = con.prepareStatement(DELETE_ClassDetail);
-			pstmt.setString(1, "CD00002");
+			pstmt.setString(1, coachClassID);
 			updateCount_CoachClass = pstmt.executeUpdate();
 			// 再刪除部門
 			pstmt = con.prepareStatement(DELETE_CoachClass);

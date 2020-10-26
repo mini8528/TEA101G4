@@ -85,4 +85,8 @@ public class CoachCommentService {
 	}
 	
 	
+	public double getCoachStarAVG (String memberID) {
+		return dao.getCoachStarAVG(memberID);
+	}
+	
 }

@@ -32,8 +32,10 @@
     } 
 %>
 
-<%if (pageNumber>0){%>
-  <b><font color=red>第<%=whichPage%>/<%=pageNumber%>頁</font></b>
-<%}%>
+<section class="py-8 py-md-3">
+<div class="container">
 
-<b>●符 合 查 詢 條 件 如 下 所 示: 共<font color=red><%=rowNumber%></font>筆</b>
+		<div class="media media-list-view mb-5 mb-lg-2 mb-xl-3">
+<h3 class="text-purple text-capitalize font-weight-bold">  訂單紀錄 : 共<font color=black> <%=rowNumber%> </font>筆</h3>
+</div></div>
+</section>

@@ -41,12 +41,12 @@ public class ProductServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 //		-----------------------------------------
-		System.out.println("ProductServlet_doPost " + aa++);
-		System.out.println("action=" + action);
+//		System.out.println("ProductServlet_doPost " + aa++);
+//		System.out.println("action=" + action);
 //		-----------------------------------------
 //		首頁-搜單筆
 		if ("getOne_For_Display".equals(action)) {
-			System.out.println("result=" + ("getOne_For_Display".equals(action)));
+//			System.out.println("result=" + ("getOne_For_Display".equals(action)));
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 //			1.接收請求參數
@@ -108,13 +108,13 @@ public class ProductServlet extends HttpServlet {
 				ProductService productSvc = new ProductService();
 				ProductVO productVO = productSvc.getOneProduct(productid);
 				// 查詢完成，準備轉交
-				System.out.println("查詢完成，準備轉交");
+//				System.out.println("查詢完成，準備轉交");
 				req.setAttribute("productVO", productVO);
-				System.out.println("productVO");
+//				System.out.println("productVO");
 				RequestDispatcher successView = req.getRequestDispatcher("/back-end/product/update_product.jsp");
 				successView.forward(req, res);
 			} catch (Exception e) {
-				System.out.println("list-編輯單筆=Exception");
+//				System.out.println("list-編輯單筆=Exception");
 				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/product/listAllproduct.jsp");
 				failureView.forward(req, res);
@@ -123,26 +123,26 @@ public class ProductServlet extends HttpServlet {
 //		---------------------------------------------------------------------------------------------------------------------------
 //		進入編輯單筆商品頁面
 		if ("update".equals(action)) {
-			System.out.println("--update---");
+//			System.out.println("--update---");
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-			System.out.println("----==1==-----");
+//			System.out.println("----==1==-----");
 //			1.接收請求參數
 			try {
 				String productid = new String(req.getParameter("productid"));
-				System.out.println("----==2==-----");
+//				System.out.println("----==2==-----");
 				String adminid = new String(req.getParameter("adminid"));
-				System.out.println("00" + adminid);
-				System.out.println("11");
+//				System.out.println("00" + adminid);
+//				System.out.println("11");
 				Timestamp adddate = Timestamp.valueOf(req.getParameter("adddate"));
-				System.out.println("adddate;" + adddate);
+//				System.out.println("adddate;" + adddate);
 //			輸入錯誤的處理（沒輸入或空白｜不符合正規表示｜轉跳頁面）
 				String name = req.getParameter("name").trim();
 				String nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9._)[-][\\s][\"]]{1,60}$";//(:blank:)(:punct:)
 				if (name == null || name.trim().length() == 0) {
 					errorMsgs.add("商品名稱：請勿空白。");
 				} else if (!name.trim().matches(nameReg)) {
-					System.out.println("update??");
+//					System.out.println("update??");
 					errorMsgs.add("商品名稱：只能是中、英文字母、數字和_ , 且長度必需在1到60之間");
 				}
 //			
@@ -185,7 +185,7 @@ public class ProductServlet extends HttpServlet {
 				byte[] photo2 = null;
 				byte[] photo3 = null;
 				Part photo = req.getPart("photo1");
-				System.out.println("photo1:"+photo1);
+//				System.out.println("photo1:"+photo1);
 				try {
 					if (photo.getSize() == 0) {
 //						errorMsgs.add("請上傳照片");
@@ -258,7 +258,7 @@ public class ProductServlet extends HttpServlet {
 						photo3 = baos.toByteArray();
 					}
 				} catch (Exception e) {
-					System.out.println("photo_Exception");
+//					System.out.println("photo_Exception");
 					e.printStackTrace();
 				}
 //-------------------
@@ -278,7 +278,7 @@ public class ProductServlet extends HttpServlet {
 				productVO.setPhoto3(photo3);
 				productVO.setIntro(intro);
 
-				System.out.println("productVO:" + productVO.toString());
+//				System.out.println("productVO:" + productVO.toString());
 
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("productVO", productVO);
@@ -308,7 +308,7 @@ public class ProductServlet extends HttpServlet {
 			try {
 //			輸入錯誤的處理（沒輸入或空白｜不符合正規表示｜轉跳頁面）
 				String name = req.getParameter("name").trim();
-				System.out.println("name=>" + name);
+//				System.out.println("name=>" + name);
 				String nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9._)[-][\\s][\"]]{1,60}$";
 				if (name == null || name.trim().length() == 0) {
 					errorMsgs.add("商品名稱：請勿空白。");
@@ -353,7 +353,7 @@ public class ProductServlet extends HttpServlet {
 //--------------
 				String specific = null;
 				specific = req.getParameter("specific").trim();
-				System.out.println("specific=>" + specific);
+//				System.out.println("specific=>" + specific);
 //			輸入錯誤的處理（沒輸入或空白｜不符合正規表示｜轉跳頁面）
 				String specificReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9._)[-][\\s][\"]]{1,60}$";//(\u4e00-\u9fa5)(a-zA-Z0-9._)[-][\\s][\"]
 				if (specific == null || specific.trim().length() == 0) {
@@ -362,7 +362,7 @@ public class ProductServlet extends HttpServlet {
 					errorMsgs.add("規格：只能是中、英文字母、數字和_ , 且長度必需在1到60之間");
 				}
 				Integer stock = new Integer(req.getParameter("stock").trim());
-				System.out.println("stock=>" + stock);
+//				System.out.println("stock=>" + stock);
 				if (stock == null || stock == 0) {
 					errorMsgs.add("請輸入庫存數量");
 				}
@@ -478,7 +478,7 @@ public class ProductServlet extends HttpServlet {
 				productVO.setPhoto3(photo3);
 				productVO.setIntro(intro);
 
-				System.out.println(productVO.toString());
+//				System.out.println(productVO.toString());
 
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("productVO", productVO);
@@ -531,37 +531,37 @@ public class ProductServlet extends HttpServlet {
 		}
 //管理員/查詢商品KEYWORD----------------
 		if ("getSomeList".equals(action)) {
-			System.out.println("getSome_For_Display:action---1");
+//			System.out.println("getSome_For_Display:action---1");
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			try {
 //				1.接收請求參數
 				String name = new String(req.getParameter("name"));
-				System.out.println("getSomeList:action---2");
+//				System.out.println("getSomeList:action---2");
 //				2.開始查詢資料
 				ProductService productSvc = new ProductService();
 				List<ProductVO> list = productSvc.getProducts(name);
-				System.out.println("符合的Product共：" + list.size());
+//				System.out.println("符合的Product共：" + list.size());
 				req.getSession().setAttribute("list", list);
-				System.out.println("getSomeList:action---3");
+//				System.out.println("getSomeList:action---3");
 //				3.查詢完成,準備轉交
 //				req.setAttribute("productVO", productVO);
 				RequestDispatcher successView = req.getRequestDispatcher("/back-end/product/listSomeProduct.jsp");
 				successView.forward(req, res);
-				System.out.println("getSomeList:action---4");
+//				System.out.println("getSomeList:action---4");
 //				其他可能的錯誤處理
 			} catch (Exception e) {
 				errorMsgs.add("無法取得資料:" + e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/product/select_page.jsp");
 				failureView.forward(req, res);
 			}
-			System.out.println("end------getSomeList");
+//			System.out.println("end------getSomeList");
 		}
 
 //		-----------------------------------------------------------------
 //		(客戶端)	商品頁-進入單筆商品頁面
 		if ("getOne_For_Display_Front".equals(action)) {
-			System.out.println("result=" + ("getOne_For_Display".equals(action)));
+//			System.out.println("result=" + ("getOne_For_Display".equals(action)));
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 //			1.接收請求參數
@@ -612,63 +612,63 @@ public class ProductServlet extends HttpServlet {
 		}
 		// （管理員）查詢上下架商品----------------
 		if ("getSomeListByStatus".equals(action)) {
-			System.out.println("getSomeListByStatus:action---1");
+//			System.out.println("getSomeListByStatus:action---1");
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			try {
 //						1.接收請求參數
 				String status = new String(req.getParameter("status"));
-				System.out.println("status:" + status);
+//				System.out.println("status:" + status);
 //						2.開始查詢資料
 				ProductService productSvc = new ProductService();
 				List<ProductVO> list = productSvc.getAll_byStatus(status);
-				System.out.println("符合的Product共：" + list.size());
+//				System.out.println("符合的Product共：" + list.size());
 				req.getSession().setAttribute("list", list);
-				System.out.println("getSomeListByStatus:action---3");
+//				System.out.println("getSomeListByStatus:action---3");
 //						3.查詢完成,準備轉交
 //						req.setAttribute("productVO", productVO);
 				RequestDispatcher successView = req.getRequestDispatcher("/back-end/product/listSomeProduct.jsp");
 				successView.forward(req, res);
-				System.out.println("getSomeListByStatus:action---4");
+//				System.out.println("getSomeListByStatus:action---4");
 //						其他可能的錯誤處理
 			} catch (Exception e) {
 				errorMsgs.add("無法取得資料:" + e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/product/select_page.jsp");
 				failureView.forward(req, res);
 			}
-			System.out.println("end------getSomeList999");
+//			System.out.println("end------getSomeList999");
 		}
 //				-----------------------------前台商品呈現------------------------------------
 		if ("getAll_select".equals(action)) {
 			ProductService productSvc = new ProductService();
 			List<ProductVO> list = productSvc.getAll_byStatus("Y");
-			System.out.println("list---:" + list.toString());
-			System.out.println("lambda_test_start");
+//			System.out.println("list---:" + list.toString());
+//			System.out.println("lambda_test_start");
 			String type = new String(req.getParameter("type").trim());
-			System.out.println("type=" + type);
+//			System.out.println("type=" + type);
 			
 			if ("".equals(type)) {
 				req.getSession().setAttribute("list", list);
 				RequestDispatcher successView = req.getRequestDispatcher("/front-end/product/list_product.jsp");
 				successView.forward(req, res);
-				System.out.println("list=>>>" + list);
+//				System.out.println("list=>>>" + list);
 				return;
 			}
 			if("searchByPdname".equals(type)) {
 				String name = new String(req.getParameter("name").trim());
-				System.out.println("name="+name);
+//				System.out.println("name="+name);
 				if ("".equals(name)) {
 					req.getSession().setAttribute("list", list);
 					RequestDispatcher successView = req.getRequestDispatcher("/front-end/product/list_product.jsp");
 					successView.forward(req, res);
-					System.out.println("list=>>>" + list);
+//					System.out.println("list=>>>" + list);
 					return;
 				}
 				List<ProductVO> list2 = list.stream()
 						.filter(p -> p.getName().contains(name))
 						.collect(Collectors.toList());
 				list2.forEach(System.out::println);
-				System.out.println("======" + list2.toString());
+//				System.out.println("======" + list2.toString());
 				list = list2;
 				req.getSession().setAttribute("list", list);
 				RequestDispatcher successView = req.getRequestDispatcher("/front-end/product/list_product.jsp");
@@ -677,19 +677,19 @@ public class ProductServlet extends HttpServlet {
 			}
 			if ("searchByBrandname".equals(type)) {
 				String brandid = new String(req.getParameter("brandid")).trim();
-				System.out.println("brandid=" + brandid);
+//				System.out.println("brandid=" + brandid);
 				if ("".equals(brandid)) {
 					req.getSession().setAttribute("list", list);
 					RequestDispatcher successView = req.getRequestDispatcher("/front-end/product/list_product.jsp");
 					successView.forward(req, res);
-					System.out.println("list=>>>" + list);
+//					System.out.println("list=>>>" + list);
 					return;
 				}
 				List<ProductVO> list2 = list.stream().filter(p -> p.getBrandid().equals(brandid))
 						.collect(Collectors.toList());
 
 				list2.forEach(System.out::println);
-				System.out.println("======" + list2.toString());
+//				System.out.println("======" + list2.toString());
 				list = list2;
 
 				req.getSession().setAttribute("list", list);
@@ -699,19 +699,19 @@ public class ProductServlet extends HttpServlet {
 			}
 			if ("searchByCategory".equals(type)) {
 				String category = new String(req.getParameter("category")).trim();
-				System.out.println("category=" + category);
+//				System.out.println("category=" + category);
 				if ("".equals(category)) {
 					req.getSession().setAttribute("list", list);
 					RequestDispatcher successView = req.getRequestDispatcher("/front-end/product/list_product.jsp");
 					successView.forward(req, res);
-					System.out.println("list=>>>" + list);
+//					System.out.println("list=>>>" + list);
 					return;
 				}
 				List<ProductVO> list2 = list.stream().filter(p -> p.getCategory().equals(category))
 						.collect(Collectors.toList());
 
 				list2.forEach(System.out::println);
-				System.out.println("======" + list2.toString());
+//				System.out.println("======" + list2.toString());
 				list = list2;
 //				req.setAttribute("list", list);
 
@@ -722,32 +722,32 @@ public class ProductServlet extends HttpServlet {
 			}
 			if ("searchByMuti".equals(type)) {
 				Enumeration<String> ee = req.getParameterNames();
-				System.out.println(ee.toString());
+//				System.out.println(ee.toString());
 				List<String> ll = new ArrayList<String>();
 				if(ee.hasMoreElements()) {
 					String n = (String) ee.nextElement();
-					System.out.println("n:"+n);
+//					System.out.println("n:"+n);
 					ll.add(n);
 				}else {
 					req.getSession().setAttribute("list", list);
 					RequestDispatcher successView = req.getRequestDispatcher("/front-end/product/list_product.jsp");
 					successView.forward(req, res);
-					System.out.println("list=>>>" + list);
+//					System.out.println("list=>>>" + list);
 					return;
 				}
-				System.out.println("ll==>"+ll.toString());
-				System.out.println("ll.size==>"+ll.size());
+//				System.out.println("ll==>"+ll.toString());
+//				System.out.println("ll.size==>"+ll.size());
 				if(ll.size()==2) {
 					if ((ll.get(0)).equals("category")&&(ll.get(1)).equals("brandid")) {
 						String category = req.getParameter("category");
 						String brandid = req.getParameter("brandid");
-						System.out.println("1category="+category+";"+"brandid"+brandid);
+//						System.out.println("1category="+category+";"+"brandid"+brandid);
 						List<ProductVO> list2 = list.stream()
 								.filter(p -> p.getCategory().equals(category))
 								.filter(p -> p.getBrandid().equals(brandid))
 								.collect(Collectors.toList());
 						list2.forEach(System.out::println);
-						System.out.println("======" + list2.toString());
+//						System.out.println("======" + list2.toString());
 						list = list2;
 						req.getSession().setAttribute("list", list);
 						RequestDispatcher successView = req.getRequestDispatcher("/front-end/product/list_product.jsp");
@@ -757,13 +757,13 @@ public class ProductServlet extends HttpServlet {
 					else if((ll.get(1)).equals("category")&&(ll.get(0)).equals("brandid")) {
 						String category = req.getParameter("category");
 						String brandid = req.getParameter("brandid");
-						System.out.println("2category="+category+";"+"brandid"+brandid);
+//						System.out.println("2category="+category+";"+"brandid"+brandid);
 						List<ProductVO> list2 = list.stream()
 								.filter(p -> p.getCategory().equals(category))
 								.filter(p -> p.getBrandid().equals(brandid))
 								.collect(Collectors.toList());
 						list2.forEach(System.out::println);
-						System.out.println("======" + list2.toString());
+//						System.out.println("======" + list2.toString());
 						list = list2;
 						req.getSession().setAttribute("list", list);
 						RequestDispatcher successView = req.getRequestDispatcher("/front-end/product/list_product.jsp");
@@ -772,14 +772,14 @@ public class ProductServlet extends HttpServlet {
 					}
 					
 				}else if(ll.size()==1) {
-					System.out.println("ll.get(0)="+ll.get(0));
+//					System.out.println("ll.get(0)="+ll.get(0));
 					if ((ll.get(0)).equals("category")) {
 						String category = req.getParameter("category");
 						List<ProductVO> list2 = list.stream()
 								.filter(p -> p.getCategory().equals(category))
 								.collect(Collectors.toList());
 						list2.forEach(System.out::println);
-						System.out.println("======" + list2.toString());
+//						System.out.println("======" + list2.toString());
 						list = list2;
 						req.getSession().setAttribute("list", list);
 						RequestDispatcher successView = req.getRequestDispatcher("/front-end/product/list_product.jsp");
@@ -787,13 +787,13 @@ public class ProductServlet extends HttpServlet {
 						return;
 					}else if((ll.get(0)).equals("brandid")) {
 						String brandid = req.getParameter("brandid");
-						System.out.println("(ll.get(0)).equals(\"brandid\")"+(ll.get(0)).equals("brandid"));
-						System.out.println("brandid---"+brandid);
+//						System.out.println("(ll.get(0)).equals(\"brandid\")"+(ll.get(0)).equals("brandid"));
+//						System.out.println("brandid---"+brandid);
 						List<ProductVO> list2 = list.stream()
 								.filter(p -> p.getBrandid().equals(brandid))
 								.collect(Collectors.toList());
 						list2.forEach(System.out::println);
-						System.out.println("======" + list2.toString());
+//						System.out.println("======" + list2.toString());
 						list = list2;
 						req.getSession().setAttribute("list", list);
 						RequestDispatcher successView = req.getRequestDispatcher("/front-end/product/list_product.jsp");
@@ -806,7 +806,7 @@ public class ProductServlet extends HttpServlet {
 				successView.forward(req, res);
 				return;
 			}
-			System.out.println("lambda_test_end");
+//			System.out.println("lambda_test_end");
 			
 		}
 //		------------------------------------------------------------------------------------------------
@@ -814,32 +814,39 @@ public class ProductServlet extends HttpServlet {
 		if("searchByPrice".equals(action)) {
 			ProductService productSvc = new ProductService();
 			List<ProductVO> list = (List<ProductVO>) req.getSession().getAttribute("list");
+			if(req.getParameter("priceUpperBound")=="" || req.getParameter("priceLowerBound")=="") {
+				list = productSvc.getAll_byStatus("Y");
+				req.getSession().setAttribute("list", list);
+				RequestDispatcher successView = req.getRequestDispatcher("/front-end/product/list_product.jsp");
+				successView.forward(req, res);
+				return;
+			}
 			Integer priceUB = Integer.parseInt(req.getParameter("priceUpperBound"));
-			System.out.println("priceUB:"+priceUB);
+//			System.out.println("priceUB:"+priceUB);
 			Integer priceLB = Integer.parseInt(req.getParameter("priceLowerBound"));
-			System.out.println("priceLB:"+priceLB);
+//			System.out.println("priceLB:"+priceLB);
 			if(list == null) {
-				list = productSvc.getAll();
-				System.out.println("list.size:" + list.size());
+				list = productSvc.getAll_byStatus("Y");
+//				System.out.println("list.size:" + list.size());
 				List<ProductVO> list2 = list.stream()
 						.filter(p -> p.getPrice() < priceUB)
 						.filter(p -> p.getPrice() > priceLB)
 						.collect(Collectors.toList());
 				list2.forEach(System.out::println);
-				System.out.println("======" + list2.toString());
+//				System.out.println("======" + list2.toString());
 				list = list2;
 				req.getSession().setAttribute("list", list);
 				RequestDispatcher successView = req.getRequestDispatcher("/front-end/product/list_product.jsp");
 				successView.forward(req, res);
 				return;
 			}
-			System.out.println("list.size:" + list.size());
+//			System.out.println("list.size:" + list.size());
 			List<ProductVO> list2 = list.stream()
 					.filter(p -> p.getPrice() < priceUB)
 					.filter(p -> p.getPrice() > priceLB)
 					.collect(Collectors.toList());
 			list2.forEach(System.out::println);
-			System.out.println("======" + list2.toString());
+//			System.out.println("======" + list2.toString());
 			list = list2;
 			req.getSession().setAttribute("list", list);
 			RequestDispatcher successView = req.getRequestDispatcher("/front-end/product/list_product.jsp");
@@ -852,7 +859,7 @@ public class ProductServlet extends HttpServlet {
 		if("change_status_pds".equals(action)) {
 			ProductService productSvc = new ProductService();
 			List<ProductVO> list = productSvc.getAll();
-			System.out.println("list.size->:" + list.size());
+//			System.out.println("list.size->:" + list.size());
 			
 //			HttpSession session = req.getSession();
 //			List<ProductVO> list_test = (List<ProductVO>) session.getAttribute("list");
@@ -861,7 +868,7 @@ public class ProductServlet extends HttpServlet {
 			String[] aa = req.getParameterValues("productid");//
 			List<String> productidAll = new ArrayList<String>();
 			for(String test : aa) {
-				System.out.println("挑選的商品id:"+test);
+//				System.out.println("挑選的商品id:"+test);
 				productidAll.add(test);
 			}
 			for(String productid2 : productidAll) {
@@ -873,7 +880,7 @@ public class ProductServlet extends HttpServlet {
 			.filter(p -> p.getProductid().equals(aa[0]))
 			.findFirst();
 			status = status2.get().getStatus();
-			System.out.println("status:"+status);
+//			System.out.println("status:"+status);
 			if("Y".equals(status)) {
 				status = "N";
 			}else if("N".equals(status)) {

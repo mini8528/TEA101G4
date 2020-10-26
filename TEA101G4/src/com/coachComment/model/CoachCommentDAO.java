@@ -39,6 +39,7 @@ public class CoachCommentDAO implements CoachCommentDAO_interface {
 
 	private static final String UPDATE_SATAUS = "UPDATE CoachComment SET status=?,editDate=? WHERE coachCommentID = ?";
 	
+	private static final String coach_Star = "select COMMSTAR from coachComment where memberid = ?";
 	
 //	 memberID2=?
 
@@ -551,6 +552,62 @@ public class CoachCommentDAO implements CoachCommentDAO_interface {
 			}
 		}
 		return list_MemberName;
+	}
+
+	@Override
+	public double getCoachStarAVG(String memberID) {
+		
+		List<CoachCommentVO> list_CoachCommentVO = new ArrayList<CoachCommentVO>();
+		CoachCommentVO coachCommentVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		double AVG= 0,AVG1= 0,AVG2 = 0;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(coach_Star);
+			pstmt.setString(1, memberID);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				coachCommentVO = new CoachCommentVO();
+				coachCommentVO.setCommStar(rs.getInt("commStar"));
+				list_CoachCommentVO.add(coachCommentVO); // Store the row in the list
+			}
+			for(CoachCommentVO a : list_CoachCommentVO) {
+				AVG1 += a.getCommStar();
+			}
+			AVG2 = AVG1 / list_CoachCommentVO.size();
+			AVG = Math.round(AVG2 * 10.0) / 10.0;
+			// Handle any driver errors
+		}  catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return AVG;
 	}
 
 

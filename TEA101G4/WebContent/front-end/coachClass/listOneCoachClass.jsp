@@ -14,6 +14,9 @@
 	CoachClassService cocService = new CoachClassService();
 	pageContext.setAttribute("cocService", cocService);
 	
+	CoachCommentService ccService = new CoachCommentService();
+	pageContext.setAttribute("ccService", ccService);
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -43,8 +46,14 @@
 
 				</div>
 				<div class="row">
+				
 					<div class="card-body border-top-5 border-purple p-3 p-md-5">
-						<h3 class="text-purple font-weight-bold mb-5">${coachClassVO.className} ${cocService.getMemberName(coachClassVO.coachClassID)}</h3>
+						<span class="text-purple font-weight-bold mb-5"><font size="60">${ccService.getCoachStarAVG(coachClassVO.memberID) }</font>分</span>
+
+					</div>
+				
+					<div class="card-body border-top-5 border-purple p-3 p-md-5">
+						<h3 class="text-purple font-weight-bold mb-5">${coachClassVO.className}　${cocService.getMemberName(coachClassVO.coachClassID)}</h3>
 
 						<p class="font-weight-bold">${coachClassVO.classContext}</p>
 

@@ -1,22 +1,22 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.pro.model.*"%>
 
 <%
-ProVO proVO = (ProVO) request.getAttribute("proVO"); //EmpServlet.java (Concroller) ¦s¤JreqªºempVOª«¥ó (¥]¬AÀ°¦£¨ú¥XªºempVO, ¤]¥]¬A¿é¤J¸ê®Æ¿ù»~®ÉªºempVOª«¥ó)
+ProVO proVO = (ProVO) request.getAttribute("proVO"); //EmpServlet.java (Concroller) å­˜å…¥reqçš„empVOç‰©ä»¶ (åŒ…æ‹¬å¹«å¿™å–å‡ºçš„empVO, ä¹ŸåŒ…æ‹¬è¼¸å…¥è³‡æ–™éŒ¯èª¤æ™‚çš„empVOç‰©ä»¶)
 %>
 
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>­×§ïµû½×ª¬ºA</title>
+<title>ä¿®æ”¹è©•è«–ç‹€æ…‹</title>
 
 </head>
 <body bgcolor='white'>
-<!-- ------------------¥H¤U½Æ»s¨ìµê½u----include©Ò¦b¦ì¸m------------------------------------------ -->
+<!-- ------------------ä»¥ä¸‹è¤‡è£½åˆ°è™›ç·š----includeæ‰€åœ¨ä½ç½®------------------------------------------ -->
   <!-- Page Wrapper -->
   <div id="wrapper">
-	<%@ include file="/back-end/component/sidebar.jsp" %>
+ <%@ include file="/back-end/component/sidebar.jsp" %>
 
 
     <!-- Content Wrapper -->
@@ -25,7 +25,7 @@ ProVO proVO = (ProVO) request.getAttribute("proVO"); //EmpServlet.java (Concroll
       <!-- Main Content -->
       
       <div id="content">
-		
+  
 
        <%@ include file="/back-end/component/topbar.jsp" %>
 
@@ -35,77 +35,84 @@ ProVO proVO = (ProVO) request.getAttribute("proVO"); //EmpServlet.java (Concroll
        
     
 <div>
-<!-- ---------------------´ú¸Õ------------------------------------------- -->         
+<!-- ---------------------æ¸¬è©¦------------------------------------------- -->         
 
 <FORM METHOD="post" ACTION="pro.do" name="form1" enctype="multipart/form-data">
 <table>
-	 
-	<tr>
-		<td>°Ó«~µû»ù½s¸¹:<font color=red><b>*</b></font></td>
-		<td><%=proVO.getProdcommid()%></td>
-	</tr>
-	
-	<tr>
-		<td>°Ó«~½s¸¹:</td>
-<!-- 		<td><input type="hidden" name="productid" size="45"  -->
-<%-- 			 value="<%=proVO.getProductid()%>" /></td> --%>
-			 <td><%=proVO.getProductid()%></td>
-	</tr>
-	
-	<tr>
-		<td>¤@¯ë·|­û½s¸¹:</td>
-<!-- 		<td><input type="TEXT" name="memberid" size="45"  -->
-<%-- 			 value="<%=proVO.getMemberid()%>" /></td> --%>
-			 <td><%=proVO.getMemberid()%></td>
-	</tr>
-	
-	<tr>
-		<td>µû½×¤º®e:</td>
-<!-- 		<td><input type="TEXT" name="commtext" size="45"  -->
-<%-- 			 value="<%=proVO.getCommtext()%>" /></td> --%>
-			 <td><%=proVO.getCommtext()%></td>
-	</tr>
-	
-	<tr>
-		<td>¬P¯Å¼Æ:</td>
-<!-- 		<td><input type="TEXT" name="commstar" size="45"  -->
-<%-- 			 value="<%=proVO.getCommstar()%>" /></td> --%>
-			 <td><%=proVO.getCommstar()%></td>
-	</tr>
-	
-	<tr>
-		<td>·s¼W¤é´Á:</td>
-		<td><%=proVO.getAdddate()%></td>
-	</tr>
-	
-	<tr>
-		<td>­×§ï¤é´Á:</td>
-		<td><%=proVO.getEditdate()%></td>
-	</tr>
-	
-	<tr>
-		<td>µû½×ª¬ºA:</td>
-		<td><select name="status" ${proVO.status}>
-						<option>Y</option>
-						<option>N</option>
-				</select>
-	</tr>
+  
+ <tr>
+  <td>å•†å“è©•åƒ¹ç·¨è™Ÿ:<font color=red><b>*</b></font></td>
+  <td><%=proVO.getProdcommid()%></td>
+ </tr>
+ 
+ <tr>
+  <td>å•†å“ç·¨è™Ÿ:</td>
+<!--   <td><input type="hidden" name="productid" size="45"  -->
+<%--     value="<%=proVO.getProductid()%>" /></td> --%>
+    <td><%=proVO.getProductid()%></td>
+ </tr>
+ 
+ <tr>
+  <td>ä¸€èˆ¬æœƒå“¡ç·¨è™Ÿ:</td>
+<!--   <td><input type="TEXT" name="memberid" size="45"  -->
+<%--     value="<%=proVO.getMemberid()%>" /></td> --%>
+    <td><%=proVO.getMemberid()%></td>
+ </tr>
+ 
+ <tr>
+  <td>è©•è«–å…§å®¹:</td>
+<!--   <td><input type="TEXT" name="commtext" size="45"  -->
+<%--     value="<%=proVO.getCommtext()%>" /></td> --%>
+    <td><%=proVO.getCommtext()%></td>
+ </tr>
+ 
+ <tr>
+  <td>æ˜Ÿç´šæ•¸:</td>
+<!--   <td><input type="TEXT" name="commstar" size="45"  -->
+<%--     value="<%=proVO.getCommstar()%>" /></td> --%>
+    <td><%=proVO.getCommstar()%></td>
+ </tr>
+ 
+ <tr>
+  <td>æ–°å¢æ—¥æœŸ:</td>
+  <td><%=proVO.getAdddate()%></td>
+ </tr>
+ 
+ <tr>
+  <td>ä¿®æ”¹æ—¥æœŸ:</td>
+ <c:choose>
+ <c:when test="${proVO.editdate != null}">
+ <td >${proVO.editdate}</td>
+ </c:when>
+ <c:otherwise>
+ <td >---</td>
+ </c:otherwise>
+ </c:choose>
+ </tr>
+ 
+ <tr>
+  <td>è©•è«–ç‹€æ…‹:</td>
+  <td><select name="status" ${proVO.status}>
+      <option>Y</option>
+      <option>N</option>
+    </select>
+ </tr>
 
-	
-	
+ 
+ 
 
 
 </table>
 <br>
 <input type="hidden" name="action" value="updatetext">
 <input type="hidden" name="prodcommid" value="<%=proVO.getProdcommid()%>">
-<input type="submit" value="°e¥X­×§ï">
+<input type="submit" value="é€å‡ºä¿®æ”¹">
 </FORM>
 
 
-<!-- -----------¥H¤U½Æ»s¨ìµê½u----------------------------¥H¤U½Æ»s¨ìµê½u------------------------- -->
-			
-			</div>
+<!-- -----------ä»¥ä¸‹è¤‡è£½åˆ°è™›ç·š----------------------------ä»¥ä¸‹è¤‡è£½åˆ°è™›ç·š------------------------- -->
+   
+   </div>
         </div>
         
         <!-- /.container-fluid -->
@@ -129,7 +136,7 @@ ProVO proVO = (ProVO) request.getAttribute("proVO"); //EmpServlet.java (Concroll
 
 
 
-<!-- =========================================¥H¤U¬° datetimepicker ¤§¬ÛÃö³]©w========================================== -->
+<!-- =========================================ä»¥ä¸‹ç‚º datetimepicker ä¹‹ç›¸é—œè¨­å®š========================================== -->
 
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
 <script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>

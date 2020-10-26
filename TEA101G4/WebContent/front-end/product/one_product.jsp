@@ -122,19 +122,22 @@ input:disabled{
 											data-toggle="pill" href="#v-pills-home" role="tab"
 											aria-controls="v-pills-home" aria-selected="true"> <img
 											class="img-fluid px-1 py-2 py-md-3 d-block m-auto"
+											<%-- src="<%=request.getContextPath()%>/back-end/product/showphoto.do?productid=${productVO.productid}&action=showPhoto1" --%>
 											src="<%=request.getContextPath()%>/back-end/product/productshow.do?productid=${productVO.productid}"
 											alt="thumb01.jpg">
 										</a> <a class="nav-link p-0" id="v-pills-profile-tab"
 											data-toggle="pill" href="#v-pills-profile" role="tab"
 											aria-controls="v-pills-profile" aria-selected="false"> <img
 											class="img-fluid px-1 py-2 py-md-3 d-block m-auto"
+											<%-- src="<%=request.getContextPath()%>/back-end/product/showphoto.do?productid=${productVO.productid}&action=showPhoto2" --%>
 											src="<%=request.getContextPath()%>/back-end/product/productshow2.do?productid=${productVO.productid}"
 											alt="thumb01.jpg">
 										</a> <a class="nav-link p-0" id="v-pills-messages-tab"
 											data-toggle="pill" href="#v-pills-messages" role="tab"
 											aria-controls="v-pills-messages" aria-selected="false"> <img
 											class="img-fluid px-1 py-2 py-md-3 d-block m-auto"
-											src="<%=request.getContextPath()%>/back-end/product/productshow3.do?productid=${productVO.productid}"
+											<%-- src="<%=request.getContextPath()%>/back-end/product/showphoto.do?productid=${productVO.productid}&action=showPhoto3" --%>
+ 											src="<%=request.getContextPath()%>/back-end/product/productshow3.do?productid=${productVO.productid}"
 											alt="thumb01.jpg">
 										</a>
 									</div>
@@ -146,13 +149,15 @@ input:disabled{
 										<div class="tab-pane fade show active" id="v-pills-home"
 											role="tabpanel" aria-labelledby="v-pills-home-tab">
 											<img class="img-fluid py-9"
-												src="<%=request.getContextPath()%>/back-end/product/productshow.do?productid=${productVO.productid}"
+												<%-- src="<%=request.getContextPath()%>/back-end/product/showphoto.do?productid=${productVO.productid}&action=showPhoto1" --%>
+ 												src="<%=request.getContextPath()%>/back-end/product/productshow.do?productid=${productVO.productid}"
 												alt="image-1.png">
 										</div>
 
 										<div class="tab-pane fade" id="v-pills-profile"
 											role="tabpanel" aria-labelledby="v-pills-profile-tab">
 											<img class="img-fluid py-9"
+												<%-- src="<%=request.getContextPath()%>/back-end/product/showphoto.do?productid=${productVO.productid}&action=showPhoto2" --%>
 												src="<%=request.getContextPath()%>/back-end/product/productshow2.do?productid=${productVO.productid}"
 												alt="image-2.png">
 										</div>
@@ -160,6 +165,7 @@ input:disabled{
 										<div class="tab-pane fade" id="v-pills-messages"
 											role="tabpanel" aria-labelledby="v-pills-messages-tab">
 											<img class="img-fluid py-9"
+												<%-- src="<%=request.getContextPath()%>/back-end/product/showphoto.do?productid=${productVO.productid}&action=showPhoto3" --%>
 												src="<%=request.getContextPath()%>/back-end/product/productshow3.do?productid=${productVO.productid}"
 												alt="image-3.png">
 										</div>
@@ -209,10 +215,10 @@ input:disabled{
 									<input class="btn btn-danger text-uppercase" type="submit" name="Submit" value="放入購物車"> 
 									<!--  -->
 									<!-- <p>Click on the heart to love or un-love this post.</p> -->
-									<span id = heart>
-									<!-- <svg width="2.5em" height="2.5em" aria-hidden="true" focusable="false" data-prefix="far" data-icon="heart" class="svg-inline--fa fa-heart fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill="currentColor" d="M458.4 64.3C400.6 15.7 311.3 23 256 79.3 200.7 23 111.4 15.6 53.6 64.3-21.6 127.6-10.6 230.8 43 285.5l175.4 178.7c10 10.2 23.4 15.9 37.6 15.9 14.3 0 27.6-5.6 37.6-15.8L469 285.6c53.5-54.7 64.7-157.9-10.6-221.3zm-23.6 187.5L259.4 430.5c-2.4 2.4-4.4 2.4-6.8 0L77.2 251.8c-36.5-37.2-43.9-107.6 7.3-150.7 38.9-32.7 98.9-27.8 136.5 10.5l35 35.7 35-35.7c37.8-38.5 97.8-43.2 136.5-10.6 51.1 43.1 43.5 113.9 7.3 150.8z"></path></svg> -->
+									<!-- <span id = heart>
+									<svg width="2.5em" height="2.5em" aria-hidden="true" focusable="false" data-prefix="far" data-icon="heart" class="svg-inline--fa fa-heart fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill="currentColor" d="M458.4 64.3C400.6 15.7 311.3 23 256 79.3 200.7 23 111.4 15.6 53.6 64.3-21.6 127.6-10.6 230.8 43 285.5l175.4 178.7c10 10.2 23.4 15.9 37.6 15.9 14.3 0 27.6-5.6 37.6-15.8L469 285.6c53.5-54.7 64.7-157.9-10.6-221.3zm-23.6 187.5L259.4 430.5c-2.4 2.4-4.4 2.4-6.8 0L77.2 251.8c-36.5-37.2-43.9-107.6 7.3-150.7 38.9-32.7 98.9-27.8 136.5 10.5l35 35.7 35-35.7c37.8-38.5 97.8-43.2 136.5-10.6 51.1 43.1 43.5 113.9 7.3 150.8z"></path></svg>
 									<i class="fa fa-heart-o" aria-hidden="true" ></i>
-									</span>
+									</span> -->
 									<!--  -->
 									<input type="hidden" name="productid" value="${productVO.productid}"> 
 									<input type="hidden" name="productname" value="${productVO.name}">
@@ -224,10 +230,10 @@ input:disabled{
 ================================================================================================================= -->
 								<div class="mb-7">
 									<span class="text-dark">類別:</span>
-									<a class="text-danger" href="product-category.html">${productVO.category}</a> 
+									<a class="font-size-15 mb-7" href="<%=request.getContextPath()%>/back-end/product/product.do?category=${productVO.category}&type=searchByMuti&action=getAll_select">${productVO.category}</a> 
 								</div>
 
-								<div class="">
+								<!-- <div class="">
 									<ul
 										class="list-inline d-flex align-items-center mb-0 flex-wrap">
 										<li class="mr-2">
@@ -264,7 +270,7 @@ input:disabled{
 												class="fa fa-vimeo text-white" aria-hidden="true"></i>
 										</a></li>
 									</ul>
-								</div>
+								</div> -->
 							</div>
 						</div>
 					</div>
@@ -301,13 +307,9 @@ input:disabled{
           </div>
           <div class="media-body">
             <div class="d-flex align-items-center justify-content-between mb-2"><!-- memSvc.getOneMember(proVO.memberid).name -->
-              <span class="media-heading text-danger font-dosis font-weight-medium mb-0 text-uppercase">${memSvc.getOneMember(proVO.memberid).name}</span>
+              <span class="media-heading font-dosis font-weight-medium mb-0 text-uppercase">${memSvc.getOneMember(proVO.memberid).name}</span>
               <span class="product-rating font-size-18">
-                <small><i class="fa fa-star text-warning" aria-hidden="true"></i></small>
-                <small><i class="fa fa-star text-warning" aria-hidden="true"></i></small>
-                <small><i class="fa fa-star text-warning" aria-hidden="true"></i></small>
-                <small><i class="fa fa-star text-warning" aria-hidden="true"></i></small>
-                <small><i class="fa fa-star-half-full text-warning" aria-hidden="true"></i></small>
+               ${proVO.commstar}分
               </span>
             </div>
             <p class="font-size-15 mb-5">${proVO.commtext}</p>
@@ -435,3 +437,4 @@ $(document).ready(function(){
 <jsp:include page="/front-end/footer.jsp" flush="true" />
 </body>
 </html>
+

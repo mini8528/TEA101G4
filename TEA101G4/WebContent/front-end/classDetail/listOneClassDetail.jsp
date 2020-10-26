@@ -186,28 +186,6 @@ System.out.println("list1 = "+list1);
 		</div>
 	</section>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	<h4>
-		<a
-			href="<%=request.getContextPath()%>/front-end/classOrder/listAllClassOrder.jsp">返回購物清單</a>
-	</h4>
-
-
-
 	<jsp:include page="/front-end/footer.jsp" flush="true" />
 
 </body>

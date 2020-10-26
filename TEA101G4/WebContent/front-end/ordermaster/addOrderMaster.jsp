@@ -38,11 +38,11 @@ for(CartVO aa:buylist){
 	pageContext.setAttribute("quantityAll", quantityAll);
 }
 for(String ss:detailidAll){
-// 	ss.toString();
+	/* ss.toString(); */
 	pageContext.setAttribute("ss", ss);
 }
 for(String tt:quantityAll){
-// 	tt.toString();
+	/* tt.toString(); */
 	pageContext.setAttribute("tt", tt);
 }
 
@@ -94,12 +94,6 @@ for(String tt:quantityAll){
 <%--                   <input type="text" class="form-control border-info rounded-sm" id="first-name" name="address" value="<%=(ordermasterVO == null) ? "台北市中正區重慶南路一段122號" : ordermasterVO.getAddress()%>" /> --%>
                 </div>
               </div>
-
-				<div class="checkbox col-12">
-		            <label>
-		              <input type="checkbox"> I have read and accept the <a class="text-danger" href="#">terms and conditions</a>
-		            </label>
-		          </div>
             </div>
           </div>
 
@@ -170,7 +164,7 @@ for(String tt:quantityAll){
           <div class="card-body pt-7">
             <ul class="list-unstyled list-item-lg mb-0">
               <li class="d-flex align-items-center">
-                <i class="fa fa-taxi mr-2 text-danger" aria-hidden="true"></i>
+                <i class="fa fa-taxi mr-2" aria-hidden="true"></i>
                 免運費
               </li>
             </ul>
@@ -243,6 +237,13 @@ for(String tt:quantityAll){
                     <input type="text" class="form-control border-info" placeholder="123" required="">
                   </div>
                 </div>
+                <!--  -->
+                <div class="checkbox col-12">
+		            <label>
+		              <input id="autowrite" type="checkbox">AUTO TYPE<a class="text-danger" ></a>
+		            </label>
+		        </div>
+		        <!--  -->
               </div>
             </div>
           </div>
@@ -265,99 +266,9 @@ for(String tt:quantityAll){
 <!--  -->
   </div>
 </section>
-
+</body>
 <!-- ============================================================================================================
 ================================================================================================================= -->
-
-<%-- 錯誤表列 --%>
-<%-- <c:if test="${not empty errorMsgs}">
-	<font style="color: red">請修正以下錯誤:</font>
-	<ul>
-		<c:forEach var="message" items="${errorMsgs}">
-			<li style="color: red">${message}</li>
-		</c:forEach>
-	</ul>
-</c:if> --%>
-<!--get-->
-<%-- <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/ordermaster/ordermaster.do" name="form1">
-	<table>
-		<tr>
-			<!-- <td>＊會員編號：</td> -->
-			<td>
-			<input type=hidden name="memberid" size="45" value="<%=userVO.getMemberid()%>" />
-			</td>
-		</tr>
-		<tr>
-			<td>付款方式：</td>
-			<td>
-			<input type="radio" name="payment" value="信用卡" checked>
-	 		 <label for="信用卡" ${(ordermasterVO.payment=="信用卡")? 'selected':'' }>信用卡</label>
-	 		 <input type="radio" name="payment" value="超商付款">
-	 		 <label for="超商付款" ${(ordermasterVO.payment=="信用卡")? 'selected':'' }>超商付款</label>
-			</td>
-		</tr>
-
-		<tr>
-			<td>下單日：<font color=blue><b>*</b></font></td>
-			<td>
-			<%=ds1 %>
-			</td>
-		</tr>
-		<tr>
-			<td>付款期限：<font color=blue><b>*</b></font></td>
-			<td>
-			<%=ds2 %>
-			</td>
-		</tr>
-		<tr>
-			<td>超商付款代碼：</td>
-			<td>
-			<input type="TEXT" name="paycode" size="45" value="<%=(ordermasterVO == null) ? "code9999" : ordermasterVO.getPaycode()%>" />
-			</td>
-		</tr>
-		<tr>
-			<td>付款狀態：</td>
-			<td>
-			<select name="paystatus">
-			<option value="N" ${(ordermasterVO.paystatus=="N")? 'selected':'' }>N</option>
-			<option value="Y" ${(ordermasterVO.paystatus=="Y")? 'selected':'' }>Y</option>
-			</select> 
-			</td>
-		</tr>
-		<tr>
-			<td>收貨人：</td>
-			<td>
-			<input type="TEXT" name="receiver" size="45" value="<%=(ordermasterVO == null) ? "小白" : ordermasterVO.getReceiver()%>" />
-			</td>
-		</tr>
-		<tr>
-			<td>電話：</td>
-			<td>
-			<input type="TEXT" name="tel" size="45" value="<%=(ordermasterVO == null) ? "0900-000-000" : ordermasterVO.getTel()%>" />
-			</td>
-		</tr>
-		<tr>
-			<td>地址：</td>
-			<td>
-			<input type="TEXT" name="address" size="45" value="<%=(ordermasterVO == null) ? "地址_test" : ordermasterVO.getAddress()%>" />
-			</td>
-		</tr>
-	</table>
-	<br> 
-	<input type="hidden" name="action" value="customer_insert">
-	<!-- ------- -->
-<c:forEach var="ss" items="${detailidAll}">
- 		<input type="hidden" name="specid" value="${ss}">
-</c:forEach>
-<c:forEach var="tt" items="${quantityAll}">
-		<input type="hidden" name="quantity" value="${tt}">
- </c:forEach>
- 	<!-- ------- -->
-	<input type="submit" value="確定送出">
-</FORM> --%>
-	
-</body>
-
 <%
 Timestamp orderdate = null;
 try {
@@ -367,7 +278,6 @@ try {
 }
 %>
 <script>
-
    	function ShowTime(){
  		　document.getElementById('now').innerHTML = new Date();
  		　setTimeout('ShowTime()',1000);
@@ -380,13 +290,26 @@ try {
 
 	$(document).ready(function(){
 		  $("#load123").on('click',function(){
+			alert("付款成功!");
 /* 		  $("#load123").load(function(){ */
 			/* setTimeout(() => {  alert("付款成功"); }, 5000); */
+			/* a(); */
 		  	console.log("成功！！");
+		  	
 		  	/* sleep(5000); */
-		    alert("付款成功");
-		  });
+		    /* alert("<img src=\"http://localhost:8081/TEA101G4/front-end/ordermaster/loading.gif\" />"); */
+		  /* }); */
 		});
-</script>
+	});
+		
+	$(document).ready(function(){
+	  $("#autowrite").on('click',function(){
+		  /* alert("autowrite!"); */
+		  document.getElementById("div").
+		  text1.value = "123";
+		});
+	});
 
+</script>
 </html>
+

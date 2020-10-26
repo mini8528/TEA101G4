@@ -1,10 +1,10 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.blog_mes.model.*"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<%-- ¦¹­¶½m²ß±Ä¥Î EL ªº¼gªk¨ú­È --%>
+<%-- æ­¤é ç·´ç¿’æ¡ç”¨ EL çš„å¯«æ³•å–å€¼ --%>
 
 <%
 	String flag = (String) request.getAttribute("flag");
@@ -21,9 +21,9 @@
 
 <html>
 <head>
-<title>³¡¸¨®æ¯d¨¥ºŞ²z</title>
+<title>éƒ¨è½æ ¼ç•™è¨€ç®¡ç†</title>
 
-<!-- ----------¥H¤U½Æ»s¨ìµê½u--------------------¥H¤U½Æ»s¨ìµê½u------------------------------------------- -->
+<!-- ----------ä»¥ä¸‹è¤‡è£½åˆ°è™›ç·š--------------------ä»¥ä¸‹è¤‡è£½åˆ°è™›ç·š------------------------------------------- -->
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -84,7 +84,7 @@
             box-shadow: 0px 0px 10px 0px #EEE;
         }
 
-        .simple-pagination .current {  //§ïÃC¦â
+        .simple-pagination .current {  //æ”¹é¡è‰²
             color: #FFF;
             background-color: #B5B5B5;
             border-color: #B5B5B5;
@@ -126,7 +126,7 @@
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">³¡¸¨®æ¯d¨¥ºŞ²z</h1>
+          <h1 class="h3 mb-2 text-gray-800">éƒ¨è½æ ¼ç•™è¨€ç®¡ç†</h1>
           <p class="mb-4"></p>
 
           <!-- DataTales Example -->
@@ -140,11 +140,11 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
     <c:if test="${flag != null }">
-    <a href="<%=request.getContextPath()%>/back-end/blog_mes/listAllBlog_Mes_admin.jsp" class="btn btn-secondary" role="button" aria-pressed="true">ªğ¦^</a>
+    <a href="<%=request.getContextPath()%>/back-end/blog_mes/listAllBlog_Mes_admin.jsp" class="btn btn-secondary" role="button" aria-pressed="true">è¿”å›</a>
     </c:if>
     </ul>
     <form class="form-inline my-2 my-lg-0" method="post" action="<%=request.getContextPath()%>/blog_Mes/Blog_MesServlet?action=adminSearchBlogMes">
-      <input class="form-control mr-sm-2" type="search" placeholder="·j´M¯d¨¥" aria-label="Search" name="searchText">
+      <input class="form-control mr-sm-2" type="search" placeholder="æœå°‹ç•™è¨€" aria-label="Search" name="searchText">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
   </div>
@@ -154,15 +154,15 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                     <th>³¡¸¨®æ¯d¨¥½s¸¹</th>
-					 <th>¤å³¹½s¸¹</th>
-					 <th>¤@¯ë·|­û½s¸¹</th>
-					 <th>¯d¨¥¤º®e</th>
-					 <th>¯d¨¥¤é´Á</th>
-					 <th>§ó·s¤é´Á</th>
-					 <th>¯d¨¥ª¬ºA</th>
-					 <th>­×§ï</th>
-<!-- 					 <th>§R°£</th> -->
+                     <th>éƒ¨è½æ ¼ç•™è¨€ç·¨è™Ÿ</th>
+					 <th>æ–‡ç« ç·¨è™Ÿ</th>
+					 <th>ä¸€èˆ¬æœƒå“¡ç·¨è™Ÿ</th>
+					 <th>ç•™è¨€å…§å®¹</th>
+					 <th>ç•™è¨€æ—¥æœŸ</th>
+					 <th>æ›´æ–°æ—¥æœŸ</th>
+					 <th>ç•™è¨€ç‹€æ…‹</th>
+					 <th>ä¿®æ”¹</th>
+<!-- 					 <th>åˆªé™¤</th> -->
                      </tr>
                   </thead>
 
@@ -178,11 +178,11 @@
 							<td><fmt:formatDate value="${blog_MesVO.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 							<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/blog_Mes/Blog_MesServlet" style="margin-bottom: 0px;">
 						  	<td><select name="status">
-								<option value="N" ${(blog_MesVO.status == "N")? 'selected':'' }>Åã¥Ü</option>
-								<option value="Y" ${(blog_MesVO.status == "Y")? 'selected':'' }>ÁôÂÃ</option>
+								<option value="N" ${(blog_MesVO.status == "N")? 'selected':'' }>é¡¯ç¤º</option>
+								<option value="Y" ${(blog_MesVO.status == "Y")? 'selected':'' }>éš±è—</option>
 								</select></td>
 							<td>
-							     <input type="submit" value="­×§ï" onclick="javascript: return del()">
+							     <input type="submit" value="ä¿®æ”¹" onclick="javascript: return del()">
 							     <input type="hidden" name="blogMesno"  value="${blog_MesVO.blogMesno}">
 							     <input type="hidden" name="action"	value="admin_Update_Mes">
 							</td>
@@ -205,7 +205,7 @@
 
 <%-- <%@ include file="page2.file" %> --%>
 
-<!-- -----------¥H¤U½Æ»s¨ìµê½u----------------------------¥H¤U½Æ»s¨ìµê½u------------------------- -->
+<!-- -----------ä»¥ä¸‹è¤‡è£½åˆ°è™›ç·š----------------------------ä»¥ä¸‹è¤‡è£½åˆ°è™›ç·š------------------------- -->
 			
 			</div>
         </div>
@@ -233,7 +233,7 @@
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
           <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">¡Ñ</span>
+            <span aria-hidden="true">Ã—</span>
           </button>
         </div>
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
@@ -256,7 +256,7 @@
   <script src="<%=request.getContextPath()%>/back-assets/js/sb-admin-2.min.js"></script>
   <script>
   function del() {
-	  var msg = "½T»{­×§ï?";
+	  var msg = "ç¢ºèªä¿®æ”¹?";
 	  if (confirm(msg)){
 	  return true;
 	  }else{
@@ -267,7 +267,7 @@
   
 	  var items = $(".list-wrapper .list-item");
 	  var numItems = items.length;
-	  var perPage = 9;  //¦C9µ§
+	  var perPage = 9;  //åˆ—9ç­†
 	  items.slice(perPage).hide();
 	
 	  $('#pagination-container').pagination({

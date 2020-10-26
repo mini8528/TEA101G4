@@ -39,7 +39,9 @@
                                value="${password == null ? '' : password}" placeholder="Password"
                                             data-error="請輸入密碼" required="">
                             </div>
-
+                            <c:forEach var="message" items="${errorMsgs}">
+                            	<div style="margin-left:100px; color:#3E6B7E">${message}</div>
+							</c:forEach>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-danger text-uppercase w-100">Log
                                     In</button>

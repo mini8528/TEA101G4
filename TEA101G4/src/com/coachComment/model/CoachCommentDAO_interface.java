@@ -20,5 +20,6 @@ public interface CoachCommentDAO_interface {
 	public String getMemberIDFromCoachClassID(String coachClassID);
 	public List<MemberVO> getMemberCommentName(String memberID);
 	public void update_status(String coachCommentID, String status, Timestamp editDate);
+	public double getCoachStarAVG(String memberID);
 
 }

@@ -1,25 +1,28 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.cus.model.*"%>
 <%@ page import="com.adm.model.*"%>
+<%@ page import="java.util.*"%>
 <%
-CusVO cusVO = (CusVO) request.getAttribute("cusVO"); //EmpServlet.java (Concroller) ¦s¤JreqªºempVOª«¥ó (¥]¬AÀ°¦£¨ú¥XªºempVO, ¤]¥]¬A¿é¤J¸ê®Æ¿ù»~®ÉªºempVOª«¥ó)
+CusVO cusVO = (CusVO) request.getAttribute("cusVO"); //EmpServlet.java (Concroller) å­˜å…¥reqçš„empVOç‰©ä»¶ (åŒ…æ‹¬å¹«å¿™å–å‡ºçš„empVO, ä¹ŸåŒ…æ‹¬è¼¸å…¥è³‡æ–™éŒ¯èª¤æ™‚çš„empVOç‰©ä»¶)
 AdminnoVO admVO = (AdminnoVO) request.getAttribute("admVO");
+
+
 %>
 
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>ºŞ²z­û¸ê®Æ­×§ï - update_emp_input.jsp</title>
+<title>ç®¡ç†å“¡è³‡æ–™ä¿®æ”¹ - update_emp_input.jsp</title>
 
 
 
 </head>
 <body bgcolor='white'>
-<!-- ------------------¥H¤U½Æ»s¨ìµê½u----include©Ò¦b¦ì¸m------------------------------------------ -->
+<!-- ------------------ä»¥ä¸‹è¤‡è£½åˆ°è™›ç·š----includeæ‰€åœ¨ä½ç½®------------------------------------------ -->
   <!-- Page Wrapper -->
   <div id="wrapper">
-	<%@ include file="/back-end/component/sidebar.jsp" %>
+ <%@ include file="/back-end/component/sidebar.jsp" %>
 
 
     <!-- Content Wrapper -->
@@ -28,7 +31,7 @@ AdminnoVO admVO = (AdminnoVO) request.getAttribute("admVO");
       <!-- Main Content -->
       
       <div id="content">
-		
+  
 
        <%@ include file="/back-end/component/topbar.jsp" %>
 
@@ -41,92 +44,95 @@ AdminnoVO admVO = (AdminnoVO) request.getAttribute("admVO");
 <!-- ---------------------------------------------------------------- -->         
 
 <table id="table-1">
-	<tr><td>
-		 <h3>«ÈªA¸ê®Æ­×§ï - update_cus_input.jsp</h3>
-	</td></tr>
+ <tr><td>
+   <h3>å®¢æœå›è¦†</h3>
+ </td></tr>
 </table>
 
-<h3>¸ê®Æ­×§ï:</h3>
 
-<%-- ¿ù»~ªí¦C --%>
+<%-- éŒ¯èª¤è¡¨åˆ— --%>
 <c:if test="${not empty errorMsgs}">
-	<font style="color:red">½Ğ­×¥¿¥H¤U¿ù»~:</font>
-	<ul>
-		<c:forEach var="message" items="${errorMsgs}">
-			<li style="color:red">${message}</li>
-		</c:forEach>
-	</ul>
+ <font style="color:red">è«‹ä¿®æ­£ä»¥ä¸‹éŒ¯èª¤:</font>
+ <ul>
+  <c:forEach var="message" items="${errorMsgs}">
+   <li style="color:red">${message}</li>
+  </c:forEach>
+ </ul>
 </c:if>
 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/cus/cus.do" name="form1" enctype="multipart/form-data">
 <table>
-	 
-	<tr>
-		<td>½ÒªA½s¸¹:<font color=red></font></td>
-		<td><%=cusVO.getCustomerserviceid()%></td>
-	</tr>
-	
-	<tr>
-		<td>¤@¯ë·|­û½s¸¹:</td>
-		<td><%=cusVO.getMemberid()%></td>
-	</tr>
-	
-	<tr>
-		<td>ºŞ²z­û½s¸¹:</td>
-		<td><input type="hidden" name="adminid" size="45" 
-			 value=${adminVO.adminid}>${adminVO.adminid}</td>
-	</tr>
-	
-	<tr>
-		<td>¥D¦®:</td>
-		<td><%=cusVO.getSubject()%></td>
-	</tr>
-	
-	<tr>
-		<td>¹q¤l«H½c :</td>
-		<td><%=cusVO.getEmail()%></td>
-		<td><input type="hidden" name="email" size="45" 
-			 value="<%=cusVO.getEmail()%>" /></td>
-	</tr>
-	
-	<tr>
-		<td>°İÃD´y­z:</td>
-		<td><%=cusVO.getProblemtext()%></td>
-	</tr>
+  
+ <tr>
+  <td>èª²æœç·¨è™Ÿ:<font color=red></font></td>
+  <td><%=cusVO.getCustomerserviceid()%></td>
+ </tr>
+ 
+ <tr>
+  <td>ä¸€èˆ¬æœƒå“¡ç·¨è™Ÿ:</td>
+  <td><%=cusVO.getMemberid()%></td>
+ </tr>
+ 
+ <tr>
+  <td>ç®¡ç†å“¡ç·¨è™Ÿ:</td>
+  <td><input type="hidden" name="adminid" size="45" 
+    value=${adminVO.adminid}>${adminVO.adminid}</td>
+ </tr>
+ 
+ <tr>
+  <td>ä¸»æ—¨:</td>
+  <td><%=cusVO.getSubject()%></td>
+ </tr>
+ 
+ <tr>
+  <td>é›»å­ä¿¡ç®± :</td>
+  <td><%=cusVO.getEmail()%></td>
+  <td><input type="hidden" name="email" size="45" 
+    value="<%=cusVO.getEmail()%>" /></td>
+ </tr>
+ 
+ <tr>
+  <td>å•é¡Œæè¿°:</td>
+  <td><%=cusVO.getProblemtext()%></td>
+ </tr>
 
-	<tr>
-		<td>«È¶D¤é´Á:</td>
-		<td><%=cusVO.getComplaintdate()%></td>
-		<td><input type="hidden" name="complaintdate" size="45"
-			 value="<%=cusVO.getComplaintdate()%>"/>
-		</td>
-	</tr>
-	<tr>
-		<td>¦^ÂĞ¤º®e:</td>
-		<td><input type="TEXT" name="replytext" size="45"
-			 value="<%=cusVO.getReplytext()%>"/></td>
-	</tr>
-	<tr>
-		<td>¦^ÂĞ¤é´Á:</td>
-		<td><%=cusVO.getReplydate()%></td>
-		<td><input type="hidden" name="replydate" size="45"
-			 value="<%=cusVO.getReplydate()%>"></td>
-	</tr>
-	
-
+ <tr>
+  <td>å®¢è¨´æ—¥æœŸ:</td>
+  <td><%=cusVO.getComplaintdate()%></td>
+  <td><input type="hidden" name="complaintdate" size="45"
+    value="<%=cusVO.getComplaintdate()%>"/>
+  </td>
+ </tr>
+ <tr>
+  <td>å›è¦†å…§å®¹:</td>
+  <td><input type="TEXT" name="replytext" size="45"
+    value="æ„Ÿè¬ä½ çš„è©•è«–" /></td>
+ </tr>
+ <tr>
+  <td>å›è¦†æ—¥æœŸ:</td>
+ <c:choose>
+ <c:when test="${cusVO.replydate != null}">
+ <td >${cusVO.getReplydate()}</td>
+ </c:when>
+ <c:otherwise>
+ <td >---</td>
+ </c:otherwise>
+ </c:choose>
+ </tr>
+ 
 
 </table>
 <br>
 <input type="hidden" name="action" value="update">
 <input type="hidden" name="customerserviceid" value="<%=cusVO.getCustomerserviceid()%>">
-<input type="submit" value="°e¥X­×§ï">
+<input type="submit" value="é€å‡ºä¿®æ”¹">
 </FORM>
 
 
 
 
-<!-- -----------¥H¤U½Æ»s¨ìµê½u----------------------------¥H¤U½Æ»s¨ìµê½u------------------------- -->
-			
-			</div>
+<!-- -----------ä»¥ä¸‹è¤‡è£½åˆ°è™›ç·š----------------------------ä»¥ä¸‹è¤‡è£½åˆ°è™›ç·š------------------------- -->
+   
+   </div>
         </div>
         
         <!-- /.container-fluid -->
@@ -150,7 +156,7 @@ AdminnoVO admVO = (AdminnoVO) request.getAttribute("admVO");
 
 
 
-<!-- =========================================¥H¤U¬° datetimepicker ¤§¬ÛÃö³]©w========================================== -->
+<!-- =========================================ä»¥ä¸‹ç‚º datetimepicker ä¹‹ç›¸é—œè¨­å®š========================================== -->
 
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
 <script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>

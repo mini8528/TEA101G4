@@ -149,7 +149,7 @@ ul li{
 }
 .friend div.msg{
 	display: inline-block;
-	width: 200px;
+	width: 250px;
 	line-height: 45px;
 	border-radius: 10px;
 	vertical-align: middle;
@@ -163,9 +163,9 @@ ul li{
   float: right;
   background: #f0c24b;
 /*   color: #fff; */
-  width: 200px;
+  width: 250px;
   border-radius: 10px;
-  line-height: 8px;
+  line-height: 12px;
 }
 
 .friend + .me{

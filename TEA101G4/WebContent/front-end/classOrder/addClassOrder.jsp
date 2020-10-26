@@ -123,15 +123,14 @@
 												</h3>
 											</div>
 
-											<div>
+											<div > 
 												<tr>
-													<td>付款狀態：</td>
-													<td><select name="paymentStatus">
-															<option value="N"
-																${(classOrderVO.paymentStatus=="N")? 'selected':'' }>N</option>
-															<option value="Y"
-																${(classOrderVO.paymentStatus=="Y")? 'selected':'' }>Y</option>
-													</select></td>
+													
+													<td>
+													<input type="hidden" name="paymentStatus" size="45" value="<%=(classOrderVO == null) ? "Y" : classOrderVO.getPaymentStatus()%>" />
+													
+													</td>
+													
 												</tr>
 											</div>
 											<div class="col-6 col-lg-5 col-xl-4 d-none d-lg-block"></div>

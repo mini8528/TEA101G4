@@ -4,6 +4,7 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.coachClass.model.*"%>
 <%@ page import="com.member.model.*"%>
+<%@ page import="com.coachComment.model.*"%>
 
 <%
 	CoachClassService cocService = new CoachClassService();
@@ -13,6 +14,9 @@
 	MemberVO userVO = (MemberVO) session.getAttribute("userVO");
 
 	pageContext.setAttribute("userVO", userVO);
+	
+	CoachCommentService ccService = new CoachCommentService();
+	pageContext.setAttribute("ccService", ccService);
 %>
 
 <!DOCTYPE html>
@@ -43,7 +47,7 @@
 					<!-- Card -->
 					<div class="col-sm-6 col-lg-3 col-xs-12">
 						<div class="card">
-							<a href="course-single-left-sidebar.html"
+							<a 
 								class="position-relative"> <img class="card-img-top"
 								src="<%=request.getContextPath()%>/back-end/coachClass/coachClassShow.do?coachClassID=${coachClassVO.coachClassID}"
 								alt="Card image">
@@ -54,10 +58,17 @@
 							<div
 								class="card-body border-top-5 px-3 rounded-bottom border-purple">
 								<h3 class="card-title">
-									<a class="text-purple text-capitalize d-block text-truncate"
-										href="#">${coachClassVO.className}
-										${cocService1.getMemberName(coachClassVO.coachClassID)}</a>
+									<span class="text-purple text-capitalize d-block text-truncate"
+										>${coachClassVO.className}</span>
 								</h3>
+								<h3 class="card-title">
+									<span class="text-purple text-capitalize d-block text-truncate fa fa-user">
+										${cocService1.getMemberName(coachClassVO.coachClassID)}
+									教練</span>
+								</h3>	
+								
+								<h3 class="text-purple font-weight-bold size=12 mb-5">${ccService.getCoachStarAVG(coachClassVO.memberID) } 分</h3>
+						
 								<ul class="list-unstyled text-muted">
 									<li><i class="fa fa-calendar-o mr-2" aria-hidden="true"></i>上課
 										${coachClassVO.quantity} 人</li>
@@ -71,7 +82,7 @@
 								<FORM METHOD="post"
 									ACTION="<%=request.getContextPath()%>/back-end/coachClass/coachClass.do"
 									style="margin-bottom: 0px;">
-									<input type="submit" value="詳細課程"> <input type="hidden"
+									<input class="btn btn-danger text-uppercase" type="submit" value="詳細課程"> <input type="hidden"
 										name="coachClassID" value="${coachClassVO.coachClassID}">
 									<input type="hidden" name="action"
 										value="getOne_For_Display_front">
@@ -84,15 +95,7 @@
 
 			</div>
 		</div>
-
-
-
-
-		<ul>
-			<li><a
-				href='<%=request.getContextPath()%>/front-end/coachClass/addCoachClass.jsp'>Add</a>
-				a new CoachClass.</li>
-		</ul>
+		</section>
 		</table>
 
 

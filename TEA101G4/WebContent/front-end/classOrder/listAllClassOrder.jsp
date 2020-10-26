@@ -47,6 +47,7 @@
 	</ul>
 </c:if>
 
+
 	<%@ include file="page1.file" %> 
 	<c:forEach var="classOrderVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 	

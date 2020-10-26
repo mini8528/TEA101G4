@@ -87,14 +87,15 @@
 
 			<tr>
 				<td>會員ID:</td>
-				<td><input type="TEXT" name="memberID" size="45"
-					value="<%=coachClassVO.getMemberID()%>" /></td>
+					
+				<td><%=coachClassVO.getMemberID()%> <input type="hidden"
+					name="memberID" value="<%=coachClassVO.getMemberID()%>" /></td>
 			</tr>
 
 			<tr>
 				<td>課程名稱:</td>
 				<td><input type="TEXT" name="className" size="45"
-					value="<%=coachClassVO.getCoachClassID()%>" /></td>
+					value="<%=coachClassVO.getClassName()%>" /></td>
 			</tr>
 			<tr>
 				<td>課程內容:</td>
@@ -125,54 +126,58 @@
 			<tr>
 				<td>地址:</td>
 				<td><input type="TEXT" name="address" size="45"
-					value="<%=(coachClassVO == null) ? "not null" : coachClassVO.getAddDate()%>" /></td>
+					value="<%=(coachClassVO == null) ? "not null" : coachClassVO.getAddress()%>" /></td>
 			</tr>
 
 			<tr>
 				<td>照片:</td>
-				<td><input type="file" name="photo" id="p_file"> <br>
-					<div id="preview">
-						<span class="text"> 預覽 </span> <img
-							src="<%=request.getContextPath()%>/back-end/coachClass/coachClassShow.do?coachClassID=${coachClassVO.coachClassID}"
-							width="100" height="100"></td>
-				</div>
+					<td> 
+						<div id="preview">
+							 <img width="300px" height="300px"
+								src="<%=request.getContextPath()%>/back-end/coachClass/coachClassShow.do?coachClassID=${coachClassVO.coachClassID}"
+								width="100" height="100">
+						</div>
+					<br>
+						<input type="file" name="photo" id="p_file">
+						
+					</td>
+				
 			</tr>
 
 
 
 		</table>
-		<br> <input type="hidden" name="action" value="update"> <input
-			type="hidden" name="coachClassID"
-			value="<%=coachClassVO.getCoachClassID()%>"> <input
-			type="submit" value="送出修改">
+		<br> <input type="hidden" name="action" value="update">
+		 <input	type="hidden" name="coachClassID" value="<%=coachClassVO.getCoachClassID()%>"> 
+		 <input	type="submit" value="送出修改">
 	</FORM>
 </body>
 
 <!-- 預覽圖片 -->
 <script>
 window.addEventListener("load", function(){
-	    var dd = document.getElementById('p_file');
-	    dd.addEventListener("change",function(){
-	      console.log('change 事件觸發');
-	      for(let i = 0; i < this.files.length;i++){
-	        console.log(this.files[i]);
-	      }
-	    });
-	    var pf = document.getElementById("p_file");
-	    pf.addEventListener("change", function(e){
-	      if(this.files.length > 0 ){
-	        let reader = new FileReader();
-	        reader.readAsDataURL(this.files[0]);
-	        reader.addEventListener("load", function () {
-	          console.log(reader.result);
-	          let hh= "<img src='" + reader.result + "' class='preview_img' id='uu'>";
-	          document.getElementById("preview").innerHTML = hh;
-	        });
-	      }else{
-	        document.getElementById("preview").innerHTML = "";
-	      }
-	    });
-	});
+    var dd = document.getElementById('p_file');
+    dd.addEventListener("change",function(){
+      console.log('change 事件觸發');
+      for(let i = 0; i < this.files.length;i++){
+        console.log(this.files[i]);
+      }
+    });
+    var pf = document.getElementById("p_file");
+    pf.addEventListener("change", function(e){
+      if(this.files.length > 0 ){
+        let reader = new FileReader();
+        reader.readAsDataURL(this.files[0]);
+        reader.addEventListener("load", function () {
+          console.log(reader.result);
+          let hh= "<img src='" + reader.result + "' class='preview_img' id='uu' width='300px' heigh='300px'>";
+          document.getElementById("preview").innerHTML = hh;
+        });
+      }else{
+        document.getElementById("preview").innerHTML = "";
+      }
+    });
+});
 </script>
 
 

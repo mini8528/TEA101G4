@@ -66,7 +66,7 @@
   <%@ include file="frontendpage1.file" %> 
                     <c:forEach var="actionVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 					      <div class="media media-list-view mb-5" >
-						     <video id="addVideo" controls autoplay width="320" height="220" playsinline muted>
+						     <video id="addVideo" controls autoplay width="320" height="220" playsinline muted loop>
 							<source src="${actionVO.videoBase64Url}" />
 						     </video>
 					      <div class="media-img-overlay">
@@ -95,7 +95,9 @@
 					     </div>
 					     </div>
 	                 </c:forEach>
-	               </div>
+	           <%@ include file="frontendpage2.file" %>
+	              
+	                </div>
                  </section>
                    </div>
                   </div>
@@ -114,9 +116,9 @@
 		</c:forEach>
 	</ul>
 </c:if>
-<%@ include file="frontendpage2.file" %>
 
 
-<jsp:include page="/front-end/footer.jsp" flush="true" />
+
+      <jsp:include page="/front-end/footer.jsp" flush="true" />
 </body>
 </html>

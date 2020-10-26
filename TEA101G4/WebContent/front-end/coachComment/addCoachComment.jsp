@@ -54,7 +54,7 @@
 					<div class="col-md-8 col-lg-12 order-md-1">
 
 						<div class="bg-light shadow-sm rounded p-3">
-							<h3 class="mb-4 text-danger font-weight-bold">留言 :</h3>
+							<h3 class="mb-4  font-weight-bold">留言 :</h3>
 
 							<div class="row">
 
@@ -127,8 +127,7 @@
 		<input type="hidden" name="memberID" value="${getM}"> <input
 			type="hidden" name="memberID2" value="<%=userVO.getMemberid()%>">
 
-		<input type="hidden" name="action" value="insert"> <input
-			type="submit" value="送出評論">
+		<input type="hidden" name="action" value="insert"> 
 	</FORM>
 </body>
 

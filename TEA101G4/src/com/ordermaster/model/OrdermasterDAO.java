@@ -576,7 +576,7 @@ public class OrdermasterDAO implements OrdermasterDAO_interface {
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE_ORDERSTATUS);
-			System.out.println("list==>"+list);
+//			System.out.println("list==>"+list);
 			for(OrdermasterVO ordermasterVO:list) {
 				pstmt.setString(1, orderstatus);
 				System.out.println(orderstatus);

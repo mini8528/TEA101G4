@@ -3,28 +3,22 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.coachClass.model.*"%>
+
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 
 <%
 	CoachClassService cocService = new CoachClassService();
 	List<CoachClassVO> list = cocService.getAll();
 	pageContext.setAttribute("list", list);
+	
+	
+	
 %>
 
 
 <html>
 <head>
 <title>所有CoachClass資料</title>
-
-<!-- ========================================================================================================================= -->
-<!-- ========================================================================================================================= -->
-<!-- ========================================================================================================================= -->
-
-
-
-<!-- ========================================================================================================================= -->
-<!-- ========================================================================================================================= -->
-<!-- ========================================================================================================================= -->
 
 
 
@@ -113,7 +107,15 @@
 											<input type="hidden" name="action" value="getOne_For_Update">
 										</FORM>
 									</td>
-									<td></td>
+									<td>
+										<FORM METHOD="post"
+											ACTION="<%=request.getContextPath()%>/back-end/coachClass/coachClass.do"
+											style="margin-bottom: 0px;">
+											<input type="submit" value="刪除"> <input type="hidden"
+												name="coachClassID" value="${coachClassVO.coachClassID}">
+											<input type="hidden" name="action" value="delete">
+										</FORM>
+									</td>
 								</tr>
 							</c:forEach>
 						</table>

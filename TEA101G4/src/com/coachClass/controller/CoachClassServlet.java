@@ -169,20 +169,15 @@ public class CoachClassServlet extends HttpServlet {
 				
 				/*************************** 1.��隢�� - 頛詨�撘�隤方��� **********************/
 				String coachClassID = new String(req.getParameter("coachClassID").trim());
-				String memberID = req.getParameter("memberID");
-				String memberIDReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
-				if (memberID == null || memberID.trim().length() == 0) {
-					errorMsgs.add("memberID: 隢蝛箇");
-				} else if (!memberID.trim().matches(memberIDReg)) { // 隞乩�毀蝧迤���(閬�)銵函內撘�(regular-expression)
-					errorMsgs.add("memberID: ���銝准������摮� , 銝摨血���2�10銋��");
-				}
+				String memberID = new String(req.getParameter("memberID"));
+				
 				String className = req.getParameter("className").trim();
 				if (className == null || className.trim().length() == 0) {
-					errorMsgs.add("className隢蝛箇");
+					errorMsgs.add("請輸入上課名稱");
 				}
 				String classContext = req.getParameter("classContext").trim();
 				if (classContext == null || classContext.trim().length() == 0) {
-					errorMsgs.add("classContext隢蝛箇");
+					errorMsgs.add("請輸入上課內容");
 				}
 
 				java.sql.Timestamp startTime = null;
@@ -190,21 +185,23 @@ public class CoachClassServlet extends HttpServlet {
 					startTime = java.sql.Timestamp.valueOf(req.getParameter("startTime").trim());
 				} catch (IllegalArgumentException e) {
 					startTime = new java.sql.Timestamp(System.currentTimeMillis());
-					errorMsgs.add("隢撓�startTime!");
+					errorMsgs.add("請輸入正確時間格式 如 : 2020-10-25 13:30:00");
 				}
 				Integer price = new Integer(req.getParameter("price").trim());
 
 				Integer quantity = new Integer(req.getParameter("quantity").trim());
 				String address = req.getParameter("address").trim();
 				if (address == null || address.trim().length() == 0) {
-					errorMsgs.add("address隢蝛箇");
+					errorMsgs.add("請輸入地址");
 				}
 				
 				byte[] photo = null;
+				System.out.println("1");
 				Part photo1 = req.getPart("photo");
+				System.out.println("1 photo1 = "+photo1);
 				try {
 					if (photo1 == null) {
-						errorMsgs.add("隢�����");
+						errorMsgs.add("請放置照片");
 					} else {
 						InputStream fis = photo1.getInputStream();
 						ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -243,7 +240,7 @@ public class CoachClassServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("coachClassVO", coachClassVO); // ���撓��撘隤斤�mpVO�隞�,銋�req
-					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/coachClass/update_coachClass_input.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/coachClass/listAllCoachClass.jsp");
 					failureView.forward(req, res);
 					return; // 蝔�葉�
 				}
@@ -256,14 +253,13 @@ public class CoachClassServlet extends HttpServlet {
 				/*************************** 3.靽格摰��,皞��漱(Send the Success view) *************/
 
 				req.setAttribute("coachClassVO", coachClassVO); // 鞈�澈update�����,甇�蝣箇��oachClassVO�隞�,摮req
-				String url = "/back-end/coachClass/listOneCoachClass.jsp";
+				String url = "/back-end/coachClass/listAllCoachClass.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 靽格�����,頧漱listOneCoachClass.jsp
 				successView.forward(req, res);
 
 				/*************************** �隞���隤方��� *************************************/
 			} catch (Exception e) {
-				errorMsgs.add("靽格鞈�仃���:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/coachClass/update_coachClass_input.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/coachClass/listAllCoachClass.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -283,17 +279,18 @@ public class CoachClassServlet extends HttpServlet {
 				
 				String memberIDReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
 				if (memberID == null || memberID.trim().length() == 0) {
-					errorMsgs.add("memberID: 隢蝛箇");
 				} else if (!memberID.trim().matches(memberIDReg)) { // 隞乩�毀蝧迤���(閬�)銵函內撘�(regular-expression)
-					errorMsgs.add("memberID: ���銝准������摮� , 銝摨血���2�10銋��");
 				}
 
 				String className = req.getParameter("className").trim();
 				if (className == null || className.trim().length() == 0) {
-					errorMsgs.add("className隢蝛箇");
+					errorMsgs.add("請輸入課程名稱");
 				}
 				
 				Integer price = new Integer(req.getParameter("price").trim());
+				if (price == null || price <= 0) {
+					errorMsgs.add("請輸入價格");
+				}
 
 				
 				java.sql.Timestamp startTime = null;
@@ -301,13 +298,17 @@ public class CoachClassServlet extends HttpServlet {
 					startTime = java.sql.Timestamp.valueOf(req.getParameter("startTime").trim());
 				} catch (IllegalArgumentException e) {
 					startTime = new java.sql.Timestamp(System.currentTimeMillis());
-					errorMsgs.add("隢撓�startTime!");
+					errorMsgs.add("請輸入正瘸時間格式 如 : 2020-10-30 10:00:00");
 				}
 				
 				Integer quantity = new Integer(req.getParameter("quantity").trim());
+				if (quantity == null || quantity <= 0) {
+					errorMsgs.add("請輸入上課人數");
+				}
+				
 				String address = req.getParameter("address").trim();
 				if (address == null || address.trim().length() == 0) {
-					errorMsgs.add("address隢蝛箇");
+					errorMsgs.add("請輸入地址");
 				}
 				
 				Timestamp addDate = new java.sql.Timestamp(System.currentTimeMillis());
@@ -316,14 +317,14 @@ public class CoachClassServlet extends HttpServlet {
 				
 				String classContext = req.getParameter("classContext").trim();
 				if (classContext == null || classContext.trim().length() == 0) {
-					errorMsgs.add("classContext隢蝛箇");
+					errorMsgs.add("請輸入上課內容");
 				}
 
 				byte[] photo = null;
 				Part photo1 = req.getPart("photo");
 				try {
 					if (photo1 == null) {
-						errorMsgs.add("隢�����");
+						errorMsgs.add("請放置照片");
 					} else {
 						InputStream fis = photo1.getInputStream();
 						ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -373,7 +374,7 @@ public class CoachClassServlet extends HttpServlet {
 				/*************************** �隞���隤方��� **********************************/
 			} catch (Exception e) {
 				errorMsgs.add(e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/coachClass/addCoachClass.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/coachClass/listAllCoachClass.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -400,7 +401,6 @@ public class CoachClassServlet extends HttpServlet {
 
 				/*************************** �隞���隤方��� **********************************/
 			} catch (Exception e) {
-				errorMsgs.add("��鞈�仃���:" + e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/coachClass/listAllCoachClass.jsp");
 				failureView.forward(req, res);
 			}

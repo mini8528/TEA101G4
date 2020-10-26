@@ -300,7 +300,7 @@ public class CoachCommentServlet extends HttpServlet{
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("coachCommentVO", coachCommentVO); // 含有輸入格式錯誤的empVO物件,也存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/coachComment/addCoachComment.jsp");
+							.getRequestDispatcher("/front-end/coachClass/listAllCoachClass.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -319,7 +319,7 @@ public class CoachCommentServlet extends HttpServlet{
 			} catch (Exception e) {
 				errorMsgs.add(e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back-end/coachComment/addCoachComment.jsp");
+						.getRequestDispatcher("/front-end/coachClass/listAllCoachClass.jsp");
 				failureView.forward(req, res);
 			}
 		}

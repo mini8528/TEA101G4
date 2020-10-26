@@ -1,32 +1,22 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.lat.model.*"%>
-<%-- ¦¹­¶½m²ß±Ä¥Î EL ªº¼gªk¨ú­È --%>
+
 
 <%
 LatService latSvc = new LatService();
     List<LatVO> list = latSvc.getAll();
     pageContext.setAttribute("list",list);
-    for (LatVO e : list) {
-    	System.out.print(e.getLatestnewsid() + ",");
-		System.out.print(e.getAdminid() + ",");
-		System.out.print(e.getAdmin2id() + ",");
-		System.out.print(e.getText() + ",");
-		System.out.print(e.getImage() + ",");
-		System.out.print(e.getAdddate() + ",");
-		System.out.print(e.getUpdatetime()+",");
-		System.out.print(e.getUploaddate() + ",");
-		System.out.println();
-    }
+  
 %>
-<%=((List<LatVO>)pageContext.getAttribute("list")).size() %>
+
 
 <!DOCTYPE html>
 <html>
 <head>
-<title>©Ò¦³¬¡°Ê¸ê®Æ - listAllLat.jsp</title>
+<title>æ‰€æœ‰æ´»å‹•è³‡æ–™</title>
 
 <style>
 #ellipsis {
@@ -34,65 +24,42 @@ LatService latSvc = new LatService();
             white-space: nowrap;
             text-overflow: ellipsis;
             display: -webkit-box;
-            -webkit-line-clamp: 5; /*³Ì¦hÅã¥Ü5¦æ*/
+            -webkit-line-clamp: 5; /*æœ€å¤šé¡¯ç¤º5è¡Œ*/
             -webkit-box-orient: vertical;
             white-space: normal;
         }
-/*   table#table-1 { */
-/* 	background-color: #CCCCFF; */
-/*     border: 2px solid black; */
-/*     text-align: center; */
-/*   } */
-/*   table#table-1 h4 { */
-/*     color: red; */
-/*     display: block; */
-/*     margin-bottom: 1px; */
-/*   } */
+
 
 </style>
 
-<style>
-/*   table { */
-/* 	width: 800px; */
-/* 	background-color: white; */
-/* 	margin-top: 5px; */
-/* 	margin-bottom: 5px; */
-/*   } */
-/*   table, th, td { */
-/*     border: 1px solid #CCCCFF; */
-/*   } */
-/*   th, td { */
-/*     padding: 5px; */
-/*     text-align: center; */
-/*   } */
-</style>
-<!-- ----------¥H¤U½Æ»s¨ìµê½u--------------------¥H¤U½Æ»s¨ìµê½u------------------------------------------- -->
+
+<!-- ----------ä»¥ä¸‹è¤‡è£½åˆ°è™›ç·š--------------------ä»¥ä¸‹è¤‡è£½åˆ°è™›ç·š------------------------------------------- -->
 </head>
 <body bgcolor='white'>
-<!-- ------------------¥H¤U½Æ»s¨ìµê½u----include©Ò¦b¦ì¸m------------------------------------------ -->
+<!-- ------------------ä»¥ä¸‹è¤‡è£½åˆ°è™›ç·š----includeæ‰€åœ¨ä½ç½®------------------------------------------ -->
   <!-- Page Wrapper -->
-  					<div id="wrapper">
-	<%@ include file="/back-end/component/sidebar.jsp" %>
+       <div id="wrapper">
+ <%@ include file="/back-end/component/sidebar.jsp" %>
 
-   			 <div id="content-wrapper" class="d-flex flex-column">
+       <div id="content-wrapper" class="d-flex flex-column">
 
     
       
-      		 <div id="content">
+         <div id="content">
        <%@ include file="/back-end/component/topbar.jsp" %>
          <!-- Begin Page Content -->
         <div class="container-fluid">
 
 <div>
 <!-- ---------------------------------------------------------------- -->       
-<%-- ¿ù»~ªí¦C --%>
+<%-- éŒ¯èª¤è¡¨åˆ— --%>
 <c:if test="${not empty errorMsgs}">
-	<font style="color:red">½Ğ­×¥¿¥H¤U¿ù»~:</font>
-	<ul>
-		<c:forEach var="message" items="${errorMsgs}">
-			<li style="color:red">${message}</li>
-		</c:forEach>
-	</ul>
+ <font style="color:red">è«‹ä¿®æ­£ä»¥ä¸‹éŒ¯èª¤:</font>
+ <ul>
+  <c:forEach var="message" items="${errorMsgs}">
+   <li style="color:red">${message}</li>
+  </c:forEach>
+ </ul>
 </c:if>
 
 
@@ -102,58 +69,58 @@ LatService latSvc = new LatService();
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
 <!-- <table class="table table-bordered text-center"> -->
-	
-	<tr>
-		<th>¬¡°Ê®ø®§½s¸¹</th>
-		<th>ºŞ²z­û½s¸¹</th>
-		<th>ºŞ²z­û½s¸¹(§ó·s)</th>
-		<th>¤º®e</th>
-		<th>¹Ï¤ù1</th>
-		<th>·s¼W¤é´Á</th>
-		<th>§ó·s¤é´Á</th>
-		<th>¤å³¹¤W¶Ç¤é´Á</th>
-		<th>½s¿è</th>
-		<th>²¾°£</th>
-	</tr>
-	<%@ include file="page1.file" %> 
-	<c:forEach var="latVo" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-		
-	<tr>
-			<td>${latVo.latestnewsid}</td>
-			<td>${latVo.adminid}</td>
-			<td>${latVo.admin2id}</td>
-			<td id="ellipsis">${latVo.text}</td>
-			<td>
-			<img  src="<%=request.getContextPath()%>/back-end/lat/latshow.do?latestnewsid=${latVo.latestnewsid}"  width="100" height="100" >
-			</td>
-		<td><fmt:formatDate value="${latVo.adddate}" pattern="yyyy-MM-dd"/></td>
-			<td>${latVo.updatetime}</td>
-			<td>${latVo.uploaddate}</td>
-		
+ 
+ <tr>
+  <th>æ´»å‹•æ¶ˆæ¯ç·¨è™Ÿ</th>
+  <th>ç®¡ç†å“¡ç·¨è™Ÿ</th>
+  <th>ç®¡ç†å“¡ç·¨è™Ÿ(æ›´æ–°)</th>
+  <th>å…§å®¹</th>
+  <th>åœ–ç‰‡1</th>
+  <th>æ–°å¢æ—¥æœŸ</th>
+  <th>æ›´æ–°æ—¥æœŸ</th>
+  <th>æ–‡ç« ä¸Šå‚³æ—¥æœŸ</th>
+  <th>ç·¨è¼¯</th>
+  <th>ç§»é™¤</th>
+ </tr>
+ <%@ include file="page1.file" %> 
+ <c:forEach var="latVo" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+  
+ <tr>
+   <td>${latVo.latestnewsid}</td>
+   <td>${latVo.adminid}</td>
+   <td>${latVo.admin2id}</td>
+   <td id="ellipsis">${latVo.text}</td>
+   <td>
+   <img  src="<%=request.getContextPath()%>/back-end/lat/latshow.do?latestnewsid=${latVo.latestnewsid}"  width="100" height="100" >
+   </td>
+  <td><fmt:formatDate value="${latVo.adddate}" pattern="yyyy-MM-dd"/></td>
+   <td>${latVo.updatetime}</td>
+   <td>${latVo.uploaddate}</td>
+  
 
-			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/lat/lat.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="­×§ï">
-			     <input type="hidden" name="latestnewsid"  value="${latVo.latestnewsid}">
-			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
-			</td>
-			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/lat/lat.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="§R°£">
-			     <input type="hidden" name="latestnewsid"  value="${latVo.latestnewsid}">
-			     <input type="hidden" name="action" value="delete"></FORM>   
-			</td>
-		</tr>
-		
-	</tbody> -->
-	</c:forEach>
-	</thead>
+   <td>
+     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/lat/lat.do" style="margin-bottom: 0px;">
+        <input type="submit" value="ä¿®æ”¹">
+        <input type="hidden" name="latestnewsid"  value="${latVo.latestnewsid}">
+        <input type="hidden" name="action" value="getOne_For_Update"></FORM>
+   </td>
+   <td>
+     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/lat/lat.do" style="margin-bottom: 0px;">
+        <input type="submit" value="åˆªé™¤">
+        <input type="hidden" name="latestnewsid"  value="${latVo.latestnewsid}">
+        <input type="hidden" name="action" value="delete"></FORM>   
+   </td>
+  </tr>
+  
+ 
+ </c:forEach>
+ </thead>
 </table>
 
-<!-- -----------¥H¤U½Æ»s¨ìµê½u----------------------------¥H¤U½Æ»s¨ìµê½u------------------------- -->
-			
-			</div>
- 		</div>
+<!-- -----------ä»¥ä¸‹è¤‡è£½åˆ°è™›ç·š----------------------------ä»¥ä¸‹è¤‡è£½åˆ°è™›ç·š------------------------- -->
+   
+   </div>
+   </div>
       </div>
       <%@ include file="page2.file" %>
     </div>

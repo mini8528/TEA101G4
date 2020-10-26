@@ -47,7 +47,7 @@
 										alt="User Image">
 								</div>
 								<div class="media-body">
-									<span class="mb-3 font-weight-bold text-muted d-inline-block">${mSvc.getOneMember(coachCommentVO.memberID2).name}</span>
+									<span class="mb-3 font-weight-bold text-muted d-inline-block">${mSvc.getOneMember(coachCommentVO.memberID2).name}　　　給予 ${coachCommentVO.commStar} 分評價</span>
 
 									<p class=" font-weight-bold font-size-13 line-hight-21">${coachCommentVO.commText}</p>
 									<time class="d-block text-muted font-size-13 mb-3"><fmt:formatDate value="${coachCommentVO.addDate}" pattern="yyyy-MM-dd HH:mm:ss"/></time>
@@ -56,14 +56,8 @@
 							</div>
 						</c:forEach>
 						<hr>
-
-
 					</div>
-
-
 				</div>
-
-
 			</div>
 		</div>
 	</section>

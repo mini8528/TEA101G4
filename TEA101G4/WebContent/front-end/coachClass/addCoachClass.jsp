@@ -114,7 +114,7 @@ if(userVO!=null){
 	                  <label for="photo3" >照片:</label>
 	                  <input  type="file" name="photo" id="p_file" class="form-control border-danger rounded-sm " > <br>
 						<div id="preview" >
-							<span class="text"> 預覽 </span>
+							<span class="badge badge-purple badge-rounded-circle"> 預覽 </span>
 						</div>
 	                </div>
                 
@@ -135,16 +135,6 @@ if(userVO!=null){
     </div>
   </div>
 </section>
-
-
-
-
-
-
-
-
-
-
 
 	
 	<jsp:include page="/front-end/footer.jsp" flush="true" />

@@ -5,11 +5,11 @@
 <%@ page import="com.adm.model.*"%>
 <%
  	AdminnoVO adminVO = (AdminnoVO) session.getAttribute("adminVO");
-	if(adminVO!=null){System.out.println("（Brand_select_page.jsp）當前管理員= "+adminVO.getAdminid());};
+	if(adminVO!=null){System.out.println("（Brand_listOneBbrand.jsp）當前管理員= "+adminVO.getAdminid());};
 	pageContext.setAttribute("adminVO", adminVO);
 	
 	BrandVO brandVO = (BrandVO) request.getAttribute("brandVO");
-	System.out.println("listOneBrand.jsp_brandVO:"+brandVO);
+	/* System.out.println("listOneBrand.jsp_brandVO:"+brandVO); */
 	List<String> errorMsgs = new LinkedList<String>();
 	request.setAttribute("errorMsgs", errorMsgs);
 	if (brandVO == null) {
@@ -34,7 +34,7 @@
 <!-- ============================================================ -->  
 <h4>
 	<a href="<%=request.getContextPath()%>/back-end/brand/listAllbrand.jsp">
-	<img src="images/usagi.png" width="100" height="100" border="0"></a>
+	<img src="<%=request.getContextPath()%>/images/usagi.png" width="100" height="100" border="0"></a>
 </h4>
 <!-- ============================================================ -->  
     <h3 class="card-title text-warning">品牌列表：</h3>

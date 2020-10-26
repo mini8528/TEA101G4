@@ -581,6 +581,12 @@ public class CoachCommentJDBCDAO implements CoachCommentDAO_interface {
 		}
 		
 	}
+
+	@Override
+	public double getCoachStarAVG(String memberID) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 		
 	
 	

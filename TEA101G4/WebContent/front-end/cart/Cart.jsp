@@ -29,10 +29,16 @@ if(userVO!=null){System.out.println("（Cart.jsp）當前會員= "+userVO.getMem
 <!-- ============================================================================================================
 ———	CART
 ================================================================================================================= -->
+<%List<CartVO> buylist = (List<CartVO>) session.getAttribute("shoppingcart");
+pageContext.setAttribute("buylist", buylist);
+%>
+
 <section class="py-8 py-md-10">
   <div class="container">
     <div class="table-responsive-sm table-cart">
       <table class="table mb-0">
+      <!-- buylist != null && buylist.size > 0-->
+      <c:if test="${buylist != null && buylist.size() > 0}">
       <thead>
           <tr>
             <th class="bg-info text-white text-uppercase" align="center" scope="col" width="50"></th>
@@ -45,10 +51,11 @@ if(userVO!=null){System.out.println("（Cart.jsp）當前會員= "+userVO.getMem
             <th class="bg-info text-white text-uppercase" align="center" scope="col" width="10"></th>
           </tr>
         </thead>
+        </c:if>
+        <!--  -->
 <jsp:useBean id="specSvc" scope="page" class="com.spec.model.SpecService" />
-<%List<CartVO> buylist = (List<CartVO>) session.getAttribute("shoppingcart");%>
-<%	 %>
-<%-- <%	System.out.println("buylist.size()="+buylist.toString()); %> --%>
+<%-- <%List<CartVO> buylist = (List<CartVO>) session.getAttribute("shoppingcart");%> --%>
+<%	/* System.out.println("buylist.size()="+buylist.toString()); */ %>
 <%if (buylist != null && (buylist.size() > 0)) {%>
 <%
  for (int index = 0; index < buylist.size(); index++) {
@@ -58,7 +65,8 @@ if(userVO!=null){System.out.println("（Cart.jsp）當前會員= "+userVO.getMem
 <tbody>
 	<tr>
 		<td>
-			<img src="<%=request.getContextPath()%>/back-end/product/productshow.do?productid=${order.productid}" alt="image" class="cart-image d-none d-md-block" width="60" height="60">
+			<%-- <img src="<%=request.getContextPath()%>/back-end/product/showphoto.do?productid=${order.productid}&action=showPhoto1" alt="image" class="cart-image d-none d-md-block" width="60" height="60"> --%>
+ 			<img src="<%=request.getContextPath()%>/back-end/product/productshow.do?productid=${order.productid}" alt="image" class="cart-image d-none d-md-block" width="60" height="60">
 		</td>
 	  <!-- <td class="td-product-name">Product Name</td> -->
 		<td width="200"><div align="center"><b><%=order.getProductname()%></b></div></td>
@@ -101,14 +109,11 @@ if(userVO!=null){System.out.println("（Cart.jsp）當前會員= "+userVO.getMem
 </td>
 <!--  -->
 <%-- <%}%> --%>
- <%}else{%>
-	<a><img src="<%=request.getContextPath()%>/images/usagi.png" width="100" height="100" border="0">購物車是空的</a>
+<%}else{%>
+	<div width="100%" style="text-align:center"><a><img src="<%=request.getContextPath()%>/images/usagi.png" width="100" height="100" border="0">購物車是空的</a></div>
 	<br>
 	<br>
-	<br>
-	<br>
-	<br>
-	<br>
+
 <%}%>
 </div>
 </section>
@@ -118,3 +123,4 @@ if(userVO!=null){System.out.println("（Cart.jsp）當前會員= "+userVO.getMem
 <jsp:include page="/front-end/footer.jsp" flush="true" />
 </body>
 </html>
+
